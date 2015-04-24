@@ -1,0 +1,58 @@
+.panel.panel-default
+    .row
+        .col-lg-4.col-md-4.col-sm-4
+            label Цвета
+            br
+            select.selectpicker(multiple)
+                option(data-subtext="Красный",data-icon='glyphicon-stop sg-red-i')
+                option(data-subtext="Оранжевый",data-icon='glyphicon-stop sg-orange-i')
+                option(data-subtext="Коричневый",data-icon='glyphicon-stop sg-brown-i')
+                option(data-subtext="Жёлтый",data-icon='glyphicon-stop sg-yellow-i')
+                option(data-subtext="Зелёный",data-icon='glyphicon-stop sg-green-i')
+                option(data-subtext="Синий",data-icon='glyphicon-stop sg-blue-i')
+                option(data-subtext="Фиолетовый",data-icon='glyphicon-stop sg-magenta-i')
+                option(data-subtext="Ч/Б",data-icon='glyphicon-stop sg-black-i')
+
+        .col-lg-4.col-md-4.col-sm-4
+            label Тип товара
+            br
+            select.selectpicker(multiple data-selectable-optgroup)
+                optgroup(label='Плитка')
+                    option(value='wall') Настенная
+                    option(value='floor') Напольная
+                optgroup(label="Панно")
+                    option Горизонтальные
+                    option Вертикальные
+                    option Панорамные
+                option Часы
+                option Подносы
+                option Светильники
+
+        .col-lg-4.col-md-4.col-sm-4
+            label Сюжет
+            br
+            select.selectpicker(multiple data-live-search='true')
+                optgroup(label='Религия')
+                    option Ислам
+                    option Иудаизм
+                    option Буддизм
+                    option Православие
+                    option Католицизм
+                    option Прочее
+                option Торговые марки
+                option Спорт
+                option Милитари
+                option Фольклор
+                optgroup(label='Люди')
+                    option Взрослые
+                    option Молодёжь
+                    option Дети
+                option Еда и напитки
+                option Для малышей
+                option Символы
+                option Архитектура
+                option Камень
+                option Пейзажи и море
+                option Животные
+                option Предметы
+                option Абстракции

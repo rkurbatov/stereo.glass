@@ -1,0 +1,16 @@
+.panel.panel-default
+    .row
+        .col-sm-12.col-lg12.col-xs-12(ng-controller='sgRatingsCtrl')
+            table.table.table-striped(st-table='row-collection')
+                thead
+                    tr
+                        th username
+                        th Название
+                        th Изображение
+                        th Создан
+                tbody(ng-repeat='row in rowCollection')
+                    tr
+                        td {{row.createdBy}}
+                        td {{row.name}}
+                        th {{rom.url2d}}
+                        td {{row.createdAt | date}}

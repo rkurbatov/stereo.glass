@@ -1,0 +1,16 @@
+.panel.panel-default
+    .row
+        .col-sm-12.col-lg12.col-xs-12(ng-controller='sgUsersCtrl')
+            table.table.table-striped(st-table='row-collection')
+                thead
+                    tr
+                        th username
+                        th Роль
+                        th Создан
+                        th Был активен
+                tbody(ng-repeat='row in rowCollection')
+                    tr
+                        td {{row.username}}
+                        td {{row.role}}
+                        td {{row.createdAt | date}}
+                        td {{row.activeAt | date: 'short'}}

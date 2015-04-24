@@ -1,0 +1,24 @@
+extends layout
+block content
+    .container: #content
+        ul#tabs.nav.nav-tabs(data-tabs="tabs")
+            li: a(href='#admin-users', data-toggle='tab')
+                span.glyphicon.glyphicon-user
+                |  Пользователи
+            li.active: a(href='#admin-layouts', data-toggle='tab')
+                span.glyphicon.glyphicon-picture
+                |  Макеты
+            li: a(href='#messages', data-toggle='tab')
+                span.glyphicon.glyphicon-envelope
+                span.badge 5
+                |  Сообщения
+
+
+
+        #tabs-content.tab-content
+            #admin-layouts.tab-pane.active
+                include ./_list
+            #admin-users.tab-pane
+                include ./_profile
+            #messages.tab-pane
+                include ./_messages

@@ -1,0 +1,37 @@
+extends layout
+block content
+    .container(ng-app='sgAppAdmin'): #content
+        ul#tabs.nav.nav-tabs(data-tabs="tabs")
+            li: a(href='#admin-users', data-toggle='tab')
+                span.fa.fa-users
+                |  Пользователи
+            li.active: a(href='#admin-layouts', data-toggle='tab')
+                span.fa.fa-picture-o
+                |  Добавить макет
+            li: a(href='#admin-ratings', data-toggle='tab')
+                span.glyphicon.glyphicon-star
+                |  Оценки
+            li: a(href='#messages', data-toggle='tab')
+                span.glyphicon.glyphicon-envelope
+                span.badge 5
+                |  Сообщения
+            li: a(href='#profile', data-toggle='tab')
+                span.fa.fa-user
+                |  Профиль
+            li: a(href="/auth/logout")
+                span.glyphicon.glyphicon-off
+                |  Выход
+
+
+
+        #tabs-content.tab-content
+            #admin-users.tab-pane
+                include ./_users
+            #admin-layouts.tab-pane.active
+                include ./_layouts
+            #admin-ratings.tab-pane
+                include ./_ratings
+            #messages.tab-pane
+                include ./_messages
+            #profile.tab-pane
+                include ./_profile
