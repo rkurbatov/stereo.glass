@@ -8,6 +8,7 @@ module.exports = function (mongoose) {
 
     var AccountSchema = new Schema({
         username: String,
+        usermail: String,
         password: String,
         avatar: String,
         role: {
@@ -27,7 +28,7 @@ module.exports = function (mongoose) {
         next();
     });
 
-    AccountSchema.plugin(passportLocalMongoose);              //TODO: internationalize!
+    AccountSchema.plugin(passportLocalMongoose, {usernameField: 'usermail'});              //TODO: internationalize!
     var Account = mongoose.model('Account', AccountSchema);
     return Account;
 };

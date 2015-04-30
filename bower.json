@@ -1,12 +1,15 @@
 {
-  "name"         : "mean-test",
-  "version"      : "1.0.0",
-  "dependencies" : {
-    "bootstrap"        : "latest",
-    "bootstrap-select" : "latest",
-    "font-awesome"     : "latest",
-    "animate.css"      : "latest",
-    "angular"          : "latest",
-    "angular-route"    : "latest"
+  "name": "mean-test",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "bootstrap-select": "latest",
+    "font-awesome": "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-daterangepicker": "~0.1.12",
+    "jquery-color": "~2.1.2",
+    "angular-bootstrap": "~0.12.1"
   }
 }

@@ -4,7 +4,9 @@ block content
         h2.text-center Регистрация
         form(role='form', action="/auth/register", method="post")
             .form-group
-                input.form-control(name="username", type='email', required, autofocus, placeholder='адрес Email')
+                input.form-control(name='username', required, autofocus, placeholder='Имя пользователя')
+            .form-group
+                input.form-control(name="usermail", type='email', required, autofocus, placeholder='адрес Email')
             .form-group
                 input.form-control(type='password', name="password", required, placeholder='Пароль')
             .form-actions.text-center

@@ -30,7 +30,7 @@ module.exports = function (express, passport, Account) {
 
 	//sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
 	Router.post('/register', function(req, res) {
-		Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+		Account.register(new Account({ username : req.body.username, usermail : req.body.usermail }), req.body.password, function(err, account) {
     		// http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/#.VS7RauQvDVM
     		if (err) {
         		return res.render('register', { account : account });

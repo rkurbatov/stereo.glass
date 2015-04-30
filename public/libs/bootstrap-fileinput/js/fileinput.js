@@ -695,6 +695,11 @@
             }
             self.uploadBatch();
         },
+        setPrependData: function(key, value){
+            var self = this;
+            self.prependData = self.prependData || {};
+            self.prependData[key] = value;
+        },
         lock: function () {
             var self = this;
             self.resetErrors();
@@ -1204,8 +1209,15 @@
                 $indicator = $thumb.find('.file-upload-indicator'), config = self.fileActionSettings,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
                 setIndicator, updateProgress, resetActions, fnBefore, fnSuccess, fnComplete, fnError,
-                params = {id: previewId, index: i};
+                params = {id: previewId, index: i},
+                key;
             self.formdata = formdata;
+            if (self.prependData) {
+                for (key in self.prependData) {
+                    self.formdata.append(key, self.prependData[key])
+                }
+            }
+
             if (total === 0 || !hasPostData || $btnUpload.hasClass('disabled') || self.abort(params)) {
                 return;
             }
@@ -1308,8 +1320,14 @@
             var self = this, files = self.filestack, total = files.length, config,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
                 setIndicator, setAllUploaded, enableActions, fnBefore, fnSuccess, fnComplete, fnError,
-                params = {};
+                params = {}, key;
             self.formdata = new FormData();
+            if (self.prependData) {
+                for (key in self.prependData) {
+                    self.formdata.append(key, self.prependData[key]);
+                }
+            }
+
             if (total === 0 || !hasPostData || self.abort(params)) {
                 return;
             }
@@ -2041,6 +2059,7 @@
         uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
         uploadClass: 'btn btn-default',
         uploadUrl: null,
+        prependData: {},
         uploadAsync: true,
         uploadExtraData: {},
         maxFileSize: 0,

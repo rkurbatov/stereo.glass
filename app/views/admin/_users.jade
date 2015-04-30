@@ -4,13 +4,21 @@
             table.table.table-striped(st-table='row-collection')
                 thead
                     tr
-                        th username
+                        th
+                            i#users-refresh.fa.fa-refresh(ng-click='loadData()')
+                            |  username
+                        th usermail
                         th Роль
                         th Создан
                         th Был активен
                 tbody(ng-repeat='row in rowCollection')
                     tr
                         td {{row.username}}
+                        td: a(ng-href='mailto:{{row.usermail}}') email
                         td {{row.role}}
                         td {{row.createdAt | date}}
                         td {{row.activeAt | date: 'short'}}
+                //-tfoot
+                //-    tr
+                //-        td.text-center(colspan='5')
+                //-            div(st-pagination='', st-items-by-page='3', st-displayed-pages='2')

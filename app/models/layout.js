@@ -4,12 +4,13 @@ module.exports = function (mongoose) {
     var Schema = mongoose.Schema;
 
     var LayoutSchema = new Schema({
-    	name: String,
+    	name: {type: String, unique: true},
     	urlDir: String,
-    	url2d: String,
-    	url3d: String,
-    	urlLayout: [String],
-    	createdBy: Schema.Types.ObjectId,
+        url2d: String,
+        url3d: String,
+        urlLayout: [String],
+        urlThumb: String,
+        createdBy: String,
     	createdAt: Date,
     	catColors: [String],
     	catPlots: [String],
@@ -20,7 +21,7 @@ module.exports = function (mongoose) {
 
     LayoutSchema.pre('save', function (next) {
         if (!this.createdAt) {
-            this.createdAt = new Date;
+            this.createdAt = new Date();
         }
         next();
     });

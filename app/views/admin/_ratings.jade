@@ -1,16 +1,50 @@
-.panel.panel-default
+.panel.panel-default(ng-controller='sgRatingsCtrl')
+    br
     .row
-        .col-sm-12.col-lg12.col-xs-12(ng-controller='sgRatingsCtrl')
-            table.table.table-striped(st-table='row-collection')
-                thead
-                    tr
-                        th username
-                        th Название
-                        th Изображение
-                        th Создан
-                tbody(ng-repeat='row in rowCollection')
-                    tr
-                        td {{row.createdBy}}
-                        td {{row.name}}
-                        th {{rom.url2d}}
-                        td {{row.createdAt | date}}
+        .col-xs-4: .form-horizontal
+            .form-group
+                button.btn.btn-primary.pull-right.col-xs-6(ng-click="resetAll()") Сбросить все фильтры
+            .form-group
+                label.col-xs-6.control-label(ng-click="reset('#rate-colors-selector')") Цвета
+                select#rate-colors-selector.selectpicker(multiple data-width='50%')
+            .form-group
+                label.col-xs-6.control-label(ng-click="reset('#rate-assortment-selector')") Ассортимент
+                select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
+            .form-group
+                label.col-xs-6.control-label(ng-click="reset('#rate-plots-selector')") Сюжеты
+                select#rate-plots-selector.selectpicker(multiple  data-selectable-optgroup data-width='50%')
+            .form-group
+                label.col-xs-6.control-label(ng-click="reset('#rate-countries-selector')") Страны
+                select#rate-countries-selector.selectpicker(multiple  data-selectable-optgroup data-width='50%')
+            .form-group
+                label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')") Дизайнер
+                select#rate-designer-selector.selectpicker(multiple data-width='50%')
+            .form-group
+                label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
+                input#rate-daterange.col-xs-6.date-picker(date-range-picker type="text" ng-model="date" options='dpopts')
+        .col-xs-8
+            .layout-info
+                .form-group
+                    button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать 2D
+                    | &nbsp;
+                    button.btn.btn-primary(ng-click="show3dModal()"
+                                       ng-class="{disabled: (selectedIndex === -1 || !layouts[selectedIndex].url3d)}") Показать 3D
+                .form-group
+                    label.control-label(ng-bind-html="getColors()")
+                    label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label.control-label(ng-bind="getValues('catAssortment', 'assortmentHash')")
+                    label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label.control-label(ng-bind="getValues('catPlots', 'plotsHash')")
+                    label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label.control-label(ng-bind="getValues('catCountries', 'countriesHash')")
+
+    .row
+        .text-center
+            dir-pagination-controls(template-url="/libs/angular-utils-pagination/dirPagination.tpl.html")
+    .row
+        ul.sg-layoutlist
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in layouts | itemsPerPage: ipp" current-page="curPage")
+                .sg-layoutblock(ng-class="{ 'selected': $index == selectedIndex - (curPage-1)*ipp }"
+                ng-click="itemClicked($index)")
+                    img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}')
+                    .sg-layoutname.text-center {{layout.name}}

@@ -6,40 +6,43 @@ module.exports = function (app, express, mongoose, Account) {
     var Layout = require('../models/layout')(mongoose);
 
 
-    Router.get('/userlist', function (req, res) {
+    Router.get('/users', function (req, res) {
         if (req.isAuthenticated()) {
-            Account.find({}, '-_id username role createdAt activeAt', function (err, users) {
+            Account.find({}, '_id username usermail role createdAt activeAt', function (err, users) {
                 if (err) {
                     console.log(err);
-                    res.status(400).end();
+                    res.status(500).end();
                 }
                 else {
                     res.send(JSON.stringify(users));
                 }
             });
         } else {
-            res.status(401).send('forbidden').end();
+            res.status(403).send('forbidden').end();
         }
     });
 
-    Router.get('/layoutslist', function (req, res) {
+    Router.get('/layouts', function (req, res) {
         if (req.isAuthenticated()) {
-            Layout.find({}, '-_id name url2d urlDir createdBy createdAt designerComment', function(err, layouts){
-               if (err) {
+            Layout.find({}, '', function (err, layouts) {
+                if (err) {
                     console.log(err);
-                    res.status(400).end();
+                    res.status(500).end();
                 }
                 else {
+                    layouts.forEach(function(i, v){
+
+                    });
                     res.send(JSON.stringify(layouts));
                 }
             });
         } else {
-            res.status(401).send('forbidden').end();
+            res.status(403).send('forbidden').end();
         }
 
     });
 
-    Router.get('/category', function (req, res) {
+    Router.get('/categories', function (req, res) {
         var catname;
 
         if (req.isAuthenticated()) {
@@ -49,53 +52,64 @@ module.exports = function (app, express, mongoose, Account) {
                 .populate('leaves', '-_id -__v')
                 .exec(function (err, result) {
                     if (err) {
-                        dbAux.showError(err);
-                        res.status(400).end();
+                        console.log(err);
+                        res.status(500).end();
                     } else {
+                        console.log(result);
                         res.json(result);
                     }
                 });
         } else {
-            res.status(401).send('forbidden').end();
+            res.status(403).send('forbidden').end();
         }
     });
 
-    Router.post('/upload', require('../helpers/uploader')(), function(req,res) {
-            console.log(res.sgUploader);
-            res.json(res.sgUploader);
+    Router.post('/upload', function (req, res) {
+        res.json(res.sgUploader);
     });
 
-    Router.post('/layout', function(req, res){
+    // ***************    LAYOUT     ************************
+
+    Router.get('/layout', function (req, res) {
+        if (req.isAuthenticated()) {
+            if (req.query.data) {
+                Layout.findOne({name: req.query.data}, '-_id', function(err, doc) {
+                    if (err) {
+                        console.log(err);
+                        req.status(500).end(); // Server error
+                    } else if (doc) {
+                        res.json(doc);
+                    } else {
+                        res.status(204).end(); // No content
+                    }
+                });
+            } else {
+                // Bad request
+                res.status(400).end();
+            }
+        } else {
+            res.status(403).send('forbidden').end();
+        }
+    });
+
+    Router.post('/layout', function (req, res) {
         if (req.isAuthenticated()) {
 
             var data = JSON.parse(req.body.data);
-                data.createdBy = req.user._id;
+            data.createdBy = req.user.username;
 
-            /*var layout = new Layout();
-                layout.name = rb.name;
-                layout.urlDir = rb.urlDir;
-                layout.url2d = rb.url2d;
-                layout.url3d = rb.url3d;
-                layout.urlLayout = rb.urlLayout;
-                rb.catColors.forEach(layout.catColors.set);*/
-
-                //req.body.catColors.forEach(function(el) { layout.catColors.push(el) });
-                //layout.catPlots.push(req.body.catPlots);
-                //layout.catCountries.push(req.body.catCountries);
-                //layout.catAssortment.push(req.body.catAssortment);
-
-            Layout.create(data, function(err) {
-                if (err) { 
-                    console.log('Ошибка при сохранении макета!' + err);
-                    res.json({error: true});
-                } 
+            Layout.create(data, function (err) {
+                if (err) {
+                    console.log('Ошибка при сохранении макета! ' + err);
+                    res.json({status: 'error', message: err});
+                }
                 else {
-                    res.json({success: true});
+                    res.json({status: 'success'});
                 }
             });
-            
+
         } else {
-            res.status(401).send('forbidden').end();
+            res.status(403).send('forbidden').end();
         }
 
     });

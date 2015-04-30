@@ -30,13 +30,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}));   //NB! was true
+app.use(bodyParser.urlencoded({extended: true}));
 
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(session({
-    cookie: {maxAge: 1000 * 60 * 60}, // 60 min
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30    // one month
+    }, // 60 min
     secret: 'barmgalot',
     saveUninitialized: true,
     resave: true,
@@ -80,6 +82,7 @@ passport.deserializeUser(Account.deserializeUser());
 // ======== FILES AND VIEWS ========
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 //app.use(favicon(__dirname + '/pabulic/favicon.ico'));
 
 app.engine('jade', require('jade').__express);
@@ -90,8 +93,10 @@ app.set('views', './app/views');
 // Mongoose
 mongoose.connect('mongodb://localhost/stereo_glass');
 
+// ======== MULTER =========
+require('./app/helpers/uploader')(app);
+
 // ======== ROUTES ========
-//require('./app/routes')(app, passport, Account); // configure our routes
 app.use('/', require('./app/routes/base')(express, Account));
 app.use('/auth', require('./app/routes/auth')(express, passport, Account));
 app.use('/api', require('./app/routes/api')(app, express, mongoose, Account));

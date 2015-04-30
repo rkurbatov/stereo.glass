@@ -22,10 +22,57 @@
     color: dodgerblue !important;
 }
 
-.sg-magenta-i {
+.sg-violet-i {
     color: darkmagenta !important;
 }
 
 .sg-black-i {
     color: black !important;
+}
+
+.sg-multicolor {
+    color: darkgray !important;
+}
+
+#users-refresh {
+    color: #23527c;
+    cursor: pointer;
+}
+
+ul.sg-layoutlist {
+    display: block;
+    list-style: outside none none;
+    padding: 0;
+}
+
+ul.sg-layoutlist li {
+    display: list-item;
+    margin-bottom: 10px;
+}
+
+.sg-layoutblock {
+    display: block;
+    width: 165px;
+    height: 205px;
+    margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sg-layoutblock img {
+    width: 125px;
+    height: 125px;
+    margin: 10px 20px;
+    border: 1px solid #D4D4D4;
+}
+
+.sg-layoutblock.selected {
+    background-color: lightyellow;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.layout-info {
+    /*background-color: lightyellow;*/
+    margin-right: 20px;
+    height: 270px;
 }
