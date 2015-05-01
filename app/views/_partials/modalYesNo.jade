@@ -1,0 +1,8 @@
+.modal-header
+	button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()") &times;
+	h4.modal-title Удаление пользователя
+.modal-body
+	div(ng-bind-html="text")
+.modal-footer
+	button.btn.btn-danger.col-xs-5(ng-click="ok()") Да
+	button.btn.btn-primary.col-xs-5(ng-click="cancel()") Нет

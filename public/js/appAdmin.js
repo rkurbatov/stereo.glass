@@ -3,15 +3,18 @@ var app = angular.module('sgAppAdmin',
         'smart-table',
         'angularUtils.directives.dirPagination',
         'daterangepicker',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngCookies'
     ])
-    .controller('sgUsersCtrl', ['$scope', '$http', sgUsersCtrl])
+    .controller('sgUsersCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgUsersCtrl])
     .controller('sgCatCtrl', ['$scope', '$http', sgCatCtrl])
     .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', sgRatingsCtrl])
     .directive('sgOnImgload', ['$parse', sgOnImgload]);
 
-function sgUsersCtrl($scope, $http) {
+function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
     'use strict';
+
+    $scope.usermail = $cookies.usermail || '';
 
     $scope.loadData = function () {
         $http.get('/api/users').then(function (response) {
@@ -20,6 +23,39 @@ function sgUsersCtrl($scope, $http) {
     };
 
     $scope.loadData();
+
+    $scope.confirmRemove = function(name, id) {
+        var modalScope = $scope.$new(true);
+        modalScope.text = $sce.trustAsHtml("Вы действительно желаете удалить пользователя <b>" + name + "</b>?");
+
+        var modalInstance = $modal.open({
+            templateUrl : '/partials/modalYesNo',
+            controller : sgYesNoModalCtrl,
+            scope : modalScope,
+            size : 'sm'
+        });
+
+        modalInstance.result.then(function(){
+            $http.delete('/api/users', {
+                params: {'_id': id}
+            }).then(function (response) {
+                if (response.status === 200) $scope.loadData();
+            });
+        });
+    }
+
+    console.log($scope.usermail);
+}
+
+function sgYesNoModalCtrl($scope, $modalInstance) {
+  
+  $scope.ok = function () {
+        $modalInstance.close();
+  }
+
+  $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+  };  
 }
 
 function sgRatingsCtrl($scope, $http, $sce, $modal) {

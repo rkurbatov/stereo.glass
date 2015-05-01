@@ -7,6 +7,7 @@
                         th
                             i#users-refresh.fa.fa-refresh(ng-click='loadData()')
                             |  username
+                        th    
                         th usermail
                         th Роль
                         th Создан
@@ -14,6 +15,8 @@
                 tbody(ng-repeat='row in rowCollection')
                     tr
                         td {{row.username}}
+                        td
+                            i.fa.fa-remove.sg-red-i(style="cursor:pointer" ng-show="row.usermail !== usermail" ng-click="confirmRemove(row.username, row._id)")
                         td: a(ng-href='mailto:{{row.usermail}}') email
                         td {{row.role}}
                         td {{row.createdAt | date}}

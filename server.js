@@ -74,10 +74,21 @@ app.use(function (req, res, next) {
 });
 
 var Account = require('./app/models/account')(mongoose);
-passport.use(new LocalStrategy(Account.authenticate()));
+//passport.use(new LocalStrategy(Account.authenticate()));
+passport.use(Account.createStrategy());
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
+app.use(function(req, res, next){
+    var cookie = req.cookies.usermail;
+
+    if(!cookie && req.user && req.user.usermail) {
+        res.cookie('usermail', req.user.usermail);
+    }
+
+    res.locals.user = req.user;
+    next();
+});
 
 // ======== FILES AND VIEWS ========
 // set the static files location /public/img will be /img for users

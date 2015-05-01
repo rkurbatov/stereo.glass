@@ -22,6 +22,25 @@ module.exports = function (app, express, mongoose, Account) {
         }
     });
 
+    Router.delete('/users', function (req, res) {
+        if (req.isAuthenticated() && req.user.role === 'admin') {
+            if (req.query['_id']) {
+                Account.findOneAndRemove({'_id': req.query['_id']}, function(err, data){
+                    if (err) console.log(err);
+                    if (data) { 
+                        res.status(200).send({success: data.username + ' is deleted'});
+                    } else {
+                        res.status(404).send({ error: 'entry not found'});
+                    };
+                });
+            } else {
+                res.status(400).send('bad request');
+            }
+        } else {
+            res.status(403).send('forbidden').end();    
+        }    
+    });
+
     Router.get('/layouts', function (req, res) {
         if (req.isAuthenticated()) {
             Layout.find({}, '', function (err, layouts) {
@@ -55,7 +74,6 @@ module.exports = function (app, express, mongoose, Account) {
                         console.log(err);
                         res.status(500).end();
                     } else {
-                        console.log(result);
                         res.json(result);
                     }
                 });

@@ -29,6 +29,8 @@
                     | &nbsp;
                     button.btn.btn-primary(ng-click="show3dModal()"
                                        ng-class="{disabled: (selectedIndex === -1 || !layouts[selectedIndex].url3d)}") Показать 3D
+                    | &nbsp;&nbsp;
+                    i.fa.fa-remove.sg-red-i(style="cursor:pointer font-size: 1.5em" ng-show="selectedIndex !== -1" ng-click="confirmRemove(row.username, row._id)")
                 .form-group
                     label.control-label(ng-bind-html="getColors()")
                     label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
