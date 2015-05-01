@@ -8,6 +8,7 @@
                             i#users-refresh.fa.fa-refresh(ng-click='loadData()')
                             |  username
                         th    
+                        th    
                         th usermail
                         th Роль
                         th Создан
@@ -16,7 +17,9 @@
                     tr
                         td {{row.username}}
                         td
-                            i.fa.fa-remove.sg-red-i(style="cursor:pointer" ng-show="row.usermail !== usermail" ng-click="confirmRemove(row.username, row._id)")
+                            i.fa.fa-pencil.sg-green-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== usermail" ng-click="openEditDialog(row)")
+                        td
+                            i.fa.fa-remove.sg-red-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== usermail" ng-click="confirmRemove(row.username, row._id)")
                         td: a(ng-href='mailto:{{row.usermail}}') email
                         td {{row.role}}
                         td {{row.createdAt | date}}
