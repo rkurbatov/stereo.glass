@@ -43,8 +43,6 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
             });
         });
     }
-
-    console.log($scope.usermail);
 }
 
 function sgYesNoModalCtrl($scope, $modalInstance) {
@@ -178,7 +176,28 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         $scope.countriesHash = catToHash(response.data);
     });
 
+   $scope.confirmRemove = function(idx) {
+        var modalScope = $scope.$new(true);
+        var layout = $scope.layouts[$scope.selectedIndex];
+        var id = layout['_id'];
 
+        modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
+
+        var modalInstance = $modal.open({
+            templateUrl : '/partials/modalYesNoImage',
+            controller : sgYesNoModalCtrl,
+            scope : modalScope,
+            size : 'sm'
+        });
+
+        modalInstance.result.then(function(){
+            $http.delete('/api/layouts', {
+                params: {'_id': id}
+            }).then(function (response) {
+                if (response.status === 200) $scope.loadData();
+            });
+        });
+    }
 }
 
 function modalPopUpCtrl($scope, $modalInstance) {

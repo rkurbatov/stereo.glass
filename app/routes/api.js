@@ -28,7 +28,7 @@ module.exports = function (app, express, mongoose, Account) {
                 Account.findOneAndRemove({'_id': req.query['_id']}, function(err, data){
                     if (err) console.log(err);
                     if (data) { 
-                        res.status(200).send({success: data.username + ' is deleted'});
+                        res.status(200).send({success: data.username + ' is deleted'});l
                     } else {
                         res.status(404).send({ error: 'entry not found'});
                     };
@@ -60,6 +60,26 @@ module.exports = function (app, express, mongoose, Account) {
         }
 
     });
+
+    Router.delete('/layouts', function (req, res) {
+        if (req.isAuthenticated() && (req.user.role === 'admin' || req.user.role === 'designer')) {
+            if (req.query['_id']) {
+                Layout.findOneAndRemove({'_id': req.query['_id']}, function(err, data){
+                    if (err) console.log(err);
+                    if (data) { 
+                        res.status(200).send({success: data.name + ' is deleted'});
+                    } else {
+                        res.status(404).send({ error: 'entry not found'});
+                    };
+                });
+            } else {
+                res.status(400).send('bad request');
+            }
+        } else {
+            res.status(403).send('forbidden').end();    
+        }    
+    });
+
 
     Router.get('/categories', function (req, res) {
         var catname;
