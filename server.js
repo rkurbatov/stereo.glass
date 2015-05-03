@@ -48,7 +48,7 @@ app.use(session({
         //port: 10065,
         //username: 'cm',
         //password: 'cm',
-        collection: 'session',
+        collection: 'sessions',
         autoReconnect: true
     })
 }));
