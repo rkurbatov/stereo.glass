@@ -36,7 +36,7 @@ module.exports = function (app, express, mongoose, Account) {
                 Account.findOneAndRemove({'_id': req.query['_id']}, function(err, data){
                     if (err) console.log(err);
                     if (data) { 
-                        res.status(200).send({success: data.username + ' is deleted'});l
+                        res.status(200).send({success: data.username + ' is deleted'});
                     } else {
                         res.status(404).send({ error: 'entry not found'});
                     };
