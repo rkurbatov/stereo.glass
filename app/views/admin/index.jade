@@ -2,23 +2,50 @@ extends layout
 block content
     .container(ng-app='sgAppAdmin'): #content
         ul#tabs.nav.nav-tabs(data-tabs="tabs")
+
+            //- Users tab header
             if user.role === 'admin'            
-                li: a(href='#admin-users', data-toggle='tab')
+                li.active: a(href='#admin-users', data-toggle='tab')
                     span.fa.fa-users
                     |  Пользователи
-            li.active: a(href='#admin-layouts', data-toggle='tab')
-                span.fa.fa-picture-o
-                |  Загрузка картинок
-            li: a(href='#admin-ratings', data-toggle='tab')
-                span.glyphicon.glyphicon-star
-                |  Оценки
+
+            //- Layouts tab header
+            if user.role === 'designer'
+                li.active: a(href='#admin-layouts', data-toggle='tab')
+                    span.fa.fa-picture-o
+                    |  Загрузка картинок
+            if user.role === 'admin'
+                li: a(href='#admin-layouts', data-toggle='tab')
+                    span.fa.fa-picture-o
+                    |  Загрузка картинок
+
+            //- Ratings tab header        
+            if user.role === 'admin' || user.role === 'designer'
+                li: a(href='#admin-ratings', data-toggle='tab')
+                    span.glyphicon.glyphicon-star
+                    |  Оценки
+            if user.role === 'founder'
+                li.active: a(href='#admin-ratings', data-toggle='tab')
+                    span.glyphicon.glyphicon-star
+                    |  Оценки
+            
+            //- Messages tab header
             li: a(href='#messages', data-toggle='tab')
                 span.glyphicon.glyphicon-envelope
-                span.badge 5
+                span.badge 0
                 |  Сообщения
-            li: a(href='#profile', data-toggle='tab')
-                span.fa.fa-user
-                |  Профиль
+
+            //- Profile tab header    
+            if user.role === 'user'
+                li.active: a(href='#profile', data-toggle='tab')
+                    span.fa.fa-user
+                    |  Профиль
+            else
+                li: a(href='#profile', data-toggle='tab')
+                    span.fa.fa-user
+                    |  Профиль
+
+            //- Logout tab header    
             li: a(href="/auth/logout")
                 span.glyphicon.glyphicon-off
                 |  Выход
@@ -26,14 +53,31 @@ block content
 
 
         #tabs-content.tab-content
+
             if user.role === 'admin'
-                #admin-users.tab-pane
+                #admin-users.tab-pane.active
                     include ./_users
-            #admin-layouts.tab-pane.active
-                include ./_layouts
-            #admin-ratings.tab-pane
-                include ./_ratings
+
+            if user.role === 'admin' 
+                #admin-layouts.tab-pane
+                    include ./_layouts
+            if user.role === 'designer'
+                #admin-layouts.tab-pane.active
+                    include ./_layouts
+
+            if user.role === 'admin' || user.role === 'designer'
+                #admin-ratings.tab-pane
+                    include ./_ratings
+            if user.role === 'founder'
+                #admin-ratings.tab-pane.active        
+                    include ./_ratings
+
             #messages.tab-pane
                 include ./_messages
-            #profile.tab-pane
-                include ./_profile
+
+            if user.role === 'user'
+                #profile.tab-pane.active
+                    include ./_profile
+            else
+                #profile.tab-pane        
+                    include ./_profile
