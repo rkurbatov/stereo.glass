@@ -1,4 +1,5 @@
-.panel.panel-default(ng-controller='sgRatingsCtrl')
+#sgRatingsCtrl.panel.panel-default(ng-controller='sgRatingsCtrl')
+    <sg-select-box></sg-select-box>
     br
     .row
         .col-xs-4: .form-horizontal
@@ -12,10 +13,10 @@
                 select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-plots-selector')") Сюжеты
-                select#rate-plots-selector.selectpicker(multiple  data-selectable-optgroup data-width='50%')
+                select#rate-plots-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-countries-selector')") Страны
-                select#rate-countries-selector.selectpicker(multiple  data-selectable-optgroup data-width='50%')
+                select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')") Дизайнер
                 select#rate-designer-selector.selectpicker(multiple data-width='50%')

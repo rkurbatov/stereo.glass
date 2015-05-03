@@ -7,8 +7,16 @@ module.exports = function (app, express, mongoose, Account) {
 
 
     Router.get('/users', function (req, res) {
+        
+        var findObj = {};
+
         if (req.isAuthenticated()) {
-            Account.find({}, '_id username usermail role createdAt activeAt', function (err, users) {
+            
+            if (req.query.roles) {
+                findObj.role = { $in: JSON.parse(req.query.roles) }
+            }    
+
+            Account.find(findObj, '_id username usermail role createdAt activeAt', function (err, users) {
                 if (err) {
                     console.log(err);
                     res.status(500).end();
@@ -42,8 +50,33 @@ module.exports = function (app, express, mongoose, Account) {
     });
 
     Router.get('/layouts', function (req, res) {
+        var sel, findObj = {}, tmpArr = [];
+
         if (req.isAuthenticated()) {
-            Layout.find({}, '', function (err, layouts) {
+            if (req.query.selection) {
+                sel = JSON.parse(req.query.selection);
+                if (sel.catColors && sel.catColors.length > 0) {
+                    tmpArr.push({catColors : {$in : sel.catColors}});
+                }
+
+                if (sel.catAssortment && sel.catAssortment.length > 0) {
+                    tmpArr.push({catAssortment : {$in : sel.catAssortment}});
+                }
+
+                if (sel.catCountries && sel.catCountries.length > 0) {
+                    tmpArr.push({catCountries : {$in : sel.catCountries}});
+                }
+
+                if (sel.designers && sel.designers.length > 0) {
+                    tmpArr.push({createdBy : { $in : sel.designers }});
+                }
+
+                if (tmpArr.length > 0) {
+                    findObj = {$and: tmpArr};
+                }
+            }
+
+            Layout.find(findObj, '', function (err, layouts) {
                 if (err) {
                     console.log(err);
                     res.status(500).end();

@@ -45,4 +45,5 @@ function sgCategoriesCtrl($scope, $http) {
         $('#rate-countries-selector').html(catToHtml(response.data)).selectpicker('refresh');
 
     });
+
 }

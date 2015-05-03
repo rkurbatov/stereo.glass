@@ -1,16 +1,86 @@
 function sgRatingsCtrl($scope, $http, $sce, $modal) {
     'use strict';
 
+    // Init controller
+
+    $scope.selection = {};
+    $scope.designers = [];
+
+    $http({
+        url: '/api/categories',
+        method: 'GET',
+        params: {catname: 'assortment'}
+    }).then(function (response) {
+        $scope.assortmentHash = catToHash(response.data);
+    });
+
+    $http({
+        url: '/api/categories',
+        method: 'GET',
+        params: {catname: 'plots'}
+    }).then(function (response) {
+        $scope.plotsHash = catToHash(response.data);
+    });
+
+    $http({
+        url: '/api/categories',
+        method: 'GET',
+        params: {catname: 'countries'}
+    }).then(function (response) {
+        $scope.countriesHash = catToHash(response.data);
+    });
+
+    $http.get('/api/users', {
+        params: {
+            roles : JSON.stringify(['designer'])
+        }
+    }).then(function (response) {
+        $scope.designers = response.data.map(function(el){
+            return el.username
+        });
+        $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
+    });
+
+
     $scope.loadData = function () {
-        $http.get('/api/layouts').then(function (response) {
+        $http.get('/api/layouts', {
+            params: {
+                selection: JSON.stringify($scope.selection)
+            }    
+        }).then(function (response) {
             $scope.layouts = response.data;
         });
+
     };
 
     $scope.reset = function (sel) {
+
+        if ($(sel).attr('id') === 'rate-colors-selector') { 
+            $scope.selection.catColors = []; 
+        }
+
+        if ($(sel).attr('id') === 'rate-plots-selector') { 
+            $scope.selection.catPlots = []; 
+        }
+
+        if ($(sel).attr('id') === 'rate-assortment-selector') { 
+            $scope.selection.catAssortment = []; 
+        }
+
+        if ($(sel).attr('id') === 'rate-countries-selector') { 
+            $scope.selection.Countries = [];
+        }
+
+        if ($(sel).attr('id') === 'rate-designer-selector') {
+            $scope.designers = [];
+        }
+
         $(sel).each(function () {
             $(this).selectpicker('deselectAll');
         });
+
+        $scope.loadData();
+    
     };
 
     $scope.resetDR = function () {
@@ -94,31 +164,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
 
     };
 
-    $http({
-        url: '/api/categories',
-        method: 'GET',
-        params: {catname: 'assortment'}
-    }).then(function (response) {
-        $scope.assortmentHash = catToHash(response.data);
-    });
-
-    $http({
-        url: '/api/categories',
-        method: 'GET',
-        params: {catname: 'plots'}
-    }).then(function (response) {
-        $scope.plotsHash = catToHash(response.data);
-    });
-
-    $http({
-        url: '/api/categories',
-        method: 'GET',
-        params: {catname: 'countries'}
-    }).then(function (response) {
-        $scope.countriesHash = catToHash(response.data);
-    });
-
-   $scope.confirmRemove = function(idx) {
+    $scope.confirmRemove = function(idx) {
         var modalScope = $scope.$new(true);
         var layout = $scope.layouts[$scope.selectedIndex];
         var id = layout['_id'];
@@ -141,3 +187,53 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         });
     }
 }
+
+$(function(){
+   
+    var $scope = angular.element($('#sgRatingsCtrl')).scope();
+
+    $('#rate-colors-selector').on('change', function(){
+        var self = this;
+
+        $scope.$apply(function(){
+            $scope.selection.catColors = $(self).val();
+            $scope.loadData();
+        })
+    });
+
+    $('#rate-assortment-selector').on('change', function(){
+        var self = this;
+
+        $scope.$apply(function(){
+            $scope.selection.catAssortment = $(self).val();
+            $scope.loadData();
+        })
+    });
+
+    $('#rate-plots-selector').on('change', function(){
+        var self = this;
+
+        $scope.$apply(function(){
+            $scope.selection.catPlots = $(self).val();
+            $scope.loadData();
+        })
+    });
+
+    $('#rate-countries-selector').on('change', function(){
+        var self = this;
+
+        $scope.$apply(function(){
+            $scope.selection.catCountries = $(self).val();
+            $scope.loadData();
+        })
+    });
+
+    $('#rate-designer-selector').on('change', function(){
+        var self = this;
+
+        $scope.$apply(function(){
+            $scope.selection.designers = $(self).val();
+            $scope.loadData();
+        })
+    });
+});
