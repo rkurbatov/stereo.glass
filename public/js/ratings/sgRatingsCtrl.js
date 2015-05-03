@@ -60,27 +60,25 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         $scope.assortmentHash = catToHash(response.data);
     });
 
-    $http({
-        url: '/api/categories',
-        method: 'GET',
-        params: {catname: 'plots'}
+    $http.get('/api/categories', { 
+        params: {
+            catname: 'plots'
+        }
     }).then(function (response) {
         $scope.plotsHash = catToHash(response.data);
     });
 
-    $http({
-        url: '/api/categories',
-        method: 'GET',
-        params: {catname: 'countries'}
-    }).then(function (response) {
+    $http.get('/api/categories', {
+        params: { catname: 'countries' }
+    })
+    .then(function (response) {
         $scope.countriesHash = catToHash(response.data);
     });
 
     $http.get('/api/users', {
-        params: {
-            roles : JSON.stringify(['designer'])
-        }
-    }).then(function (response) {
+        params: { roles : JSON.stringify(['designer']) }
+    })
+    .then(function (response) {
         $scope.designers = response.data.map(function(el){
             return el.username
         });
