@@ -22,7 +22,8 @@
                 select#rate-designer-selector.selectpicker(multiple data-width='50%')
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
-                input#rate-daterange.col-xs-6.date-picker(date-range-picker type="text" ng-model="date" options='dpopts')
+                input#rate-daterange.date-picker(date-range-picker, type="text",
+                     ng-model="dateRange", options="dpopts")
         .col-xs-8
             .layout-info
                 .form-group

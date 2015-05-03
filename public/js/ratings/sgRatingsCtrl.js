@@ -6,6 +6,52 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
     $scope.selection = {};
     $scope.designers = [];
 
+    // Paginator init
+
+    $scope.ipp = 12;
+    $scope.curPage = 1;
+    $scope.selectedIndex = -1;
+
+    // Range date init
+
+    $scope.dateRange = {};
+
+    $scope.dpopts = {
+        todayHighlight: true,
+        format: 'DD.MM.YY',
+        startDate: moment().subtract(1, 'month'),
+        endDate: moment(),
+        maxDate: moment(),
+        language: 'ru',
+        locale: {
+            applyClass: 'btn-green',
+            applyLabel: "Применить",
+            fromLabel: "С",
+            toLabel: "по",
+            cancelLabel: 'Отмена',
+            customRangeLabel: 'Другой интервал',
+        },
+        ranges: {
+            'Всё время': ['01.01.15', moment()],
+            'Сегодня' : [moment(), moment()],
+            'Вчера и сегодня': [moment().subtract(1, 'days'), moment()],
+            'Неделя': [moment().subtract(6, 'days'), moment()],
+            'Месяц': [moment().subtract(1, 'month'), moment()]
+        }
+    };
+
+    $scope.resetDR = function () {
+        $('#rate-daterange').data('daterangepicker').setStartDate('01.01.15');
+        $('#rate-daterange').data('daterangepicker').setEndDate(moment());
+
+        $scope.dateRange = $scope.dateRange || {};
+
+        $scope.dateRange.startDate = moment('2015-01-01');
+        $scope.dateRange.endDate = moment();
+    };
+
+    // Selectors init
+
     $http({
         url: '/api/categories',
         method: 'GET',
@@ -41,8 +87,14 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
     });
 
+    // Fill paginator
 
     $scope.loadData = function () {
+        console.log('called');
+
+        if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
+        if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
+
         $http.get('/api/layouts', {
             params: {
                 selection: JSON.stringify($scope.selection)
@@ -52,6 +104,8 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         });
 
     };
+
+    // Reset clicked selector
 
     $scope.reset = function (sel) {
 
@@ -83,46 +137,15 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
     
     };
 
-    $scope.resetDR = function () {
-        $('#rate-daterange').val('');
-    };
+    // Reset all selectors and daterange
 
     $scope.resetAll = function () {
         $scope.reset('#admin-ratings .selectpicker');
         $scope.resetDR();
     };
 
-    $scope.loadData();
-
-    $scope.ipp = 12;
-    $scope.curPage = 1;
-    $scope.selectedIndex = -1;
-
     $scope.itemClicked = function (index) {
         $scope.selectedIndex = ($scope.curPage - 1) * $scope.ipp + index;
-    };
-
-    $scope.date = {
-        startDate: null,
-        endDate: null
-    };
-
-    $scope.dpopts = {
-        todayHighlight: true,
-        endDate: moment(),
-        language: 'ru',
-        locale: {
-            applyClass: 'btn-green',
-            applyLabel: "Применить",
-            fromLabel: "С",
-            toLabel: "по",
-            cancelLabel: 'Отмена',
-            customRangeLabel: 'Свой интервал'
-        },
-        ranges: {
-            'За неделю': [moment().subtract('days', 6), moment()],
-            'За 30 дней': [moment().subtract('days', 29), moment()]
-        }
     };
 
     $scope.getColors = function () {
@@ -186,7 +209,12 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
             });
         });
     }
+
+        $scope.$watch('dateRange', $scope.loadData, true);
+
 }
+
+// jQuery - Angular selector link
 
 $(function(){
    
@@ -236,4 +264,11 @@ $(function(){
             $scope.loadData();
         })
     });
+
+    $(window).load(function(){
+        $scope.$apply(function(){
+            $scope.resetDR();
+        })
+    });
+
 });

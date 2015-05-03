@@ -50,11 +50,14 @@ module.exports = function (app, express, mongoose, Account) {
     });
 
     Router.get('/layouts', function (req, res) {
-        var sel, findObj = {}, tmpArr = [];
+        var sel, findObj = {}, tmpArr = [], tmpDateQueryObj = {};
+
 
         if (req.isAuthenticated()) {
             if (req.query.selection) {
                 sel = JSON.parse(req.query.selection);
+
+                console.log(sel);
                 if (sel.catColors && sel.catColors.length > 0) {
                     tmpArr.push({catColors : {$in : sel.catColors}});
                 }
@@ -70,6 +73,12 @@ module.exports = function (app, express, mongoose, Account) {
                 if (sel.designers && sel.designers.length > 0) {
                     tmpArr.push({createdBy : { $in : sel.designers }});
                 }
+
+                if (sel.fromDate || sel.ToDate) {
+                    if (sel.fromDate) tmpDateQueryObj.$gte = sel.fromDate;
+                    if (sel.toDate) tmpDateQueryObj.$lt = sel.toDate;
+                    tmpArr.push({createdAt: tmpDateQueryObj});
+                }                
 
                 if (tmpArr.length > 0) {
                     findObj = {$and: tmpArr};
