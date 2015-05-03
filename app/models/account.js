@@ -13,7 +13,7 @@ module.exports = function (mongoose) {
         avatar: String,
         role: {
             type: String,
-            default: "User"
+            default: "user"
         },
         createdAt: Date,
         activeAt: Date
