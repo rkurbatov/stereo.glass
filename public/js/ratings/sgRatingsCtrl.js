@@ -264,9 +264,11 @@ $(function(){
     });
 
     $(window).load(function(){
-        $scope.$apply(function(){
-            $scope.resetDR();
-        })
+        if ($scope) {
+            $scope.$apply(function(){
+                $scope.resetDR();
+            })
+        }
     });
 
 });

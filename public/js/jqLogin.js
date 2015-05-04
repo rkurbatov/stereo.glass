@@ -1,3 +1,5 @@
+//TODO: show registration and login errors
+
 (function ($){
 	'use strict';
 

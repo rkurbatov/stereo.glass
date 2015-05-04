@@ -30,6 +30,31 @@ module.exports = function (app, express, mongoose, Account) {
         }
     });
 
+    Router.put('/users', function (req, res) {
+        // only admin can modify users (or user itself)
+        if (req.isAuthenticated() && (req.user.role === 'admin' || req.user['_id'] === req.query.id)) {
+                Account.findById(req.query.id).exec(function(err, acc){
+                    if (req.body.username) acc.username = req.body.username;
+                    if (req.body.usermail) acc.usermail = req.body.usermail;
+                    if (req.body.role) acc.role = req.body.role;
+                    acc.save();
+                    if (req.body.password) {
+                        acc.setPassword(req.body.password, function(err){
+                            if (err) {
+                                console.log("Cant't change user password: ", err);
+                            } else {
+                                acc.save();
+                                res.status(200).json({success: 'user with password is modified'});
+                            }    
+
+                        })
+                    } else res.status(200).json({success: 'user is modified'});
+                });
+        } else {
+            res.status(403).send('forbidden').end();    
+        }   
+    });
+
     Router.delete('/users', function (req, res) {
         if (req.isAuthenticated() && req.user.role === 'admin') {
             if (req.query['_id']) {
@@ -57,7 +82,6 @@ module.exports = function (app, express, mongoose, Account) {
             if (req.query.selection) {
                 sel = JSON.parse(req.query.selection);
 
-                console.log(sel);
                 if (sel.catColors && sel.catColors.length > 0) {
                     tmpArr.push({catColors : {$in : sel.catColors}});
                 }

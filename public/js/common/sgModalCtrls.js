@@ -1,11 +1,12 @@
 function sgYesNoModalCtrl($scope, $modalInstance) {
   
   $scope.ok = function () {
-        $modalInstance.close();
+        $scope.result = $scope.result || {};
+        $scope.$close($scope.result);
   }
 
   $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $scope.$dismiss('cancel');
   };  
 }
 

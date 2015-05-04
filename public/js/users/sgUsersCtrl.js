@@ -1,3 +1,6 @@
+//TODO: search for duplications after editing user
+//TODO: delete user sessions after user delete
+
 function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
     'use strict';
 
@@ -33,10 +36,11 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
 
     $scope.openEditDialog = function(user) {
         var modalScope = $scope.$new(true);
-        modalScope.username = user.username;
-        modalScope.usermail = user.usermail;
-        modalScope.roles = ['admin', 'designer', 'founder', 'user'];
-        modalScope.role = user.role;
+        modalScope.result = {};
+        modalScope.result.username = user.username;
+        modalScope.result.usermail = user.usermail;
+        modalScope.result.roles = ['admin', 'designer', 'founder', 'user'];
+        modalScope.result.role = user.role;
 
         var modalInstance = $modal.open({
             templateUrl : '/partials/modalEditUser',
@@ -44,5 +48,24 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
             scope : modalScope,
             size : 'sm'
         });
+
+        modalInstance.result.then(function(result){
+            // check for changes
+            var changes = {};
+
+            if (user.username !== result.username) changes.username = result.username;
+            if (user.usermail !== result.usermail) changes.usermail = result.usermail;
+            if (user.role !== result.role) changes.role = result.role;
+            if (result.password) changes.password = result.password;
+
+            if (!angular.equals(changes, {})) {
+                // There are changes!
+                $http.put('/api/users?id=' + user['_id'], JSON.stringify(changes))
+                .then(function(){
+                    $scope.loadData();
+                });
+            }            
+        })
     }
+
 }

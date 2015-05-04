@@ -5,21 +5,21 @@
 .modal-body
 	.form-group
 		label.control-label(for="#edit-username") Имя пользователя
-		input#edit-username.form-control(name="username", ng-required="", autofocus, ng-model="username")
+		input#edit-username.form-control(name="username", ng-required="", autofocus, ng-model="result.username")
 	.form-group
 		label.control-label(for="#edit-usermail") E-mail	
-		input#edit-usermail.form-control(name="usermail", type="email", ng-required="", ng-model="usermail")
+		input#edit-usermail.form-control(name="usermail", type="email", ng-required="", ng-model="result.usermail")
 	.form-group
 		label.control-label(for="#edit-roles") Права доступа
-		select#edit-roles.form-control(name="roles", ng-model="role", ng-options="r for r in roles")
+		select#edit-roles.form-control(name="roles", ng-model="result.role", ng-options="r for r in result.roles")
 	.form-group
 		label.control-label(for="#edit-password") Пароль
-		input#edit-password.form-control(name="password", ng-model="password")
+		input#edit-password.form-control(name="password", ng-model="result.password")
 	.form-group
-		lable.control-label(for="#edit-confirm") Подтверждение
-		input#edit-confirm.form-control(name="password", ng-model="confirm")
+		label.control-label(for="#edit-confirm") Подтверждение
+		input#edit-confirm.form-control(name="confirm", ng-model="result.confirm")
 	
 .modal-footer
 	.center-block
-		button.btn.btn-danger.col-xs-5(ng-click="ok()") Да	
+		button.btn.btn-danger.col-xs-5(ng-click="result.password !== result.confirm || ok()" ng-class="{disabled: result.password !== result.confirm}") Да	
 		button.btn.btn-primary.col-xs-5(ng-click="cancel()") Нет
