@@ -20,7 +20,8 @@ var app = express();
 
 // ============ CONFIGURE EXPRESS ============
 //app.use(logger('combined'));
-app.use(cookieParser());
+// cookieParser no more needed to parse cookies
+//app.use(cookieParser());
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -40,14 +41,11 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 30    // one month
     }, // 60 min
     secret: 'barmgalot',
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: true,
     store: new MongoStore({
         db: 'stereo_glass',
         host: 'localhost',
-        //port: 10065,
-        //username: 'cm',
-        //password: 'cm',
         collection: 'sessions',
         autoReconnect: true
     })
@@ -80,12 +78,13 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 app.use(function(req, res, next){
-    var cookie = req.cookies.usermail;
 
-    if(!cookie && req.user && req.user.usermail) {
+    // set usermail cookie to response
+    if(req.user && req.user.usermail) {
         res.cookie('usermail', req.user.usermail);
     }
 
+    // set locals user variable
     res.locals.user = req.user;
     next();
 });
