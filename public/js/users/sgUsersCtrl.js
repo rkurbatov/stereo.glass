@@ -60,7 +60,7 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
 
             if (!angular.equals(changes, {})) {
                 // There are changes!
-                $http.put('/api/users?id=' + user['_id'], JSON.stringify(changes))
+                $http.put('/api/users/' + user['_id'], JSON.stringify(changes))
                 .then(function(){
                     $scope.loadData();
                 });

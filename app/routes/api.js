@@ -30,10 +30,10 @@ module.exports = function (app, express, mongoose, Account) {
         }
     });
 
-    Router.put('/users', function (req, res) {
+    Router.put('/users/:id', function (req, res) {
         // only admin can modify users (or user itself)
-        if (req.isAuthenticated() && (req.user.role === 'admin' || req.user['_id'] === req.query.id)) {
-                Account.findById(req.query.id).exec(function(err, acc){
+        if (req.isAuthenticated() && (req.user.role === 'admin' || req.user['_id'] === req.params.id)) {
+                Account.findById(req.params.id).exec(function(err, acc){
                     if (req.body.username) acc.username = req.body.username;
                     if (req.body.usermail) acc.usermail = req.body.usermail;
                     if (req.body.role) acc.role = req.body.role;
