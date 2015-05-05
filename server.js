@@ -80,8 +80,9 @@ passport.deserializeUser(Account.deserializeUser());
 app.use(function(req, res, next){
 
     // set usermail cookie to response
-    if(req.user && req.user.usermail) {
-        res.cookie('usermail', req.user.usermail);
+    if(req.user) {
+        if (req.user.usermail) res.cookie('usermail', req.user.usermail);
+        if (req.user.username) res.cookie('username', req.user.username);
     }
 
     // set locals user variable
