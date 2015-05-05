@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"text",
+				"text-center"
+			],
+			[
+				"de",
+				"designers"
+			],
+			[
+				"rate-",
+				"rate-designer-selector"
+			],
+			[
+				"sele",
+				"selectpicker"
+			],
+			[
+				"rate",
+				"rate-colors-selector"
+			],
+			[
+				"sg",
+				"sgRatingsCtrl"
+			],
+			[
 				"url",
 				"url2d"
 			],
@@ -71,6 +95,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "public/js/common/directives.js",
+			"settings":
+			{
+				"buffer_size": 1399,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/css/styles.css",
+			"settings":
+			{
+				"buffer_size": 1514,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/appAdmin.js",
+			"settings":
+			{
+				"buffer_size": 551,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/admin/_ratings.jade",
+			"settings":
+			{
+				"buffer_size": 3968,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -80,15 +136,19 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "packa",
+		"last_filter": "i",
 		"selected_items":
 		[
 			[
-				"packa",
+				"i",
 				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: List Packages"
 			]
 		],
-		"width": 449.0
+		"width": 467.0
 	},
 	"console":
 	{
@@ -110,45 +170,54 @@
 	"expanded_folders":
 	[
 		"/home/siegfried/projects/test.stereo.glass/app",
+		"/home/siegfried/projects/test.stereo.glass/app/helpers",
+		"/home/siegfried/projects/test.stereo.glass/app/models",
+		"/home/siegfried/projects/test.stereo.glass/app/routes",
 		"/home/siegfried/projects/test.stereo.glass/app/views",
+		"/home/siegfried/projects/test.stereo.glass/app/views/_partials",
 		"/home/siegfried/projects/test.stereo.glass/app/views/admin",
 		"/home/siegfried/projects/test.stereo.glass/public",
 		"/home/siegfried/projects/test.stereo.glass/public/js",
 		"/home/siegfried/projects/test.stereo.glass/public/js/common",
 		"/home/siegfried/projects/test.stereo.glass/public/js/layouts",
 		"/home/siegfried/projects/test.stereo.glass/public/js/ratings",
-		"/home/siegfried/projects/test.stereo.glass/public/js/users",
-		"/home/siegfried/projects/test.stereo.glass/tests"
+		"/home/siegfried/projects/test.stereo.glass/public/js/users"
 	],
 	"file_history":
 	[
-		"/home/siegfried/projects/test.stereo.glass/app/views/admin/layout.jade",
-		"/home/siegfried/projects/test.stereo.glass/public/js/common/modalCtrls.js",
-		"/home/siegfried/projects/test.stereo.glass/app/views/admin/_layouts.jade",
-		"/home/siegfried/projects/test.stereo.glass/app/views/admin/_users.jade",
-		"/home/siegfried/projects/test.stereo.glass/app/views/auth.jade",
-		"/home/siegfried/projects/test.stereo.glass/app/views/_partials/modalEditUser.jade",
-		"/home/siegfried/projects/test.stereo.glass/public/js/appAdmin.js",
+		"/home/siegfried/.config/sublime-text-3/Packages/User/JavaScriptNext.sublime-settings",
 		"/home/siegfried/projects/test.stereo.glass/public/js/ratings/sgRatingsCtrl.js",
-		"/home/siegfried/projects/test.stereo.glass/public/js/common/sgCategoriesCtrl.js",
+		"/home/siegfried/projects/test.stereo.glass/app/models/layout.js",
+		"/home/siegfried/projects/test.stereo.glass/app/routes/api.js",
+		"/home/siegfried/projects/test.stereo.glass/app/views/admin/_users.jade",
+		"/home/siegfried/projects/test.stereo.glass/public/js/users/sgUsersCtrl.js",
+		"/home/siegfried/projects/test.stereo.glass/server.js",
+		"/home/siegfried/projects/test.stereo.glass/app/views/_partials/modalEditUser.jade",
+		"/home/siegfried/projects/test.stereo.glass/app/models/account.js",
+		"/home/siegfried/projects/test.stereo.glass/public/js/jqLogin.js",
+		"/home/siegfried/projects/test.stereo.glass/public/js/common/sgModalCtrls.js",
+		"/home/siegfried/projects/test.stereo.glass/public/js/layouts/sgCategoriesCtrl.js",
+		"/home/siegfried/projects/test.stereo.glass/app/views/admin/index.jade",
+		"/home/siegfried/projects/test.stereo.glass/app/views/admin/_ratings.jade",
+		"/home/siegfried/projects/test.stereo.glass/app/views/admin/layout.jade",
+		"/home/siegfried/projects/test.stereo.glass/public/js/appAdmin.js",
+		"/home/siegfried/projects/test.stereo.glass/bower.json",
+		"/home/siegfried/projects/test.stereo.glass/public/libs/angular-daterangepicker/js/angular-daterangepicker.js",
+		"/home/siegfried/projects/test.stereo.glass/app/views/register.jade",
 		"/home/siegfried/projects/test.stereo.glass/public/js/common/functions.js",
 		"/home/siegfried/projects/test.stereo.glass/public/js/common/directives.js",
+		"/home/siegfried/projects/test.stereo.glass/public/js/common/modalCtrls.js",
+		"/home/siegfried/projects/test.stereo.glass/app/views/admin/_layouts.jade",
+		"/home/siegfried/projects/test.stereo.glass/app/views/auth.jade",
+		"/home/siegfried/projects/test.stereo.glass/public/js/common/sgCategoriesCtrl.js",
 		"/home/siegfried/projects/test.stereo.glass/app/views/_partials/modalimg.jade",
 		"/home/siegfried/projects/test.stereo.glass/app/views/_partials/modalYesNoImage.jade",
-		"/home/siegfried/projects/test.stereo.glass/app/views/admin/_ratings.jade",
 		"/home/siegfried/projects/test.stereo.glass/public/js/users/usersCtrl.js",
 		"/home/siegfried/projects/test.stereo.glass/app/views/_partials/modalYesNo.jade",
 		"/home/siegfried/projects/test.stereo.glass/public/css/styles.css",
-		"/home/siegfried/projects/test.stereo.glass/app/models/layout.js",
-		"/home/siegfried/projects/test.stereo.glass/app/views/admin/index.jade",
-		"/home/siegfried/projects/test.stereo.glass/server.js",
 		"/home/siegfried/projects/test.stereo.glass/app/routes/base.js",
-		"/home/siegfried/projects/test.stereo.glass/app/routes/api.js",
 		"/home/siegfried/projects/test.stereo.glass/public/js/initRatings.js",
-		"/home/siegfried/projects/test.stereo.glass/public/js/jqLogin.js",
 		"/home/siegfried/projects/test.stereo.glass/app/views/layout.jade",
-		"/home/siegfried/projects/test.stereo.glass/app/models/account.js",
-		"/home/siegfried/projects/test.stereo.glass/app/views/register.jade",
 		"/home/siegfried/projects/test.stereo.glass/app/routes/auth.js",
 		"/home/siegfried/projects/test.stereo.glass/app/helpers/uploader.js",
 		"/home/siegfried/projects/test.stereo.glass/public/libs/bootstrap-fileinput/js/fileinput.js",
@@ -184,6 +253,19 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"User",
+			"console.log",
+			"loadDat",
+			"dateRange",
+			"rate-date",
+			"date",
+			"$scope.da",
+			"startDate",
+			"console.log",
+			"assortmentH",
+			"assortmentHash",
+			"plotsHas",
+			"null",
 			"script",
 			"$cookie",
 			"angular",
@@ -232,8 +314,129 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "public/js/common/directives.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1399,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								628,
+								628
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/css/styles.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1514,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1327,
+								1327
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1275.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/js/appAdmin.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 551,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								551,
+								551
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/admin/_ratings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3968,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3957,
+								3957
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 714.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],

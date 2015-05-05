@@ -6,7 +6,12 @@ var app = angular.module('sgAppAdmin',
         'ui.bootstrap',
         'ngCookies'
     ])
+    .constant('_', window._)        // use lodash as $rootScope constant
+    .run(function ($rootScope) {
+        $rootScope._ = window._;
+    })
     .controller('sgUsersCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgUsersCtrl])
     .controller('sgCategoriesCtrl', ['$scope', '$http', sgCategoriesCtrl])
-    .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', sgRatingsCtrl])
+    .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgRatingsCtrl])
+    .controller('sgLayoutItemCtrl', ['$scope', '$http', '$sce', '$modal', sgLayoutItemCtrl])
     .directive('sgOnImgload', ['$parse', sgOnImgload]);

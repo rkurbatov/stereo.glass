@@ -80,3 +80,9 @@ ul.sg-layoutlist li {
     margin-right: 20px;
     height: 270px;
 }
+
+.sg-rating-block i {
+    color: goldenrod;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px rgba(150, 150, 150, 0.75);
+}

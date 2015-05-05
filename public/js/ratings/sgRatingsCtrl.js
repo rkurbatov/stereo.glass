@@ -1,4 +1,4 @@
-function sgRatingsCtrl($scope, $http, $sce, $modal) {
+function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     'use strict';
 
     // Init controller
@@ -11,6 +11,8 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
     $scope.ipp = 12;
     $scope.curPage = 1;
     $scope.selectedIndex = -1;
+
+    $scope.username = $cookies.username;
 
     // Range date init
 
@@ -33,7 +35,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         },
         ranges: {
             'Всё время': ['01.01.15', moment()],
-            'Сегодня' : [moment(), moment()],
+            'Сегодня': [moment(), moment()],
             'Вчера и сегодня': [moment().subtract(1, 'days'), moment()],
             'Неделя': [moment().subtract(6, 'days'), moment()],
             'Месяц': [moment().subtract(1, 'month'), moment()]
@@ -60,7 +62,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         $scope.assortmentHash = catToHash(response.data);
     });
 
-    $http.get('/api/categories', { 
+    $http.get('/api/categories', {
         params: {
             catname: 'plots'
         }
@@ -69,26 +71,25 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
     });
 
     $http.get('/api/categories', {
-        params: { catname: 'countries' }
+        params: {catname: 'countries'}
     })
-    .then(function (response) {
-        $scope.countriesHash = catToHash(response.data);
-    });
+        .then(function (response) {
+            $scope.countriesHash = catToHash(response.data);
+        });
 
     $http.get('/api/users', {
-        params: { roles : JSON.stringify(['designer']) }
+        params: {roles: JSON.stringify(['designer'])}
     })
-    .then(function (response) {
-        $scope.designers = response.data.map(function(el){
-            return el.username
+        .then(function (response) {
+            $scope.designers = response.data.map(function (el) {
+                return el.username
+            });
+            $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
         });
-        $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
-    });
 
     // Fill paginator
 
     $scope.loadData = function () {
-        console.log('called');
 
         if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
         if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
@@ -96,7 +97,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         $http.get('/api/layouts', {
             params: {
                 selection: JSON.stringify($scope.selection)
-            }    
+            }
         }).then(function (response) {
             $scope.layouts = response.data;
         });
@@ -107,19 +108,19 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
 
     $scope.reset = function (sel) {
 
-        if ($(sel).attr('id') === 'rate-colors-selector') { 
-            $scope.selection.catColors = []; 
+        if ($(sel).attr('id') === 'rate-colors-selector') {
+            $scope.selection.catColors = [];
         }
 
-        if ($(sel).attr('id') === 'rate-plots-selector') { 
-            $scope.selection.catPlots = []; 
+        if ($(sel).attr('id') === 'rate-plots-selector') {
+            $scope.selection.catPlots = [];
         }
 
-        if ($(sel).attr('id') === 'rate-assortment-selector') { 
-            $scope.selection.catAssortment = []; 
+        if ($(sel).attr('id') === 'rate-assortment-selector') {
+            $scope.selection.catAssortment = [];
         }
 
-        if ($(sel).attr('id') === 'rate-countries-selector') { 
+        if ($(sel).attr('id') === 'rate-countries-selector') {
             $scope.selection.Countries = [];
         }
 
@@ -132,7 +133,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         });
 
         $scope.loadData();
-    
+
     };
 
     // Reset all selectors and daterange
@@ -142,9 +143,6 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         $scope.resetDR();
     };
 
-    $scope.itemClicked = function (index) {
-        $scope.selectedIndex = ($scope.curPage - 1) * $scope.ipp + index;
-    };
 
     $scope.getColors = function () {
         if ($scope.selectedIndex === -1) return '';
@@ -161,10 +159,10 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         }).join(''));
     };
 
-    $scope.getValues = function(cat, hash) {
+    $scope.getValues = function (cat, hash) {
         if ($scope.selectedIndex === -1) return '';
 
-        return $scope.layouts[$scope.selectedIndex][cat].map(function (el){
+        return $scope.layouts[$scope.selectedIndex][cat].map(function (el) {
             return $scope[hash][el];
         }).join(', ');
     };
@@ -185,7 +183,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
 
     };
 
-    $scope.confirmRemove = function(idx) {
+    $scope.confirmRemove = function (idx) {
         var modalScope = $scope.$new(true);
         var layout = $scope.layouts[$scope.selectedIndex];
         var id = layout['_id'];
@@ -193,79 +191,83 @@ function sgRatingsCtrl($scope, $http, $sce, $modal) {
         modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
 
         var modalInstance = $modal.open({
-            templateUrl : '/partials/modalYesNoImage',
-            controller : sgYesNoModalCtrl,
-            scope : modalScope,
-            size : 'sm'
+            templateUrl: '/partials/modalYesNoImage',
+            controller: sgYesNoModalCtrl,
+            scope: modalScope,
+            size: 'sm'
         });
 
-        modalInstance.result.then(function(){
+        modalInstance.result.then(function () {
             $http.delete('/api/layouts', {
                 params: {'_id': id}
             }).then(function (response) {
                 if (response.status === 200) $scope.loadData();
             });
         });
-    }
+    };
 
-        $scope.$watch('dateRange', $scope.loadData, true);
+    $scope.$watch('dateRange', $scope.loadData, true);
+
+    $scope.itemClicked = function (index) {
+        $scope.selectedIndex = ($scope.curPage - 1) * $scope.ipp + index;
+    };
 
 }
 
 // jQuery - Angular selector link
 
-$(function(){
-   
+$(function () {
+
     var $scope = angular.element($('#sgRatingsCtrl')).scope();
 
-    $('#rate-colors-selector').on('change', function(){
+    $('#rate-colors-selector').on('change', function () {
         var self = this;
 
-        $scope.$apply(function(){
+        $scope.$apply(function () {
             $scope.selection.catColors = $(self).val();
             $scope.loadData();
         })
     });
 
-    $('#rate-assortment-selector').on('change', function(){
+    $('#rate-assortment-selector').on('change', function () {
         var self = this;
 
-        $scope.$apply(function(){
+        $scope.$apply(function () {
             $scope.selection.catAssortment = $(self).val();
             $scope.loadData();
         })
     });
 
-    $('#rate-plots-selector').on('change', function(){
+    $('#rate-plots-selector').on('change', function () {
         var self = this;
 
-        $scope.$apply(function(){
+        $scope.$apply(function () {
             $scope.selection.catPlots = $(self).val();
             $scope.loadData();
         })
     });
 
-    $('#rate-countries-selector').on('change', function(){
+    $('#rate-countries-selector').on('change', function () {
         var self = this;
 
-        $scope.$apply(function(){
+        $scope.$apply(function () {
             $scope.selection.catCountries = $(self).val();
             $scope.loadData();
         })
     });
 
-    $('#rate-designer-selector').on('change', function(){
+    $('#rate-designer-selector').on('change', function () {
         var self = this;
 
-        $scope.$apply(function(){
+        $scope.$apply(function () {
             $scope.selection.designers = $(self).val();
             $scope.loadData();
         })
     });
 
-    $(window).load(function(){
+    $(window).load(function () {
         if ($scope) {
-            $scope.$apply(function(){
+            $scope.$apply(function () {
                 $scope.resetDR();
             })
         }

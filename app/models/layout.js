@@ -3,6 +3,12 @@ module.exports = function (mongoose) {
 
     var Schema = mongoose.Schema;
 
+    var Ratings = new Schema({
+        value: Number,
+        assignedBy: String,
+        assignedAt: Date
+    });
+
     var LayoutSchema = new Schema({
     	name: {type: String, unique: true},
     	urlDir: String,
@@ -12,11 +18,19 @@ module.exports = function (mongoose) {
         urlThumb: String,
         createdBy: String,
     	createdAt: Date,
+        ratings: [Ratings],
     	catColors: [String],
     	catPlots: [String],
     	catAssortment: [String],
     	catCountries: [String],
     	designerComment: String
+    });
+
+    Ratings.pre('save', function (next){
+        if (!this.assignedAt) {
+            this.assignedAt = new Date();
+        }
+        next();
     });
 
     LayoutSchema.pre('save', function (next) {
