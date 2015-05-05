@@ -14,27 +14,27 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
 
     $scope.loadData();
 
-    $scope.confirmRemove = function(name, id) {
+    $scope.confirmRemove = function (name, id) {
         var modalScope = $scope.$new(true);
         modalScope.text = $sce.trustAsHtml("Вы действительно желаете удалить пользователя <b>" + name + "</b>?");
 
         var modalInstance = $modal.open({
-            templateUrl : '/partials/modalYesNo',
-            controller : sgYesNoModalCtrl,
-            scope : modalScope,
-            size : 'sm'
+            templateUrl: '/partials/modalYesNo',
+            controller: sgYesNoModalCtrl,
+            scope: modalScope,
+            size: 'sm'
         });
 
-        modalInstance.result.then(function(){
+        modalInstance.result.then(function () {
             $http.delete('/api/users', {
                 params: {'_id': id}
             }).then(function (response) {
                 if (response.status === 200) $scope.loadData();
             });
         });
-    }
+    };
 
-    $scope.openEditDialog = function(user) {
+    $scope.openEditDialog = function (user) {
         var modalScope = $scope.$new(true);
         modalScope.result = {};
         modalScope.result.username = user.username;
@@ -43,13 +43,13 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
         modalScope.result.role = user.role;
 
         var modalInstance = $modal.open({
-            templateUrl : '/partials/modalEditUser',
-            controller : sgYesNoModalCtrl,
-            scope : modalScope,
-            size : 'sm'
+            templateUrl: '/partials/modalEditUser',
+            controller: sgYesNoModalCtrl,
+            scope: modalScope,
+            size: 'sm'
         });
 
-        modalInstance.result.then(function(result){
+        modalInstance.result.then(function (result) {
             // check for changes
             var changes = {};
 
@@ -61,10 +61,10 @@ function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
             if (!angular.equals(changes, {})) {
                 // There are changes!
                 $http.put('/api/users/' + user['_id'], JSON.stringify(changes))
-                .then(function(){
-                    $scope.loadData();
-                });
-            }            
+                    .then(function () {
+                        $scope.loadData();
+                    });
+            }
         })
     }
 
