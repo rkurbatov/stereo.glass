@@ -219,50 +219,26 @@ $(function () {
 
     var $scope = angular.element($('#sgRatingsCtrl')).scope();
 
-    $('#rate-colors-selector').on('change', function () {
-        var self = this;
+    $(
+        '#rate-colors-selector, #rate-assortment-selector, #rate-plots-selector,'
+        + ' #rate-countries-selector, #rate-designer-selector'
+    ).on('change', function () {
+            var self = this;
 
-        $scope.$apply(function () {
-            $scope.selection.catColors = $(self).val();
-            $scope.loadData();
-        })
-    });
+            $scope.$apply(function () {
+                console.log($(self).attr('id'));
 
-    $('#rate-assortment-selector').on('change', function () {
-        var self = this;
+                if ($(self).attr('id') === 'rate-colors-selector') $scope.selection.catColors = $(self).val();
+                if ($(self).attr('id') === 'rate-assortment-selector') $scope.selection.catAssortment = $(self).val();
+                if ($(self).attr('id') === 'rate-plots-selector') $scope.selection.catPlots = $(self).val();
+                if ($(self).attr('id') === 'rate-countries-selector') $scope.selection.catCountries = $(self).val();
+                if ($(self).attr('id') === 'rate-designer-selector') $scope.selection.designers = $(self).val();
 
-        $scope.$apply(function () {
-            $scope.selection.catAssortment = $(self).val();
-            $scope.loadData();
-        })
-    });
+                $scope.selectedIndex = -1;
+                $scope.loadData();
+            })
 
-    $('#rate-plots-selector').on('change', function () {
-        var self = this;
-
-        $scope.$apply(function () {
-            $scope.selection.catPlots = $(self).val();
-            $scope.loadData();
-        })
-    });
-
-    $('#rate-countries-selector').on('change', function () {
-        var self = this;
-
-        $scope.$apply(function () {
-            $scope.selection.catCountries = $(self).val();
-            $scope.loadData();
-        })
-    });
-
-    $('#rate-designer-selector').on('change', function () {
-        var self = this;
-
-        $scope.$apply(function () {
-            $scope.selection.designers = $(self).val();
-            $scope.loadData();
-        })
-    });
+        });
 
     $(window).load(function () {
         if ($scope) {
