@@ -1,5 +1,10 @@
 function sgLayoutItemCtrl($scope) {
 
+    $scope.itemClicked = function (index) {
+        $scope.setSelectedIndex(($scope.curPage - 1) * $scope.ipp + index);
+    };
+
+
     $scope.$watch('layout.rating', function (newValue, oldValue) {
         var idx, rs;
 

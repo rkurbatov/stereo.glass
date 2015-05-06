@@ -208,10 +208,9 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
     $scope.$watch('dateRange', $scope.loadData, true);
 
-    $scope.itemClicked = function (index) {
-        $scope.selectedIndex = ($scope.curPage - 1) * $scope.ipp + index;
-    };
-
+    $scope.setSelectedIndex = function (idx) {
+        $scope.selectedIndex = idx
+    }
 }
 
 // jQuery - Angular selector link
