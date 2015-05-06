@@ -47,6 +47,8 @@
                     label.control-label {{layouts[selectedIndex].createdAt | date: 'short'}}
                     br
                     label.control-label(ng-show="selectedIndex !== -1") Оценок: {{layouts[selectedIndex].ratings.length}}
+                    br
+                    label.control-label(ng-show="selectedIndex !== -1") Дизайнер: {{layouts[selectedIndex].createdBy}}
 
     .row
         .text-center
