@@ -19,6 +19,7 @@ module.exports = function (mongoose) {
         createdBy: String,
     	createdAt: Date,
         ratings: [Ratings],
+        average: Number,
     	catColors: [String],
     	catPlots: [String],
     	catAssortment: [String],

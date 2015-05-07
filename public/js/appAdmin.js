@@ -13,5 +13,5 @@ var app = angular.module('sgAppAdmin',
     .controller('sgUsersCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgUsersCtrl])
     .controller('sgCategoriesCtrl', ['$scope', '$http', sgCategoriesCtrl])
     .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgRatingsCtrl])
-    .controller('sgLayoutItemCtrl', ['$scope', '$http', '$sce', '$modal', sgLayoutItemCtrl])
+    .controller('sgLayoutItemCtrl', ['$scope', '$http', sgLayoutItemCtrl])
     .directive('sgOnImgload', ['$parse', sgOnImgload]);

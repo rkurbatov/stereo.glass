@@ -9,8 +9,12 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     // Paginator init
 
     $scope.ipp = 12;
+
     $scope.curPage = 1;
     $scope.selectedIndex = -1;
+
+    $scope.layoutOrder = ['average', 'ratigns.length'];
+    $scope.showRated = true;
 
     $scope.username = $cookies.username;
 
@@ -99,7 +103,11 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 selection: JSON.stringify($scope.selection)
             }
         }).then(function (response) {
-            $scope.layouts = response.data;
+            $scope.layouts = response.data.map(function(e){
+                // get rating, set by current user or -1
+                e.rating = (_.pluck(_.where(e.ratings, {'assignedBy': $cookies.username}), 'value')[0]) || -1;
+                return e;
+            });
         });
 
     };
@@ -147,7 +155,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     $scope.getColors = function () {
         if ($scope.selectedIndex === -1) return '';
 
-        return $sce.trustAsHtml($scope.layouts[$scope.selectedIndex].catColors.map(function (v) {
+        return $sce.trustAsHtml($scope.filteredLayouts[$scope.selectedIndex].catColors.map(function (v) {
             switch (v) {
                 case 'black':
                     return "<span class='fa fa-photo sg-" + v + "-i'></span>";
@@ -162,17 +170,17 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     $scope.getValues = function (cat, hash) {
         if ($scope.selectedIndex === -1) return '';
 
-        return $scope.layouts[$scope.selectedIndex][cat].map(function (el) {
+        return $scope.filteredLayouts[$scope.selectedIndex][cat].map(function (el) {
             return $scope[hash][el];
         }).join(', ');
     };
 
     $scope.show2dModal = function () {
-        if ($scope.selectedIndex === -1 || $scope.layouts[$scope.selectedIndex].url2d === '') return undefined;
+        if ($scope.selectedIndex === -1 || $scope.filteredLayouts[$scope.selectedIndex].url2d === '') return undefined;
 
         var modalScope = $scope.$new(true);
         modalScope.idx = $scope.selectedIndex;
-        modalScope.lts = $scope.layouts;
+        modalScope.lts = $scope.filteredLayouts;
 
         $scope.modalImg = $modal.open({
             templateUrl: '/partials/modalimg',
@@ -185,7 +193,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
     $scope.confirmRemove = function (idx) {
         var modalScope = $scope.$new(true);
-        var layout = $scope.layouts[$scope.selectedIndex];
+        var layout = $scope.filteredLayouts[$scope.selectedIndex];
         var id = layout['_id'];
 
         modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
