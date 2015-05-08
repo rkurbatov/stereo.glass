@@ -10,16 +10,34 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
     // Paginator init
     $scope.pager = {
-        ipps : [12, 24, 36],    // possible images per page values
-        ipp  : 12,              // default IPP
+        ipps : [12, 18, 24, 36],    // possible images per page values
         curPage : 1,
-        selectedIndex : -1      // default - unselected
+        selectedIndex : -1,     // default - unselected
+        layoutOrders : [
+            {
+                name: "По дате (старых к новым)",
+                value: ['createdAt']
+            },
+            {
+                name: "По дате (от новых к старым)",
+                value: ['-createdAt']
+            },
+            {
+                name: "По возрастанию рейтинга",
+                value: ['average', 'ratigns.length']
+            },
+            {
+                name: "По убыванию рейтинга",
+                value: ['-average', 'ratigns.length']
+            }
+        ]
     };
 
-    $scope.layoutOrder = ['average', 'ratigns.length'];
-    $scope.showRated = true;
+    $scope.pager.ipp  = $scope.pager.ipps[0];              // default IPP
+    $scope.pager.layoutOrder = $scope.pager.layoutOrders[0];
 
-    $scope.username = $cookies.username;
+
+        $scope.username = $cookies.username;
 
     // Range date init
 

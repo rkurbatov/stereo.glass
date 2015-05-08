@@ -7,18 +7,18 @@
                 button.btn.btn-primary.pull-right.col-xs-6(ng-click="resetAll()") Сбросить все фильтры
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-colors-selector')") Цвета
-                select#rate-colors-selector.selectpicker(multiple data-width='50%')
+                select#rate-colors-selector.selectpicker(multiple data-width='50%' data-none-selected-text="Все")
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-assortment-selector')") Ассортимент
-                select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
+                select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Весь")
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-plots-selector')") Сюжеты
-                select#rate-plots-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
+                select#rate-plots-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Все")
             .form-group
                 label.col-xs-6.control-label(ng-click="reset('#rate-countries-selector')") Страны
-                select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%')
+                select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Международный")
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')") Дизайнер
+                label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')" data-none-selected-text="Все") Дизайнеры
                 select#rate-designer-selector.selectpicker(multiple data-width='50%')
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
@@ -57,13 +57,15 @@
         .form-horizontal
             .form-group
                 dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="pager.selectedIndex = -1")
-                &nbsp;
+                | &nbsp;
                 select.form-control(ng-model="pager.ipp" ng-options="opt for opt in pager.ipps")
+                | &nbsp;
+                select.form-control(ng-model="pager.layoutOrder" ng-options="opt.name for opt in pager.layoutOrders")
 
                                         
     .row
         ul.sg-layoutlist
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | orderBy: pager.layoutOrder) | itemsPerPage: pager.ipp" current-page="pager.curPage" ng-controller='sgLayoutItemCtrl')
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" current-page="pager.curPage" ng-controller='sgLayoutItemCtrl')
                 .sg-layoutblock(ng-class="{ 'selected': $index == pager.selectedIndex - (pager.curPage-1) * pager.ipp }")
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()")
                     .sg-rating-block.text-center
