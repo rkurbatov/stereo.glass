@@ -24,11 +24,11 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
             },
             {
                 name: "По возрастанию рейтинга",
-                value: ['average', 'ratigns.length']
+                value: ['average']
             },
             {
                 name: "По убыванию рейтинга",
-                value: ['-average', 'ratigns.length']
+                value: ['-average']
             }
         ]
     };
@@ -127,6 +127,8 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
             $scope.layouts = response.data.map(function(e){
                 // get rating, set by current user or -1
                 e.rating = (_.pluck(_.where(e.ratings, {'assignedBy': $cookies.username}), 'value')[0]) || -1;
+                // needed for correct order
+                e.average = e.average || -1;
                 return e;
             });
         });

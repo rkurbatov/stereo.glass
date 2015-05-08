@@ -4,6 +4,7 @@
         i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-show="imgIsLoading")
         .sg-rating-block
             rating(ng-model='lts[idx].rating' max='3' state-on='fa-star')
+            | {{ lts[idx].ratings.length }} голосов / {{ lts[idx].average > -1 ? lts[idx].average : 0 }} средний балл
 .modal-body(ng-keypress="key($event)" tabindex="0")
     a.carousel-control.left(href="" ng-click='prevImg()' ng-show="idx !== 0")
         span.glyphicon.glyphicon-chevron-left

@@ -22,7 +22,7 @@
                 select#rate-designer-selector.selectpicker(multiple data-width='50%')
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
-                input#rate-daterange.date-picker(date-range-picker, type="text",
+                input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
                      ng-model="dateRange", options="dpopts")
         .col-xs-8
             .layout-info
@@ -68,4 +68,5 @@
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()")
                     .sg-rating-block.text-center
                             rating(ng-model='layout.rating' max='3' state-on='fa-star')
+                            | {{ layout.ratings.length }} / {{ layout.average > -1 ? layout.average : 0 }}
                     .sg-layoutname.text-center {{layout.name}}
