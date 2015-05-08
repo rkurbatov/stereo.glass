@@ -23,12 +23,20 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 value: ['-createdAt']
             },
             {
+                name: "По убыванию рейтинга",
+                value: ['-average']
+            },
+            {
                 name: "По возрастанию рейтинга",
                 value: ['average']
             },
             {
-                name: "По убыванию рейтинга",
-                value: ['-average']
+                name: "По уменьшению числа оценивших",
+                value: ['-ratings.length']
+            },
+            {
+                name: "По увеличению числа оценивших",
+                value: ['ratings.length']
             }
         ]
     };
