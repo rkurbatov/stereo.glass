@@ -10,10 +10,10 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
     // Paginator init
     $scope.pager = {
-        ipps : [12, 18, 24, 36],    // possible images per page values
-        curPage : 1,
-        selectedIndex : -1,     // default - unselected
-        layoutOrders : [
+        ipps: [12, 18, 24, 36],    // possible images per page values
+        curPage: 1,
+        selectedIndex: -1,     // default - unselected
+        layoutOrders: [
             {
                 name: "По дате (старых к новым)",
                 value: ['createdAt']
@@ -38,14 +38,33 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 name: "По увеличению числа оценивших",
                 value: ['ratings.length']
             }
+        ],
+        layoutFilters: [
+            {
+                name: "Показывать все",
+                value: {}
+            },
+            {
+                name: "Скрывать оцененные мной",
+                value: function(v){
+                    return v.rating === -1 ;
+                }
+            },
+            {
+                name: "Показать только оцененные мной",
+                value: function(v){
+                    return v.rating > -1;
+                }
+            }
         ]
     };
 
-    $scope.pager.ipp  = $scope.pager.ipps[0];              // default IPP
+    $scope.pager.ipp = $scope.pager.ipps[0];              // default IPP
     $scope.pager.layoutOrder = $scope.pager.layoutOrders[0];
+    $scope.pager.layoutFilter = $scope.pager.layoutFilters[0];
 
 
-        $scope.username = $cookies.username;
+    $scope.username = $cookies.username;
 
     // Range date init
 
@@ -132,7 +151,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 selection: JSON.stringify($scope.selection)
             }
         }).then(function (response) {
-            $scope.layouts = response.data.map(function(e){
+            $scope.layouts = response.data.map(function (e) {
                 // get rating, set by current user or -1
                 e.rating = (_.pluck(_.where(e.ratings, {'assignedBy': $cookies.username}), 'value')[0]) || -1;
                 // needed for correct order
@@ -252,7 +271,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         $scope.pager.selectedIndex = idx
     };
 
-    $scope.getRatingClassName = function(lt) {
+    $scope.getRatingClassName = function (lt) {
 
         var result;
 
@@ -261,7 +280,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         else result = "glyphicon-star-empty ";
 
         // Style for different ratings
-        if (lt.average > 0 && lt.average <= 1 ) result += 'sg-bronze-i';
+        if (lt.average > 0 && lt.average <= 1) result += 'sg-bronze-i';
         else if (lt.average > 1 && lt.average < 2.5) result += 'sg-silver-i';
         else if (lt.average > 2.5) result += 'sg-gold-i';
 

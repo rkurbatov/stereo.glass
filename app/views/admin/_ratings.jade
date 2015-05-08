@@ -26,11 +26,13 @@
         .col-xs-8
             .layout-info
                 .form-group
+                    select.form-control(style="width: auto; display: inline-block;" ng-model="pager.layoutFilter" ng-options="opt.name for opt in pager.layoutFilters")
+                    | &nbsp; &nbsp;
                     button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать в галерее
                     | &nbsp; &nbsp;
                     //- REMOVE Button
                     if user.role === 'admin' || user.role === 'designer'
-                        i.fa.fa-remove.sg-red-i.sg-shadowed-text(style="cursor:pointer; font-size: 2em; vertical-align: middle;"
+                        i.fa.fa-remove.sg-red-i.sg-shadowed-text.pull-right(style="cursor:pointer; font-size: 2em; vertical-align: middle;"
                                     ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
                 .form-group
                     label.control-label(ng-bind-html="getColors()")
@@ -60,7 +62,7 @@
 
     .row
         ul.sg-layoutlist
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" current-page="pager.curPage" ng-controller='sgLayoutItemCtrl')
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" current-page="pager.curPage" ng-controller='sgLayoutItemCtrl')
                 .sg-layoutblock(ng-class="{ 'selected': $index == pager.selectedIndex - (pager.curPage-1) * pager.ipp }")
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()")
                     .sg-rating-block.text-center
