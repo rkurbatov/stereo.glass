@@ -1,7 +1,7 @@
 function sgLayoutItemCtrl($scope, $http) {
 
     $scope.itemClicked = function (index) {
-        $scope.setSelectedIndex(($scope.curPage - 1) * $scope.ipp + index);
+        $scope.setSelectedIndex(($scope.pager.curPage - 1) * $scope.pager.ipp + index);
     };
 
 
@@ -49,6 +49,7 @@ function sgLayoutItemCtrl($scope, $http) {
         if (rateArr.length === 0) {
             return 0
         } else {
+            // mean of ratings, taken from coefficient table.
             avg = _.sum( _.map(_.pluck(rateArr, 'value'), function (e) {return coef[e]})) / _.size(rateArr);
             return Number(avg.toFixed(2));
         }   

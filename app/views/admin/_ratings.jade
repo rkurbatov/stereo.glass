@@ -34,33 +34,37 @@
                     //-| &nbsp;&nbsp;
                     if user.role === 'admin' || user.role === 'designer'
                         i.fa.fa-remove.sg-red-i(style="cursor:pointer; font-size: 1.5em;"
-                                    ng-show="selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
+                                    ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
                 .form-group
                     label.control-label(ng-bind-html="getColors()")
-                    label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catAssortment', 'assortmentHash')")
-                    label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catPlots', 'plotsHash')")
-                    label(ng-show="selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catCountries', 'countriesHash')")
                     br    
-                    label.control-label {{layouts[selectedIndex].createdAt | date: 'short'}}
+                    label.control-label {{layouts[pager.selectedIndex].createdAt | date: 'short'}}
                     br
-                    label.control-label(ng-show="selectedIndex !== -1") Оценок: {{layouts[selectedIndex].ratings.length}}
+                    label.control-label(ng-show="pager.selectedIndex !== -1") Оценок: {{layouts[pager.selectedIndex].ratings.length}}
                     br
-                    label.control-label(ng-show="selectedIndex !== -1") Дизайнер: {{layouts[selectedIndex].createdBy}}
+                    label.control-label(ng-show="pager.selectedIndex !== -1") Дизайнер: {{layouts[pager.selectedIndex].createdBy}}
                     .form-group
                         label.control-label Комментарий дизайнера
-                        textarea#designer-layout-comment.form-control(rows='2', readonly, ng-model="layouts[selectedIndex].designerComment")
+                        textarea#designer-layout-comment.form-control(rows='2', readonly, ng-model="layouts[pager.selectedIndex].designerComment")
 
     .row
-        .text-center
-            dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="selectedIndex = -1")
-            {{ ipp }}
+        .form-horizontal
+            .form-group
+                dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="pager.selectedIndex = -1")
+                &nbsp;
+                select.form-control(ng-model="pager.ipp" ng-options="opt for opt in pager.ipps")
+
+                                        
     .row
         ul.sg-layoutlist
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | orderBy: layoutOrder) | itemsPerPage: ipp" current-page="curPage" ng-controller='sgLayoutItemCtrl')
-                .sg-layoutblock(ng-class="{ 'selected': $index == selectedIndex - (curPage-1)*ipp }")
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | orderBy: pager.layoutOrder) | itemsPerPage: pager.ipp" current-page="pager.curPage" ng-controller='sgLayoutItemCtrl')
+                .sg-layoutblock(ng-class="{ 'selected': $index == pager.selectedIndex - (pager.curPage-1) * pager.ipp }")
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()")
                     .sg-rating-block.text-center
                             rating(ng-model='layout.rating' max='3' state-on='fa-star')

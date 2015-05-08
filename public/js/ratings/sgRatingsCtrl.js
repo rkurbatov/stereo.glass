@@ -1,17 +1,20 @@
 function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     'use strict';
 
+    $scope.pager = {};
+
     // Init controller
 
     $scope.selection = {};
     $scope.designers = [];
 
     // Paginator init
-
-    $scope.ipp = 12;
-
-    $scope.curPage = 1;
-    $scope.selectedIndex = -1;
+    $scope.pager = {
+        ipps : [12, 24, 36],    // possible images per page values
+        ipp  : 12,              // default IPP
+        curPage : 1,
+        selectedIndex : -1      // default - unselected
+    };
 
     $scope.layoutOrder = ['average', 'ratigns.length'];
     $scope.showRated = true;
@@ -153,9 +156,9 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
 
     $scope.getColors = function () {
-        if ($scope.selectedIndex === -1) return '';
+        if ($scope.pager.selectedIndex === -1) return '';
 
-        return $sce.trustAsHtml($scope.filteredLayouts[$scope.selectedIndex].catColors.map(function (v) {
+        return $sce.trustAsHtml($scope.filteredLayouts[$scope.pager.selectedIndex].catColors.map(function (v) {
             switch (v) {
                 case 'black':
                     return "<span class='fa fa-photo sg-" + v + "-i'></span>";
@@ -168,18 +171,18 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     };
 
     $scope.getValues = function (cat, hash) {
-        if ($scope.selectedIndex === -1) return '';
+        if ($scope.pager.selectedIndex === -1) return '';
 
-        return $scope.filteredLayouts[$scope.selectedIndex][cat].map(function (el) {
+        return $scope.filteredLayouts[$scope.pager.selectedIndex][cat].map(function (el) {
             return $scope[hash][el];
         }).join(', ');
     };
 
     $scope.show2dModal = function () {
-        if ($scope.selectedIndex === -1 || $scope.filteredLayouts[$scope.selectedIndex].url2d === '') return undefined;
+        if ($scope.pager.selectedIndex === -1 || $scope.filteredLayouts[$scope.pager.selectedIndex].url2d === '') return undefined;
 
         var modalScope = $scope.$new(true);
-        modalScope.idx = $scope.selectedIndex;
+        modalScope.idx = $scope.pager.selectedIndex;
         modalScope.lts = $scope.filteredLayouts;
 
         $scope.modalImg = $modal.open({
@@ -193,7 +196,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
     $scope.confirmRemove = function (idx) {
         var modalScope = $scope.$new(true);
-        var layout = $scope.filteredLayouts[$scope.selectedIndex];
+        var layout = $scope.filteredLayouts[$scope.pager.selectedIndex];
         var id = layout['_id'];
 
         modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
@@ -217,7 +220,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     $scope.$watch('dateRange', $scope.loadData, true);
 
     $scope.setSelectedIndex = function (idx) {
-        $scope.selectedIndex = idx
+        $scope.pager.selectedIndex = idx
     }
 }
 
@@ -242,7 +245,7 @@ $(function () {
                 if ($(self).attr('id') === 'rate-countries-selector') $scope.selection.catCountries = $(self).val();
                 if ($(self).attr('id') === 'rate-designer-selector') $scope.selection.designers = $(self).val();
 
-                $scope.selectedIndex = -1;
+                $scope.pager.selectedIndex = -1;
                 $scope.loadData();
             })
 
