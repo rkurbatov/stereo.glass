@@ -2,7 +2,7 @@ function sgLayoutItemCtrl($scope, $http) {
 
     $scope.itemClicked = function (index) {
         $scope.setSelectedIndex(($scope.pager.curPage - 1) * $scope.pager.ipp + index);
-        console.log($scope.layouts[($scope.pager.curPage - 1) * $scope.pager.ipp + index])
+        console.log($scope.filteredLayouts[($scope.pager.curPage - 1) * $scope.pager.ipp + index])
     };
 
 
