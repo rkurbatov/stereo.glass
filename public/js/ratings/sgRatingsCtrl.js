@@ -210,6 +210,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         if ($scope.pager.selectedIndex === -1 || $scope.filteredLayouts[$scope.pager.selectedIndex].url2d === '') return undefined;
 
         var modalScope = $scope.$new(true);
+        modalScope.getRatingClassName = $scope.getRatingClassName;
         modalScope.idx = $scope.pager.selectedIndex;
         modalScope.lts = $scope.filteredLayouts;
 
@@ -249,6 +250,22 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
     $scope.setSelectedIndex = function (idx) {
         $scope.pager.selectedIndex = idx
+    };
+
+    $scope.getRatingClassName = function(lt) {
+
+        var result;
+
+        // Style for rated and unrated layouts
+        if (lt.ratings.length > 0) result = "glyphicon-star ";
+        else result = "glyphicon-star-empty ";
+
+        // Style for different ratings
+        if (lt.average > 0 && lt.average <= 1 ) result += 'sg-bronze-i';
+        else if (lt.average > 1 && lt.average < 2.5) result += 'sg-silver-i';
+        else if (lt.average > 2.5) result += 'sg-gold-i';
+
+        return result;
     }
 }
 
@@ -265,7 +282,6 @@ $(function () {
             var self = this;
 
             $scope.$apply(function () {
-                console.log($(self).attr('id'));
 
                 if ($(self).attr('id') === 'rate-colors-selector') $scope.selection.catColors = $(self).val();
                 if ($(self).attr('id') === 'rate-assortment-selector') $scope.selection.catAssortment = $(self).val();

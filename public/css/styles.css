@@ -30,6 +30,18 @@
     color: black !important;
 }
 
+.sg-gold-i {
+    color: #D9A441 !important;
+}
+
+.sg-silver-i {
+    color: silver !important;
+}
+
+.sg-bronze-i {
+    color: #8C7853 !important;
+}
+
 .sg-multicolor {
     color: darkgray !important;
 }
@@ -81,8 +93,12 @@ ul.sg-layoutlist li {
     height: 270px;
 }
 
+.sg-rating-block span {
+    outline: none;
+}
+
 .sg-rating-block i {
-    color: goldenrod;
+    color: #23527c;
     font-size: 20px;
     text-shadow: 1px 1px 2px rgba(150, 150, 150, 0.75);
 }

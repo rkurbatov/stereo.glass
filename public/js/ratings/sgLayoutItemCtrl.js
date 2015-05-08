@@ -55,7 +55,6 @@ function sgLayoutItemCtrl($scope, $http) {
             return Number(avg.toFixed(2));
         }   
 
-    }
-
+    };
 
 }

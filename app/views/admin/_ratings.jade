@@ -67,6 +67,8 @@
                 .sg-layoutblock(ng-class="{ 'selected': $index == pager.selectedIndex - (pager.curPage-1) * pager.ipp }")
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()")
                     .sg-rating-block.text-center
-                            rating(ng-model='layout.rating' max='3' state-on='fa-star')
-                            | {{ layout.ratings.length }} / {{ layout.average > -1 ? layout.average : 0 }}
+                        i.glyphicon(ng-class="getRatingClassName(layout)")
+                        b {{ layout.ratings.length }}
+                        | &nbsp
+                        rating(ng-model='layout.rating' max='3')
                     .sg-layoutname.text-center {{layout.name}}
