@@ -39,9 +39,7 @@ function sgCategoriesCtrl($scope, $http) {
     }).then(function (response) {
         $('#countries-selector')
             .html(catToHtml(response.data))
-            .selectpicker('refresh')
-            .selectpicker('val', 'international')
-            .parent('.form-group.sg-validable').removeClass('has-error');
+            .selectpicker('refresh');
         $('#rate-countries-selector').html(catToHtml(response.data)).selectpicker('refresh');
 
     });

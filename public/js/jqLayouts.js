@@ -12,10 +12,12 @@
 
     $(window).load(function () {
 
+
         var $observableLayouts = $('#admin-layouts .sg-observable');
 
         $('#reset-layout').on('click', resetCurrentLayout);
         $('#save-layout').on('click', checkForExistenceAndSave);
+
         // check all changes of observable form fileds
         $observableLayouts.on('change fileclear input', checkCurrentLayout);
         $('#upload-2d').on('fileloaded', function (e, file) {
@@ -27,15 +29,7 @@
         });
 
         initiateUploaders();
-
         resetCurrentLayout();
-
-        $('.sg-multicolor').animate({color: '#909090'}, 500);
-        setInterval(function() {
-            var theColors = ['#ff0000', '#ffa500','#8b4513', '#008000', '#1e80a0', '#8b008b'];
-            var theColor = theColors[Math.floor(Math.random()*theColors.length)];
-            $('.sg-multicolor').animate({color: theColor}, 1000);
-        }, 1000);
 
         function resetCurrentLayout() {
             $observableLayouts.each(function (i, el) {
@@ -44,16 +38,11 @@
 
 
             $('#upload-2d').fileinput('reset');
-            $('#upload-3d').fileinput('reset');
-            $('#upload-layout').fileinput('reset');
 
             $('#colors-selector').selectpicker('deselectAll');
             $('#plots-selector').selectpicker('deselectAll');
             $('#assortment-selector').selectpicker('deselectAll');
-            $('#countries-selector').selectpicker('deselectAll')
-                .selectpicker('val', 'international')
-                .selectpicker('refresh')
-                .parents('.form-group.sg-validable').removeClass('has-error');
+            $('#countries-selector').selectpicker('deselectAll');
 
             $('#designer-layout-name').val('');
             $('#designer-layout-comment').val('');
@@ -87,11 +76,7 @@
 
             // deferreds for upload 2d, upload 3d and layout files
             var $u2d = $('#upload-2d'),
-                $u3d = $('#upload-3d'),
-                $ult = $('#upload-layout'),
-                u2dDef = $.Deferred(),
-                u3dDef = $.Deferred(),
-                ultDef = $.Deferred();
+                u2dDef = $.Deferred();
 
             var layoutData = {
                 name: $('#designer-layout-name').val(),
@@ -107,18 +92,6 @@
             $('#save-layout').addClass('disabled');
             $u2d.fileinput('setPrependData', 'uploadDir', dir);
             $u2d.fileinput('upload').one('fileuploaded', l2dUploadedHandler);
-            if ($u3d.val()) {
-                $u3d.fileinput('setPrependData', 'uploadDir', dir);
-                $u3d.fileinput('upload').one('fileuploaded', l3dUploadedHandler);
-            } else {
-                u3dDef.resolve();
-            }
-            if ($ult.val()) {
-                $ult.fileinput('setPrependData', 'uploadDir', dir);
-                $ult.fileinput('upload').one('fileuploaded', layoutUploadedHandler);
-            } else {
-                ultDef.resolve();
-            }
 
             function l2dUploadedHandler(e, data) {
                 layoutData.url2d = data.response.filenames[0];
@@ -127,18 +100,7 @@
                 u2dDef.resolve();
             }
 
-            function l3dUploadedHandler(e, data) {
-                layoutData.url3d = data.response.filenames[0];
-                $u3d.fileinput('clear');
-                u3dDef.resolve();
-            }
-
-            function layoutUploadedHandler(e, data) {
-                $ult.fileinput('clear');
-                layoutData.urlLayout = data.response.filenames;
-            }
-
-            $.when(u2dDef, u3dDef, ultDef).done(function resolveUploads() {
+            $.when(u2dDef).done(function resolveUploads() {
                 var errMsg;
 
                 $.ajax({
@@ -219,19 +181,6 @@
                 showUpload: false,
                 allowedFileExtensions: ['jpg', 'jpeg', 'png'],
                 uploadUrl: '/api/upload?thumb=true',
-                dropZoneEnabled: false
-            });
-
-            $('#upload-3d').fileinput({
-                showUpload: false,
-                allowedFileExtensions: ['gif'],
-                uploadUrl: '/api/upload',
-                dropZoneEnabled: false
-            });
-
-            $('#upload-layout').fileinput({
-                showUpload: false,
-                uploadUrl: '/api/upload',
                 dropZoneEnabled: false
             });
         }
