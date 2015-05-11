@@ -260,7 +260,11 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
             $http.delete('/api/layouts', {
                 params: {'_id': id}
             }).then(function (response) {
-                if (response.status === 200) $scope.loadData();
+                if (response.status === 200) {
+                    // check if removing last added image
+                    if ($scope.pager.selectedIndex === $scope.layouts.length - 1) $scope.pager.selectedIndex -= 1 ;
+                    $scope.loadData();
+                }
             });
         });
     };
