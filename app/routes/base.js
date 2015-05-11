@@ -4,12 +4,12 @@ module.exports = function (express, Account) {
     var Router = express.Router();
 
     // server routes ===========================================================
-    Router.get(['/', '/about', '/shop', '/dealers', '/contacts'], function(req, res, next){
-        res.render('main/index', { url: req.originalUrl });
-    });
+    /*Router.get(['/'], function(req, res, next){
+        res.render('admin/index', { url: req.originalUrl });
+    });*/
 
     // admin interface
-    Router.get(['/admin', '/designer', '/founder'], function (req, res, next) {
+    Router.get(['/', '/admin'], function (req, res, next) {
         if (req.isAuthenticated()) {
             if (req.user._id) {
                 Account.findByIdAndUpdate(req.user._id, {activeAt: new Date}, function (err) {
