@@ -116,3 +116,12 @@ ul.sg-layoutlist li {
     line-height: 32px;
     margin: 20px 15px 5px;
 }
+
+/* Img crop container */
+
+img.sg-cropped {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border: 1px solid lightgray;
+}
