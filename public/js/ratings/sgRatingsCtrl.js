@@ -130,7 +130,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         });
 
     $http.get('/api/users', {
-        params: {roles: JSON.stringify(['designer'])}
+        params: {roles: JSON.stringify(['designer', 'founder'])}
     })
         .then(function (response) {
             $scope.designers = response.data.map(function (el) {
