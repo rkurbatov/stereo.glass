@@ -4,6 +4,12 @@ block content
         ul#tabs.nav.nav-tabs(data-tabs="tabs")
 
             //- Users tab header
+            if user.role === 'admin'
+                li: a(href='#admin-test', data-toggle='tab')
+                    span.fa.fa-wrench
+                    |  Тест
+
+            //- Users tab header
             if user.role === 'admin'            
                 li.active: a(href='#admin-users', data-toggle='tab')
                     span.fa.fa-users
@@ -14,7 +20,7 @@ block content
                 li.active: a(href='#admin-layouts', data-toggle='tab')
                     span.fa.fa-picture-o
                     |  Загрузка картинок
-            if user.role === 'admin'
+            if user.role === 'admin' || user.role === 'founder'
                 li: a(href='#admin-layouts', data-toggle='tab')
                     span.fa.fa-picture-o
                     |  Загрузка картинок
@@ -55,10 +61,15 @@ block content
         #tabs-content.tab-content
 
             if user.role === 'admin'
+                #admin-test.tab-pane
+                    include ./_test
+
+
+            if user.role === 'admin'
                 #admin-users.tab-pane.active
                     include ./_users
 
-            if user.role === 'admin' 
+            if user.role === 'admin' || user.role === 'founder'
                 #admin-layouts.tab-pane
                     include ./_layouts
             if user.role === 'designer'
