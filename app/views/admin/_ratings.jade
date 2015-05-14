@@ -22,7 +22,7 @@
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
-                     ng-model="dateRange", options="dpopts")
+                ng-model="dateRange", options="dpopts")
         .col-xs-8
             .layout-info
                 .form-group
@@ -33,7 +33,7 @@
                     //- REMOVE Button
                     if user.role === 'admin' || user.role === 'designer'
                         i.fa.fa-remove.sg-red-i.sg-shadowed-text.pull-right(style="cursor:pointer; font-size: 2em; vertical-align: middle;"
-                                    ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
+                        ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
                 .form-group
                     label.control-label(ng-bind-html="getColors()")
                     label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
@@ -42,7 +42,7 @@
                     label.control-label(ng-bind="getValues('catPlots', 'plotsHash')")
                     label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catCountries', 'countriesHash')")
-                    br    
+                    br
                     label.control-label {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
                     br
                     label.control-label(ng-show="pager.selectedIndex !== -1") Оценок: {{filteredLayouts[pager.selectedIndex].ratings.length}}
@@ -67,7 +67,7 @@
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()")
                     .sg-rating-block.text-center
                         i.glyphicon(ng-class="getRatingClassName(layout)")
-                        b {{ layout.ratings.length }}
+                        b {{ layout.average !== -1 ? layout.average : 0 | number : 2 }}/{{ layout.ratings.length }}
                         | &nbsp
                         rating(ng-model='layout.rating' max='3')
                     .sg-layoutname.text-center {{layout.name}}

@@ -4,7 +4,7 @@
         i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-show="imgIsLoading")
         .sg-rating-block
             i.glyphicon(ng-class="getRatingClassName(lts[idx])")
-            b {{ lts[idx].ratings.length }}
+            b {{ lts[idx].average !== -1 ? lts[idx].average : 0 | number : 2 }}/{{ lts[idx].ratings.length }}
             | &nbsp
             rating(ng-model='lts[idx].rating' max='3')
 .modal-body(ng-keypress="key($event)" tabindex="0")
