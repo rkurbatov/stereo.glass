@@ -92,8 +92,8 @@ app.use(function(req, res, next){
 
 // ======== FILES AND VIEWS ========
 // set the static files location /public/img will be /img for users
-app.use(express.static(__dirname + '/public'));
-app.use('/uploads', express.static(__dirname + '/uploads'));
+//app.use(express.static(__dirname + '/public'));
+//app.use('/uploads', express.static(__dirname + '/uploads'));
 //app.use(favicon(__dirname + '/pabulic/favicon.ico'));
 
 app.engine('jade', require('jade').__express);
