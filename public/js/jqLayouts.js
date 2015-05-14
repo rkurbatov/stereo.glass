@@ -12,7 +12,6 @@
 
     $(window).load(function () {
 
-
         var $observableLayouts = $('#admin-layouts .sg-observable');
 
         $('#reset-layout').on('click', resetCurrentLayout);
@@ -72,7 +71,8 @@
 
         function saveCurrentLayout() {
             // set name of layout upload subdirectory
-            var dir = 'layout-' + String(new Date().getTime());
+            var dir = 'layouts-' + moment().format('YYYY-MM-DD');
+
 
             // deferreds for upload 2d, upload 3d and layout files
             var $u2d = $('#upload-2d'),
@@ -151,7 +151,6 @@
             if ($('#colors-selector').val() &&
                 $('#plots-selector').val() &&
                 $('#assortment-selector').val() &&
-                $('#countries-selector').val() &&
                 $('#upload-2d').val() &&
                 $('#designer-layout-name').val()) {
                 $('#save-layout').removeClass('disabled');
@@ -282,7 +281,6 @@
         });
         avgSat = avgSat / (length / 4);
 
-        //console.log(hueArray, avgSat);
         var cs = $('#colors-selector');
 
         if (avgSat < 10 || hueArray[7] > 80) {                  // b&w
