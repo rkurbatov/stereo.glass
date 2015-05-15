@@ -95,6 +95,10 @@ module.exports = function (app, express, mongoose, Account) {
                     tmpArr.push({catCountries: {$in: sel.catCountries}});
                 }
 
+                if (sel.catPlots && sel.catPlots.length > 0) {
+                    tmpArr.push({catPlots: {$in: sel.catPlots}});
+                }
+
                 if (sel.designers && sel.designers.length > 0) {
                     tmpArr.push({createdBy: {$in: sel.designers}});
                 }
