@@ -24,10 +24,10 @@ function sgLayoutItemCtrl($scope, $http) {
                 });
             }
 
-            $scope.layout.average = calcAverage($scope.layout.ratings);
+            $scope.layout.average = $scope.calcAverage($scope.layout.ratings);
 
             $http.put(
-                '/api/layout/' + $scope.layout['_id'] + '/rating/' + newValue + '/average/' + $scope.layout['average']
+                '/api/layout/' + $scope.layout['_id'] + '/rating/' + newValue
             )
             .then(function(result){
                 console.log(result);
@@ -35,25 +35,5 @@ function sgLayoutItemCtrl($scope, $http) {
 
         }
     });
-
-    var calcAverage = function(rateArr){
-
-        var coef = {
-            1: 0,
-            2: 1,
-            3: 3    
-        };
-
-        var avg;
-
-        if (rateArr.length === 0) {
-            return 0
-        } else {
-            // mean of ratings, taken from coefficient table.
-            avg = _.sum( _.map(_.pluck(rateArr, 'value'), function (e) {return coef[e]})) / _.size(rateArr);
-            return Number(avg.toFixed(2));
-        }   
-
-    };
 
 }

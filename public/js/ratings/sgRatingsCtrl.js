@@ -155,7 +155,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 // get rating, set by current user or -1
                 e.rating = (_.pluck(_.where(e.ratings, {'assignedBy': $cookies.username}), 'value')[0]) || -1;
                 // needed for correct order
-                e.average = e.average || -1;
+                e.average = $scope.calcAverage(e.ratings);
                 return e;
             });
         });
@@ -230,6 +230,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
         var modalScope = $scope.$new(true);
         modalScope.getRatingClassName = $scope.getRatingClassName;
+        modalScope.removeMyRating = $scope.removeMyRating;
         modalScope.idx = $scope.pager.selectedIndex;
         modalScope.lts = $scope.filteredLayouts;
 
@@ -289,7 +290,42 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         else if (lt.average > 2.5) result += 'sg-gold-i';
 
         return result;
-    }
+    };
+
+    $scope.calcAverage = function(rateArr){
+
+        var coef = {
+            1: 1,
+            2: 2,
+            3: 3
+        };
+
+        var avg;
+
+        if (rateArr.length === 0) {
+            return 0
+        } else {
+            // mean of ratings, taken from coefficient table.
+            avg = _.sum( _.map(_.pluck(rateArr, 'value'), function (e) {return coef[e]})) / _.size(rateArr);
+            return Number(avg.toFixed(2));
+        }
+
+    };
+
+    $scope.removeMyRating = function (layout) {
+        var idx = _.findIndex(layout.ratings, {assignedBy: $cookies.username});
+
+        if (idx >-1) {
+            $http.delete('/api/layout/' + layout['_id'] + '/rating')
+                .then(function(response){
+                    if (response.status === 200) {
+                        layout.ratings.splice(idx, 1);
+                        layout.rating = -1;
+                        layout.average = $scope.calcAverage(layout.ratings);
+                    }
+                });
+             }
+    };
 }
 
 // jQuery - Angular selector link
