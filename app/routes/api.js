@@ -66,7 +66,6 @@ module.exports = function (app, express, mongoose, Account) {
                     } else {
                         res.status(404).send({error: 'entry not found'});
                     }
-                    ;
                 });
             } else {
                 res.status(400).send('bad request');
@@ -139,7 +138,6 @@ module.exports = function (app, express, mongoose, Account) {
                     } else {
                         res.status(404).send({error: 'entry not found'});
                     }
-                    ;
                 });
             } else {
                 res.status(400).send('bad request');
@@ -222,12 +220,12 @@ module.exports = function (app, express, mongoose, Account) {
     });
 
     // Add rating of current user and updated average to layout
-    Router.put('/layout/:id/rating/:value/average/:average', function (req, res) {
+    Router.put('/layout/:id/rating/:value', function (req, res) {
         if (req.isAuthenticated()) {
- 
+
             console.log(req.params);
 
-             Layout.findById({'_id': req.params.id}, function(err, found){
+            Layout.findById({'_id': req.params.id}, function (err, found) {
                 if (err) {
                     console.log("Error adding new rating", err);
                     return res.status(500).send('server error').end();
@@ -243,13 +241,12 @@ module.exports = function (app, express, mongoose, Account) {
                     found.ratings.push({value: req.params.value, assignedBy: req.user.username});
                 }
 
-                found.average = req.params.average;
-
-                found.save(function(err){
+                found.save(function (err) {
                     if (err) {
                         console.log("Error adding new rating", err);
                         return res.status(500).send('server error').end();
                     }
+                    else return res.status(200).json({status: 'ok'}).end();
                 })
             })
 
@@ -257,6 +254,37 @@ module.exports = function (app, express, mongoose, Account) {
             res.status(403).send('forbidden').end();
         }
 
+    });
+
+    Router.delete('/layout/:id/rating', function(req, res) {
+        if (req.isAuthenticated()) {
+
+            Layout.findById({'_id': req.params.id}, function (err, found) {
+                if (err) {
+                    console.log("Error adding new rating", err);
+                    return res.status(500).send('server error').end();
+                }
+
+                if (!found) return res.status(404).send('rating not found').end();
+
+                var idx = _.findIndex(found.ratings, {assignedBy: req.user.username});
+
+                if (idx > -1) {
+                    found.ratings.splice(idx,1);
+                }
+
+                found.save(function (err) {
+                    if (err) {
+                        console.log("Error adding new rating", err);
+                        return res.status(500).json({status: 'server error'}).end();
+                    }
+                    else return res.status(200).json({status: 'ok'}).end();
+                })
+            })
+
+        } else {
+            res.status(403).send('forbidden').end();
+        }
     });
 
     return Router;

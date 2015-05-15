@@ -4,7 +4,8 @@ var app = angular.module('sgAppAdmin',
         'angularUtils.directives.dirPagination',
         'daterangepicker',
         'ui.bootstrap',
-        'ngCookies'
+        'ngCookies',
+        'hmTouchEvents'
     ])
     .constant('_', window._)        // use lodash as $rootScope constant
     .run(function ($rootScope) {

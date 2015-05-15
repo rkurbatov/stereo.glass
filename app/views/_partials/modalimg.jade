@@ -3,7 +3,7 @@
     .modal-title Просмотр изображений. {{idx + 1}} из {{lts.length}} &nbsp;
         i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-show="imgIsLoading")
         .sg-rating-block
-            i.glyphicon(ng-class="getRatingClassName(lts[idx])")
+            i.glyphicon(ng-class="getRatingClassName(lts[idx])" ng-dblclick="removeMyRating(lts[idx])" hm-tap="removeMyRating(lts[idx])")
             b {{ lts[idx].average !== -1 ? lts[idx].average : 0 | number : 2 }}/{{ lts[idx].ratings.length }}
             | &nbsp
             rating(ng-model='lts[idx].rating' max='3')
