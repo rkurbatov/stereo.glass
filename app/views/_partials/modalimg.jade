@@ -1,12 +1,14 @@
 .modal-header
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="close()") &times;
+    i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-show="imgIsLoading")
+    .sg-rating-block
+        i.glyphicon(ng-class="getRatingClassName(lts[idx])" ng-dblclick="removeMyRating(lts[idx])" hm-tap="removeMyRating(lts[idx])")
+        b {{ lts[idx].average !== -1 ? lts[idx].average : 0 | number : 2 }}/{{ lts[idx].ratings.length }}
+        | &nbsp;&nbsp;
+        i.fa(ng-class="{'fa-thumbs-o-down': lts[idx].rating != 0, 'fa-thumbs-down': lts[idx].rating == 0}" ng-click='setViewed(lts[idx])')
+        rating(ng-model='lts[idx].rating' max='3')
     .modal-title Просмотр изображений. {{idx + 1}} из {{lts.length}} &nbsp;
-        i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-show="imgIsLoading")
-        .sg-rating-block
-            i.glyphicon(ng-class="getRatingClassName(lts[idx])" ng-dblclick="removeMyRating(lts[idx])" hm-tap="removeMyRating(lts[idx])")
-            b {{ lts[idx].average !== -1 ? lts[idx].average : 0 | number : 2 }}/{{ lts[idx].ratings.length }}
-            | &nbsp
-            rating(ng-model='lts[idx].rating' max='3')
+
 .modal-body(ng-keypress="key($event)" tabindex="0")
     a.carousel-control.left(href="" ng-click='prevImg()' ng-show="idx !== 0")
         span.glyphicon.glyphicon-chevron-left

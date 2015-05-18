@@ -44,14 +44,14 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 name: "Показывать все",
                 value: {}
             },
-            {
-                name: "Скрывать оцененные мной",
+            /*{
+                name: "Скрывать оцененные и просмотренные мной",
                 value: function(v){
                     return v.rating === -1 ;
                 }
-            },
+            },*/
             {
-                name: "Показать только оцененные мной",
+                name: "Показать только оцененные и просмотренные мной",
                 value: function(v){
                     return v.rating > -1;
                 }
@@ -153,7 +153,12 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         }).then(function (response) {
             $scope.layouts = response.data.map(function (e) {
                 // get rating, set by current user or -1
-                e.rating = (_.pluck(_.where(e.ratings, {'assignedBy': $cookies.username}), 'value')[0]) || -1;
+                var rating = _.pluck(_.where(e.ratings, {'assignedBy': $cookies.username}), 'value')[0];
+                if (rating >= 0) {
+                    e.rating = rating;
+                } else {
+                    e.rating = -1;
+                }
                 // needed for correct order
                 e.average = $scope.calcAverage(e.ratings);
                 return e;
@@ -230,6 +235,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
 
         var modalScope = $scope.$new(true);
         modalScope.getRatingClassName = $scope.getRatingClassName;
+        modalScope.setViewed = $scope.setViewed;
         modalScope.removeMyRating = $scope.removeMyRating;
         modalScope.idx = $scope.pager.selectedIndex;
         modalScope.lts = $scope.filteredLayouts;
@@ -273,7 +279,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     $scope.$watch('dateRange', $scope.loadData, true);
 
     $scope.setSelectedIndex = function (idx) {
-        $scope.pager.selectedIndex = idx
+        $scope.pager.selectedIndex = idx;
     };
 
     $scope.getRatingClassName = function (lt) {
@@ -326,6 +332,10 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 });
              }
     };
+
+    $scope.setViewed = function(layout) {
+        layout.rating = 0;
+    }
 }
 
 // jQuery - Angular selector link

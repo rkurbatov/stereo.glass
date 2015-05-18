@@ -47,6 +47,8 @@
                     br
                     label.control-label(ng-show="pager.selectedIndex !== -1") Оценок: {{filteredLayouts[pager.selectedIndex].ratings.length}}
                     br
+                    | {{_.pluck(filteredLayouts[pager.selectedIndex].ratings, 'assignedBy') }}
+                    br
                     label.control-label(ng-show="pager.selectedIndex !== -1") Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
                     .form-group
                         label.control-label Комментарий дизайнера
@@ -62,13 +64,14 @@
 
     .row
         ul.sg-layoutlist
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" current-page="pager.curPage" ng-controller='sgLayoutItemCtrl')
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" current-page="pager.curPage")
                 .sg-layoutblock(ng-class="{ 'selected': $index == pager.selectedIndex - (pager.curPage-1) * pager.ipp }")
-                    img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()" hm-swipeup="itemClicked($index); show2dModal()")
+                    img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()" hm-swipeup="itemClicked($index); show2dModal()" ng-controller='sgLayoutItemCtrl')
                     .sg-rating-block.text-center
                         span
                             i.glyphicon(ng-class="getRatingClassName(layout)" ng-dblclick="removeMyRating(layout)" hm-tap="removeMyRating(layout)")
                         b {{ layout.average !== -1 ? layout.average : 0 | number : 2 }}/{{ layout.ratings.length }}
-                        | &nbsp
+                        br
+                        i.fa(ng-class="{'fa-thumbs-o-down': layout.rating != 0, 'fa-thumbs-down': layout.rating == 0}" ng-click='setViewed(layout)')
                         rating(ng-model='layout.rating' max='3')
                     .sg-layoutname.text-center {{layout.name}}

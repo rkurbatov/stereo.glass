@@ -44,13 +44,25 @@ function modalPopUpCtrl($scope, $modalInstance) {
 
     function prevImg() {
         if ($scope.idx === 0) return;
-        else $scope.idx -= 1;
+        else {
+            // autoset rating 0
+            if (($scope.lts[$scope.idx]).rating === -1) {
+                ($scope.lts[$scope.idx]).rating = 0;
+            }
+            $scope.idx -= 1;
+        }
         changeUrl();
     }
 
     function nextImg() {
         if ($scope.idx === $scope.lts.length - 1) return;
-        else $scope.idx += 1;
+        else {
+            // autoset rating 0
+            if (($scope.lts[$scope.idx]).rating === -1) {
+                ($scope.lts[$scope.idx]).rating = 0;
+            }
+            $scope.idx += 1;
+        }
         changeUrl();
     }
 

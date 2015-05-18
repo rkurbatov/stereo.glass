@@ -65,7 +65,7 @@ ul.sg-layoutlist li {
 .sg-layoutblock {
     display: block;
     width: 165px;
-    height: 205px;
+    height: 225px;
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -131,4 +131,8 @@ img.sg-cropped {
     width: 100px;
     height: 100px;
     border: 1px solid lightgray;
+}
+
+.sg-rating-block i.glyphicon-star, .sg-rating-block i.glyphicon-star-empty {
+    text-indent: 0.3em;
 }

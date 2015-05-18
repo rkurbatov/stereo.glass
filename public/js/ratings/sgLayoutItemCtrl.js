@@ -2,6 +2,7 @@ function sgLayoutItemCtrl($scope, $http) {
 
     $scope.itemClicked = function (index) {
         $scope.setSelectedIndex(($scope.pager.curPage - 1) * $scope.pager.ipp + index);
+        var idx = ($scope.pager.curPage - 1) * $scope.pager.ipp + index;
     };
 
 
@@ -11,7 +12,7 @@ function sgLayoutItemCtrl($scope, $http) {
 
         var idx, rs;
 
-        if (newValue) {
+        //if (newValue) {
             rs = $scope.layout.ratings;
             idx = $scope._.findIndex(rs, {assignedBy: $scope.username});
 
@@ -30,10 +31,10 @@ function sgLayoutItemCtrl($scope, $http) {
                 '/api/layout/' + $scope.layout['_id'] + '/rating/' + newValue
             )
             .then(function(result){
-                console.log(result);
-            })
+                    console.log(result);
+            });
 
-        }
+        //}
     });
 
 }
