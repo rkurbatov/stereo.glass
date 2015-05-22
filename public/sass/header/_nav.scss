@@ -1,0 +1,139 @@
+nav {
+  width: 100%;
+
+  @include on-lg{
+    width: 810px;
+  }
+
+  #menu-top {
+    display: table;
+    text-align: center;
+    width: 100%;
+
+    margin: 0; // prevent bootstrap rearrangement;
+
+    li {
+      display: table-cell;
+      border-left: 1px solid rgba(white, 0.35);
+
+      @include on-sm-plus {
+        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
+      }
+
+      @include border-radius(3px, 3px);
+      background-color: rgb(62, 62, 62);
+      @include filter-gradient(#3e3e3e, #181818, vertical);
+      $experimental-support-for-svg: true;
+      @include background-image(linear-gradient(top, rgba(62, 62, 62, 1) 0%, rgba(57, 57, 57, 1) 6%, rgba(100, 100, 100, 1) 18%, rgba(47, 47, 47, 1) 54%, rgba(44, 44, 44, 1) 77%, rgba(24, 24, 24, 1) 99%));
+      @include box-shadow(rgba(0, 0, 0, .5) 3px 10px 10px -10px);
+
+      &.nav-selected {
+        background-color: rgb(155, 73, 82);
+        @include filter-gradient(#9b4952, #560103, vertical);
+        $experimental-support-for-svg: true;
+        @include background-image(linear-gradient(top, rgba(155, 73, 82, 1) 0%, rgba(155, 54, 66, 1) 6%, rgba(232, 139, 139, 1) 18%, rgba(156, 17, 34, 1) 54%, rgba(155, 9, 26, 1) 77%, rgba(86, 1, 3, 1) 99%));
+      }
+
+      a {
+        display: block;
+        cursor: pointer;
+
+        text-shadow: 0 0 0;
+
+        color: $top-menu-text-color;
+
+        font: 11px/16px "Arial", sans;
+
+        @include on-xs {
+          padding-top: 2px;
+          font: 11px/14px "Airbone";
+        }
+
+        @include on-sm {
+          padding-top: 3px;
+          font: 18px/25px "Airbone";
+        }
+
+        @include on-md {
+          padding-top: 4px;
+          font: 21px/33px "Airbone";
+        }
+
+        @include on-lg {
+          padding-top: 8px;
+          font: 24px/34px "Airbone";
+          text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px, rgba(100, 100, 110, .5) 0 5px 4px;
+        }
+
+
+
+        @include blicker;
+
+        &:hover {
+          color: $top-menu-text-color;
+          transition: background-position 1s linear;
+          background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+        }
+
+        &.hovered {
+          transition: background-position 1s linear;
+          background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+        }
+      }
+    }
+  }
+}
+
+#flag-container {
+  img {
+    @include on-xs-minus {
+      display: none;
+    }
+
+    @include on-xs {
+      vertical-align: -4px;
+      width: 25px;
+      height: 14px;
+
+      margin-left: -2px;
+      margin-right: -1px;
+      padding-bottom: 1px;
+    }
+
+    @include on-sm {
+      vertical-align: -6px;
+      width: 38px;
+      height: 22px;
+
+      margin-left: -5px;
+      margin-right: -4px;
+      padding-bottom: 1px;
+    }
+
+    @include on-md {
+      vertical-align: -8px;
+      width: 49px;
+      height: 28px;
+
+      margin-left: -5px;
+      margin-right: -4px;
+      padding-bottom: 1px;
+    }
+
+    @include on-lg {
+      vertical-align: -8px;
+      width: 56px;
+      height: 32px;
+
+      margin-left: -5px;
+      margin-right: -4px;
+      padding-bottom: 2px;
+    }
+  }
+
+  span {
+    @include on-xs-plus {
+      display: none;
+    }
+  }
+}

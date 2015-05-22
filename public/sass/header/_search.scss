@@ -1,0 +1,79 @@
+form[name=search] {
+  float: right;
+}
+
+#search-input {
+  background-color: rgba($form-bg-color, 0.75);
+
+  margin-top: 4px;
+  height: 16px;
+
+  @include on-sm {
+    margin-top: 6px;
+    height: 20px;
+  }
+
+  @include on-md {
+    margin-top: 6px;
+    height: 24px;
+  }
+
+  @include on-lg {
+    margin-top: 6px;
+    height: 26px;
+  }
+
+  padding: {
+    left: 10px;
+    right: 30px;
+    top: 0;
+    bottom: 0
+  }
+
+  border: 0;
+  border-radius: 10px;
+
+  @include box-shadow(inset rgba(black, 0.5) 0 12px 10px -10px, inset 10px 0px 10px -10px rgba(0, 0, 0, 0.35), inset -10px 0px 10px -10px rgba(0, 0, 0, 0.35));
+
+  @include input-placeholder {
+    font-style: italic;
+  }
+
+  text-align: left;
+  &:focus {
+    outline: 0;
+  }
+
+  & + i.fa {
+    text-shadow: rgba(black, 0.35) 1px 1px 1px;
+    position: relative;
+    z-index: 1;
+
+    margin-right: 0;
+    padding-left: 10px;
+
+    line-height: 7px;
+
+    margin-left: -44px;
+
+    @include on-xs {
+      line-height: 8px;
+    }
+
+    @include on-sm {
+      line-height: 10px;
+      margin-left: -48px;
+    }
+
+    @include on-md {
+      line-height: 14px;
+      margin-left: -64px;
+    }
+
+    @include on-lg {
+      line-height: 16px;
+      margin-left: -80px;
+    }
+  }
+}
+

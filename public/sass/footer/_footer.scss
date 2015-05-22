@@ -1,0 +1,12 @@
+.footer {
+  margin-top: 10px;
+  height: 60px;
+
+  background-color: rgb(62, 62, 62);
+  @include filter-gradient(#3e3e3e, #181818, vertical);
+  $experimental-support-for-svg: true;
+  @include background-image(linear-gradient(top, rgba(62, 62, 62, 1) 0%, rgba(57, 57, 57, 1) 6%, rgba(100, 100, 100, 1) 18%, rgba(47, 47, 47, 1) 54%, rgba(44, 44, 44, 1) 77%, rgba(24, 24, 24, 1) 99%));
+
+  @include border-radius(3px, 3px);
+  @include box-shadow(rgba(black, 0.05) 0 0 5px 5px);
+}
