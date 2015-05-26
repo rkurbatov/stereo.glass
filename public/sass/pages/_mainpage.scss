@@ -28,6 +28,8 @@ section.sg-hor-scroll {
   margin: 0;
 
   & img.bg-room {
+    position: relative;
+    z-index: 11;
     display: block;
     width: 100%;
   }
