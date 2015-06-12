@@ -1,3 +1,9 @@
+.sg-drag-point {
+  color: red;
+  position: fixed;
+  z-index: 1000;
+}
+
 .main-carousel {
   display: none;
 }
@@ -20,6 +26,7 @@
 }
 
 section.sg-hor-scroll {
+  overflow: hidden;
   position: relative;
   display: block;
   float: left;
@@ -29,8 +36,48 @@ section.sg-hor-scroll {
 
   & img.bg-room {
     position: relative;
-    z-index: 11;
+    z-index: 30;
     display: block;
     width: 100%;
   }
+
+  .sg-plate3d {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+  }
+
+  img.sg-fliph {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  img.sg-flipv {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -ms-transform: scaleY(-1);
+    transform: scaleY(-1);
+  }
+
+  img.sg-flipb {
+    -moz-transform: scale(-1, -1);
+    -webkit-transform: scale(-1, -1);
+    -o-transform: scale(-1, -1);
+    -ms-transform: scale(-1, -1);
+    transform: scale(-1, -1);
+  }
+
+}
+
+#videoclip {
+  background: black;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }

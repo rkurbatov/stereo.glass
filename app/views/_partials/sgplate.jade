@@ -1,0 +1,23 @@
+div(style="position: absolute; z-index: 200; left: 20px; top: 150px")
+    i.fa.fa-circle.sg-drag-point(coords='targets[0]' ng-style='{left: targets[0][0]*scale, top: targets[0][1]*scale}')
+    i.fa.fa-circle.sg-drag-point(coords='targets[1]' ng-style='{left: targets[1][0]*scale, top: targets[1][1]*scale}')
+    i.fa.fa-circle.sg-drag-point(coords='targets[2]' ng-style='{left: targets[2][0]*scale, top: targets[2][1]*scale}')
+    i.fa.fa-circle.sg-drag-point(coords='targets[3]' ng-style='{left: targets[3][0]*scale, top: targets[3][1]*scale}')
+    br
+    span(style="color:white") X1, Y1
+    input(style="width:48px" ng-model="targets[0][0]" ng-change="reDraw()")
+    input(style="width:48px" ng-model="targets[0][1]" ng-change="reDraw()")
+    input(style="width:48px" ng-model="koef" ng-change="reCalc()")
+    br
+    span(style="color:white") X2, Y2
+    input(style="width:48px" ng-model="targets[1][0]" ng-change="reDraw()")
+    input(style="width:48px" ng-model="targets[1][1]" ng-change="reDraw()")
+    br
+    span(style="color:white") X3, Y3
+    input(style="width:48px" ng-model="targets[2][0]" ng-change="reDraw()")
+    input(style="width:48px" ng-model="targets[2][1]" ng-change="reDraw()")
+    br
+    span(style="color:white") X4, Y4
+    input(style="width:48px" ng-model="targets[3][0]" ng-change="reDraw()")
+    input(style="width:48px" ng-model="targets[3][1]" ng-change="reDraw()")
+    br

@@ -1,0 +1,32 @@
+header
+    #wrapper-header.container-fluid.clearfix
+        #container-logo
+            #logo-blicker
+            img#logo-upper(src='/img/logo-upper.png' alt="Stereo.Glass logo")
+            img#logo-words(src="img/logo-words-glowed.png" alt="design the motion")
+        .last
+            .stretched
+                .table-cell
+                    nav
+                        ul#menu-top
+                            li: a Подробно
+                            li.nav-selected: a Наш товар
+                            li: a Дилерам
+                            li: a Контакты
+                            li: a#flag-container
+                                img(src="img/flags/UA.png")
+                                span UA
+        #wrapper-nav-buttons
+            button#login-button.sg-btn Войти
+                i.fa.fa-user
+            form(name="search" action="#" method="get")
+                input#search-input(type="text" name="q" placeholder="Поиск...")
+                i.fa.fa-search
+    #wrapper-menu-product.container-fluid.hidden
+        ul#menu-product
+            li.prod-selected: a Плитка
+            li: a Панно
+            li: a Часы
+            li: a Рекламная продукция
+            li: a Подносы
+            li: a Светильники
