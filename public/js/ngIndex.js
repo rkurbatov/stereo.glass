@@ -1,64 +1,43 @@
-angular.module('SGApp', [])
-    .controller('SGController', ['$scope', '$parse', SGController])
-    .directive('sgPlate', sgPlate)
-    .directive('sgDragPoint', sgDragPoint);
+angular.module('SGApp', ['sg.ui'])
+    .controller('LoaderCtrl', ['sgPreloader', LoaderCtrl])
+    .controller('SGMainCtrl', ['$scope', SGMainCtrl])
+    .directive('sgVideoOverlay', sgVideoOverlay);
 
+function sgVideoOverlay() {
+    return {
+        restrict: 'C',
+        template: '<div style="width: 100%; height: 100%;" ng-click="switchVideoState()"></div>',
+        link: function (scope, elm, attrs) {
+            var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
+            scope.isPlaying = false;
 
-function SGController($scope, $parse) {
-    var el = $('#sg-kitchen-floor');
-    $scope.koef = 1.0;
-    $scope.targets = $parse(el[0].attributes['data-targets'].value)($scope);
-
-    $scope.reDraw = function () {
-        el.drawPlate3D('.sg-main-sec2 .bg-room', $scope.targets);
-    };
-
-    $scope.reCalc = function () {
-        var pts = {
-                p1: {x: 210, y: 917}, p2: {x: 763, y: 746}, p3: {x: 1223, y: 964}, p4: {x: 582, y: 1343}
+            scope.switchVideoState = function () {
+                if (!scope.isPlaying) {
+                    $('#cinema').animate({opacity: 0});
+                    video.play();
+                    scope.isPlaying = true;
+                } else {
+                    $('#cinema').animate({opacity: 1});
+                    video.pause();
+                    scope.isPlaying = false;
+                }
             };
 
-        var k = $scope.koef;
+            scope.pauseVideo = function () {
+                video.pause();
+                scope.isPlaying = false;
+            };
 
-        $scope.targets[1] = [(pts.p2.x - pts.p1.x)*k + Number($scope.targets[0][0]), (pts.p2.y - pts.p1.y) * k + Number($scope.targets[0][1])];
-        $scope.targets[2] = [(pts.p3.x - pts.p1.x)*k + Number($scope.targets[0][0]), (pts.p3.y - pts.p1.y) * k + Number($scope.targets[0][1])];
-        $scope.targets[3] = [(pts.p4.x - pts.p1.x)*k + Number($scope.targets[0][0]), (pts.p4.y - pts.p1.y) * k + Number($scope.targets[0][1])];
-        console.log(pts.p2.x - pts.p1.x);
-        console.log(k);
-        console.log($scope.targets);
-        $scope.reDraw();
+        }
+    }
+}
+
+function SGMainCtrl($scope) {
+    'use strict';
+
+    var vm = this;
+    vm.coords = {
+        clock: [[817, 115], [973, 103], [973, 263], [817, 262]],
+        buddah: [[-2, 77], [338, 125], [338, 383], [-2, 426]]
     };
-}
-
-function sgPlate() {
-    return {
-        templateUrl: "/partials/sgplate",
-        link: function (scope, element, attrs) {
-            attrs.$observe('scale', function (value) {
-                scope.scale = value;
-            });
-
-            scope.scale = scope.scale || 1;
-        }
-    }
-}
-
-function sgDragPoint() {
-    return {
-        scope: {
-            coords: '='
-        },
-        restrict: "C",
-        link: function (scope, element, attrs) {
-            element.draggable({
-                cursor: "move",
-                stop: function (event, ui) {
-                    scope['coords'][0] = ui.position.left / scope.$parent.scale;
-                    scope['coords'][1] = ui.position.top / scope.$parent.scale;
-                    scope.$parent.reDraw();
-                    scope.$apply();
-                }
-            });
-        }
-    }
 }

@@ -10,38 +10,18 @@
 
     // initialization and redraw reset
     $(window).on("load resize orientationchange", positionButtons);
-    $(window).on("load resize orientationchange", setBlickSpeed);
+    $(window).on("load", setBlickSpeed);
     $(window).on("load", initBlinkAnimations);
-    $(window).load(function () {
-        var videoIsPlaying = false;
-        $('.main-carousel').show();
-        $('section.sg-hor-scroll').horizon({swipe: false});
-        $('#cinema').click(function () {
-            if (!videoIsPlaying) {
-                $(this).animate({ opacity: 0 });
-                $('#videoclip').get(0).play();
-                videoIsPlaying = true;
-            } else {
-                $(this).animate({opacity: 1});
-                $('#videoclip').get(0).pause();
-                videoIsPlaying = false;
-            }
-        });
-        $(document).on('carousel:scroll', function(){
-            console.log('mmmmewo');
-        });
 
-    });
-
-    $(window).on("load resize orientationchange", function () {
+    /*$(window).on("load resize orientationchange", function () {
         var ww = $(window).width(), wh = $(window).height();
         var imgHeight = ww * 800 / 1500;
         var centerDelta = (wh - imgHeight) / 2;
         $('section.sg-hor-scroll .sg-plate-3d').css({'marginTop': centerDelta});
         reDraw3d();
-    });
+    });*/
 
-    function reDraw3d() {
+    /*function reDraw3d() {
         $('#sg-lines-3d').drawPlate3D('.sg-main-sec1 .bg-room');
         $('#sg-buddha-3d').drawPlate3D('.sg-main-sec1 .bg-room');
         $('#sg-kitchen-wall1-3d').drawPlate3D('.sg-main-sec2 .bg-room');
@@ -62,7 +42,7 @@
         $('#citrus-3d').drawPlate3D('.sg-main-sec6 .bg-room');
         $('#beeline-3d').drawPlate3D('.sg-main-sec6 .bg-room');
         $('#cube-3d').drawPlate3D('.sg-main-sec6 .bg-room');
-    }
+    }*/
 
     function initBlinkAnimations() {
         $($('#menu-top')[0].children).each(

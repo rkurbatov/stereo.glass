@@ -5,7 +5,7 @@
 }
 
 .main-carousel {
-  display: none;
+ // display: none;
 }
 
 .horizon-prev, .horizon-next {
@@ -74,10 +74,28 @@ section.sg-hor-scroll {
 
 }
 
+
+.ng-hide:not(.ng-hide-animate) {
+  /* this is just another form of hiding an element */
+  display: block !important;
+  opacity: 0;
+}
+
+// Videoclip with overlay div - videoplayer
+
 #videoclip {
   background: black;
   position: fixed;
   z-index: 1;
   width: 100%;
   height: 100%;
+}
+
+.sg-video-overlay {
+  width: 70%;
+  height: 70%;
+  left: 15%;
+  top: 15%;
+  z-index: 100;
+  position: absolute;
 }
