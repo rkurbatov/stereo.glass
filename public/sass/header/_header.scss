@@ -3,17 +3,15 @@
 @import "search";
 
 header {
-  .last {
-    float: left;
-    .stretched {
-      position: absolute;
-      //overflow: hidden;
-      .table-cell {
-        display: table-cell;
-        width: 1%;
-      }
-    }
+  .navwrapper {
+    display: table;
   }
+
+  nav {
+    display: table-cell;
+    width: 1%;
+  }
+  
 
   //background-color: $header-bg-color;
   margin-bottom: 0.25em;
@@ -84,7 +82,7 @@ header {
 
 #wrapper-nav-buttons {
 
-  @include on-xs {
+  /*@include on-xs {
     margin-top: 14px;
   }
 
@@ -98,5 +96,5 @@ header {
 
   @include on-lg {
     margin-top: 42px;
-  }
+  }*/
 }

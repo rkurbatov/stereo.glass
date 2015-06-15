@@ -1,21 +1,19 @@
-header
+header(ng-show='loader.isSuccessful')
     #wrapper-header.container-fluid.clearfix
         #container-logo
             #logo-blicker
             img#logo-upper(src='/img/logo-upper.png' alt="Stereo.Glass logo")
             img#logo-words(src="img/logo-words-glowed.png" alt="design the motion")
-        .last
-            .stretched
-                .table-cell
-                    nav
-                        ul#menu-top
-                            li: a Подробно
-                            li.nav-selected: a Наш товар
-                            li: a Дилерам
-                            li: a Контакты
-                            li: a#flag-container
-                                img(src="img/flags/UA.png")
-                                span UA
+        .navwrapper
+            nav
+                ul#menu-top
+                    li: a Подробно
+                    li.nav-selected: a Наш товар
+                    li: a Дилерам
+                    li: a Контакты
+                    li: a#flag-container
+                        img(src="img/flags/UA.png")
+                        span UA
         #wrapper-nav-buttons
             button#login-button.sg-btn Войти
                 i.fa.fa-user
