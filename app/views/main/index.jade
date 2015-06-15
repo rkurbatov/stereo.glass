@@ -1,5 +1,6 @@
 extends layout
 block content
-    include header
-
-    include wrapper-mainpage
+    div(ng-controller='LoaderCtrl as loader')
+        include loader
+        include header
+        include wrapper-mainpage

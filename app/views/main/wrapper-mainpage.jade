@@ -1,51 +1,46 @@
-.horizon-prev: i.fa.fa-chevron-circle-left.fa-2x
-.horizon-next: i.fa.fa-chevron-circle-right.fa-2x
-.main-carousel
-    section.sg-main-sec0.sg-hor-scroll
+.horizon-prev: i.fa.fa-chevron-circle-left.fa-2x(ng-show='loader.isSuccessful')
+.horizon-next: i.fa.fa-chevron-circle-right.fa-2x(ng-show='loader.isSuccessful')
+.main-carousel.sg-carousel(ng-controller='SGMainCtrl as main' ng-show='loader.isSuccessful')
+    sg-wide-screen(ratio='1.85')
+    section.sg-main-sec0.sg-hor-scroll.sg-carousel-section
+        .sg-video-overlay(for='videoclip')
         video#videoclip(preload='metadata')
             source(src='/video/clip.mp4')
             source(src='/video/clip.webm' type='video/webm')
-        img#cinema.bg-room(src="img/rooms/cinema-15-8.jpg")
-        //-#ratiometer(style="font-size:120px; color:white; position: fixed; z-index: 1000; right:0; bottom:0;")
-    section.sg-main-sec1.sg-hor-scroll
-        img#sg-lines-3d.sg-plate3d(src="img/3d-rooms/clock-3d.gif", data-targets="[[817,115],[973,103],[973,263],[817,262]]")
-        img#sg-buddha-3d.sg-plate3d(src="img/3d-rooms/buddha-3d.gif", data-targets="[[-2,77],[338,125],[338,383],[-2,426]]")
-        img.bg-room(src="img/rooms/livingroom-15-8.png")
-    section.sg-main-sec2.sg-hor-scroll
+        img#cinema.bg-room(ng-src="{{loader.getBkSrc('cinema', main.isWideScreen)}}")
+    section.sg-main-sec1.sg-hor-scroll.sg-carousel-section
+        img.sg-plate3d(coords='{{main.coords.clock}}' src="img/3d-rooms/clock-3d.gif" for='main-living-room')
+        img.sg-plate3d(coords='{{main.coords.buddah}}' src="img/3d-rooms/buddha-3d.gif" for='main-living-room')
+        img#main-living-room.bg-room(ng-src="{{loader.getBkSrc('livingroom', main.isWideScreen)}}")
+    section.sg-main-sec2.sg-hor-scroll.sg-carousel-section
         //-sg-plate(scale="1")
-        img#sg-kitchen-wall1-3d.sg-plate3d(src="img/3d-rooms/kitchen-wall1-3d.gif"
-        data-targets="[[520,298],[589,297],[589,397],[520,398]]")
-        img#sg-kitchen-wall2-3d.sg-plate3d(src="img/3d-rooms/kitchen-wall2-3d.gif"
-        data-targets="[[720,296],[789,295],[789,395],[720,396]]")
-        img#sg-kitchen-wall3-3d.sg-plate3d(src="img/3d-rooms/kitchen-wall3-3d.gif"
-        data-targets="[[895,296],[964,295],[964,395],[895,396]]")
-        #sg-kitchen-floor.sg-plate3d(style="width: 1200px; height: 1200px;" data-targets="[[-64,629],[1012,568],[2048,839],[-522,1039]]")
+        img.sg-plate3d(coords='{{main.coords.kitchen1}}' src="img/3d-rooms/kitchen-wall1-3d.gif" for='main-kitchen')
+        img.sg-plate3d(coords='{{main.coords.kitchen2}}' src="img/3d-rooms/kitchen-wall2-3d.gif" for='main-kitchen')
+        img.sg-plate3d(coords='{{main.coords.kitchen3}}' src="img/3d-rooms/kitchen-wall3-3d.gif" for='main-kitchen')
+        .sg-plate3d(style="width: 1200px; height: 1200px;" coords='{{main.coords.kitchenfloor}}' for='main-kitchen')
             include _floor-kitchen
-        img.bg-room(src="img/rooms/kitchen-15-8.png")
-    section.sg-main-sec3.sg-hor-scroll
-        img#sg-teddybear-3d.sg-plate3d(src="img/3d-rooms/teddybear-3d.gif", data-targets="[[364,123],[590,140],[590,550],[364,624]]")
-        img#sg-teddyhare-3d.sg-plate3d(src="img/3d-rooms/teddyhare-3d.gif", data-targets="[[1080,279],[1140,280],[1140,369],[1080,366]]")
-        img#sg-teddycat-3d.sg-plate3d(src="img/3d-rooms/teddycat-3d.gif", data-targets="[[1140,280],[1153,274],[1153,361],[1140,369]]")
-        img.bg-room(src="img/rooms/childroom-15-8.png")
-    section.sg-main-sec4.sg-hor-scroll
-        img#sg-pavilion-3d.sg-plate3d(src="img/3d-rooms/pavilion-3d.gif", data-targets="[[35,-5],[676,-10],[676,417],[35,513]]")
-        img#sg-mirror-3d.sg-plate3d(src="img/3d-rooms/pavilion-3d.gif", data-targets="[[999,55],[550,-10],[503,342],[999,450]]"
-            style="z-index:9;")
-        #sg-bathroom-floor.sg-plate3d(style="width: 500px; height: 500px;",
-            data-targets="[[-72,800],[764,542],[1470,880],[392,1792]]")
+        img#main-kitchen.bg-room(ng-src="{{loader.getBkSrc('kitchen', main.isWideScreen)}}")
+    section.sg-main-sec3.sg-hor-scroll.sg-carousel-section
+        img.sg-plate3d(src="img/3d-rooms/teddybear-3d.gif", coords='{{main.coords.teddybear}}' for='main-childroom')
+        img.sg-plate3d(src="img/3d-rooms/teddyhare-3d.gif", coords='{{main.coords.teddyhare}}' for='main-childroom')
+        img.sg-plate3d(src="img/3d-rooms/teddycat-3d.gif", coords='{{main.coords.teddycat}}' for='main-childroom')
+        img#main-childroom.bg-room(ng-src="{{loader.getBkSrc('childroom', main.isWideScreen)}}")
+    section.sg-main-sec4.sg-hor-scroll.sg-carousel-section
+        img.sg-plate3d(src="img/3d-rooms/pavilion-3d.gif", coords='{{main.coords.pavilion}}' for='main-bathroom')
+        img.sg-plate3d(src="img/3d-rooms/pavilion-3d.gif", coords='{{main.coords.mirror}}' for='main-bathroom' style="z-index:9;")
+        .sg-plate3d(style="width: 500px; height: 500px;", coords='{{main.coords.bathfloor}}' for='main-bathroom')
             include _floor-bathroom
-        img.bg-room(src="img/rooms/bathroom-15-8.png")
-    section.sg-main-sec5.sg-hor-scroll
-        img#aqua-left-3d.sg-plate3d(src="img/3d-rooms/aqua-3d.gif", data-targets="[[-100,0],[400,0],[400,330],[-100,330]]")
-        img#aqua-right-3d.sg-plate3d(src="img/3d-rooms/aqua-3d.gif", data-targets="[[1180,0],[1680,0],[1680,330],[1180,330]]")
-        #sg-club-floor.sg-plate3d(style="width: 900px; 600px;",
-            data-targets="[[275, 600],[1219,600],[1920,1000],[-410,1000]]")
+        img#main-bathroom.bg-room(ng-src="{{loader.getBkSrc('bathroom', main.isWideScreen)}}")
+    section.sg-main-sec5.sg-hor-scroll.sg-carousel-section
+        img.sg-plate3d(src="img/3d-rooms/aqua-3d.gif", coords='{{main.coords.aqualeft}}' for='main-club')
+        img.sg-plate3d(src="img/3d-rooms/aqua-3d.gif", coords='{{main.coords.aquaright}}' for='main-club')
+        .sg-plate3d(style="width: 900px; 600px;", coords='{{main.coords.clubfloor}}' for='main-club')
             include _floor-club
-        img.bg-room(src="img/rooms/club-15-8.png")
-    section.sg-main-sec6.sg-hor-scroll
-        img#cube-3d.sg-plate3d(src="img/3d-rooms/cube-3d.gif", data-targets="[[159,449],[277,440],[277,580],[159,603]]")
-        img#coffee-3d.sg-plate3d(src="img/3d-rooms/coffee-3d.gif", data-targets="[[546,185],[379,170],[379,343],[546,345]]")
-        img#citrus-3d.sg-plate3d(src="img/3d-rooms/citrus-3d.gif", data-targets="[[558,186],[709,199],[709,346],[558,344]]")
-        img#strawberry-3d.sg-plate3d(src="img/3d-rooms/strawberry-3d.gif", data-targets="[[721,201],[851,210],[851,345],[721,344]]")
-        img#beeline-3d.sg-plate3d(src="img/3d-rooms/beeline-3d.gif", data-targets="[[1051,200],[1232,139],[1232,392],[1051,389]]")
-        img.bg-room(src="img/rooms/caffee-15-8.png")
+        img#main-club.bg-room(ng-src="{{loader.getBkSrc('club', main.isWideScreen)}}")
+    section.sg-main-sec6.sg-hor-scroll.sg-carousel-section
+        img.sg-plate3d(src="img/3d-rooms/agat.gif", coords='{{main.coords.tray}}' for='main-caffee')
+        img.sg-plate3d(src="img/3d-rooms/coffee-3d.gif", coords='{{main.coords.tableft}}' for='main-caffee')
+        img.sg-plate3d(src="img/3d-rooms/citrus-3d.gif", coords='{{main.coords.tabmid}}' for='main-caffee')
+        img.sg-plate3d(src="img/3d-rooms/strawberry-3d.gif", coords='{{main.coords.tabright}}' for='main-caffee')
+        img.sg-plate3d(src="img/3d-rooms/beeline-3d.gif", coords='{{main.coords.advert}}' for='main-caffee')
+        img#main-caffee.bg-room(ng-src="{{loader.getBkSrc('caffee', main.isWideScreen)}}")

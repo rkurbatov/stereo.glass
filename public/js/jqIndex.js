@@ -12,13 +12,16 @@
     $(window).on("load resize orientationchange", positionButtons);
     $(window).on("load", setBlickSpeed);
     $(window).on("load", initBlinkAnimations);
+    $(window).on("load", function(){
+        $('.sg-hor-scroll').horizon({swipe: true});
+    });
 
     /*$(window).on("load resize orientationchange", function () {
         var ww = $(window).width(), wh = $(window).height();
         var imgHeight = ww * 800 / 1500;
         var centerDelta = (wh - imgHeight) / 2;
-        $('section.sg-hor-scroll .sg-plate-3d').css({'marginTop': centerDelta});
-        reDraw3d();
+        //$('section.sg-hor-scroll .sg-plate-3d').css({'marginTop': centerDelta});
+        //reDraw3d();
     });*/
 
     /*function reDraw3d() {

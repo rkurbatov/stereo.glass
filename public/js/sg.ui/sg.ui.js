@@ -1,0 +1,6 @@
+angular.module('sg.ui', [])
+    .factory('sgPreloader', sgPreloader)
+    .directive('sgCarousel', ['$window', sgCarousel])
+    .directive('sgCarouselSection', sgCarouselSection)
+    .directive('sgPlate3d', ['$parse', '$window', '$timeout', sgPlate3d])
+    .provider('sgPlate3dOptions', sgPlate3dOptions);
