@@ -1,11 +1,12 @@
 angular.module('SGApp', ['sg.ui'])
     .config(function (sgPlate3dOptionsProvider) {
-        sgPlate3dOptionsProvider.setCustomEvent('load carousel:resize');
+        sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
     })
-    .controller('LoaderCtrl', ['sgPreloader', LoaderCtrl])
+    .controller('LoaderCtrl', ['sgPreloader', '$timeout', LoaderCtrl])
     .controller('SGMainCtrl', ['$scope', SGMainCtrl])
     .directive('sgVideoOverlay', sgVideoOverlay)
-    .directive('sgWideScreen', ['$window', '$parse', sgWideScreen]);
+    .directive('sgWideScreen', ['$window', '$parse', sgWideScreen])
+    .directive('sgAltSrc', ['$parse', sgAltSrc]);
 
 function SGMainCtrl($scope) {
     'use strict';
@@ -14,7 +15,7 @@ function SGMainCtrl($scope) {
 
     var coordsWideScreen = {
         clock: [[817, 115], [973, 103], [973, 263], [817, 262]],
-        buddah: [[-2, 77], [338, 125], [338, 383], [-2, 426]],
+        buddha: [[-2, 77], [338, 125], [338, 383], [-2, 426]],
         kitchen1: [[520, 298], [589, 297], [589, 397], [520, 398]],
         kitchen2: [[718, 296], [789, 295], [789, 395], [718, 396]],
         kitchen3: [[895, 296], [964, 295], [964, 395], [895, 396]],
@@ -37,7 +38,7 @@ function SGMainCtrl($scope) {
 
     var coordsNarrowScreen = {
         clock: [[817, 148], [973, 136], [973, 296], [817, 295]],
-        buddah: [[-2, 110], [338, 158], [338, 416], [-2, 459]],
+        buddha: [[-2, 110], [338, 158], [338, 416], [-2, 459]],
         kitchen1: [[520, 433], [589, 432], [589, 532], [520, 533]],
         kitchen2: [[718, 431], [789, 430], [789, 530], [718, 531]],
         kitchen3: [[895, 431], [964, 430], [964, 530], [895, 531]],

@@ -124,15 +124,14 @@ function sgPreloader($q, $rootScope) {
             // triggering in some browsers.
             var image = $(new Image())
                 .load(function (event) {
-                    // set loaded flag for object input parameter
-                    if (preloader.isLocationsArray) {
-                        imageLocation.loaded = true;
-                    }
-                    imageLocation.loaded = true;
                     // Since the load event is asynchronous, we have to
                     // tell AngularJS that something changed.
                     $rootScope.$apply(
                         function () {
+                            // set loaded flag for object input parameter
+                            if (!preloader.isLocationsArray) {
+                                imageLocation.loaded = true;
+                            }
                             preloader.handleImageLoad(event.target.src);
                             // Clean up object reference to help with the
                             // garbage collection in the closure.

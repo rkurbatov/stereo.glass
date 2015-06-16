@@ -1,3 +1,28 @@
+function sgAltSrc($parse){
+    return {
+        restrict: 'A',
+        link: function(scope, elm, attrs) {
+            var key = attrs.sgAltSrc;
+            var source = scope.$parent.loader.bkImgs[key];
+            var altSource = scope.$parent.loader.animImgs[key];
+            if (source) {
+                scope.$watch(function(){return source.loaded}, function(newVal){
+                    if (newVal && !elm[0].src) {
+                        elm[0].src = source.src;
+                    }
+                });
+            }
+            if (altSource) {
+                scope.$watch(function(){return altSource.loaded}, function(newVal){
+                   if (newVal) {
+                       elm[0].src = altSource.src;
+                   }
+                });
+            }
+        }
+    }
+}
+
 // sets variable for widescreen displays
 function sgWideScreen($window, $parse){
     return {

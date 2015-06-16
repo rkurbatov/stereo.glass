@@ -8,6 +8,14 @@ function sgPlate3d($parse, $window, $timeout, sgPlate3dOptions) {
             var eventString = sgPlate3dOptions.customEvent || 'load resize';
             angular.element($window).on(eventString, plateRedraw);
 
+            scope.$watch(function(){
+                return elm.attr('src');
+            }, plateRedraw);
+
+            if (bound && bound.nodeName === 'IMG') {
+                angular.element(bound).on('load', plateRedraw);
+            }
+
             function plateRedraw() {
                 var coords = $parse(attrs.coords)();
 
