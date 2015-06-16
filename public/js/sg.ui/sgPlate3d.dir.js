@@ -1,23 +1,12 @@
-function sgPlate3dOptions(){
-    this.options = {};
-
-    this.$get = function(){
-        return this.options;
-    };
-
-    this.setCustomEvent = function(evtName) {
-        this.options.customEvent = evtName;
-    };
-}
-
-function sgPlate3d($parse, $window, $timeout) {
+function sgPlate3d($parse, $window, $timeout, sgPlate3dOptions) {
     return {
         restrict: 'AC',
         link: function (scope, elm, attrs) {
             var bound = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
 
-            angular.element($window).on('load resize', plateRedraw);
-
+            // default evets for plate redraw
+            var eventString = sgPlate3dOptions.customEvent || 'load resize';
+            angular.element($window).on(eventString, plateRedraw);
 
             function plateRedraw() {
                 var coords = $parse(attrs.coords)();

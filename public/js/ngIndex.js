@@ -1,6 +1,6 @@
 angular.module('SGApp', ['sg.ui'])
     .config(function (sgPlate3dOptionsProvider) {
-
+        sgPlate3dOptionsProvider.setCustomEvent('load carousel:resize');
     })
     .controller('LoaderCtrl', ['sgPreloader', LoaderCtrl])
     .controller('SGMainCtrl', ['$scope', SGMainCtrl])
