@@ -36,7 +36,7 @@
         .sg-plate3d(coords='{{main.coords.pavilion}}' for='main-bathroom')
             img(sg-alt-src="pavilion")
         .sg-plate3d(coords='{{main.coords.mirror}}' for='main-bathroom' style="z-index:9;")
-            img(sg-alt-src="pavilion")
+            img(sg-alt-src="pavilion" style="width: 300px; height: 225px;")
         .sg-plate3d(style="width: 500px; height: 500px;", coords='{{main.coords.bathfloor}}' for='main-bathroom')
             include _floor-bathroom
         img#main-bathroom.bg-room(ng-src="{{loader.getBkSrc('bathroom', main.isWideScreen)}}")
