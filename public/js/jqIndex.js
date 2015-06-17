@@ -66,6 +66,7 @@
         var list = $("header ul")[0],
             logoUpper = $("#logo-upper")[0],
             logoBlicker = $("#logo-blicker")[0],
+            inpSearchForm = $("form[name='search']"),
             inpSearch = $("#search-input"),
             btnLogin = $("#login-button"),
             dx;
@@ -84,8 +85,9 @@
             }
 
             if (inpSearch) {
-                inpSearch.innerWidth($(list.children[0]).innerWidth() + $(list.children[1]).innerWidth() + $(list.children[2]).innerWidth() - 2 * dx);
-                inpSearch.offset({left: $(list.children[0]).offset().left + dx});
+                var inpWidth = $(list.children[0]).innerWidth() + $(list.children[1]).innerWidth() + $(list.children[2]).innerWidth() - 2 * dx
+                inpSearch.innerWidth(inpWidth);
+                inpSearchForm.offset({left: $(list.children[0]).offset().left + dx});
             }
 
 

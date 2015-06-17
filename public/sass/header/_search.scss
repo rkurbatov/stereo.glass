@@ -1,5 +1,6 @@
 form[name=search] {
   float: right;
+  position: relative;
 }
 
 #search-input {
@@ -54,7 +55,7 @@ form[name=search] {
 
     line-height: 7px;
 
-    margin-left: -44px;
+    margin-left: -34px;
 
     @include on-xs {
       line-height: 8px;
@@ -62,17 +63,17 @@ form[name=search] {
 
     @include on-sm {
       line-height: 10px;
-      margin-left: -48px;
+     // margin-left: -48px;
     }
 
     @include on-md {
       line-height: 14px;
-      margin-left: -64px;
+      //margin-left: -64px;
     }
 
     @include on-lg {
       line-height: 16px;
-      margin-left: -80px;
+     // margin-left: -80px;
     }
   }
 }
