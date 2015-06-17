@@ -48,11 +48,11 @@ function sgVideoOverlay() {
 
             scope.switchVideoState = function () {
                 if (!scope.main.isPlaying) {
-                    $('#cinema').animate({opacity: 0});
+                    $('#cinema, header').animate({opacity: 0});
                     video.play();
                     scope.main.isPlaying = true;
                 } else {
-                    $('#cinema').animate({opacity: 1});
+                    $('#cinema, header').animate({opacity: 1});
                     video.pause();
                     scope.main.isPlaying = false;
                 }
