@@ -29,10 +29,13 @@ function sgWideScreen($window, $parse){
         restrict: 'E',
         link: function(scope, elm, attrs) {
             var ratio = $parse(attrs.ratio)();
-            angular.element($window).bind('load resize orientationchange', function() {
+            angular.element($window).on('load resize orientationchange', function() {
                 var ww = $window.innerWidth, wh = $window.innerHeight;
                 scope.main.isWideScreen = ww / wh > ratio;
                 scope.$apply();
+            });
+            angular.element($window).on('carousel:scroll', function(e){
+               scope.main.screenIndex = e.index;
             });
         }
     }
@@ -45,6 +48,12 @@ function sgVideoOverlay() {
         link: function (scope, elm, attrs) {
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
             scope.main.isPlaying = false;
+
+            $(window).on('keypress', function(e) {
+                if ((e.keyCode == 0 || e.keyCode == 32) && scope.main.screenIndex === 0) {
+                    scope.switchVideoState();
+                }
+            });
 
             scope.switchVideoState = function () {
                 if (!scope.main.isPlaying) {
