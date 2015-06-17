@@ -1,4 +1,18 @@
-function sgAltSrc($parse){
+function sgCenterVertical($window){
+    return {
+        restrict: 'A',
+        link: function(scope, elm, attrs) {
+            angular.element($window).on('load resize orientationchange', function(){
+                var delta = ($window.innerHeight - elm.innerHeight())/2;
+                if (delta<0) {
+                    elm.css('marginTop', delta);
+                }
+            });
+        }
+    }
+}
+
+function sgAltSrc(){
     return {
         restrict: 'A',
         link: function(scope, elm, attrs) {

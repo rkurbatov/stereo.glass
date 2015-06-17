@@ -6,7 +6,8 @@ angular.module('SGApp', ['sg.ui'])
     .controller('SGMainCtrl', ['$scope', SGMainCtrl])
     .directive('sgVideoOverlay', sgVideoOverlay)
     .directive('sgWideScreen', ['$window', '$parse', sgWideScreen])
-    .directive('sgAltSrc', ['$parse', sgAltSrc]);
+    .directive('sgAltSrc', [sgAltSrc])
+    .directive('sgCenterVertical', ['$window', sgCenterVertical]);
 
 function SGMainCtrl($scope) {
     'use strict';

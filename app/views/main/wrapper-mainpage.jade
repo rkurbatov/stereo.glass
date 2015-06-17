@@ -2,19 +2,19 @@
 .horizon-next: i.fa.fa-chevron-circle-right.fa-2x(ng-show='loader.isSuccessful')
 .main-carousel.sg-carousel(ng-controller='SGMainCtrl as main' ng-show='loader.isSuccessful')
     sg-wide-screen(ratio='1.85')
-    section.sg-main-sec0.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec0.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         .sg-video-overlay(for='videoclip')
         video#videoclip(preload='metadata')
             source(src='/video/clip.mp4')
             source(src='/video/clip.webm' type='video/webm')
         img#cinema.bg-room(ng-src="{{loader.getBkSrc('cinema', main.isWideScreen)}}")
-    section.sg-main-sec1.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec1.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         .sg-plate3d(coords='{{main.coords.clock}}' for='main-living-room')
             img(sg-alt-src="clock")
         .sg-plate3d(coords='{{main.coords.buddha}}' for='main-living-room')
             img(sg-alt-src="buddha")
         img#main-living-room.bg-room(ng-src="{{loader.getBkSrc('livingroom', main.isWideScreen)}}")
-    section.sg-main-sec2.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec2.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         //-sg-plate(scale="1")
         .sg-plate3d(coords='{{main.coords.kitchen1}}' for='main-kitchen')
             img(sg-alt-src="kitchen-wl1")
@@ -25,14 +25,14 @@
         .sg-plate3d(style="width: 1200px; height: 1200px;" coords='{{main.coords.kitchenfloor}}' for='main-kitchen')
             include _floor-kitchen
         img#main-kitchen.bg-room(ng-src="{{loader.getBkSrc('kitchen', main.isWideScreen)}}")
-    section.sg-main-sec3.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec3.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         .sg-plate3d(coords='{{main.coords.teddybear}}' for='main-childroom')
             img(sg-alt-src="teddybear")
         .sg-plate3d(coords='{{main.coords.teddyhare}}' for='main-childroom')
             img(sg-alt-src="teddyhare")
         img.sg-plate3d(coords='{{main.coords.teddycat}}' for='main-childroom' sg-alt-src="teddycat")
         img#main-childroom.bg-room(ng-src="{{loader.getBkSrc('childroom', main.isWideScreen)}}")
-    section.sg-main-sec4.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec4.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         .sg-plate3d(coords='{{main.coords.pavilion}}' for='main-bathroom')
             img(sg-alt-src="pavilion")
         .sg-plate3d(coords='{{main.coords.mirror}}' for='main-bathroom' style="z-index:9;")
@@ -40,7 +40,7 @@
         .sg-plate3d(style="width: 500px; height: 500px;", coords='{{main.coords.bathfloor}}' for='main-bathroom')
             include _floor-bathroom
         img#main-bathroom.bg-room(ng-src="{{loader.getBkSrc('bathroom', main.isWideScreen)}}")
-    section.sg-main-sec5.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec5.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         .sg-plate3d(coords='{{main.coords.aqualeft}}' for='main-club')
             img(sg-alt-src="aqua")
         .sg-plate3d(coords='{{main.coords.aquaright}}' for='main-club')
@@ -48,7 +48,7 @@
         .sg-plate3d(style="width: 900px; 600px;", coords='{{main.coords.clubfloor}}' for='main-club')
             include _floor-club
         img#main-club.bg-room(ng-src="{{loader.getBkSrc('club', main.isWideScreen)}}")
-    section.sg-main-sec6.sg-hor-scroll.sg-carousel-section
+    section.sg-main-sec6.sg-hor-scroll.sg-carousel-section(sg-center-vertical="")
         .sg-plate3d(coords='{{main.coords.tray}}' for='main-caffee')
             img(sg-alt-src="tray")
         .sg-plate3d(coords='{{main.coords.tableft}}' for='main-caffee')
