@@ -1,36 +1,38 @@
-function sgCenterVertical($window){
+function sgCenterVertical($window) {
     return {
         restrict: 'A',
-        link: function(scope, elm, attrs) {
-            angular.element($window).on('load resize orientationchange', function(){
-                var delta = ($window.innerHeight - elm.innerHeight())/2;
-                if (delta<0) {
-                    elm.css('marginTop', delta);
-                }
+        link: function (scope, elm, attrs) {
+            angular.element($window).on('carousel:resize', function (e) {
+                var delta = ($window.innerHeight - elm.innerHeight()) / 2;
+                elm.css('marginTop', delta);
             });
         }
     }
 }
 
-function sgAltSrc(){
+function sgAltSrc() {
     return {
         restrict: 'A',
-        link: function(scope, elm, attrs) {
+        link: function (scope, elm, attrs) {
             var key = attrs.sgAltSrc;
             var source = scope.$parent.loader.bkImgs[key];
             var altSource = scope.$parent.loader.animImgs[key];
             if (source) {
-                scope.$watch(function(){return source.loaded}, function(newVal){
+                scope.$watch(function () {
+                    return source.loaded
+                }, function (newVal) {
                     if (newVal && !elm[0].src) {
                         elm[0].src = source.src;
                     }
                 });
             }
             if (altSource) {
-                scope.$watch(function(){return altSource.loaded}, function(newVal){
-                   if (newVal) {
-                       elm[0].src = altSource.src;
-                   }
+                scope.$watch(function () {
+                    return altSource.loaded
+                }, function (newVal) {
+                    if (newVal) {
+                        elm[0].src = altSource.src;
+                    }
                 });
             }
         }
@@ -38,21 +40,24 @@ function sgAltSrc(){
 }
 
 // sets variable for widescreen displays
-function sgWideScreen($window, $parse){
+function sgWideScreen($window, $parse) {
     return {
         restrict: 'E',
-        link: function(scope, elm, attrs) {
+        link: function (scope, elm, attrs) {
             var ratio = $parse(attrs.ratio)();
-            angular.element($window).on('load resize orientationchange', function() {
+            angular.element($window).on('resize orientationchange', calcRatio);
+            angular.element($window).on('carousel:scroll', function (e) {
+                scope.main.screenIndex = e.index;
+            });
+
+            function calcRatio() {
                 var ww = $window.innerWidth, wh = $window.innerHeight;
                 scope.main.isWideScreen = ww / wh > ratio;
-                scope.$apply();
-            });
-            angular.element($window).on('carousel:scroll', function(e){
-               scope.main.screenIndex = e.index;
-            });
+            }
+
+            calcRatio();
         }
-    }
+    };
 }
 
 function sgVideoOverlay() {
@@ -63,7 +68,7 @@ function sgVideoOverlay() {
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
             scope.main.isPlaying = false;
 
-            $(window).on('keypress', function(e) {
+            $(window).on('keypress', function (e) {
                 if ((e.keyCode == 0 || e.keyCode == 32) && scope.main.screenIndex === 0) {
                     scope.switchVideoState();
                 }
