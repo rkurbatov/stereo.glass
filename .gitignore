@@ -35,3 +35,6 @@ uploads
 
 *.sublime-project
 *.sublime-workspace
+
+pinger.js
+public/.sass-cache
