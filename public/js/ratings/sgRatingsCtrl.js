@@ -1,4 +1,4 @@
-function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
+function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies, sgCategoriesSvc) {
     'use strict';
 
     // Init controller
@@ -43,14 +43,14 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
                 value: {}
             },
             /*{
-                name: "Скрывать оцененные и просмотренные мной",
-                value: function(v){
-                    return v.rating === -1 ;
-                }
-            },*/
+             name: "Скрывать оцененные и просмотренные мной",
+             value: function(v){
+             return v.rating === -1 ;
+             }
+             },*/
             {
                 name: "Показать только оцененные и просмотренные мной",
-                value: function(v){
+                value: function (v) {
                     return v.rating > -1;
                 }
             }
@@ -103,29 +103,11 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     };
 
     // Selectors init
-
-    $http({
-        url: '/api/categories',
-        method: 'GET',
-        params: {catname: 'assortment'}
-    }).then(function (response) {
-        $scope.assortmentHash = catToHash(response.data);
+    sgCategoriesSvc.loaded.then(function () {
+        $scope.assortmentHash = sgCategoriesSvc.assortmentHash;
+        $scope.countriesHash = sgCategoriesSvc.countriesHash;
+        $scope.plotsHash = sgCategoriesSvc.plotsHash;
     });
-
-    $http.get('/api/categories', {
-        params: {
-            catname: 'plots'
-        }
-    }).then(function (response) {
-        $scope.plotsHash = catToHash(response.data);
-    });
-
-    $http.get('/api/categories', {
-        params: {catname: 'countries'}
-    })
-        .then(function (response) {
-            $scope.countriesHash = catToHash(response.data);
-        });
 
     $http.get('/api/users', {
         params: {roles: JSON.stringify(['designer', 'founder'])}
@@ -267,7 +249,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
             }).then(function (response) {
                 if (response.status === 200) {
                     // check if removing last added image
-                    if ($scope.pager.selectedIndex === $scope.layouts.length - 1) $scope.pager.selectedIndex -= 1 ;
+                    if ($scope.pager.selectedIndex === $scope.layouts.length - 1) $scope.pager.selectedIndex -= 1;
                     $scope.loadData();
                 }
             });
@@ -292,7 +274,7 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
         return result;
     };
 
-    $scope.calcAverage = function(rateArr){
+    $scope.calcAverage = function (rateArr) {
 
         var coef = {
             1: 1,
@@ -306,7 +288,9 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
             return 0
         } else {
             // mean of ratings, taken from coefficient table.
-            avg = _.sum( _.map(_.pluck(rateArr, 'value'), function (e) {return coef[e]})) / _.size(rateArr);
+            avg = _.sum(_.map(_.pluck(rateArr, 'value'), function (e) {
+                    return coef[e]
+                })) / _.size(rateArr);
             return Number(avg.toFixed(2));
         }
 
@@ -315,19 +299,19 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     $scope.removeMyRating = function (layout) {
         var idx = _.findIndex(layout.ratings, {assignedBy: $cookies.username});
 
-        if (idx >-1) {
+        if (idx > -1) {
             $http.delete('/api/layout/' + layout['_id'] + '/rating')
-                .then(function(response){
+                .then(function (response) {
                     if (response.status === 200) {
                         layout.ratings.splice(idx, 1);
                         layout.rating = -1;
                         layout.average = $scope.calcAverage(layout.ratings);
                     }
                 });
-             }
+        }
     };
 
-    $scope.setViewed = function(layout) {
+    $scope.setViewed = function (layout) {
         layout.rating = 0;
     }
 }

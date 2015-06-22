@@ -11,8 +11,9 @@ var app = angular.module('sgAppAdmin',
     .run(function ($rootScope) {
         $rootScope._ = window._;
     })
+    .service('sgCategoriesSvc', ['$http', '$q', sgCategoriesSvc])
     .controller('sgUsersCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgUsersCtrl])
-    .controller('sgCategoriesCtrl', ['$scope', '$http', sgCategoriesCtrl])
-    .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgRatingsCtrl])
+    .controller('sgLayoutsCtrl', ['sgCategoriesSvc', sgCategoriesCtrl])
+    .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', 'sgCategoriesSvc', sgRatingsCtrl])
     .controller('sgLayoutItemCtrl', ['$scope', '$http', sgLayoutItemCtrl])
     .directive('sgOnImgload', ['$parse', sgOnImgload]);

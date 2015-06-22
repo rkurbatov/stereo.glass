@@ -152,12 +152,11 @@ module.exports = function (app, express, mongoose, Account) {
     });
 
 
-    Router.get('/categories', function (req, res) {
+    Router.get('/categories/:name', function (req, res) {
         var catname;
 
-        if (req.isAuthenticated()) {
-            catname = req.query.catname;
-            Category.find({catName: catname},
+        if (req.isAuthenticated() && req.params.name) {
+            Category.find({catName: req.params.name},
                 '-_id -__v -catName')
                 .populate('leaves', '-_id -__v')
                 .exec(function (err, result) {
