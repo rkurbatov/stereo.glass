@@ -2,7 +2,7 @@ angular.module('SGApp', ['sg.ui'])
     .config(function (sgPlate3dOptionsProvider) {
         sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
     })
-    .controller('LoaderCtrl', ['sgPreloader', '$timeout', LoaderCtrl])
+    .controller('LayoutCtrl', ['sgPreloader', '$timeout', LayoutCtrl])
     .controller('SGMainCtrl', ['$scope', SGMainCtrl])
     .directive('sgVideoOverlay', sgVideoOverlay)
     .directive('sgWideScreen', ['$window', '$parse', sgWideScreen])

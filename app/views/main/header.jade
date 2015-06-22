@@ -1,19 +1,28 @@
-header(ng-show='loader.isSuccessful')
+header(ng-show='layouter.isSuccessful')
     #wrapper-header.container-fluid.clearfix
-        #container-logo
+        #container-logo(ng-click='layouter.switchPage("main")')
             #logo-blicker
             img#logo-upper(src='/img/logo-upper.png' alt="Stereo.Glass logo")
             img#logo-words(src="img/logo-words-glowed.png" alt="design the motion")
         .navwrapper
             nav
                 ul#menu-top
-                    li: a Подробно
-                    li.nav-selected: a Наш товар
-                    li: a Дилерам
-                    li: a Контакты
-                    li: a#flag-container
-                        img(src="img/flags/UA.png")
-                        span UA
+                    li(ng-class='{"nav-selected": layouter.currentPage == "about"}'
+                    ng-click='layouter.switchPage("about")')
+                        a Подробно
+                    li(ng-class='{"nav-selected": layouter.currentPage == "goods"}'
+                    ng-click='layouter.switchPage("goods")')
+                        a Наш товар
+                    li(ng-class='{"nav-selected": layouter.currentPage == "dealers"}'
+                    ng-click='layouter.switchPage("dealers")')
+                        a Дилерам
+                    li(ng-class='{"nav-selected": layouter.currentPage == "contacts"}'
+                    ng-click='layouter.switchPage("contacts")')
+                        a Контакты
+                    li
+                        a#flag-container
+                            img(src="img/flags/UA.png")
+                            span UA
         #wrapper-nav-buttons
             button#login-button.sg-btn Войти
                 i.fa.fa-user

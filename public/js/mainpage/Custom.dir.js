@@ -15,8 +15,8 @@ function sgAltSrc() {
         restrict: 'A',
         link: function (scope, elm, attrs) {
             var key = attrs.sgAltSrc;
-            var source = scope.$parent.loader.bkImgs[key];
-            var altSource = scope.$parent.loader.animImgs[key];
+            var source = scope.$parent.layouter.bkImgs[key];
+            var altSource = scope.$parent.layouter.animImgs[key];
             if (source) {
                 scope.$watch(function () {
                     return source.loaded

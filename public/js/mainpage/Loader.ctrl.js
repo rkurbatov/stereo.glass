@@ -1,7 +1,9 @@
-function LoaderCtrl(sgPreloader, $timeout) {
+function LayoutCtrl(sgPreloader, $timeout) {
     var vm = this;
     vm.isLoading = true;
     vm.isSuccessful = false;
+    vm.isMobile = window.isMobile;
+    vm.currentPage = "main";
     vm.percentLoaded = 0;
     var urlBkPrefix = '/img/rooms/', urlBkPostfix = '',
         url2dPrefix = '/img/2d-rooms/', url2dPostfix = '',
@@ -45,34 +47,51 @@ function LoaderCtrl(sgPreloader, $timeout) {
     };
 
     vm.animImgs = {
-       'buddha' : {src: url3dPrefix + 'buddha-3d.gif' + url3dPostfix },
-       'clock' : {src: url3dPrefix + 'clock-3d.gif' + url3dPostfix },
-       'grass' : {src: url2dPrefix + 'grass-2d.gif' + url3dPostfix },
-       'grass-fl1' : {src: url3dPrefix + 'grass-flowers1-3d.gif' + url3dPostfix },
-       'grass-fl2' : {src: url3dPrefix + 'grass-flowers2-3d.gif' + url3dPostfix },
-       'kitchen-wl1' : {src: url3dPrefix + 'kitchen-wall1-3d.gif' + url3dPostfix },
-       'kitchen-wl2' : {src: url3dPrefix + 'kitchen-wall2-3d.gif' + url3dPostfix },
-       'kitchen-wl3' : {src: url3dPrefix + 'kitchen-wall3-3d.gif' + url3dPostfix },
-       'teddybear' : {src: url3dPrefix + 'teddybear-3d.gif' + url3dPostfix },
-       'teddycat' : {src: url3dPrefix + 'teddycat-3d.gif' + url3dPostfix },
-       'teddyhare' : {src: url3dPrefix + 'teddyhare-3d.gif' + url3dPostfix },
-       'pavilion' : {src: url3dPrefix + 'pavilion-v2-3d.gif' + url3dPostfix },
-       'water' : {src: url3dPrefix + 'water-3d.gif' + url3dPostfix },
-       'aqua' : {src: url3dPrefix + 'aqua-3d.gif' + url3dPostfix },
-       'smoke' : {src: url3dPrefix + 'smoke-3d.gif' + url3dPostfix },
-       'tray' : {src: url3dPrefix + 'agat-3d.gif' + url3dPostfix },
-       'tableft' : {src: url3dPrefix + 'coffee-3d.gif' + url3dPostfix },
-       'tabmid' : {src: url3dPrefix + 'citrus-3d.gif' + url3dPostfix },
-       'tabright' : {src: url3dPrefix + 'strawberry-3d.gif' + url3dPostfix },
-       'advert' : {src: url3dPrefix + 'beeline-3d.gif' + url3dPostfix}
+        'buddha': {src: url3dPrefix + 'buddha-3d.gif' + url3dPostfix},
+        'clock': {src: url3dPrefix + 'clock-3d.gif' + url3dPostfix},
+        'grass': {src: url2dPrefix + 'grass-2d.gif' + url3dPostfix},
+        'grass-fl1': {src: url3dPrefix + 'grass-flowers1-3d.gif' + url3dPostfix},
+        'grass-fl2': {src: url3dPrefix + 'grass-flowers2-3d.gif' + url3dPostfix},
+        'kitchen-wl1': {src: url3dPrefix + 'kitchen-wall1-3d.gif' + url3dPostfix},
+        'kitchen-wl2': {src: url3dPrefix + 'kitchen-wall2-3d.gif' + url3dPostfix},
+        'kitchen-wl3': {src: url3dPrefix + 'kitchen-wall3-3d.gif' + url3dPostfix},
+        'teddybear': {src: url3dPrefix + 'teddybear-3d.gif' + url3dPostfix},
+        'teddycat': {src: url3dPrefix + 'teddycat-3d.gif' + url3dPostfix},
+        'teddyhare': {src: url3dPrefix + 'teddyhare-3d.gif' + url3dPostfix},
+        'pavilion': {src: url3dPrefix + 'pavilion-v2-3d.gif' + url3dPostfix},
+        'water': {src: url3dPrefix + 'water-3d.gif' + url3dPostfix},
+        'aqua': {src: url3dPrefix + 'aqua-3d.gif' + url3dPostfix},
+        'smoke': {src: url3dPrefix + 'smoke-3d.gif' + url3dPostfix},
+        'tray': {src: url3dPrefix + 'agat-3d.gif' + url3dPostfix},
+        'tableft': {src: url3dPrefix + 'coffee-3d.gif' + url3dPostfix},
+        'tabmid': {src: url3dPrefix + 'citrus-3d.gif' + url3dPostfix},
+        'tabright': {src: url3dPrefix + 'strawberry-3d.gif' + url3dPostfix},
+        'advert': {src: url3dPrefix + 'beeline-3d.gif' + url3dPostfix}
     };
 
-    vm.getBkSrc = function(name, isWideScreen) {
+    vm.getBkSrc = function (name, isWideScreen) {
         if (isWideScreen) {
             return vm.bkImgs[name + '-15-8'].src
         } else {
             return vm.bkImgs[name + '-15-10'].src
         }
+    };
+
+    vm.switchPage = function (pageName) {
+        if (vm.currentPage === pageName) {
+            return
+        }
+
+        switch (pageName) {
+            case "main":
+            case "about":
+            case "goods":
+            case "dealers":
+            case "contacts":
+
+        }
+        console.log('switching to page ', pageName);
+        vm.currentPage = pageName;
     };
 
     // Preload the images; then, update display when returned.
@@ -81,7 +100,7 @@ function LoaderCtrl(sgPreloader, $timeout) {
             // Loading was successful.
             vm.isLoading = false;
             vm.isSuccessful = true;
-            $timeout(function() {
+            $timeout(function () {
                 sgPreloader.preloadImages(vm.animImgs);
             }, 250);
         },
