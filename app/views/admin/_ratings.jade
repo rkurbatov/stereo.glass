@@ -64,9 +64,12 @@
 
     .row
         ul.sg-layoutlist
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" current-page="pager.curPage")
-                .sg-layoutblock(ng-class="{ 'selected': $index == pager.selectedIndex - (pager.curPage-1) * pager.ipp }")
-                    img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}' ng-click="itemClicked($index)" ng-dblClick="show2dModal()" hm-swipeup="itemClicked($index); show2dModal()" ng-controller='sgLayoutItemCtrl')
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="pager.curPage"
+            dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" )
+                .sg-layoutblock(ng-controller='sgLayoutItemCtrl' ng-class="{ 'selected': $index == getSelectedIndex() }")
+                    img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
+                        ng-click="$index == getSelectedIndex() ? show2dModal() : setSelectedIndex($index)"
+                        hm-swipeup="setSelectedIndex($index); show2dModal()")
                     .sg-rating-block.text-center
                         span
                             i.glyphicon(ng-class="getRatingClassName(layout)" ng-dblclick="removeMyRating(layout)" hm-tap="removeMyRating(layout)")
@@ -75,3 +78,11 @@
                         i.fa(ng-class="{'fa-thumbs-o-down': layout.rating != 0, 'fa-thumbs-down': layout.rating == 0}" ng-click='setViewed(layout)')
                         rating(ng-model='layout.rating' max='3')
                     .sg-layoutname.text-center {{layout.name}}
+
+    .sg-rate-paginator.text-center
+        dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="pager.selectedIndex = -1")
+        br.hidden-lg
+        span На странице
+        select.form-control(ng-model="pager.ipp" ng-options="opt for opt in pager.ipps" style="display:inline-block; width: auto")
+        span Сортировка
+        select.form-control(ng-model="pager.layoutOrder" ng-options="opt.name for opt in pager.layoutOrders" style="display:inline-block; width: auto")

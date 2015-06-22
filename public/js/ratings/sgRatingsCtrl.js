@@ -1,8 +1,6 @@
 function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     'use strict';
 
-    $scope.pager = {};
-
     // Init controller
 
     $scope.selection = {};
@@ -277,10 +275,6 @@ function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies) {
     };
 
     $scope.$watch('dateRange', $scope.loadData, true);
-
-    $scope.setSelectedIndex = function (idx) {
-        $scope.pager.selectedIndex = idx;
-    };
 
     $scope.getRatingClassName = function (lt) {
 

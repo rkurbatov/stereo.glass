@@ -1,8 +1,11 @@
 function sgLayoutItemCtrl($scope, $http) {
 
-    $scope.itemClicked = function (index) {
-        $scope.setSelectedIndex(($scope.pager.curPage - 1) * $scope.pager.ipp + index);
-        var idx = ($scope.pager.curPage - 1) * $scope.pager.ipp + index;
+    $scope.setSelectedIndex = function (index) {
+        $scope.pager.selectedIndex = ($scope.pager.curPage - 1) * $scope.pager.ipp + index;
+    };
+
+    $scope.getSelectedIndex = function() {
+        return $scope.pager.selectedIndex - ($scope.pager.curPage-1) * $scope.pager.ipp;
     };
 
 
