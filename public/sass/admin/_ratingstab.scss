@@ -1,0 +1,38 @@
+.sg-rating-block span {
+  outline: none;
+}
+
+.sg-rating-block i {
+  @include user-select(none);
+
+  color: #23527c;
+  font-size: 20px;
+  text-shadow: 1px 1px 2px rgba(150, 150, 150, 0.75);
+}
+
+.sg-rate-paginator select {
+  width: auto;
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px 5px;
+}
+
+.sg-rate-paginator span {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 32px;
+  margin: 20px 15px 5px;
+}
+
+/* Img crop container */
+
+img.sg-cropped {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border: 1px solid lightgray;
+}
+
+.sg-rating-block i.glyphicon-star, .sg-rating-block i.glyphicon-star-empty {
+  text-indent: 0.3em;
+}
