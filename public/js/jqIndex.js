@@ -63,6 +63,7 @@
 
     function positionButtons() {
         //$('#ratiometer').html(($(window).width()/$(window).height()).toFixed(2));
+        $('header').width(window.innerWidth);
         var list = $("header ul")[0],
             logoUpper = $("#logo-upper")[0],
             logoBlicker = $("#logo-blicker")[0],
