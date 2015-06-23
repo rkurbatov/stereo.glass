@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .service('sgLayouts', sgLayouts);
 
-    sgLayouts.$inject = ['$http'];
+    sgLayouts.$inject = ['$http', '$q'];
 
-    function sgLayouts($http) {
+    function sgLayouts($http, $q) {
 
         this.loadData = loadData;
         this.removeMyRating = removeMyRating;
@@ -30,6 +30,8 @@
                         e.rating = rating;
                     } else {
                         e.rating = -1;
+                        // Hack to prevent early filtering (hiding rated layouts)
+                        e.notRatedByMe = true;
                     }
                     // needed for correct order
                     e.average = calcAverageRating(e.ratings);
@@ -57,7 +59,7 @@
 
             return $http.put('/api/layout/' + layout['_id'] + '/rating/' + value)
                 .then(function (result) {
-                    console.log(result);
+                    if (result.status !== 200 ) return $q.reject('Rating error: ' + result.status);
                     if (idx > -1) {         // rating exists
                         layout.ratings[idx].value = value;
                     } else {                // new rating

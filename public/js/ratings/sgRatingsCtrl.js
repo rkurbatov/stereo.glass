@@ -53,7 +53,7 @@
                 {
                     name: "Скрывать оцененные и просмотренные мной",
                     value: function (v) {
-                        return v.rating === -1;
+                        return v.rating === -1 || v.notRatedByMe;
                     }
                 },
                 {

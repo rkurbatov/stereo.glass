@@ -27,7 +27,14 @@
 
             scope.$watch('linkedObject.rating', function(newValue, oldValue){
                 if (newValue === oldValue || newValue === -1) return;
-                sgLayouts.changeMyRating(scope.linkedObject, newValue);
+                sgLayouts.changeMyRating(scope.linkedObject, newValue)
+                    .then(function(){
+                        // Hack to prevent early filtering. Now we can filter our layout
+                        // scope.linkedObject.notRatedByMe = false;
+                    })
+                    .catch(function(err){
+                        console.log(err);
+                    });
             });
 
             function removeRating() {
