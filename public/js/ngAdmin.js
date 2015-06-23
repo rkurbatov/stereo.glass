@@ -1,4 +1,5 @@
-var app = angular.module('sgAppAdmin',
+angular
+    .module('sgAppAdmin',
     [
         'smart-table',
         'angularUtils.directives.dirPagination',
@@ -11,9 +12,7 @@ var app = angular.module('sgAppAdmin',
     .run(function ($rootScope) {
         $rootScope._ = window._;
     })
-    .service('sgCategoriesSvc', ['$http', '$q', sgCategoriesSvc])
     .controller('sgUsersCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgUsersCtrl])
-    .controller('sgLayoutsCtrl', ['sgCategoriesSvc', sgCategoriesCtrl])
-    .controller('sgRatingsCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', 'sgCategoriesSvc', sgRatingsCtrl])
+    .controller('sgLayoutsCtrl', ['sgCategories', sgCategoriesCtrl])
     .controller('sgLayoutItemCtrl', ['$scope', '$http', sgLayoutItemCtrl])
     .directive('sgOnImgload', ['$parse', sgOnImgload]);

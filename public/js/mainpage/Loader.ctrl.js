@@ -86,6 +86,7 @@ function LayoutCtrl(sgPreloader, $timeout) {
             case "main":
             case "about":
             case "goods":
+                //TODO: animated menu of goods
             case "dealers":
             case "contacts":
 

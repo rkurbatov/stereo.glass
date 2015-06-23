@@ -46,8 +46,8 @@
                     label.control-label {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
                     br
                     label.control-label(ng-show="pager.selectedIndex !== -1") Оценок: {{filteredLayouts[pager.selectedIndex].ratings.length}}
-                    br
-                    | {{_.pluck(filteredLayouts[pager.selectedIndex].ratings, 'assignedBy') }}
+                    //-br
+                    //-| {{_.pluck(filteredLayouts[pager.selectedIndex].ratings, 'assignedBy') }}
                     br
                     label.control-label(ng-show="pager.selectedIndex !== -1") Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
                     .form-group
@@ -70,13 +70,7 @@
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
                         ng-click="$index == getSelectedIndex() ? show2dModal() : setSelectedIndex($index)"
                         hm-swipeup="setSelectedIndex($index); show2dModal()")
-                    .sg-rating-block.text-center
-                        span
-                            i.glyphicon(ng-class="getRatingClassName(layout)" ng-dblclick="removeMyRating(layout)" hm-tap="removeMyRating(layout)")
-                        b {{ layout.average !== -1 ? layout.average : 0 | number : 2 }}/{{ layout.ratings.length }}
-                        br
-                        i.fa(ng-class="{'fa-thumbs-o-down': layout.rating != 0, 'fa-thumbs-down': layout.rating == 0}" ng-click='setViewed(layout)')
-                        rating(ng-model='layout.rating' max='3')
+                    sg-rating.text-center(linked-object='layout')
                     .sg-layoutname.text-center {{layout.name}}
 
     .sg-rate-paginator.text-center

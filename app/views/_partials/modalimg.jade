@@ -1,11 +1,6 @@
 .modal-header
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="close()") &times;
-    .sg-rating-block.sg-inline-block
-        i.glyphicon(ng-class="getRatingClassName(lts[idx])" ng-dblclick="removeMyRating(lts[idx])" hm-tap="removeMyRating(lts[idx])")
-        b {{ lts[idx].average !== -1 ? lts[idx].average : 0 | number : 2 }}/{{ lts[idx].ratings.length }}
-        | &nbsp;&nbsp;
-        i.fa(ng-class="{'fa-thumbs-o-down': lts[idx].rating != 0, 'fa-thumbs-down': lts[idx].rating == 0}" ng-click='setViewed(lts[idx])')
-        rating(ng-model='lts[idx].rating' max='3')
+    sg-rating(linked-object='lts[idx]' one-row).sg-inline-block
     | &nbsp;&nbsp;
     span
         i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-class='{"sg-hidden": !imgIsLoading}')

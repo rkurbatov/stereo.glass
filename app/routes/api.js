@@ -120,9 +120,6 @@ module.exports = function (app, express, mongoose, Account) {
                     res.status(500).end();
                 }
                 else {
-                    layouts.forEach(function (i, v) {
-
-                    });
                     res.send(JSON.stringify(layouts));
                 }
             });
@@ -264,7 +261,7 @@ module.exports = function (app, express, mongoose, Account) {
 
             Layout.findById({'_id': req.params.id}, function (err, found) {
                 if (err) {
-                    console.log("Error adding new rating", err);
+                    console.log("Error removing rating", err);
                     return res.status(500).send('server error').end();
                 }
 
@@ -278,10 +275,10 @@ module.exports = function (app, express, mongoose, Account) {
 
                 found.save(function (err) {
                     if (err) {
-                        console.log("Error adding new rating", err);
+                        console.log("Error removing rating", err);
                         return res.status(500).json({status: 'server error'}).end();
                     }
-                    else return res.status(200).json({status: 'ok'}).end();
+                    else return res.status(204).json({status: 'ok'}).end();
                 })
             })
 
