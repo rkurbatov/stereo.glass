@@ -4,7 +4,7 @@
 function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
     'use strict';
 
-    $scope.usermail = $cookies.usermail || '';
+    $scope.usermail = $cookies.get('usermail') || '';
 
     $scope.loadData = function () {
         $http.get('/api/users').then(function (response) {

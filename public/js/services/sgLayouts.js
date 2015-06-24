@@ -12,8 +12,12 @@
         this.loadData = loadData;
         this.removeMyRating = removeMyRating;
         this.changeMyRating = changeMyRating;
+        this.removeLayout = removeLayout;
+        this.getAuthors = getAuthors;
 
         var currentUser = '';
+
+
 
         function loadData(selection, userName) {
             currentUser = userName;
@@ -59,7 +63,7 @@
 
             return $http.put('/api/layout/' + layout['_id'] + '/rating/' + value)
                 .then(function (result) {
-                    if (result.status !== 200 ) return $q.reject('Rating error: ' + result.status);
+                    if (result.status !== 200) return $q.reject('Rating error: ' + result.status);
                     if (idx > -1) {         // rating exists
                         layout.ratings[idx].value = value;
                     } else {                // new rating
@@ -69,6 +73,22 @@
                         });
                     }
                     layout.average = calcAverageRating(layout.ratings);
+                });
+        }
+
+        function removeLayout(id) {
+            return $http.delete('/api/layouts/' + id)
+                .success(function (response) {
+                    return response.status === 204
+                        ? $q.resolve()
+                        : $q.reject();
+                });
+        }
+
+        function getAuthors() {
+            return $http.get('/api/authors')
+                .then(function (response) {
+                    return $q.resolve(_.pluck(response.data, '_id'));
                 });
         }
 

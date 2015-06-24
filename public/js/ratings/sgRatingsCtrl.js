@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('sgRatingsCtrl', sgRatingsCtrl);
 
-    sgRatingsCtrl.$inject = ['$scope', '$http', '$sce', '$modal', '$cookies', 'sgCategories', 'sgLayouts'];
+    sgRatingsCtrl.$inject = ['$scope', '$sce', '$modal', '$cookies', 'sgCategories', 'sgLayouts'];
 
-    function sgRatingsCtrl($scope, $http, $sce, $modal, $cookies, sgCategories, sgLayouts) {
+    function sgRatingsCtrl($scope, $sce, $modal, $cookies, sgCategories, sgLayouts) {
 
         // Init controller
 
@@ -69,7 +69,7 @@
         $scope.pager.layoutOrder = $scope.pager.layoutOrders[0];
         $scope.pager.layoutFilter = $scope.pager.layoutFilters[0];
 
-        $scope.username = $cookies.username;
+        $scope.username = $cookies.get('username');
 
         // Range date init
 
@@ -117,11 +117,10 @@
         });
 
         // Fill designers list
-        $http.get('/api/authors')
-            .success(function (authors) {
-                $scope.designers = _.pluck(authors, '_id');
-                $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
-            });
+        sgLayouts.getAuthors().then(function (authors) {
+            $scope.designers = authors;
+            $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
+        });
 
         // Fill paginator
         $scope.loadData = function () {
@@ -221,7 +220,7 @@
         $scope.confirmRemove = function (idx) {
             var modalScope = $scope.$new(true);
             var layout = $scope.filteredLayouts[$scope.pager.selectedIndex];
-            var id = layout['_id'];
+            var layoutId = layout['_id'];
 
             modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
 
@@ -233,14 +232,12 @@
             });
 
             modalInstance.result.then(function () {
-                $http.delete('/api/layouts', {
-                    params: {'_id': id}
-                }).then(function (response) {
-                    if (response.status === 200) {
-                        // check if removing last added image
-                        if ($scope.pager.selectedIndex === $scope.layouts.length - 1) $scope.pager.selectedIndex -= 1;
-                        $scope.loadData();
+                sgLayouts.removeLayout(layoutId).then(function () {
+                    // check if removing last added image
+                    if ($scope.pager.selectedIndex === $scope.layouts.length - 1) {
+                        $scope.pager.selectedIndex -= 1;
                     }
+                    $scope.loadData();
                 });
             });
         };

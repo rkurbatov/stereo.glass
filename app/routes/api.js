@@ -129,29 +129,26 @@ module.exports = function (app, express, mongoose, Account) {
 
     });
 
-    Router.delete('/layouts', function (req, res) {
-        if (req.isAuthenticated() && (req.user.role === 'admin' || req.user.role === 'designer')) {
-            if (req.query['_id']) {
-                Layout.findOneAndRemove({'_id': req.query['_id']}, function (err, data) {
-                    if (err) console.log(err);
-                    if (data) {
-                        res.status(200).send({success: data.name + ' is deleted'});
-                    } else {
-                        res.status(404).send({error: 'entry not found'});
-                    }
-                });
-            } else {
-                res.status(400).send('bad request');
-            }
+    Router.delete('/layouts/:id', function (req, res) {
+        if (req.isAuthenticated() && _.contains(['admin', 'designer', 'founder'], req.user.role)) {
+            Layout.findOneAndRemove({'_id': req.params.id}, function (err, data) {
+                if (err) {
+                    console.log('Error removing layout:', err);
+                    return res.status(500).end();
+                }
+                if (data) {
+                    res.status(204).send({success: data.name + ' is deleted'});
+                } else {
+                    res.status(404).send({error: 'entry not found'});
+                }
+            });
         } else {
-            res.status(403).send('forbidden').end();
+            res.status(403).send('forbidden');
         }
     });
 
 
     Router.get('/categories/:name', function (req, res) {
-        var catname;
-
         if (req.isAuthenticated() && req.params.name) {
             Category.find({catName: req.params.name},
                 '-_id -__v -catName')
@@ -165,7 +162,7 @@ module.exports = function (app, express, mongoose, Account) {
                     }
                 });
         } else {
-            res.status(403).send('forbidden').end();
+            res.status(403).send('forbidden');
         }
     });
 
@@ -256,7 +253,7 @@ module.exports = function (app, express, mongoose, Account) {
 
     });
 
-    Router.delete('/layout/:id/rating', function(req, res) {
+    Router.delete('/layout/:id/rating', function (req, res) {
         if (req.isAuthenticated()) {
 
             Layout.findById({'_id': req.params.id}, function (err, found) {
@@ -270,7 +267,7 @@ module.exports = function (app, express, mongoose, Account) {
                 var idx = _.findIndex(found.ratings, {assignedBy: req.user.username});
 
                 if (idx > -1) {
-                    found.ratings.splice(idx,1);
+                    found.ratings.splice(idx, 1);
                 }
 
                 found.save(function (err) {
@@ -288,18 +285,18 @@ module.exports = function (app, express, mongoose, Account) {
     });
 
     // Get all authors of layouts (aggregate using createdBy field)
-    Router.get('/authors', function(req, res) {
+    Router.get('/authors', function (req, res) {
         if (req.isAuthenticated()) {
-            Layout.aggregate({ $group: {'_id': '$createdBy'}}, function (err, authors){
+            Layout.aggregate({$group: {'_id': '$createdBy'}}, function (err, authors) {
                 if (err) {
                     console.log('Error aggregating users: ', err);
                     res.status(500).end();
                 } else {
-                    res.status(200).send(JSON.stringify(authors));
+                    res.status(200).json(authors);
                 }
             });
         } else {
-            res.status(403).send('forbidden').end();
+            res.status(403).send('forbidden');
         }
     });
 
