@@ -17,8 +17,8 @@
                 label.col-xs-6.control-label(ng-click="reset('#rate-countries-selector')") Страны
                 select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Международный")
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')" data-none-selected-text="Все") Дизайнеры
-                select#rate-designer-selector.selectpicker(multiple data-width='50%')
+                label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')") Дизайнеры
+                select#rate-designer-selector.selectpicker(multiple data-width='50%' data-none-selected-text="Все")
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
@@ -31,25 +31,25 @@
                     button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать в галерее
                     | &nbsp; &nbsp;
                     //- REMOVE Button
-                    if user.role === 'admin' || user.role === 'designer'
+                    if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
                         i.fa.fa-remove.sg-red-i.sg-shadowed-text.pull-right(style="cursor:pointer; font-size: 2em; vertical-align: middle;"
                         ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
-                .form-group
+                .form-group(ng-show="pager.selectedIndex !== -1")
                     label.control-label(ng-bind-html="getColors()")
-                    label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catAssortment', 'assortmentHash')")
-                    label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catPlots', 'plotsHash')")
-                    label(ng-show="pager.selectedIndex !== -1") &nbsp; &#47; &nbsp;
+                    label &nbsp; &#47; &nbsp;
                     label.control-label(ng-bind="getValues('catCountries', 'countriesHash')")
                     br
-                    label.control-label {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
+                    label.control-label Загружен: {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
                     br
-                    label.control-label(ng-show="pager.selectedIndex !== -1") Оценок: {{filteredLayouts[pager.selectedIndex].ratings.length}}
+                    label.control-label Оценок: {{filteredLayouts[pager.selectedIndex].ratings.length}}
                     //-br
                     //-| {{_.pluck(filteredLayouts[pager.selectedIndex].ratings, 'assignedBy') }}
                     br
-                    label.control-label(ng-show="pager.selectedIndex !== -1") Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
+                    label.control-label Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
                     .form-group
                         label.control-label Комментарий дизайнера
                         textarea#designer-layout-comment.form-control(rows='2', readonly, ng-model="filteredLayouts[pager.selectedIndex].designerComment")
