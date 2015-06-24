@@ -1,6 +1,6 @@
-extends layout
+extends mainLayout
 block content
-    div(ng-controller='LayoutCtrl as layouter')
+    div(ng-controller='Layout as layouter')
         include loader
         include header
         .sg-main-wrapper(ng-show='layouter.isSuccessful && layouter.currentPage == "main"')

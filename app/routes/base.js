@@ -5,7 +5,7 @@ module.exports = function (express, Account) {
 
     // server routes ===========================================================
     Router.get(['/'], function(req, res, next){
-        res.render('main/index', { user: req.user });
+        res.render('mainpage/index', { user: req.user });
     });
 
     // admin interface
