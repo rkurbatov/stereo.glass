@@ -29,7 +29,7 @@ header(ng-show='layouter.isSuccessful')
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")
                 i.fa.fa-search
-    #wrapper-menu-product.container-fluid.hidden
+    #wrapper-menu-product.container-fluid(ng-show='layouter.currentPage == "goods"')
         ul#menu-product
             li.prod-selected: a Плитка
             li: a Панно
