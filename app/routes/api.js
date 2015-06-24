@@ -23,7 +23,7 @@ module.exports = function (app, express, mongoose, Account) {
                     res.status(500).end();
                 }
                 else {
-                    res.send(JSON.stringify(users));
+                    res.status(200).send(JSON.stringify(users));
                 }
             });
         } else {
@@ -181,7 +181,7 @@ module.exports = function (app, express, mongoose, Account) {
                 Layout.findOne({name: req.query.data}, '-_id', function (err, doc) {
                     if (err) {
                         console.log(err);
-                        req.status(500).end(); // Server error
+                        res.status(500).end(); // Server error
                     } else if (doc) {
                         res.json(doc);
                     } else {
@@ -282,6 +282,22 @@ module.exports = function (app, express, mongoose, Account) {
                 })
             })
 
+        } else {
+            res.status(403).send('forbidden').end();
+        }
+    });
+
+    // Get all authors of layouts (aggregate using createdBy field)
+    Router.get('/authors', function(req, res) {
+        if (req.isAuthenticated()) {
+            Layout.aggregate({ $group: {'_id': '$createdBy'}}, function (err, authors){
+                if (err) {
+                    console.log('Error aggregating users: ', err);
+                    res.status(500).end();
+                } else {
+                    res.status(200).send(JSON.stringify(authors));
+                }
+            });
         } else {
             res.status(403).send('forbidden').end();
         }

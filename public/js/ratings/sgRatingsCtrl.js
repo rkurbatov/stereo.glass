@@ -116,25 +116,21 @@
             $scope.plotsHash = sgCategories.plotsHash;
         });
 
-        $http.get('/api/users', {
-            params: {roles: JSON.stringify(['designer', 'founder'])}
-        })
-            .success(function (response) {
-                $scope.designers = response.map(function (el) {
-                    return el.username
-                });
+        // Fill designers list
+        $http.get('/api/authors')
+            .success(function (authors) {
+                $scope.designers = _.pluck(authors, '_id');
                 $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
             });
 
         // Fill paginator
-
         $scope.loadData = function () {
 
             if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
             if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
 
             sgLayouts.loadData($scope.selection, $scope.username)
-                .then(function(data){
+                .then(function (data) {
                     $scope.layouts = data;
                 });
 
