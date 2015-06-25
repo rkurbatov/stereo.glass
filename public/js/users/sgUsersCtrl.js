@@ -1,71 +1,81 @@
 //TODO: search for duplications after editing user
 //TODO: delete user sessions after user delete
-
-function sgUsersCtrl($scope, $http, $sce, $modal, $cookies) {
+(function(){
     'use strict';
 
-    $scope.usermail = $cookies.get('usermail') || '';
+    angular
+        .module('sgAppAdmin')
+        .controller('sgUsersCtrl', sgUsersCtrl);
 
-    $scope.loadData = function () {
-        $http.get('/api/users').then(function (response) {
-            $scope.rowCollection = response.data;
-        });
-    };
+    sgUsersCtrl.$inject = ['$scope', '$http', '$sce', '$modal', '$cookies', 'sgUsers'];
 
-    $scope.loadData();
+    function sgUsersCtrl($scope, $http, $sce, $modal, $cookies, sgUsers) {
 
-    $scope.confirmRemove = function (name, id) {
-        var modalScope = $scope.$new(true);
-        modalScope.text = $sce.trustAsHtml("Вы действительно желаете удалить пользователя <b>" + name + "</b>?");
+        $scope.usermail = $cookies.get('usermail') || '';
 
-        var modalInstance = $modal.open({
-            templateUrl: '/partials/modalYesNo',
-            controller: sgYesNoModalCtrl,
-            scope: modalScope,
-            size: 'sm'
-        });
-
-        modalInstance.result.then(function () {
-            $http.delete('/api/users', {
-                params: {'_id': id}
-            }).then(function (response) {
-                if (response.status === 200) $scope.loadData();
+        $scope.refreshUserData = function () {
+            sgUsers.getListOfUsers().then(function(users) {
+                $scope.rowCollection = users;
             });
-        });
-    };
+        };
 
-    $scope.openEditDialog = function (user) {
-        var modalScope = $scope.$new(true);
-        modalScope.result = {};
-        modalScope.result.username = user.username;
-        modalScope.result.usermail = user.usermail;
-        modalScope.result.roles = ['admin', 'designer', 'founder', 'user'];
-        modalScope.result.role = user.role;
+        $scope.refreshUserData();
 
-        var modalInstance = $modal.open({
-            templateUrl: '/partials/modalEditUser',
-            controller: sgYesNoModalCtrl,
-            scope: modalScope,
-            size: 'sm'
-        });
+        $scope.confirmRemove = function (name, id) {
+            var modalScope = $scope.$new(true);
+            modalScope.text = $sce.trustAsHtml("Вы действительно желаете удалить пользователя <b>" + name + "</b>?");
 
-        modalInstance.result.then(function (result) {
-            // check for changes
-            var changes = {};
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/modalYesNo',
+                controller: sgYesNoModalCtrl,
+                scope: modalScope,
+                size: 'sm'
+            });
 
-            if (user.username !== result.username) changes.username = result.username;
-            if (user.usermail !== result.usermail) changes.usermail = result.usermail;
-            if (user.role !== result.role) changes.role = result.role;
-            if (result.password) changes.password = result.password;
+            modalInstance.result.then(function () {
+                $http.delete('/api/users', {
+                    params: {'_id': id}
+                }).then(function (response) {
+                    if (response.status === 200) $scope.refreshUserData();
+                });
+            });
+        };
 
-            if (!angular.equals(changes, {})) {
-                // There are changes!
-                $http.put('/api/users/' + user['_id'], JSON.stringify(changes))
-                    .then(function () {
-                        $scope.loadData();
-                    });
-            }
-        })
+        $scope.openEditDialog = function (user) {
+            var modalScope = $scope.$new(true);
+            modalScope.result = {};
+            modalScope.result.username = user.username;
+            modalScope.result.usermail = user.usermail;
+            modalScope.result.roles = ['admin', 'designer', 'founder', 'user'];
+            modalScope.result.role = user.role;
+
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/modalEditUser',
+                controller: sgYesNoModalCtrl,
+                scope: modalScope,
+                size: 'sm'
+            });
+
+            modalInstance.result.then(function (result) {
+                // check for changes
+                var changes = {};
+
+                if (user.username !== result.username) changes.username = result.username;
+                if (user.usermail !== result.usermail) changes.usermail = result.usermail;
+                if (user.role !== result.role) changes.role = result.role;
+                if (result.password) changes.password = result.password;
+
+                if (!angular.equals(changes, {})) {
+                    // There are changes!
+                    $http.put('/api/users/' + user['_id'], JSON.stringify(changes))
+                        .then(function () {
+                            $scope.refreshUserData();
+                        });
+                }
+            })
+        }
+
     }
 
-}
+})();
+

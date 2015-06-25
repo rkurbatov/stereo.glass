@@ -1,6 +1,8 @@
 .modal-header
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="close()") &times;
-    sg-rating(linked-object='lts[idx]' one-row).sg-inline-block
+    sg-rating(linked-object='lts[idx]' one-row ng-show='layoutFilter.mode === "rate"').sg-inline-block
+    i.glyphicon.glyphicon-star.sg-gold-i(ng-show='layoutFilter.mode === "view"' style='font-size: 20px')
+    | {{ getAssignedRating(lts[idx]) }}
     | &nbsp;&nbsp;
     span
         i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-class='{"sg-hidden": !imgIsLoading}')

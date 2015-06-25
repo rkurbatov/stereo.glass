@@ -16,8 +16,16 @@
 
         var currentUser = '';
 
-        function loadData(selection, userName) {
+        function loadData(filters, userName) {
             currentUser = userName;
+
+            var selection = {
+                catColors: filters.colors.selection,
+                catAssortment: filters.assortment.selection,
+                catCountries: filters.countries.selection,
+                catPlots: filters.plots.selection,
+                designers: filters.designers.selection
+            };
 
             return $http.get('/api/layouts', {
                 params: {

@@ -9,6 +9,29 @@
 
     function sgRatingsCtrl($scope, $sce, $modal, $cookies, sgCategories, sgLayouts, sgUsers) {
 
+        $scope.serverFilters = {
+            assortment: {selection: []},
+            colors: {selection: []},
+            countries: {selection: []},
+            plots: {selection: []},
+            designers: {selection: []}
+        };
+
+        // form selectors data
+        sgCategories.loaded.then(function () {
+            $scope.serverFilters.assortment.content = sgCategories.assortment;
+            $scope.serverFilters.colors.content = sgCategories.colors;
+            $scope.serverFilters.countries.content = sgCategories.countries;
+            $scope.serverFilters.plots.content = sgCategories.plots;
+        });
+
+        // Fill designers list
+        sgUsers.getLayoutAuthors().then(function (authors) {
+            $scope.designers = authors;
+            $scope.serverFilters.designers.content = arrToOptions($scope.designers);
+            //$('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
+        });
+
         // Init controller
         $scope.selection = {};
         $scope.designers = [];
@@ -109,7 +132,6 @@
             $('#rate-daterange').data('daterangepicker').setEndDate(moment());
 
             $scope.dateRange = $scope.dateRange || {};
-
             $scope.dateRange.startDate = moment('2015-01-01');
             $scope.dateRange.endDate = moment();
         };
@@ -121,11 +143,6 @@
             $scope.plotsHash = sgCategories.plotsHash;
         });
 
-        // Fill designers list
-        sgUsers.getLayoutAuthors().then(function (authors) {
-            $scope.designers = authors;
-            $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
-        });
 
         // Fill paginator
         $scope.loadData = function () {
@@ -133,7 +150,7 @@
             if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
             if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
 
-            sgLayouts.loadData($scope.selection, $scope.username)
+            sgLayouts.loadData($scope.serverFilters, $scope.username)
                 .then(function (data) {
                     $scope.layouts = data;
                 });
@@ -142,40 +159,13 @@
 
         // Reset clicked selector
 
-        $scope.reset = function (sel) {
-
-            if ($(sel).attr('id') === 'rate-colors-selector') {
-                $scope.selection.catColors = [];
-            }
-
-            if ($(sel).attr('id') === 'rate-plots-selector') {
-                $scope.selection.catPlots = [];
-            }
-
-            if ($(sel).attr('id') === 'rate-assortment-selector') {
-                $scope.selection.catAssortment = [];
-            }
-
-            if ($(sel).attr('id') === 'rate-countries-selector') {
-                $scope.selection.Countries = [];
-            }
-
-            if ($(sel).attr('id') === 'rate-designer-selector') {
-                $scope.designers = [];
-            }
-
-            $(sel).each(function () {
-                $(this).selectpicker('deselectAll');
-            });
-
+        $scope.reset = function (category) {
+            $scope.serverFilters[category].selection = [];
             $scope.loadData();
-
         };
 
         // Reset all selectors and daterange
-
         $scope.resetAll = function () {
-            $scope.reset('#admin-ratings .selectpicker');
             $scope.resetDR();
         };
 
@@ -208,9 +198,11 @@
 
             var modalScope = $scope.$new(true);
             modalScope.getRatingClassName = $scope.getRatingClassName;
+            modalScope.getAssignedRating = $scope.getAssignedRating;
             modalScope.setViewed = $scope.setViewed;
             modalScope.removeMyRating = $scope.removeMyRating;
             modalScope.idx = $scope.pager.selectedIndex;
+            modalScope.layoutFilter = $scope.pager.layoutFilter;
             modalScope.lts = $scope.filteredLayouts;
 
             $scope.modalImg = $modal.open({
@@ -282,37 +274,17 @@
             } else {
                 return '';
             }
-        }
+        };
+
     }
 
 })();
 
 
 // jQuery - Angular selector link
-
 $(function () {
 
     var $scope = angular.element($('#sgRatingsCtrl')).scope();
-
-    $(
-        '#rate-colors-selector, #rate-assortment-selector, #rate-plots-selector,'
-        + ' #rate-countries-selector, #rate-designer-selector'
-    ).on('change', function () {
-            var self = this;
-
-            $scope.$apply(function () {
-
-                if ($(self).attr('id') === 'rate-colors-selector') $scope.selection.catColors = $(self).val();
-                if ($(self).attr('id') === 'rate-assortment-selector') $scope.selection.catAssortment = $(self).val();
-                if ($(self).attr('id') === 'rate-plots-selector') $scope.selection.catPlots = $(self).val();
-                if ($(self).attr('id') === 'rate-countries-selector') $scope.selection.catCountries = $(self).val();
-                if ($(self).attr('id') === 'rate-designer-selector') $scope.selection.designers = $(self).val();
-
-                $scope.pager.selectedIndex = -1;
-                $scope.loadData();
-            })
-
-        });
 
     $(window).load(function () {
         if ($scope) {

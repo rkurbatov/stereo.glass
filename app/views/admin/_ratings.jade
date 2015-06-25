@@ -5,20 +5,25 @@
             .form-group
                 button.btn.btn-primary.pull-right.col-xs-10(ng-click="resetAll()") Сбросить все фильтры
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-colors-selector')") Цвета
-                select#rate-colors-selector.selectpicker(multiple data-width='50%' data-none-selected-text="Все")
+                label.col-xs-6.control-label(ng-click="reset('colors')") Цвета
+                select#rate-colors-selector.selectpicker(multiple data-width='50%'
+                data-none-selected-text="Все" sg-bs-select='serverFilters.colors' exec-on-change='loadData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-assortment-selector')") Ассортимент
-                select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Весь")
+                label.col-xs-6.control-label(ng-click="reset('assortment')") Ассортимент
+                select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%'
+                data-none-selected-text="Весь" sg-bs-select='serverFilters.assortment' exec-on-change='loadData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-plots-selector')") Сюжеты
-                select#rate-plots-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Все")
+                label.col-xs-6.control-label(ng-click="reset('plots')") Сюжеты
+                select#rate-plots-selector.selectpicker(multiple data-selectable-optgroup data-width='50%'
+                data-none-selected-text="Все" sg-bs-select='serverFilters.plots' exec-on-change='loadData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-countries-selector')") Страны
-                select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%' data-none-selected-text="Международный")
+                label.col-xs-6.control-label(ng-click="reset('countries')") Страны
+                select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%'
+                data-none-selected-text="Международный" sg-bs-select='serverFilters.countries' exec-on-change='loadData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('#rate-designer-selector')") Дизайнеры
-                select#rate-designer-selector.selectpicker(multiple data-width='50%' data-none-selected-text="Все")
+                label.col-xs-6.control-label(ng-click="reset('designers')") Дизайнеры
+                select#rate-designer-selector.selectpicker(multiple data-width='50%'
+                data-none-selected-text="Все" sg-bs-select='serverFilters.designers' exec-on-change='loadData()')
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
