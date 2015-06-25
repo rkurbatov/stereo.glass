@@ -14,7 +14,7 @@ module.exports = function (app, express, mongoose, Account) {
         if (req.isAuthenticated()) {
 
             if (req.query.roles) {
-                findObj.role = {$in: JSON.parse(req.query.roles)}
+                findObj.role = {$in: req.query.roles}
             }
 
             Account.find(findObj, '_id username usermail role createdAt activeAt', function (err, users) {
@@ -103,7 +103,7 @@ module.exports = function (app, express, mongoose, Account) {
                     tmpArr.push({createdBy: {$in: sel.designers}});
                 }
 
-                if (sel.fromDate || sel.ToDate) {
+                if (sel.fromDate || sel.toDate) {
                     if (sel.fromDate) tmpDateQueryObj.$gte = sel.fromDate;
                     if (sel.toDate) tmpDateQueryObj.$lt = sel.toDate;
                     tmpArr.push({createdAt: tmpDateQueryObj});
