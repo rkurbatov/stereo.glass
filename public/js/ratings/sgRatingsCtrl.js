@@ -5,20 +5,19 @@
         .module('sgAppAdmin')
         .controller('sgRatingsCtrl', sgRatingsCtrl);
 
-    sgRatingsCtrl.$inject = ['$scope', '$sce', '$modal', '$cookies', 'sgCategories', 'sgLayouts'];
+    sgRatingsCtrl.$inject = ['$scope', '$sce', '$modal', '$cookies', 'sgCategories', 'sgLayouts', 'sgUsers'];
 
-    function sgRatingsCtrl($scope, $sce, $modal, $cookies, sgCategories, sgLayouts) {
+    function sgRatingsCtrl($scope, $sce, $modal, $cookies, sgCategories, sgLayouts, sgUsers) {
 
         // Init controller
-
         $scope.selection = {};
         $scope.designers = [];
 
         // Paginator init
         $scope.pager = {
-            ipps: [12, 18, 24, 36],    // possible images per page values
-            curPage: 1,
-            selectedIndex: -1,     // default - unselected
+            ipps: [12, 18, 24, 36],     // possible images per page values
+            currentPage: 1,
+            selectedIndex: -1,          // default - unselected
             layoutOrders: [
                 {
                     name: "По дате (старых к новым)",
@@ -47,17 +46,20 @@
             ],
             layoutFilters: [
                 {
-                    name: "Показывать все",
+                    name: "все",
+                    mode: 'rate',
                     value: {}
                 },
                 {
-                    name: "Скрывать оцененные и просмотренные мной",
+                    name: "еще не просмотренные",
+                    mode: 'rate',
                     value: function (v) {
                         return v.rating === -1 || v.notRatedByMe;
                     }
                 },
                 {
-                    name: "Показать только оцененные и просмотренные мной",
+                    name: "только оцененные и просмотренные мной",
+                    mode: 'rate',
                     value: function (v) {
                         return v.rating > -1;
                     }
@@ -120,7 +122,7 @@
         });
 
         // Fill designers list
-        sgLayouts.getAuthors().then(function (authors) {
+        sgUsers.getLayoutAuthors().then(function (authors) {
             $scope.designers = authors;
             $('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
         });
@@ -245,15 +247,42 @@
             });
         };
 
-        function getSelectedIndex(){
-            return $scope.pager.selectedIndex - ($scope.pager.curPage-1) * $scope.pager.ipp;
+        function getSelectedIndex() {
+            return $scope.pager.selectedIndex - ($scope.pager.currentPage - 1) * $scope.pager.ipp;
         }
 
         function setSelectedIndex(index) {
-            $scope.pager.selectedIndex = ($scope.pager.curPage - 1) * $scope.pager.ipp + index;
+            $scope.pager.selectedIndex = ($scope.pager.currentPage - 1) * $scope.pager.ipp + index;
         }
 
         $scope.$watch('dateRange', $scope.loadData, true);
+
+        // add to filters array filter by founder name
+        sgUsers.getRaters()
+            .then(function (raters) {
+                _.forEach(raters, addFilter);
+
+                function addFilter(userName) {
+                    var filterObject = {
+                        name: 'оцененные ' + userName,
+                        mode: 'view',
+                        user: userName,
+                        value: function (layout) {
+                            return _.any(layout.ratings, {assignedBy: userName});
+                        }
+                    };
+
+                    $scope.pager.layoutFilters.push(filterObject)
+                }
+            });
+
+        $scope.getAssignedRating = function (layout) {
+            if ($scope.pager.layoutFilter.mode === 'view') {
+                return _.find(layout.ratings, {'assignedBy': $scope.pager.layoutFilter.user}).value;
+            } else {
+                return '';
+            }
+        }
     }
 
 })();

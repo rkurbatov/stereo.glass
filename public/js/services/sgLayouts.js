@@ -13,11 +13,8 @@
         this.removeMyRating = removeMyRating;
         this.changeMyRating = changeMyRating;
         this.removeLayout = removeLayout;
-        this.getAuthors = getAuthors;
 
         var currentUser = '';
-
-
 
         function loadData(selection, userName) {
             currentUser = userName;
@@ -82,13 +79,6 @@
                     return response.status === 204
                         ? $q.resolve()
                         : $q.reject();
-                });
-        }
-
-        function getAuthors() {
-            return $http.get('/api/authors')
-                .then(function (response) {
-                    return $q.resolve(_.pluck(response.data, '_id'));
                 });
         }
 

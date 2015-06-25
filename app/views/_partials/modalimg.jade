@@ -11,6 +11,6 @@
 .modal-body(ng-keypress="key($event)" tabindex="0")
     a.carousel-control.left(href="" ng-click='prevImg()' ng-show="idx !== 0")
         span.glyphicon.glyphicon-chevron-left
-    img.img-responsive.center-block(ng-src='{{imgUrl}}' sg-on-imgload="loaded()")
+    img.img-responsive.center-block(ng-src='{{imgUrl}}' sg-on-img-load="loaded()")
     a.carousel-control.right(href="" ng-click='nextImg()' ng-show="idx !== lts.length - 1")
         span.glyphicon.glyphicon-chevron-right
