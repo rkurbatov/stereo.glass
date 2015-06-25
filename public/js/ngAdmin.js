@@ -14,5 +14,4 @@ angular
     })
     .controller('sgUsersCtrl', ['$scope', '$http', '$sce', '$modal', '$cookies', sgUsersCtrl])
     .controller('sgLayoutsCtrl', ['sgCategories', sgCategoriesCtrl])
-    .controller('sgLayoutItemCtrl', ['$scope', '$http', sgLayoutItemCtrl])
     .directive('sgOnImgload', ['$parse', sgOnImgload]);

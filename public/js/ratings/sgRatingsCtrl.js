@@ -69,6 +69,9 @@
         $scope.pager.layoutOrder = $scope.pager.layoutOrders[0];
         $scope.pager.layoutFilter = $scope.pager.layoutFilters[0];
 
+        $scope.pager.getSelectedIndex = getSelectedIndex;
+        $scope.pager.setSelectedIndex = setSelectedIndex;
+
         $scope.username = $cookies.get('username');
 
         // Range date init
@@ -88,7 +91,7 @@
                 fromLabel: "С",
                 toLabel: "по",
                 cancelLabel: 'Отмена',
-                customRangeLabel: 'Другой интервал',
+                customRangeLabel: 'Другой интервал'
             },
             ranges: {
                 'Всё время': ['01.01.15', moment()],
@@ -242,8 +245,15 @@
             });
         };
 
-        $scope.$watch('dateRange', $scope.loadData, true);
+        function getSelectedIndex(){
+            return $scope.pager.selectedIndex - ($scope.pager.curPage-1) * $scope.pager.ipp;
+        }
 
+        function setSelectedIndex(index) {
+            $scope.pager.selectedIndex = ($scope.pager.curPage - 1) * $scope.pager.ipp + index;
+        }
+
+        $scope.$watch('dateRange', $scope.loadData, true);
     }
 
 })();

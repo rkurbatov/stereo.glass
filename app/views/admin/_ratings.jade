@@ -26,12 +26,12 @@
         .col-xs-8
             .layout-info
                 .form-group
-                    select.form-control(style="width: auto; display: inline-block;" ng-model="pager.layoutFilter" ng-options="opt.name for opt in pager.layoutFilters")
-                    | &nbsp; &nbsp;
-                    button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать в галерее
-                    | &nbsp; &nbsp;
+                    select.form-control.sg-inline-block(ng-model="pager.layoutFilter" ng-options="opt.name for opt in pager.layoutFilters")
+                    //-| &nbsp; &nbsp;
+                    //-button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать в галерее
+                    //-| &nbsp; &nbsp;
                     //- REMOVE Button
-                    if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
+                    //-if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
                         i.fa.fa-remove.sg-red-i.sg-shadowed-text.pull-right(style="cursor:pointer; font-size: 2em; vertical-align: middle;"
                         ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
                 .form-group(ng-show="pager.selectedIndex !== -1")
@@ -45,14 +45,9 @@
                     br
                     label.control-label Загружен: {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
                     br
-                    label.control-label Оценок: {{filteredLayouts[pager.selectedIndex].ratings.length}}
-                    //-br
-                    //-| {{_.pluck(filteredLayouts[pager.selectedIndex].ratings, 'assignedBy') }}
-                    br
                     label.control-label Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
                     .form-group
-                        label.control-label Комментарий дизайнера
-                        textarea#designer-layout-comment.form-control(rows='2', readonly, ng-model="filteredLayouts[pager.selectedIndex].designerComment")
+                        textarea#designer-layout-comment.form-control(rows='4', readonly, ng-model="filteredLayouts[pager.selectedIndex].designerComment")
 
     .sg-rate-paginator.text-center
         dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="pager.selectedIndex = -1")
@@ -66,9 +61,9 @@
         ul.sg-layoutlist
             li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="pager.curPage"
             dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" )
-                .sg-layoutblock(ng-controller='sgLayoutItemCtrl' ng-class="{ 'selected': $index == getSelectedIndex() }")
+                .sg-layoutblock(ng-class="{ 'selected': $index === pager.getSelectedIndex() }")
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
-                        ng-click="$index == getSelectedIndex() ? show2dModal() : setSelectedIndex($index)"
+                        ng-click="$index === pager.getSelectedIndex() ? show2dModal() : pager.setSelectedIndex($index)"
                         hm-swipeup="setSelectedIndex($index); show2dModal()")
                     sg-rating.text-center(linked-object='layout')
                     .sg-layoutname.text-center {{layout.name}}
