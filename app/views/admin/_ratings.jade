@@ -67,10 +67,16 @@
         select.form-control(ng-model="pager.layoutOrder" ng-options="opt.name for opt in pager.layoutOrders" style="display:inline-block; width: auto")
 
     .row
-        ul.sg-layoutlist
+        ul.sg-layout-list
             li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="pager.currentPage"
             dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" )
-                .sg-layoutblock(ng-class="{ 'selected': $index === pager.getSelectedIndex() }")
+                if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
+                    .sg-layout-controls.text-center(ng-show='layout.createdBy === currentUser.name || currentUser.role === "admin"')
+                        if user.role === 'admin'
+                            i.fa.fa-check-square-o.sg-blue-i.sg-shadowed-text.control24
+                        i.fa.fa-pencil-square-o.sg-green-i.sg-shadowed-text.control24(ng-click='showLayout(layout)')
+                        i.fa.fa-remove.sg-red-i.sg-shadowed-text.control28(ng-click='confirmRemove(layout)')
+                .sg-layout-block
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
                         ng-click="$index === pager.getSelectedIndex() ? show2dModal() : pager.setSelectedIndex($index)"
                         hm-swipeup="setSelectedIndex($index); show2dModal()")

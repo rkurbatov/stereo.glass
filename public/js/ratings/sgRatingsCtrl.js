@@ -5,9 +5,15 @@
         .module('sgAppAdmin')
         .controller('sgRatingsCtrl', sgRatingsCtrl);
 
-    sgRatingsCtrl.$inject = ['$scope', '$sce', '$modal', '$cookies', 'sgCategories', 'sgLayouts', 'sgUsers'];
+    sgRatingsCtrl.$inject = ['$scope', '$sce', '$modal', 'sgCategories', 'sgLayouts', 'sgUsers'];
 
-    function sgRatingsCtrl($scope, $sce, $modal, $cookies, sgCategories, sgLayouts, sgUsers) {
+    function sgRatingsCtrl($scope, $sce, $modal, sgCategories, sgLayouts, sgUsers) {
+
+        $scope.currentUser = sgUsers.currentUser;
+
+        $scope.showLayout = function(layout){
+          console.log(layout);
+        };
 
         $scope.serverFilters = {
             assortment: {selection: []},
@@ -97,8 +103,6 @@
         $scope.pager.getSelectedIndex = getSelectedIndex;
         $scope.pager.setSelectedIndex = setSelectedIndex;
 
-        $scope.username = $cookies.get('username');
-
         // Range date init
 
         $scope.dateRange = {};
@@ -150,7 +154,7 @@
             if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
             if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
 
-            sgLayouts.loadData($scope.serverFilters, $scope.username)
+            sgLayouts.loadData($scope.serverFilters)
                 .then(function (data) {
                     $scope.layouts = data;
                 });
@@ -214,9 +218,9 @@
 
         };
 
-        $scope.confirmRemove = function (idx) {
+        $scope.confirmRemove = function (layout) {
             var modalScope = $scope.$new(true);
-            var layout = $scope.filteredLayouts[$scope.pager.selectedIndex];
+            //var layout = $scope.filteredLayouts[$scope.pager.selectedIndex];
             var layoutId = layout['_id'];
 
             modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;

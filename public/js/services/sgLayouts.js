@@ -5,19 +5,16 @@
         .module('sgAppAdmin')
         .service('sgLayouts', sgLayouts);
 
-    sgLayouts.$inject = ['$http', '$q'];
+    sgLayouts.$inject = ['$http', '$q', 'sgUsers'];
 
-    function sgLayouts($http, $q) {
+    function sgLayouts($http, $q, sgUsers) {
 
         this.loadData = loadData;
         this.removeMyRating = removeMyRating;
         this.changeMyRating = changeMyRating;
         this.removeLayout = removeLayout;
 
-        var currentUser = '';
-
-        function loadData(filters, userName) {
-            currentUser = userName;
+        function loadData(filters) {
 
             var selection = {
                 catColors: filters.colors.selection,
@@ -34,7 +31,7 @@
             }).then(function (response) {
                 return response.data.map(function (e) {
                     // get rating, set by current user or -1
-                    var rating = _.pluck(_.where(e.ratings, {'assignedBy': currentUser}), 'value')[0];
+                    var rating = _.pluck(_.where(e.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
                     if (rating >= 0) {
                         e.rating = rating;
                     } else {
@@ -50,8 +47,9 @@
         }
 
         function removeMyRating(layout) {
-            var idx = _.findIndex(layout.ratings, {assignedBy: currentUser});
-            if (idx > -1) {
+            var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
+            if (~idx) {
+                console.log(layout.ratings);
                 $http.delete('/api/layout/' + layout['_id'] + '/rating')
                     .then(function (response) {
                         if (response.status === 204) {
@@ -64,17 +62,16 @@
         }
 
         function changeMyRating(layout, value) {
-            var idx = _.findIndex(layout.ratings, {assignedBy: currentUser});
-
+            var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
             return $http.put('/api/layout/' + layout['_id'] + '/rating/' + value)
                 .then(function (result) {
                     if (result.status !== 200) return $q.reject('Rating error: ' + result.status);
-                    if (idx > -1) {         // rating exists
+                    if (~idx) { // rating exists
                         layout.ratings[idx].value = value;
-                    } else {                // new rating
+                    } else { // new rating
                         layout.ratings.push({
                             value: value,
-                            assignedBy: currentUser
+                            assignedBy: sgUsers.currentUser.name
                         });
                     }
                     layout.average = calcAverageRating(layout.ratings);

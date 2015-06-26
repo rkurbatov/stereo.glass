@@ -1,37 +1,62 @@
-ul.sg-layoutlist {
+ul.sg-layout-list {
   display: block;
   list-style: outside none none;
   padding: 0;
+
+  li {
+    display: list-item;
+    margin-bottom: 10px;
+  }
 }
 
-ul.sg-layoutlist li {
-  display: list-item;
-  margin-bottom: 10px;
-}
-
-.sg-layoutblock {
+.sg-layout-block {
   display: block;
   width: 165px;
   height: 225px;
   margin: auto;
   overflow: hidden;
   text-overflow: ellipsis;
-}
 
-.sg-layoutblock img {
-  width: 125px;
-  height: 125px;
-  margin: 10px 20px;
-  border: 1px solid #D4D4D4;
-}
+  img {
+    width: 125px;
+    height: 125px;
+    margin: 10px 20px;
+    border: 1px solid #D4D4D4;
+  }
 
-.sg-layoutblock.selected {
-  background-color: lightyellow;
-  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
+  .selected {
+    background-color: lightyellow;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
+  }
 }
 
 .layout-info {
   /*background-color: lightyellow;*/
   margin-right: 20px;
   height: 270px;
+}
+
+.sg-layout-controls {
+  margin-bottom: -28px;
+
+  @mixin layout-control ($height) {
+    cursor: pointer;
+    font-size: $height;
+    opacity: 0.55;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .control24 {
+    @include layout-control(24px);
+    margin: 0 5px;
+  }
+
+  .control28 {
+    @include layout-control(28px);
+    margin: 0 3px;
+  }
+
 }

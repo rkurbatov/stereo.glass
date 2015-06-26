@@ -17,8 +17,6 @@
             role : $cookies.get('userrole')
         };
 
-        console.log(svc.currentUser);
-
         svc.getLayoutAuthors = getLayoutAuthors;
         svc.getRaters = getRaters;
         svc.getListOfUsers = getListOfUsers;
