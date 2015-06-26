@@ -77,12 +77,13 @@ passport.use(Account.createStrategy());
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
 
     // set usermail cookie to response
-    if(req.user) {
+    if (req.user) {
         if (req.user.usermail) res.cookie('usermail', req.user.usermail);
         if (req.user.username) res.cookie('username', req.user.username);
+        res.cookie('userrole', req.user.role);
     }
 
     // set locals user variable

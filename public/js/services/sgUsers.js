@@ -5,11 +5,19 @@
         .module('sgAppAdmin')
         .service('sgUsers', sgUsers);
 
-    sgUsers.$inject = ['$http', '$q'];
+    sgUsers.$inject = ['$http', '$q', '$cookies'];
 
-    function sgUsers($http, $q) {
+    function sgUsers($http, $q, $cookies) {
 
         var svc = this;
+
+        svc.currentUser = {
+            name : $cookies.get('username'),
+            mail : $cookies.get('usermail'),
+            role : $cookies.get('userrole')
+        };
+
+        console.log(svc.currentUser);
 
         svc.getLayoutAuthors = getLayoutAuthors;
         svc.getRaters = getRaters;
@@ -37,6 +45,5 @@
         }
 
     }
-
 
 })();
