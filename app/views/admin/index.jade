@@ -4,12 +4,6 @@ block content
         ul#tabs.nav.nav-tabs(data-tabs="tabs")
 
             //- Users tab header
-            if user.role === 'admin'
-                li: a(href='#admin-test', data-toggle='tab')
-                    span.fa.fa-wrench
-                    |  Тест
-
-            //- Users tab header
             if user.role === 'admin'            
                 li.active: a(href='#admin-users', data-toggle='tab')
                     span.fa.fa-users
@@ -59,11 +53,6 @@ block content
 
 
         #tabs-content.tab-content
-
-            if user.role === 'admin'
-                #admin-test.tab-pane
-                    include ./_test
-
 
             if user.role === 'admin'
                 #admin-users.tab-pane.active
