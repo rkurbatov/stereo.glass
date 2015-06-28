@@ -29,12 +29,11 @@ node_modules
 public/libs
 public/css
 public/img
+public/.sass-cache
 public/sass/.sass-cache
 public/video
 uploads
 
 *.sublime-project
 *.sublime-workspace
-
-pinger.js
-public/.sass-cache
+.idea
