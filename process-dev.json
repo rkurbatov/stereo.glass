@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "apps" : [
     {
@@ -14,3 +15,21 @@
     }
   ]
 }
+=======
+{
+  "apps" : [
+    {
+      "name"       : "dev.stereo.glass",
+      "env"        : {
+        "NODE_ENV" : "development",
+        "APP_PORT" : "4200"
+      },
+      "script"     : "server.js",
+      "log_file"   : "./logs/test.log",
+      "error_file" : "./logs/test-err.log",
+      "out_file"   : "./logs/test-out.log",
+      "pid_file"   : "./pid/test.pid"
+    }
+  ]
+}
+>>>>>>> 1172710c6a267de98be7afaa85c62af5bf098324
