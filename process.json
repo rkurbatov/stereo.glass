@@ -1,12 +1,16 @@
 {
-  "apps" : [
+  "apps": [
     {
-      "name"         : "test",
-      "script"       : "server.js",
-       "log_file"     : "./logs/test.log",
-      "error_file"   : "./logs/test-err.log",
-      "out_file"     : "./logs/test-out.log",
-      "pid_file"     : "./pid/test.pid"
+      "name"      : "stereo.glass",
+      "env"       : {
+        "NODE_ENV": "production",
+        "APP_PORT"    : "4100"
+      },
+      "script"    : "server.js",
+      "log_file"  : "./logs/test.log",
+      "error_file": "./logs/test-err.log",
+      "out_file"  : "./logs/test-out.log",
+      "pid_file"  : "./pid/test.pid"
     }
   ]
 }

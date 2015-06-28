@@ -1,6 +1,6 @@
 'use strict';
 
-var APP_PORT = 4100;
+var APP_PORT = process.env.APP_PORT;
 
 var express = require('express');
 var logger = require('morgan');
@@ -44,7 +44,7 @@ app.use(session({
     saveUninitialized: false,
     resave: true,
     store: new MongoStore({
-        db: 'stereo_glass',
+        db: process.env.NODE_ENV === 'production' ? 'stereo_glass' : 'dev_stereo_glass',
         host: 'localhost',
         collection: 'sessions',
         autoReconnect: true
