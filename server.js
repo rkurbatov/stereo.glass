@@ -108,7 +108,7 @@ app.set('views', './app/views');
 var dbName = 'mongodb://localhost/' + process.env.NODE_ENV === 'production'
     ? 'stereo_glass'
     : 'dev_stereo_glass';
-mongoose.connect('mongodb://localhost/stereo_glass');
+mongoose.connect(dbName);
 
 // ======== MULTER =========
 require('./app/helpers/uploader')(app);
