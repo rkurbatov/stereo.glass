@@ -109,8 +109,10 @@ var dbName = 'mongodb://localhost/' + (process.env.NODE_ENV === 'production'
     ? 'stereo_glass'
     : 'dev_stereo_glass');
 mongoose.connect(dbName, function(err) {
-    console.log('Connection error: ', err);
-    process.exit(1);
+    if(err) {
+        console.log('Connection error: ', err);
+        process.exit(1);
+    }
 });
 
 // ======== MULTER =========
