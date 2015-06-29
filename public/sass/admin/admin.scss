@@ -1,4 +1,7 @@
-@import "compass/css3";
+@import "compass";
+@import "normalize";
+@import "bootstrap-compass";
+@import "font-awesome-compass";
 
 @import "colors";
 @import "helperclasses";
