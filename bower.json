@@ -1,28 +1,29 @@
 {
-  "name"         : "stereo.glass",
-  "version"      : "1.0.0",
-  "dependencies" : {
-    "lodash"                       : "~3.9.3",
-    "moment"                       : "~2.10.3",
-    "hammerjs"                     : "~2.0.4",
-    "jquery"                       : "~2.1.4",
-    "jquery-color"                 : "~2.1.2",
-    "jquery-touchswipe"            : "~1.6.9",
-    "bootstrap"                    : "~3.3.5",
-    "font-awesome"                 : "~4.3.0",
-    "bootstrap-select"             : "~1.7.3",
-    "bootstrap-fileinput"          : "~4.2.3",
-    "bootstrap-daterangepicker"    : "~1.3.22",
-    "angular"                      : "~1.4.1",
-    "angular-cookies"              : "~1.4.1",
-    "angular-bootstrap"            : "~0.13.0",
-    "angular-daterangepicker-plus" : "~0.1.17",
-    "angular-utils-pagination"     : "~0.8.2",
-    "angular-smart-table"          : "~2.1.0",
-    "ryanmullins-angular-hammer"   : "~2.1.10"
+  "name": "stereo.glass",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "~3.9.3",
+    "moment": "~2.10.3",
+    "hammerjs": "~2.0.4",
+    "jquery": "~2.1.4",
+    "jquery-color": "~2.1.2",
+    "jquery-touchswipe": "~1.6.9",
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.3.0",
+    "bootstrap-select": "~1.7.3",
+    "bootstrap-fileinput": "~4.2.3",
+    "bootstrap-daterangepicker": "~1.3.22",
+    "angular": "~1.4.1",
+    "angular-cookies": "~1.4.1",
+    "angular-bootstrap": "~0.13.0",
+    "angular-daterangepicker-plus": "~0.1.17",
+    "angular-utils-pagination": "~0.8.2",
+    "angular-smart-table": "~2.1.0",
+    "ryanmullins-angular-hammer": "~2.1.10",
+    "sg.ui": "https://github.com/rkurbatov/sg.ui.git"
   },
-  "resolutions"  : {
-    "angular" : "~1.4.1",
-    "moment"  : "~2.10.3"
+  "resolutions": {
+    "angular": "~1.4.1",
+    "moment": "~2.10.3"
   }
 }
