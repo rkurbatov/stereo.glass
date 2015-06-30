@@ -256,15 +256,17 @@
         $scope.$watch('dateRange', $scope.loadData, true);
 
         // add to filters 'deleted' filter
-        $scope.pager.layoutFilters.push(
-            {
-                name: 'удалённые',
-                mode: 'rate',
-                value: function(layout) {
-                    return layout.isHidden;
+        if (sgUsers.currentUser.role === 'admin') {
+            $scope.pager.layoutFilters.push(
+                {
+                    name: 'удалённые',
+                    mode: 'rate',
+                    value: function(layout) {
+                        return layout.isHidden;
+                    }
                 }
-            }
-        );
+            );
+        }
 
         // add to filters array filter by founder name
         sgUsers.getRaters()
