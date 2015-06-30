@@ -1,0 +1,3 @@
+use dev_stereo_glass;
+db.dropDatabase();
+db.copyDatabase("stereo_glass","dev_stereo_glass","localhost:27018");
