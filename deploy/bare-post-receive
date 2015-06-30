@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# bare repo hook which fire on production or devel branch push
+
+while read oldrev newrev refname
+do
+    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+    if [ "$branch" == "master" ]; then
+	cd /home/siegfried/master/bare || exit
+	unset GIT_DIR
+	git pull origin master
+	exec git-update-server-info
+    fi
+    if [ "$branch" == "devel" ]; then
+	cd /home/siegfried/devel/bare || exit
+	unset GIT_DIR
+	git pull origin devel
+	exec git-update-server-info
+    fi
+done
