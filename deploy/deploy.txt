@@ -1,0 +1,6 @@
+apt-get install gem ruby-dev ruby-compass
+
+gem install compass
+gem install compass-normalize
+gem install font-awesome-sass
+gem install bootstrap-sass

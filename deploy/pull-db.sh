@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Copyright by Jesta (Aaron Cox)
+#http://stackoverflow.com/questions/16619598/sync-mongodb-via-ssh
 
 ssh -L27018:localhost:27017 stglass@stereo.glass -p 2222 '
     echo "Connected on Remote End, sleeping for 10";
