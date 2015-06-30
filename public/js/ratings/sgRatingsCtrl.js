@@ -49,7 +49,7 @@
             selectedIndex: -1,          // default - unselected
             layoutOrders: [
                 {
-                    name: "По дате (старых к новым)",
+                    name: "По дате (от старых к новым)",
                     value: ['createdAt']
                 },
                 {
@@ -77,20 +77,22 @@
                 {
                     name: "все",
                     mode: 'rate',
-                    value: {}
+                    value: function (v) {
+                        return !v.isHidden;
+                    }
                 },
                 {
                     name: "еще не просмотренные",
                     mode: 'rate',
                     value: function (v) {
-                        return v.rating === -1 || v.notRatedByMe;
+                        return (v.rating === -1 || v.notRatedByMe) && !v.isHidden;
                     }
                 },
                 {
                     name: "только оцененные и просмотренные мной",
                     mode: 'rate',
                     value: function (v) {
-                        return v.rating > -1;
+                        return v.rating > -1 && !v.isHidden;
                     }
                 }
             ]
@@ -252,6 +254,17 @@
         }
 
         $scope.$watch('dateRange', $scope.loadData, true);
+
+        // add to filters 'deleted' filter
+        $scope.pager.layoutFilters.push(
+            {
+                name: 'удалённые',
+                mode: 'rate',
+                value: function(layout) {
+                    return layout.isHidden;
+                }
+            }
+        );
 
         // add to filters array filter by founder name
         sgUsers.getRaters()

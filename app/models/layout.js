@@ -24,7 +24,8 @@ module.exports = function (mongoose) {
     	catPlots: [String],
     	catAssortment: [String],
     	catCountries: [String],
-    	designerComment: String
+    	designerComment: String,
+        isHidden: Boolean
     });
 
     Ratings.pre('save', function (next){

@@ -129,11 +129,39 @@ module.exports = function (app, express, mongoose, Account) {
 
     });
 
+    // Mark layout as deleted
     Router.delete('/layouts/:id', function (req, res) {
         if (req.isAuthenticated() && _.contains(['admin', 'designer', 'founder'], req.user.role)) {
+            Layout.findOne({'_id': req.params.id}, function (err, layout) {
+                if (err) {
+                    console.log('Error removing layout: ', err);
+                    return res.status(500).send('Error removing layout: ' + err);
+                }
+                if (layout) {
+                    layout.isHidden = true;
+                    layout.save(function (err) {
+                        if (err) {
+                            console.log('Error removing layout: ', err);
+                            return res.status(500).send('Error removing layout: ' + err);
+                        } else {
+                            return res.status(204).send({success: layout.name + ' is marked as deleted'});
+                        }
+                    });
+                } else {
+                    return res.status(404).send({error: 'entry not found'});
+                }
+            });
+        } else {
+            return res.status(403).send('forbidden');
+        }
+    });
+
+    // Delete layout completely
+    Router.delete('/layouts/:id/completely', function (req, res) {
+        if (req.isAuthenticated() && _.contains(['admin'], req.user.role)) {
             Layout.findOneAndRemove({'_id': req.params.id}, function (err, data) {
                 if (err) {
-                    console.log('Error removing layout:', err);
+                    console.log('Error removing layout: ', err);
                     return res.status(500).end();
                 }
                 if (data) {
