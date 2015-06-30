@@ -16,7 +16,7 @@
 
         return ddo;
 
-        function link (scope, elm, attrs) {
+        function link(scope, elm, attrs) {
             scope.main.isPlaying = false;
             scope.switchVideoState = switchVideoState;
             scope.pauseVideo = pauseVideo;
@@ -29,7 +29,7 @@
 
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
 
-            function switchVideoState () {
+            function switchVideoState() {
                 if (!scope.main.isPlaying) {
                     $('#cinema, header').animate({opacity: 0});
                     video.play();
@@ -41,7 +41,7 @@
                 }
             }
 
-            function pauseVideo () {
+            function pauseVideo() {
                 video.pause();
                 scope.main.isPlaying = false;
             }

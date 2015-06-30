@@ -4,8 +4,8 @@ module.exports = function (express, Account) {
     var Router = express.Router();
 
     // server routes ===========================================================
-    Router.get(['/'], function(req, res, next){
-        res.render('mainpage/index', { user: req.user });
+    Router.get(['/'], function (req, res, next) {
+        res.render('mainpage/index', {user: req.user});
     });
 
     // admin interface
@@ -13,7 +13,7 @@ module.exports = function (express, Account) {
         if (req.isAuthenticated()) {
             if (req.user._id) {
                 Account.findByIdAndUpdate(req.user._id, {activeAt: new Date}, function (err) {
-                    if (err) console.log(err); 
+                    if (err) console.log(err);
                 });
             }
             res.render('admin/index', {user: req.user});
@@ -22,7 +22,7 @@ module.exports = function (express, Account) {
         }
     });
 
-    Router.get('/ping', function(req, res){
+    Router.get('/ping', function (req, res) {
         if (res.isAuthenticated) res.status(200).send("pong!");
         else {
             res.status(200).send("pang!");

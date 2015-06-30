@@ -34,8 +34,8 @@
                 .form-group
                     | Показывать &nbsp;
                     select.form-control-static(ng-model="pager.layoutFilter"
-                                               ng-options="opt.name for opt in pager.layoutFilters"
-                                               ng-change="pager.updateFilter()")
+                    ng-options="opt.name for opt in pager.layoutFilters"
+                    ng-change="pager.updateFilter()")
                     //-| &nbsp; &nbsp;
                     //-button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать в галерее
                     //-| &nbsp; &nbsp;
@@ -78,8 +78,8 @@
                         i.fa.fa-remove.sg-red-i.sg-shadowed-text.control28(ng-click='confirmRemove(layout)')
                 .sg-layout-block
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
-                        ng-click="$index === pager.getSelectedIndex() ? show2dModal() : pager.setSelectedIndex($index)"
-                        hm-swipeup="setSelectedIndex($index); show2dModal()")
+                    ng-click="$index === pager.getSelectedIndex() ? show2dModal() : pager.setSelectedIndex($index)"
+                    hm-swipeup="setSelectedIndex($index); show2dModal()")
                     sg-rating.text-center(linked-object='layout' ng-show='pager.layoutFilter.mode === "rate"')
                     .text-center
                         i.glyphicon.glyphicon-star.sg-gold-i(ng-show='pager.layoutFilter.mode === "view"' style='font-size: 20px')

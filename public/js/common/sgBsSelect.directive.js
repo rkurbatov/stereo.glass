@@ -47,7 +47,7 @@
             // get selection on change
             elm.on('change', function (evt) {
                 scope.data.selection = elm.val() || [];
-                scope.$apply(function(){
+                scope.$apply(function () {
                     scope.execOnChange();
                 });
             });

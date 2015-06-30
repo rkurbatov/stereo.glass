@@ -69,7 +69,7 @@ function modalPopUpCtrl($scope, $modalInstance) {
     function changeUrl() {
         $scope.imgIsLoading = true;
         $scope.imgUrl = '/uploads/' + $scope.lts[$scope.idx].urlDir +
-        '/' + $scope.lts[$scope.idx].url2d;
+            '/' + $scope.lts[$scope.idx].url2d;
 
     }
 }

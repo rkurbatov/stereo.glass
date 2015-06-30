@@ -1,10 +1,10 @@
 //TODO: show registration and login errors
 
-(function ($){
-	'use strict';
+(function ($) {
+    'use strict';
 
-	$(document).ready(function(){
-		$('#form-register').validator();
-	});
-	
+    $(document).ready(function () {
+        $('#form-register').validator();
+    });
+
 })(jQuery);

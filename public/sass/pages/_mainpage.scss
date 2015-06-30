@@ -9,7 +9,7 @@ body {
 }
 
 .main-carousel {
- // display: none;
+  // display: none;
 }
 
 .horizon-prev, .horizon-next {
@@ -18,9 +18,11 @@ body {
   margin-top: -24px;
   z-index: 9999;
 }
+
 .horizon-prev {
   left: 20px;
 }
+
 .horizon-next {
   right: 20px;
 }

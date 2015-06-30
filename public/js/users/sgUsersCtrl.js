@@ -1,6 +1,6 @@
 //TODO: search for duplications after editing user
 //TODO: delete user sessions after user delete
-(function(){
+(function () {
     'use strict';
 
     angular
@@ -14,7 +14,7 @@
         $scope.usermail = $cookies.get('usermail') || '';
 
         $scope.refreshUserData = function () {
-            sgUsers.getListOfUsers().then(function(users) {
+            sgUsers.getListOfUsers().then(function (users) {
                 $scope.rowCollection = users;
             });
         };

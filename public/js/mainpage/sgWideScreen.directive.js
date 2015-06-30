@@ -9,14 +9,14 @@
 
     // sets variable for widescreen displays
     function sgWideScreen($document, $window) {
-        var ddo =  {
+        var ddo = {
             restrict: 'E',
             link: link
         };
 
         return ddo;
 
-        function link (scope, elm, attrs) {
+        function link(scope, elm, attrs) {
 
             angular.element($document).on('load', calcRatio);
             angular.element($window).on('resize orientationchange', calcRatio);

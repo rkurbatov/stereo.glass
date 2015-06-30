@@ -8,7 +8,7 @@
     sgCenterVertical.$inject = ['$window'];
 
     function sgCenterVertical($window) {
-        var ddo =  {
+        var ddo = {
             restrict: 'A',
             link: link
         };

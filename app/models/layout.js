@@ -1,5 +1,5 @@
 module.exports = function (mongoose) {
-	'use strict';
+    'use strict';
 
     var Schema = mongoose.Schema;
 
@@ -10,25 +10,25 @@ module.exports = function (mongoose) {
     });
 
     var LayoutSchema = new Schema({
-    	name: {type: String, unique: true},
-    	urlDir: String,
+        name: {type: String, unique: true},
+        urlDir: String,
         url2d: String,
         //url3d: String,
         //urlLayout: [String],
         urlThumb: String,
         createdBy: String,
-    	createdAt: Date,
+        createdAt: Date,
         ratings: [Ratings],
         average: Number,
-    	catColors: [String],
-    	catPlots: [String],
-    	catAssortment: [String],
-    	catCountries: [String],
-    	designerComment: String,
+        catColors: [String],
+        catPlots: [String],
+        catAssortment: [String],
+        catCountries: [String],
+        designerComment: String,
         isHidden: Boolean
     });
 
-    Ratings.pre('save', function (next){
+    Ratings.pre('save', function (next) {
         if (!this.assignedAt) {
             this.assignedAt = new Date();
         }

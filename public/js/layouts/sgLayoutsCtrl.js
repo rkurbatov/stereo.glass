@@ -1,4 +1,4 @@
-(function(){
+(function () {
     'use strict';
 
     angular
@@ -11,14 +11,10 @@
         'use strict';
 
         sgCategories.loaded.then(function () {
-             $('#assortment-selector').html(sgCategories.assortment).selectpicker('refresh');
-            //$('#rate-assortment-selector').html(sgCategories.assortment).selectpicker('refresh');
+            $('#assortment-selector').html(sgCategories.assortment).selectpicker('refresh');
             $('#colors-selector').html(sgCategories.colors).selectpicker('refresh');
-            //$('#rate-colors-selector').html(sgCategories.colors).selectpicker('refresh');
             $('#countries-selector').html(sgCategories.countries).selectpicker('refresh');
-            //$('#rate-countries-selector').html(sgCategories.countries).selectpicker('refresh');
             $('#plots-selector').html(sgCategories.plots).selectpicker('refresh');
-            //$('#rate-plots-selector').html(sgCategories.plots).selectpicker('refresh');
         });
 
     }

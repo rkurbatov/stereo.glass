@@ -1,4 +1,4 @@
-(function(){
+(function () {
     'use strict';
 
     angular
@@ -12,9 +12,9 @@
         var svc = this;
 
         svc.currentUser = {
-            name : $cookies.get('username'),
-            mail : $cookies.get('usermail'),
-            role : $cookies.get('userrole')
+            name: $cookies.get('username'),
+            mail: $cookies.get('usermail'),
+            role: $cookies.get('userrole')
         };
 
         svc.getLayoutAuthors = getLayoutAuthors;
@@ -29,14 +29,14 @@
         }
 
         function getRaters() {
-            return getListOfUsers(['admin', 'founder']).then(function(raters){
-               return _.without(_.pluck(raters, 'username'), 'Roman Kurbatov');
+            return getListOfUsers(['admin', 'founder']).then(function (raters) {
+                return _.without(_.pluck(raters, 'username'), 'Roman Kurbatov');
             });
         }
 
         function getListOfUsers(roles) {
             return $http.get('/api/users', {
-                params: { roles: roles || [] }
+                params: {roles: roles || []}
             }).then(function (response) {
                 return response.data;
             });

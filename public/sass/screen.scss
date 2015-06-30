@@ -2,25 +2,18 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
-
-
-
 //@import "compass/reset";
 //@import "compass/css3";
 //@import "compass/typography";
 @import "compass";
 @import "normalize";
-
 //@import "compass/support";
-
 @import "bootstrap-compass";
 @import "bootstrap-variables";
-
 @import "font-awesome-compass";
 
-@include font-face( "Airbone", font-files("airbone/arbn2plt.svg#arbn2plt", "airbone/arbn2plt.woff",
-                    "airbone/arbn2plt.ttf"), "airbone/arbn2plt.eot");
+@include font-face("Airbone", font-files("airbone/arbn2plt.svg#arbn2plt", "airbone/arbn2plt.woff",
+        "airbone/arbn2plt.ttf"), "airbone/arbn2plt.eot");
 
 @import "utilities/utilities";
 @import "components/components";

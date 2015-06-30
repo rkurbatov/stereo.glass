@@ -8,7 +8,7 @@
         i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-class='{"sg-hidden": !imgIsLoading}')
     | &nbsp;&nbsp;
     span
-     | Просмотр изображений: {{idx + 1}} из {{lts.length}} &nbsp;
+        | Просмотр изображений: {{idx + 1}} из {{lts.length}} &nbsp;
 
 .modal-body(ng-keypress="key($event)" tabindex="0")
     a.carousel-control.left(href="" ng-click='prevImg()' ng-show="idx !== 0")

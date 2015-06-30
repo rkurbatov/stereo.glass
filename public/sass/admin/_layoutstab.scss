@@ -39,7 +39,7 @@ ul.sg-layout-list {
 .sg-layout-controls {
   margin-bottom: -28px;
 
-  @mixin layout-control ($height) {
+  @mixin layout-control($height) {
     cursor: pointer;
     font-size: $height;
     opacity: 0.55;

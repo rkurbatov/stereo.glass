@@ -4,7 +4,7 @@ block content
         ul#tabs.nav.nav-tabs(data-tabs="tabs")
 
             //- Users tab header
-            if user.role === 'admin'            
+            if user.role === 'admin'
                 li.active: a(href='#admin-users', data-toggle='tab')
                     span.fa.fa-users
                     |  Пользователи
@@ -28,7 +28,7 @@ block content
                 li.active: a(href='#admin-ratings', data-toggle='tab')
                     span.glyphicon.glyphicon-star
                     |  Оценки
-            
+
             //- Messages tab header
             li: a(href='#messages', data-toggle='tab')
                 span.glyphicon.glyphicon-envelope
@@ -69,7 +69,7 @@ block content
                 #admin-ratings.tab-pane
                     include ./_ratings
             if user.role === 'founder'
-                #admin-ratings.tab-pane.active        
+                #admin-ratings.tab-pane.active
                     include ./_ratings
 
             #messages.tab-pane
@@ -79,5 +79,5 @@ block content
                 #profile.tab-pane.active
                     include ./_profile
             else
-                #profile.tab-pane        
+                #profile.tab-pane
                     include ./_profile

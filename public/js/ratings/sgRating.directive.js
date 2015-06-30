@@ -12,7 +12,7 @@
         var ddo = {
             restrict: 'E',
             scope: {
-              linkedObject: '='
+                linkedObject: '='
             },
             templateUrl: '/partials/ratingsDirective',
             link: link
@@ -25,14 +25,14 @@
             scope.markViewed = markViewed;
             scope.oneRow = attrs.oneRow;
 
-            scope.$watch('linkedObject.rating', function(newValue, oldValue){
+            scope.$watch('linkedObject.rating', function (newValue, oldValue) {
                 if (newValue === oldValue || newValue === -1) return;
                 sgLayouts.changeMyRating(scope.linkedObject, newValue)
-                    .then(function(){
+                    .then(function () {
                         // Hack to prevent early filtering. Now we can filter our layout
                         // scope.linkedObject.notRatedByMe = false;
                     })
-                    .catch(function(err){
+                    .catch(function (err) {
                         console.log(err);
                     });
             });

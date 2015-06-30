@@ -2,7 +2,7 @@ extends authLayout
 block content
     script(src='../libs/jquery/dist/jquery.min.js')
     script(src='../libs/bootstrap-validator/dist/validator.min.js')
-    script(src='../js/jqLogin.js')    
+    script(src='../js/jqLogin.js')
 
     .container: .row: .col-sm-6.col-md-4.col-md-offset-4
         h2.text-center Регистрация
@@ -15,8 +15,8 @@ block content
                 input#input-password.form-control(type='password', name="password", required, placeholder='Пароль', data-minlength="6")
                 span.help-block Минимальная длина пароля - 6 символов    
             .form-group
-                input#input-password-confirm.form-control(type='password', name="passwordConfirm", required, 
-                    placeholder='Подтверждение пароля' data-match='#input-password' data-match-error='Пароли не совпадают!')
+                input#input-password-confirm.form-control(type='password', name="passwordConfirm", required,
+                placeholder='Подтверждение пароля' data-match='#input-password' data-match-error='Пароли не совпадают!')
                 .help-block.with-errors
             .form-actions.text-center
                 br

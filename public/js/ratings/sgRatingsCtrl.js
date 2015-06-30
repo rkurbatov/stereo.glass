@@ -11,8 +11,8 @@
 
         $scope.currentUser = sgUsers.currentUser;
 
-        $scope.showLayout = function(layout){
-          console.log(layout);
+        $scope.showLayout = function (layout) {
+            console.log(layout);
         };
 
         $scope.serverFilters = {
@@ -261,7 +261,7 @@
                 {
                     name: 'удалённые',
                     mode: 'rate',
-                    value: function(layout) {
+                    value: function (layout) {
                         return layout.isHidden;
                     }
                 }
