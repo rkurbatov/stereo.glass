@@ -83,29 +83,33 @@ module.exports = function (app, express, mongoose, Account) {
             if (req.query.selection) {
                 sel = JSON.parse(req.query.selection);
 
-                if (sel.catColors && sel.catColors.length > 0) {
-                    tmpArr.push({catColors: {$in: sel.catColors}});
+                if (sel.colors && sel.colors.length > 0) {
+                    tmpArr.push({catColors: {$in: sel.colors}});
                 }
 
-                if (sel.catAssortment && sel.catAssortment.length > 0) {
-                    tmpArr.push({catAssortment: {$in: sel.catAssortment}});
+                if (sel.assortment && sel.assortment.length > 0) {
+                    tmpArr.push({catAssortment: {$in: sel.assortment}});
                 }
 
-                if (sel.catCountries && sel.catCountries.length > 0) {
-                    tmpArr.push({catCountries: {$in: sel.catCountries}});
+                if (sel.countries && sel.countries.length > 0) {
+                    tmpArr.push({catCountries: {$in: sel.countries}});
                 }
 
-                if (sel.catPlots && sel.catPlots.length > 0) {
-                    tmpArr.push({catPlots: {$in: sel.catPlots}});
+                if (sel.plots && sel.plots.length > 0) {
+                    tmpArr.push({catPlots: {$in: sel.plots}});
                 }
 
-                if (sel.designers && sel.designers.length > 0) {
-                    tmpArr.push({createdBy: {$in: sel.designers}});
+                if (sel.authors && sel.authors.length > 0) {
+                    tmpArr.push({createdBy: {$in: sel.authors}});
                 }
 
                 if (sel.fromDate || sel.toDate) {
-                    if (sel.fromDate) tmpDateQueryObj.$gte = sel.fromDate;
-                    if (sel.toDate) tmpDateQueryObj.$lt = sel.toDate;
+                    if (sel.fromDate) {
+                        tmpDateQueryObj.$gte = sel.fromDate;
+                    }
+                    if (sel.toDate) {
+                        tmpDateQueryObj.$lt = sel.toDate;
+                    }
                     tmpArr.push({createdAt: tmpDateQueryObj});
                 }
 

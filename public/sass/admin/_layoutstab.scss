@@ -24,7 +24,7 @@ ul.sg-layout-list {
     border: 1px solid #D4D4D4;
   }
 
-  .selected {
+  &.selected {
     background-color: lightyellow;
     box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
   }

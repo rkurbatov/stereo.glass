@@ -9,101 +9,8 @@
 
     function sgRatingsCtrl($scope, $sce, $modal, sgCategories, sgLayouts, sgUsers) {
 
-        $scope.currentUser = sgUsers.currentUser;
 
-        $scope.showLayout = function (layout) {
-            console.log(layout);
-        };
 
-        $scope.serverFilters = {
-            assortment: {selection: []},
-            colors: {selection: []},
-            countries: {selection: []},
-            plots: {selection: []},
-            designers: {selection: []}
-        };
-
-        // form selectors data
-        sgCategories.loaded.then(function () {
-            $scope.serverFilters.assortment.content = sgCategories.assortment;
-            $scope.serverFilters.colors.content = sgCategories.colors;
-            $scope.serverFilters.countries.content = sgCategories.countries;
-            $scope.serverFilters.plots.content = sgCategories.plots;
-        });
-
-        // Fill designers list
-        sgUsers.getLayoutAuthors().then(function (authors) {
-            $scope.designers = authors;
-            $scope.serverFilters.designers.content = arrToOptions($scope.designers);
-            //$('#rate-designer-selector').html(arrToOptions($scope.designers)).selectpicker('refresh');
-        });
-
-        // Init controller
-        $scope.selection = {};
-        $scope.designers = [];
-
-        // Paginator init
-        $scope.pager = {
-            ipps: [12, 18, 24, 36],     // possible images per page values
-            currentPage: 1,
-            selectedIndex: -1,          // default - unselected
-            layoutOrders: [
-                {
-                    name: "По дате (от старых к новым)",
-                    value: ['createdAt']
-                },
-                {
-                    name: "По дате (от новых к старым)",
-                    value: ['-createdAt']
-                },
-                {
-                    name: "По убыванию рейтинга",
-                    value: ['-average']
-                },
-                {
-                    name: "По возрастанию рейтинга",
-                    value: ['average']
-                },
-                {
-                    name: "По уменьшению числа оценивших",
-                    value: ['-ratings.length']
-                },
-                {
-                    name: "По увеличению числа оценивших",
-                    value: ['ratings.length']
-                }
-            ],
-            layoutFilters: [
-                {
-                    name: "все",
-                    mode: 'rate',
-                    value: function (v) {
-                        return !v.isHidden;
-                    }
-                },
-                {
-                    name: "еще не просмотренные",
-                    mode: 'rate',
-                    value: function (v) {
-                        return (v.rating === -1 || v.notRatedByMe) && !v.isHidden;
-                    }
-                },
-                {
-                    name: "только оцененные и просмотренные мной",
-                    mode: 'rate',
-                    value: function (v) {
-                        return v.rating > -1 && !v.isHidden;
-                    }
-                }
-            ]
-        };
-
-        $scope.pager.ipp = $scope.pager.ipps[0];              // default IPP
-        $scope.pager.layoutOrder = $scope.pager.layoutOrders[0];
-        $scope.pager.layoutFilter = $scope.pager.layoutFilters[0];
-
-        $scope.pager.getSelectedIndex = getSelectedIndex;
-        $scope.pager.setSelectedIndex = setSelectedIndex;
 
         // Range date init
 
@@ -150,30 +57,6 @@
         });
 
 
-        // Fill paginator
-        $scope.loadData = function () {
-
-            if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
-            if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
-
-            sgLayouts.loadData($scope.serverFilters)
-                .then(function (data) {
-                    $scope.layouts = data;
-                });
-
-        };
-
-        // Reset clicked selector
-
-        $scope.reset = function (category) {
-            $scope.serverFilters[category].selection = [];
-            $scope.loadData();
-        };
-
-        // Reset all selectors and daterange
-        $scope.resetAll = function () {
-            $scope.resetDR();
-        };
 
 
         $scope.getColors = function () {
@@ -222,7 +105,6 @@
 
         $scope.confirmRemove = function (layout) {
             var modalScope = $scope.$new(true);
-            //var layout = $scope.filteredLayouts[$scope.pager.selectedIndex];
             var layoutId = layout['_id'];
 
             modalScope.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
@@ -255,37 +137,7 @@
 
         $scope.$watch('dateRange', $scope.loadData, true);
 
-        // add to filters 'deleted' filter
-        if (sgUsers.currentUser.role === 'admin') {
-            $scope.pager.layoutFilters.push(
-                {
-                    name: 'удалённые',
-                    mode: 'rate',
-                    value: function (layout) {
-                        return layout.isHidden;
-                    }
-                }
-            );
-        }
 
-        // add to filters array filter by founder name
-        sgUsers.getRaters()
-            .then(function (raters) {
-                _.forEach(raters, addFilter);
-
-                function addFilter(userName) {
-                    var filterObject = {
-                        name: 'оцененные ' + userName,
-                        mode: 'view',
-                        user: userName,
-                        value: function (layout) {
-                            return _.any(layout.ratings, {assignedBy: userName});
-                        }
-                    };
-
-                    $scope.pager.layoutFilters.push(filterObject)
-                }
-            });
 
         $scope.getAssignedRating = function (layout) {
             if ($scope.pager.layoutFilter.mode === 'view') {
@@ -295,6 +147,33 @@
             }
         };
 
+        $scope.openEditLayoutDialog = function(layout) {
+            var modalScope = $scope.$new(true);
+            var layoutId = layout['_id'];
+
+            modalScope.layout = layout;
+
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/modalEditLayout',
+                controller: sgYesNoModalCtrl,
+                scope: modalScope,
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function () {
+
+            });
+
+        };
+
+        $scope.assignDoerDialog = function(layout) {
+            var modalScope = $scope.$new(true);
+            var layoutId = layout['_id'];
+
+            modalScope.layout = layout;
+
+        }
+
     }
 
 })();
@@ -302,13 +181,13 @@
 
 // jQuery - Angular selector link
 $(function () {
-
+    // TODO: Fix date filter
     var $scope = angular.element($('#sgRatingsCtrl')).scope();
 
     $(window).load(function () {
         if ($scope) {
             $scope.$apply(function () {
-                $scope.resetDR();
+                //$scope.resetDR();
             })
         }
     });

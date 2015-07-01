@@ -14,7 +14,7 @@
             scope: {
                 linkedObject: '='
             },
-            templateUrl: '/partials/ratingsDirective',
+            templateUrl: '/partials/directives-sgRating',
             link: link
         };
 

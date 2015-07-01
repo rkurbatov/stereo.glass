@@ -4,15 +4,16 @@
 
     angular
         .module('sgAppAdmin')
-        .directive('sgBsSelect', sgBsSelect);
+        .directive('bsSelect', bsSelect);
 
-    sgBsSelect.$inject = [];
+    bsSelect.$inject = [];
 
-    function sgBsSelect() {
+    function bsSelect() {
         var ddo = {
             restrict: 'A',
             scope: {
-                data: '=sgBsSelect',
+                htmlContent: '=',
+                selection: '=',
                 execOnChange: '&'
             },
             link: link
@@ -24,18 +25,19 @@
             // fill selector
             scope.$watch(
                 function () {
-                    if (scope.data) return scope.data.content;
+                    return scope.htmlContent;
                 },
                 function (newV) {
                     if (newV) {
-                        elm.html(scope.data.content).selectpicker('refresh');
+                        elm.html(scope.htmlContent).selectpicker('refresh');
                     }
                 }
             );
 
+            // clear if selection is empty
             scope.$watch(
                 function () {
-                    if (scope.data) return scope.data.selection;
+                    return scope.selection;
                 },
                 function (newV) {
                     if (angular.isArray(newV) && !newV.length) {
@@ -46,10 +48,10 @@
 
             // get selection on change
             elm.on('change', function (evt) {
-                scope.data.selection = elm.val() || [];
-                scope.$apply(function () {
-                    scope.execOnChange();
+                scope.$apply(function(){
+                    scope.selection = elm.val() || [];
                 });
+                scope.execOnChange();
             });
         }
     }

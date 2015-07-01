@@ -1,95 +1,69 @@
-#sgRatingsCtrl.panel.panel-default(ng-controller='sgRatingsCtrl')
+#sgRatingsCtrl.panel.panel-default(ng-controller='Paginator as paginator')
     br
+    //- Server filters
     .row
         .col-xs-4: .form-horizontal
             .form-group
-                button.btn.btn-primary.pull-right.col-xs-10(ng-click="resetAll()") Сбросить все фильтры
+                button.btn.btn-primary.pull-right.col-xs-10(ng-click="paginator.resetAll()") Сбросить все фильтры
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('colors')") Цвета
-                select#rate-colors-selector.selectpicker(multiple data-width='50%'
-                data-none-selected-text="Все" sg-bs-select='serverFilters.colors' exec-on-change='loadData()')
+                label.col-xs-6.control-label(ng-click="paginator.reset('colors')") Цвета
+                select.selectpicker(multiple data-width='50%'
+                data-none-selected-text="Все" bs-select html-content='paginator.colors' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('assortment')") Ассортимент
-                select#rate-assortment-selector.selectpicker(multiple data-selectable-optgroup data-width='50%'
-                data-none-selected-text="Весь" sg-bs-select='serverFilters.assortment' exec-on-change='loadData()')
+                label.col-xs-6.control-label(ng-click="paginator.reset('assortment')") Ассортимент
+                select.selectpicker(multiple data-selectable-optgroup data-width='50%'
+                data-none-selected-text="Весь" bs-select html-content='paginator.assortment' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('plots')") Сюжеты
-                select#rate-plots-selector.selectpicker(multiple data-selectable-optgroup data-width='50%'
-                data-none-selected-text="Все" sg-bs-select='serverFilters.plots' exec-on-change='loadData()')
+                label.col-xs-6.control-label(ng-click="paginator.reset('plots')") Сюжеты
+                select.selectpicker(multiple data-selectable-optgroup data-width='50%'
+                data-none-selected-text="Все" bs-select html-content='paginator.plots' selection='paginator.filters.server.plots' exec-on-change='paginator.refreshData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('countries')") Страны
-                select#rate-countries-selector.selectpicker(multiple data-selectable-optgroup data-width='50%'
-                data-none-selected-text="Международный" sg-bs-select='serverFilters.countries' exec-on-change='loadData()')
+                label.col-xs-6.control-label(ng-click="paginator.reset('countries')") Страны
+                select.selectpicker(multiple data-selectable-optgroup data-width='50%'
+                data-none-selected-text="Международный" bs-select html-content='paginator.countries' selection='paginator.filters.server.countries' exec-on-change='paginator.refreshData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="reset('designers')") Дизайнеры
-                select#rate-designer-selector.selectpicker(multiple data-width='50%'
-                data-none-selected-text="Все" sg-bs-select='serverFilters.designers' exec-on-change='loadData()')
+                label.col-xs-6.control-label(ng-click="paginator.reset('authors')") Дизайнеры
+                select.selectpicker(multiple data-width='50%'
+                data-none-selected-text="Все" bs-select html-content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
                 ng-model="dateRange", options="dpopts")
         .col-xs-8
-            .layout-info
+            .form-group
+                | Показывать &nbsp;
+                select.form-control-static(ng-model="paginator.filters.currentClient"
+                ng-options="opt.name for opt in paginator.filters.client")
+            sg-layout-info(ng-show="paginator.selectedLayout")
 
-                .form-group
-                    | Показывать &nbsp;
-                    select.form-control-static(ng-model="pager.layoutFilter"
-                    ng-options="opt.name for opt in pager.layoutFilters"
-                    ng-change="pager.updateFilter()")
-                    //-| &nbsp; &nbsp;
-                    //-button.btn.btn-primary(ng-click="show2dModal()" ng-class="{disabled: selectedIndex === -1}") Показать в галерее
-                    //-| &nbsp; &nbsp;
-                    //- REMOVE Button
-                    //-if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
-                        i.fa.fa-remove.sg-red-i.sg-shadowed-text.pull-right(style="cursor:pointer; font-size: 2em; vertical-align: middle;"
-                        ng-show="pager.selectedIndex !== -1" ng-click="confirmRemove(selectedIndex)")
-                .form-group(ng-show="pager.selectedIndex !== -1")
-                    label.control-label(ng-bind-html="getColors()")
-                    label &nbsp; &#47; &nbsp;
-                    label.control-label(ng-bind="getValues('catAssortment', 'assortmentHash')")
-                    label &nbsp; &#47; &nbsp;
-                    label.control-label(ng-bind="getValues('catPlots', 'plotsHash')")
-                    label &nbsp; &#47; &nbsp;
-                    label.control-label(ng-bind="getValues('catCountries', 'countriesHash')")
-                    br
-                    label.control-label Загружен: {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
-                    br
-                    label.control-label Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
-                    .form-group
-                        textarea#designer-layout-comment.form-control(rows='4', readonly, ng-model="filteredLayouts[pager.selectedIndex].designerComment")
-
-    .sg-rate-paginator.text-center
-        dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="pager.selectedIndex = -1")
-        br.hidden-lg
-        span На странице
-        select.form-control(ng-model="pager.ipp" ng-options="opt for opt in pager.ipps" style="display:inline-block; width: auto")
-        span Сортировка
-        select.form-control(ng-model="pager.layoutOrder" ng-options="opt.name for opt in pager.layoutOrders" style="display:inline-block; width: auto")
-
+    //-
+    //- top pagination controls
+    //-
+    include _paginationControls
+    //-
+    //- pagination
+    //-
     .row
         ul.sg-layout-list
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="pager.currentPage"
-            dir-paginate="layout in $parent.filteredLayouts = (layouts | filter: pager.layoutFilter.value | orderBy: pager.layoutOrder.value) | itemsPerPage: pager.ipp" )
+            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
+            dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | filter: paginator.filters.currentClient.value | orderBy: paginator.filters.currentOrder.value) | itemsPerPage: paginator.currentItemsPerPage")
                 if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
-                    .sg-layout-controls.text-center(ng-show='layout.createdBy === currentUser.name || currentUser.role === "admin"')
+                    .sg-layout-controls.text-center(ng-show='layout.createdBy === paginator.currentUser.name || paginator.currentUser.role === "admin"')
                         if user.role === 'admin'
                             i.fa.fa-check-square-o.sg-blue-i.sg-shadowed-text.control24
-                        i.fa.fa-pencil-square-o.sg-green-i.sg-shadowed-text.control24(ng-click='showLayout(layout)')
+                        i.fa.fa-pencil-square-o.sg-green-i.sg-shadowed-text.control24(ng-click='openEditLayoutDialog(layout)')
                         i.fa.fa-remove.sg-red-i.sg-shadowed-text.control28(ng-click='confirmRemove(layout)')
-                .sg-layout-block
+                .sg-layout-block(ng-class='{"selected" : paginator.$index === $index}')
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
-                    ng-click="$index === pager.getSelectedIndex() ? show2dModal() : pager.setSelectedIndex($index)"
+                    ng-click="paginator.handleLayoutClick($index)"
                     hm-swipeup="setSelectedIndex($index); show2dModal()")
-                    sg-rating.text-center(linked-object='layout' ng-show='pager.layoutFilter.mode === "rate"')
+                    sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "rate"')
                     .text-center
-                        i.glyphicon.glyphicon-star.sg-gold-i(ng-show='pager.layoutFilter.mode === "view"' style='font-size: 20px')
+                        i.glyphicon.glyphicon-star.sg-gold-i(ng-show='paginator.filters.currentClient.mode === "view"'
+                        style='font-size: 20px')
                         | {{ getAssignedRating(layout) }}
                     .sg-layoutname.text-center {{layout.name}}
-
-    .sg-rate-paginator.text-center
-        dir-pagination-controls(template-url="/templates/ratingsPagination.html" on-page-change="pager.selectedIndex = -1")
-        br.hidden-lg
-        span На странице
-        select.form-control(ng-model="pager.ipp" ng-options="opt for opt in pager.ipps" style="display:inline-block; width: auto")
-        span Сортировка
-        select.form-control(ng-model="pager.layoutOrder" ng-options="opt.name for opt in pager.layoutOrders" style="display:inline-block; width: auto")
+    //-
+    //- bottom pagination controls
+    //-
+    include _paginationControls

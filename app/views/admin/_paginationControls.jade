@@ -1,0 +1,10 @@
+.sg-rate-paginator.text-center
+    dir-pagination-controls(template-url="/templates/ratingsPagination.html"
+    on-page-change="pager.selectedIndex = -1")
+    br.hidden-lg
+    span На странице
+    select.form-control.sg-inline-block(ng-model="paginator.currentItemsPerPage"
+    ng-options="opt for opt in paginator.itemsPerPage" style="width: auto")
+    span Сортировка
+    select.form-control.sg-inline-block(ng-model="paginator.filters.currentOrder"
+    ng-options="opt.name for opt in paginator.filters.order" style="width: auto")

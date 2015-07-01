@@ -5,31 +5,33 @@
         .module('sgAppAdmin')
         .service('sgLayouts', sgLayouts);
 
-    sgLayouts.$inject = ['$http', '$q', 'sgUsers'];
+    sgLayouts.$inject = ['$http', '$q', 'sgUsers', 'sgLayoutFilters'];
 
-    function sgLayouts($http, $q, sgUsers) {
+    function sgLayouts($http, $q, sgUsers, sgLayoutFilters) {
 
-        this.loadData = loadData;
-        this.removeMyRating = removeMyRating;
-        this.changeMyRating = changeMyRating;
-        this.removeLayout = removeLayout;
+        // ==== DECLARATION =====
 
-        function loadData(filters) {
+        var svc = this;
+        svc.loadData = loadData;
+        svc.removeMyRating = removeMyRating;
+        svc.changeMyRating = changeMyRating;
+        svc.removeLayout = removeLayout;
 
-            var selection = {
-                catColors: filters.colors.selection,
-                catAssortment: filters.assortment.selection,
-                catCountries: filters.countries.selection,
-                catPlots: filters.plots.selection,
-                designers: filters.designers.selection
-            };
+        svc.rawLayouts = [];
+
+
+        // === IMPLEMENTATION ===
+
+        function loadData() {
+
+            var selection = sgLayoutFilters.server;
 
             return $http.get('/api/layouts', {
                 params: {
                     selection: JSON.stringify(selection)
                 }
             }).then(function (response) {
-                return response.data.map(function (e) {
+                var transformedData = response.data.map(function (e) {
                     // get rating, set by current user or -1
                     var rating = _.pluck(_.where(e.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
                     if (rating >= 0) {
@@ -42,6 +44,12 @@
                     // needed for correct order
                     e.average = calcAverageRating(e.ratings);
                     return e;
+                });
+
+                // replace old value to store reference
+                svc.rawLayouts.length = 0;
+                transformedData.forEach(function (v) {
+                    svc.rawLayouts.push(v);
                 });
             });
         }
@@ -107,4 +115,5 @@
             }
         }
     }
+
 })();
