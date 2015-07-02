@@ -1,0 +1,11 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title Выбрать исполнителя для изображения
+.modal-body
+    br
+    br
+    img.img-responsive.center-block(ng-src="{{::vm.url}}")
+.modal-footer
+    .center-block
+        button.btn.btn-danger.col-xs-5(ng-click="vm.ok()") Да
+        button.btn.btn-primary.col-xs-5(ng-click="vm.cancel()") Нет

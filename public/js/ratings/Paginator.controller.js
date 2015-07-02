@@ -30,6 +30,7 @@
 
         vm.handleLayoutClick = handleLayoutClick;
         vm.unselectLayout = unselectLayout;
+        vm.assignDoer = assignDoer;
         vm.confirmRemove = confirmRemove;
 
         initController();
@@ -79,6 +80,10 @@
         function unselectLayout (){
             vm.$index = -1;
             vm.currentLayoutIndex = -1;
+        }
+
+        function assignDoer(layout) {
+            sgLayoutControls.modalAssignDoer(layout)
         }
 
         function confirmRemove(layout) {
