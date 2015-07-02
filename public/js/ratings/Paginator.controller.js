@@ -29,7 +29,6 @@
         vm.resetAll = resetAll;
 
         vm.handleLayoutClick = handleLayoutClick;
-        vm.getAssignedRating = getAssignedRating;
 
         initController();
 
@@ -49,7 +48,7 @@
 
             // Fill designers list
             sgUsers.getLayoutAuthors().then(function (authors) {
-                // TODO: more arrToOptions to service
+                // TODO: move arrToOptions to service
                 vm.authors = arrToOptions(authors);
             });
 
@@ -75,9 +74,6 @@
             vm.currentLayout = vm.filteredLayouts[vm.currentLayoutIndex];
         }
 
-        function getAssignedRating(layout){
-            return (_.find(layout.ratings, {'assignedBy': vm.filters.currentClient.user}) || {}).value;
-        }
 
     }
 

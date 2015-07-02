@@ -62,7 +62,7 @@
                     .text-center(ng-show='paginator.filters.currentClient.mode === "view"'
                         style='font-size: 20px')
                         i.glyphicon.glyphicon-star.sg-gold-i
-                        | {{ paginator.getAssignedRating(layout) }}
+                        | {{ layout.compareValue }}
                     .sg-layoutname.text-center {{layout.name}}
     //-
     //- bottom pagination controls
