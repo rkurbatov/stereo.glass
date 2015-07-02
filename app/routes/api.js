@@ -13,10 +13,14 @@ module.exports = function (app, express, mongoose, Account) {
 
         if (req.isAuthenticated()) {
 
-            if (req.query.roles) {
-                findObj.role = {$in: req.query.roles}
-            }
 
+            if (req.query.roles) {
+                findObj.role = {
+                    $in: Array.isArray(req.query.roles) // $in receives only arrays
+                        ? req.query.roles
+                        : [req.query.roles]
+                }
+            }
             Account.find(findObj, '_id username usermail role createdAt activeAt', function (err, users) {
                 if (err) {
                     console.log(err);
@@ -26,6 +30,7 @@ module.exports = function (app, express, mongoose, Account) {
                     res.status(200).send(JSON.stringify(users));
                 }
             });
+
         } else {
             res.status(403).send('forbidden').end();
         }
