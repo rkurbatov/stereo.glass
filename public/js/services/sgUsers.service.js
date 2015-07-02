@@ -18,8 +18,10 @@
         };
 
         svc.getLayoutAuthors = getLayoutAuthors;
-        svc.getRaters = getRaters;
         svc.getListOfUsers = getListOfUsers;
+        svc.getRaters = getRaters;
+        svc.getDesigners = getDesigners;
+        svc.deleteUser = deleteUser;
 
         function getLayoutAuthors() {
             return $http.get('/api/authors')
@@ -34,11 +36,23 @@
             });
         }
 
+        function getDesigners() {
+            return getListOfUsers(['designer']).then(function (designers) {
+                return _.pluck(designers, 'username');
+            });
+        }
+
         function getListOfUsers(roles) {
             return $http.get('/api/users', {
                 params: {roles: roles || []}
             }).then(function (response) {
                 return response.data;
+            });
+        }
+
+        function deleteUser(user) {
+            return $http.delete('/api/users', {
+                params: {'_id': user['_id']}
             });
         }
 

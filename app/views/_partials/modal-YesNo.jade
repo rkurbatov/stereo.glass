@@ -1,0 +1,10 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title.text-center {{ vm.header }}
+.modal-body
+    div(ng-bind-html="vm.message")
+.modal-footer
+    .center-block
+        .col-xs-2
+        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()") Да
+        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет

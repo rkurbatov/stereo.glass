@@ -1,25 +1,25 @@
 .panel.panel-default
     .row
-        .col-sm-12.col-lg12.col-xs-12(ng-controller='sgUsersCtrl')
+        .col-sm-12.col-lg12.col-xs-12(ng-controller='Users as users')
             table.table.table-striped(st-table='row-collection')
                 thead
                     tr
                         th
-                            i.refresh-button.fa.fa-refresh(ng-click='refreshUserData()')
+                            i.refresh-button.fa.fa-refresh(ng-click='users.refreshList()')
                             |  username
                         th
                         th
-                        th usermail
+                        th Логин
                         th Роль
                         th Создан
                         th Был активен
-                tbody(ng-repeat='row in rowCollection')
+                tbody(ng-repeat='row in users.list')
                     tr
                         td {{row.username}}
                         td
-                            i.fa.fa-pencil.sg-green-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== usermail" ng-click="openEditDialog(row)")
+                            i.fa.fa-pencil.sg-green-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== users.mail" ng-click="users.openEditDialog(row)")
                         td
-                            i.fa.fa-remove.sg-red-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== usermail" ng-click="confirmRemove(row.username, row._id)")
+                            i.fa.fa-remove.sg-red-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== users.mail" ng-click="users.confirmRemove(row)")
                         td: a(ng-href='mailto:{{row.usermail}}') email
                         td {{row.role}}
                         td {{row.createdAt | date}}

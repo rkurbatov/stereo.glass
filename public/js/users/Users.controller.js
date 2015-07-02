@@ -5,44 +5,46 @@
 
     angular
         .module('sgAppAdmin')
-        .controller('sgUsersCtrl', sgUsersCtrl);
+        .controller('Users', Users);
 
-    sgUsersCtrl.$inject = ['$scope', '$http', '$sce', '$modal', '$cookies', 'sgUsers'];
+    Users.$inject = ['sgUsers', 'sgUserControls', 'sgModals'];
 
-    function sgUsersCtrl($scope, $http, $sce, $modal, $cookies, sgUsers) {
+    function Users(sgUsers, sgUserControls, sgModals) {
 
-        $scope.usermail = $cookies.get('usermail') || '';
+        var vm = this;
+        vm.mail = sgUsers.currentUser.mail;
+        vm.list = [];
+        vm.refreshList = refreshList;
 
-        $scope.refreshUserData = function () {
+        initController();
+
+        function initController() {
+            vm.refreshList();
+        }
+
+
+        function refreshList() {
             sgUsers.getListOfUsers().then(function (users) {
-                $scope.rowCollection = users;
+                vm.list = users;
             });
-        };
+        }
 
-        $scope.refreshUserData();
 
-        $scope.confirmRemove = function (name, id) {
-            var modalScope = $scope.$new(true);
-            modalScope.text = $sce.trustAsHtml("Вы действительно желаете удалить пользователя <b>" + name + "</b>?");
+        vm.confirmRemove = function (user) {
+            var header = "Удаление пользователя";
+            var message = "Вы действительно хотите удалить пользователя <b>" + user.username + "</b>?";
 
-            var modalInstance = $modal.open({
-                templateUrl: '/partials/modalYesNo',
-                controller: sgYesNoModalCtrl,
-                scope: modalScope,
-                size: 'sm'
-            });
-
-            modalInstance.result.then(function () {
-                $http.delete('/api/users', {
-                    params: {'_id': id}
-                }).then(function (response) {
-                    if (response.status === 200) $scope.refreshUserData();
+            sgModals.YesNo(header, message)
+                .then(function () {
+                    return sgUsers.deleteUser(user);
+                })
+                .then(function () {
+                    refreshList();
                 });
-            });
         };
 
-        $scope.openEditDialog = function (user) {
-            var modalScope = $scope.$new(true);
+        vm.openEditDialog = function (user) {
+            /*var modalScope = $scope.$new(true);
             modalScope.result = {};
             modalScope.result.username = user.username;
             modalScope.result.usermail = user.usermail;
@@ -72,7 +74,7 @@
                             $scope.refreshUserData();
                         });
                 }
-            })
+            })*/
         }
 
     }

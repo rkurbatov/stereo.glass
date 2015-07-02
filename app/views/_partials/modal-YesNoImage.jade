@@ -1,12 +1,12 @@
 .modal-header
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
-    h4.modal-title Удаление изображения
+    h4.modal-title.text-center.sg-red-i Удаление изображения
 .modal-body
     | Вы действительно хотите удалить это изображение?
     br
     br
     img.img-responsive.center-block(ng-src="{{::vm.url}}")
 .modal-footer
-    .center-block
-        button.btn.btn-danger.col-xs-5(ng-click="vm.ok()") Да
-        button.btn.btn-primary.col-xs-5(ng-click="vm.cancel()") Нет
+    .col-xs-2
+    button.btn.btn-danger.col-xs-4(ng-click="vm.ok()") Да
+    button.btn.col-xs-4(ng-click="vm.cancel()") Нет

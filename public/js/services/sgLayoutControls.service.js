@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .service('sgLayoutControls', sgLayoutControls);
 
-    sgLayoutControls.$inject = ['$modal'];
+    sgLayoutControls.$inject = ['$modal', 'sgUsers'];
 
-    function sgLayoutControls($modal) {
+    function sgLayoutControls($modal, sgUsers) {
 
         // ==== DECLARATION =====
         var svc = this;
@@ -48,14 +48,16 @@
         }
 
         function modalAssignDoer(layout) {
-            console.log('modalAssignDoer');
             var modalDO = {
                 templateUrl: '/partials/modal-assignDoer',
-                controller: ['$modalInstance', 'layout', AssignDoerModalCtrl],
+                controller: ['$modalInstance', 'layout', 'getDesigners', AssignDoerModalCtrl],
                 controllerAs: 'vm',
                 resolve: {
-                    layout: function() {
+                    layout: function () {
                         return layout
+                    },
+                    getDesigners: function () {
+                        return sgUsers.getDesigners;
                     }
                 },
                 size: 'lg'
@@ -64,9 +66,17 @@
             return $modal.open(modalDO).result;
         }
 
-        function AssignDoerModalCtrl($modalInstance, layout) {
+        function AssignDoerModalCtrl($modalInstance, layout, getDesigners) {
             var vm = this;
             vm.layout = layout;
+            vm.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
+
+            getDesigners().then(function (designers) {
+                vm.designers = designers;
+                if (_.contains(designers, layout.createdBy)) {
+                    vm.assigned = layout.createdBy;
+                }
+            });
 
             vm.ok = function () {
                 $modalInstance.close('ok');
