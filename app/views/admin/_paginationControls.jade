@@ -1,6 +1,6 @@
-.sg-rate-paginator.text-center
+.sg-rate-paginator.text-center(ng-show="paginator.filteredLayouts.length > paginator.currentItemsPerPage")
     dir-pagination-controls(template-url="/templates/ratingsPagination.html"
-    on-page-change="pager.selectedIndex = -1")
+    on-page-change="paginator.currentLayoutIndex = -1")
     br.hidden-lg
     span На странице
     select.form-control.sg-inline-block(ng-model="paginator.currentItemsPerPage"

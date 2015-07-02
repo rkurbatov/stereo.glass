@@ -1,14 +1,11 @@
 .form-group
-    label.control-label(ng-bind-html="getColors()")
-    label &nbsp; &#47; &nbsp;
-    label.control-label(ng-bind="getValues('catAssortment', 'assortmentHash')")
-    label &nbsp; &#47; &nbsp;
-    label.control-label(ng-bind="getValues('catPlots', 'plotsHash')")
-    label &nbsp; &#47; &nbsp;
-    label.control-label(ng-bind="getValues('catCountries', 'countriesHash')")
+    label.control-label(ng-bind-html="colorString")
+    label.control-label(ng-bind="assortmentString")
+    label.control-label(ng-bind="plotsString")
+    label.control-label(ng-bind="countriesString")
     br
-    label.control-label Загружен: {{filteredLayouts[pager.selectedIndex].createdAt | date: 'short'}}
+    label.control-label Загружен: {{layout.createdAt | date: 'short'}}
     br
-    label.control-label Дизайнер: {{filteredLayouts[pager.selectedIndex].createdBy}}
+    label.control-label Дизайнер: {{layout.createdBy}}
     .form-group
-        textarea#designer-layout-comment.form-control(rows='4', readonly, ng-model="filteredLayouts[pager.selectedIndex].designerComment")
+        textarea#designer-layout-comment.form-control(rows='4', readonly, ng-model="layout.designerComment")

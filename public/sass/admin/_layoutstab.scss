@@ -24,9 +24,18 @@ ul.sg-layout-list {
     border: 1px solid #D4D4D4;
   }
 
+  &:hover {
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.4);
+  }
+
   &.selected {
     background-color: lightyellow;
-    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  &.selected:hover {
+    background-color: lightyellow;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.4);
   }
 }
 

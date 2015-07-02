@@ -34,7 +34,8 @@
                 | Показывать &nbsp;
                 select.form-control-static(ng-model="paginator.filters.currentClient"
                 ng-options="opt.name for opt in paginator.filters.client")
-            sg-layout-info(ng-show="paginator.selectedLayout")
+                | &nbsp;&nbsp; Найдено: {{ paginator.filteredLayouts.length }}
+            sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")
 
     //-
     //- top pagination controls
@@ -58,10 +59,10 @@
                     ng-click="paginator.handleLayoutClick($index)"
                     hm-swipeup="setSelectedIndex($index); show2dModal()")
                     sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "rate"')
-                    .text-center
-                        i.glyphicon.glyphicon-star.sg-gold-i(ng-show='paginator.filters.currentClient.mode === "view"'
+                    .text-center(ng-show='paginator.filters.currentClient.mode === "view"'
                         style='font-size: 20px')
-                        | {{ getAssignedRating(layout) }}
+                        i.glyphicon.glyphicon-star.sg-gold-i
+                        | {{ paginator.getAssignedRating(layout) }}
                     .sg-layoutname.text-center {{layout.name}}
     //-
     //- bottom pagination controls

@@ -16,23 +16,29 @@
         vm.filters = sgLayoutFilters;
         vm.currentUser = sgUsers.currentUser;
         vm.rawLayouts = sgLayouts.rawLayouts;
+        vm.filteredLayouts = [];
 
         vm.itemsPerPage = [12, 18, 24, 36];
         vm.currentItemsPerPage = 18;
         vm.currentPage = 1;
-        vm.$index = 0;
+        vm.$index = -1;
+        vm.currentLayoutIndex = -1;
 
         vm.refreshData = sgLayouts.loadData;
         vm.reset = reset;
         vm.resetAll = resetAll;
 
         vm.handleLayoutClick = handleLayoutClick;
+        vm.getAssignedRating = getAssignedRating;
 
         initController();
 
         // === IMPLEMENTATION ===
 
         function initController() {
+            // init paginator
+
+
             // form selectors data
             sgCategories.loaded.then(function () {
                 vm.assortment = sgCategories.assortment;
@@ -43,12 +49,11 @@
 
             // Fill designers list
             sgUsers.getLayoutAuthors().then(function (authors) {
+                // TODO: more arrToOptions to service
                 vm.authors = arrToOptions(authors);
             });
 
-            sgLayouts.loadData().then(function(){
-
-            });
+            vm.refreshData();
         }
 
         function reset(category) {
@@ -65,12 +70,14 @@
         }
 
         function handleLayoutClick($index) {
-            console.log(vm.filteredLayouts);
-
+            vm.$index = $index;
+            vm.currentLayoutIndex = $index + (vm.currentPage - 1) * vm.currentItemsPerPage;
+            vm.currentLayout = vm.filteredLayouts[vm.currentLayoutIndex];
         }
 
-        //$scope.pager.getSelectedIndex = getSelectedIndex;
-        //$scope.pager.setSelectedIndex = setSelectedIndex;
+        function getAssignedRating(layout){
+            return (_.find(layout.ratings, {'assignedBy': vm.filters.currentClient.user}) || {}).value;
+        }
 
     }
 

@@ -127,25 +127,8 @@
             });
         };
 
-        function getSelectedIndex() {
-            return $scope.pager.selectedIndex - ($scope.pager.currentPage - 1) * $scope.pager.ipp;
-        }
-
-        function setSelectedIndex(index) {
-            $scope.pager.selectedIndex = ($scope.pager.currentPage - 1) * $scope.pager.ipp + index;
-        }
-
         $scope.$watch('dateRange', $scope.loadData, true);
 
-
-
-        $scope.getAssignedRating = function (layout) {
-            if ($scope.pager.layoutFilter.mode === 'view') {
-                return _.find(layout.ratings, {'assignedBy': $scope.pager.layoutFilter.user}).value;
-            } else {
-                return '';
-            }
-        };
 
         $scope.openEditLayoutDialog = function(layout) {
             var modalScope = $scope.$new(true);

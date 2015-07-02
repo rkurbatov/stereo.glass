@@ -10,6 +10,7 @@
     function sgCategories($http, $q) {
 
         var vm = this;
+        vm.hashes = {};
 
         vm.loaded = $q.all([
             $http.get('/api/categories/assortment'),
@@ -24,6 +25,9 @@
             vm.countriesHash = catToHash(responses[2].data);
             vm.plots = catToHtml(responses[3].data);
             vm.plotsHash = catToHash(responses[3].data);
+            vm.hashes.assortment = catToHash(responses[0].data);
+            vm.hashes.countries = catToHash(responses[2].data);
+            vm.hashes.plots = catToHash(responses[3].data);
         });
 
         function catToHash(arr) {
