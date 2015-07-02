@@ -1,15 +1,3 @@
-function sgYesNoModalCtrl($scope) {
-
-    $scope.ok = function () {
-        $scope.result = $scope.result || {};
-        $scope.$close($scope.result);
-    };
-
-    $scope.cancel = function () {
-        $scope.$dismiss('cancel');
-    };
-}
-
 function modalPopUpCtrl($scope, $modalInstance) {
 
     $scope.imgIsLoading = true;

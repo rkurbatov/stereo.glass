@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('Paginator', Paginator);
 
-    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgUsers'];
+    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers'];
 
-    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgUsers) {
+    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers) {
 
         // ==== DECLARATION =====
 
@@ -29,6 +29,8 @@
         vm.resetAll = resetAll;
 
         vm.handleLayoutClick = handleLayoutClick;
+        vm.unselectLayout = unselectLayout;
+        vm.confirmRemove = confirmRemove;
 
         initController();
 
@@ -64,7 +66,7 @@
             angular.forEach(vm.filters.server, function (value, key) {
                 vm.filters.server[key] = [];
             });
-
+            vm.unselectLayout();
             vm.refreshData();
         }
 
@@ -72,6 +74,21 @@
             vm.$index = $index;
             vm.currentLayoutIndex = $index + (vm.currentPage - 1) * vm.currentItemsPerPage;
             vm.currentLayout = vm.filteredLayouts[vm.currentLayoutIndex];
+        }
+
+        function unselectLayout (){
+            vm.$index = -1;
+            vm.currentLayoutIndex = -1;
+        }
+
+        function confirmRemove(layout) {
+            sgLayoutControls.modalRemove(layout)
+                .then(function () {
+                    sgLayouts.removeLayout(layout['_id']).then(function () {
+                        vm.unselectLayout();
+                        vm.refreshData();
+                    });
+                })
         }
 
 

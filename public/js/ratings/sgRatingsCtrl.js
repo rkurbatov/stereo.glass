@@ -9,7 +9,8 @@
 
     function sgRatingsCtrl($scope, $sce, $modal, sgCategories, sgLayouts, sgUsers) {
 
-
+        //if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
+        //if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
 
 
         // Range date init
@@ -58,29 +59,6 @@
 
 
 
-
-        $scope.getColors = function () {
-            if ($scope.pager.selectedIndex === -1) return '';
-
-            return $sce.trustAsHtml($scope.filteredLayouts[$scope.pager.selectedIndex].catColors.map(function (v) {
-                switch (v) {
-                    case 'black':
-                        return "<span class='fa fa-photo sg-" + v + "-i'></span>";
-                    case 'multicolor':
-                        return "<span class='fa fa-photo sg-" + v + "'></span>";
-                    default:
-                        return "<span class='glyphicon glyphicon-stop sg-" + v + "-i'></span>";
-                }
-            }).join(''));
-        };
-
-        $scope.getValues = function (cat, hash) {
-            if ($scope.pager.selectedIndex === -1) return '';
-
-            return $scope.filteredLayouts[$scope.pager.selectedIndex][cat].map(function (el) {
-                return $scope[hash][el];
-            }).join(', ');
-        };
 
         $scope.show2dModal = function () {
             if ($scope.pager.selectedIndex === -1 || $scope.filteredLayouts[$scope.pager.selectedIndex].url2d === '') return undefined;

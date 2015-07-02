@@ -24,8 +24,7 @@
 
 
 
-        //if ($scope.dateRange.startDate) $scope.selection.fromDate = $scope.dateRange.startDate.toDate();
-        //if ($scope.dateRange.endDate) $scope.selection.toDate = $scope.dateRange.endDate.toDate();
+
 
 
     }
