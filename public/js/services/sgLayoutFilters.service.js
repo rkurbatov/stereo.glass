@@ -20,11 +20,11 @@
                 },
                 {
                     name: "По убыванию рейтинга",
-                    value: ['-average']
+                    value: ['-compareValue']
                 },
                 {
                     name: "По возрастанию рейтинга",
-                    value: ['average']
+                    value: ['compareValue']
                 },
                 {
                     name: "По уменьшению числа оценивших",
@@ -40,6 +40,7 @@
                     name: "все",
                     mode: 'rate',
                     value: function (v) {
+                        v.compareValue = v.average;
                         return !v.isHidden;
                     }
                 },
@@ -54,6 +55,7 @@
                     name: "только оцененные и просмотренные мной",
                     mode: 'rate',
                     value: function (v) {
+                        v.compareValue = v.average;
                         return v.rating > -1 && !v.isHidden;
                     }
                 }
@@ -85,6 +87,7 @@
                         name: 'удалённые',
                         mode: 'rate',
                         value: function (layout) {
+                            v.compareValue = v.average;
                             return layout.isHidden;
                         }
                     }
@@ -102,6 +105,7 @@
                             mode: 'view',
                             user: userName,
                             value: function (layout) {
+                                layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
                                 return _.any(layout.ratings, {assignedBy: userName});
                             }
                         };
