@@ -87,7 +87,7 @@
                         name: 'удалённые',
                         mode: 'rate',
                         value: function (layout) {
-                            v.compareValue = v.average;
+                            layout.compareValue = layout.average;
                             return layout.isHidden;
                         }
                     }
