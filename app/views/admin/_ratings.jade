@@ -48,20 +48,21 @@
         ul.sg-layout-list
             li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
             dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | filter: paginator.filters.currentClient.value | orderBy: paginator.filters.currentOrder.value) | itemsPerPage: paginator.currentItemsPerPage")
-                if user.role === 'admin' || user.role === 'designer' || user.role === 'founder'
-                    //- layout controls
-                    .sg-layout-controls.text-center(ng-show='layout.createdBy === paginator.currentUser.name || paginator.currentUser.role === "admin"')
-                        if user.role === 'admin'
-                            i.fa.fa-check-square-o.sg-blue-i.sg-shadowed-text.control24(ng-click='paginator.assignDoer(layout)')
-                        i.fa.fa-pencil-square-o.sg-green-i.sg-shadowed-text.control24(ng-click='openEditLayoutDialog(layout)')
-                        i.fa.fa-remove.sg-red-i.sg-shadowed-text.control28(ng-click='paginator.confirmRemove(layout)')
+                //- layout controls
+                .sg-layout-controls.text-center()
+                    i.fa.fa-check-square-o.sg-blue-i.sg-shadowed-text.control24(ng-click='paginator.assignDoer(layout)'
+                    ng-show='paginator.currentUser.role === "admin" && !layout.status')
+                    i.fa.fa-pencil-square-o.sg-green-i.sg-shadowed-text.control24(ng-click='openEditLayoutDialog(layout)'
+                    ng-show='layout.createdBy === paginator.currentUser.name || paginator.currentUser.role === "admin"')
+                    i.fa.fa-remove.sg-red-i.sg-shadowed-text.control28(ng-click='paginator.confirmRemove(layout)'
+                    ng-show='layout.createdBy === paginator.currentUser.name || paginator.currentUser.role === "admin"')
                 .sg-layout-block(ng-class='{"selected" : paginator.$index === $index}')
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
                     ng-click="paginator.handleLayoutClick($index)"
                     hm-swipeup="setSelectedIndex($index); show2dModal()")
                     sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "rate"')
                     .text-center(ng-show='paginator.filters.currentClient.mode === "view"'
-                        style='font-size: 20px')
+                    style='font-size: 20px')
                         i.glyphicon.glyphicon-star.sg-gold-i
                         | {{ layout.compareValue }}
                     .sg-layoutname.text-center {{layout.name}}

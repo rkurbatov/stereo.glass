@@ -13,8 +13,6 @@ module.exports = function (mongoose) {
         name: {type: String, unique: true},
         urlDir: String,
         url2d: String,
-        //url3d: String,
-        //urlLayout: [String],
         urlThumb: String,
         createdBy: String,
         createdAt: Date,
@@ -25,7 +23,13 @@ module.exports = function (mongoose) {
         catAssortment: [String],
         catCountries: [String],
         designerComment: String,
-        isHidden: Boolean
+        isHidden: Boolean,
+        status: String,
+        assignedTo: String,
+        assignedBy: String,
+        assignedAt: Date,
+        acceptedAt: Date,
+        finishedAt: Date
     });
 
     Ratings.pre('save', function (next) {

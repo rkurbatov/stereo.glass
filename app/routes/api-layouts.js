@@ -12,6 +12,8 @@ module.exports = function (express, Layout) {
     Router.get('/', getLayouts);
     Router.get('/:id', getLayoutsById);
 
+    // Updates layout
+    Router.put('/', putLayouts);
     // Adds rating of current user and updated average to layout
     Router.put('/:id/rating/:value', putLayoutsByIdRatingByValue);
     // Deletes rating of current user in selected layout
@@ -152,18 +154,35 @@ module.exports = function (express, Layout) {
 
             Layout.create(data, function (err) {
                 if (err) {
-                    console.log('Ошибка при сохранении макета! ' + err);
-                    res.json({status: 'error', message: err});
+                    console.log('Ошибка при создании макета! ' + err);
+                    res.status(400).json({status: 'error', message: err});
                 }
                 else {
-                    res.json({status: 'success'});
+                    res.status(201).json({status: 'success'});
                 }
             });
 
         } else {
             res.status(403).send('forbidden').end();
         }
+    }
 
+    function putLayouts(req, res) {
+        if (req.isAuthenticated()) {
+            var data = JSON.parse(req.body.data);
+
+            Layout.create(data, function (err) {
+                if (err) {
+                    console.log('Ошибка при сохранении макета! ' + err);
+                    res.status(400).json({status: 'error', message: err});
+                }
+                else {
+                    res.status(200).json({status: 'success'});
+                }
+            });
+        } else {
+            res.status(403).send('forbidden').end();
+        }
     }
 
     function putLayoutsByIdRatingByValue(req, res) {
