@@ -1,0 +1,26 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel();") &times;
+    h5.modal-title Редактирование пользователя
+
+.modal-body: form(name='editUser')
+    .form-group
+        label.control-label Имя пользователя
+        input.form-control(name="username", ng-required="", autofocus, ng-model="vm.user.username")
+    .form-group
+        label.control-label E-mail
+        input.form-control(name="usermail", type="email", ng-required="", ng-model="vm.user.usermail")
+    .form-group
+        label.control-label Права доступа
+        select.form-control(name="roles", ng-model="vm.user.role", ng-options="r for r in vm.roles")
+    .form-group
+        label.control-label Пароль
+        input.form-control(name="password", ng-model="vm.newPassword")
+    .form-group
+        label.control-label Подтверждение
+        input.form-control(name="confirm", ng-model="vm.confirmPassword")
+
+.modal-footer
+    .center-block
+        .col-xs-2
+        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()" ng-disabled="form.$pristine || form.$invalid") Да
+        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет

@@ -44,6 +44,11 @@
         };
 
         vm.openEditDialog = function (user) {
+            var userClone = _.clone(user);
+            sgUserControls.modalEditUser(userClone)
+                .then(function () {
+                    user = userClone;
+                });
             /*var modalScope = $scope.$new(true);
             modalScope.result = {};
             modalScope.result.username = user.username;
