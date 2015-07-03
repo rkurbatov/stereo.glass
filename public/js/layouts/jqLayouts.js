@@ -51,19 +51,16 @@
 
         function checkForExistenceAndSave() {
             $.ajax({
-                url: '/api/layout',
-                type: 'GET',
-                data: {
-                    data: $('#designer-layout-name').val()
-                },
-                success: function (data) {
-                    if (data) {
-                        layoutsMessage('Шаблон с таким именем уже существует', true);
-                    } else {
+                url: '/api/layouts/search/name/' + encodeURIComponent($('#designer-layout-name').val()),
+                type: 'POST',
+                success: function (data, textStatus, xhr) {
+                    if (xhr.status === 204) {
                         saveCurrentLayout();
+                    } else {
+                        layoutsMessage('Шаблон с таким именем уже существует', true);
                     }
                 },
-                error: function () {
+                error: function (data, status) {
                     layoutsMessage('При сохранении возникли ошибки', true);
                 }
             });
@@ -104,7 +101,7 @@
                 var errMsg;
 
                 $.ajax({
-                    url: '/api/layout',
+                    url: '/api/layouts',
                     type: 'POST',
                     data: {
                         data: JSON.stringify(layoutData)
@@ -179,7 +176,7 @@
             $('#upload-2d').fileinput({
                 showUpload: false,
                 allowedFileExtensions: ['jpg', 'jpeg', 'png'],
-                uploadUrl: '/api/upload?thumb=true',
+                uploadUrl: '/api/files?thumb=true',
                 dropZoneEnabled: false
             });
         }

@@ -74,7 +74,24 @@ app.use(function (req, res, next) {
     next();
 });
 
+// ======== DATABASE ========
+// Mongoose
+var dbName = 'mongodb://localhost/' + (process.env.NODE_ENV === 'production'
+        ? 'stereo_glass'
+        : 'dev_stereo_glass');
+mongoose.connect(dbName, function (err) {
+    if (err) {
+        console.log('Connection error: ', err);
+        process.exit(1);
+    }
+});
+
+// ============== MODELS =======================
 var Account = require('./app/models/account')(mongoose);
+var Category = require('./app/models/category')(mongoose);
+var Layout = require('./app/models/layout')(mongoose);
+var Message = require('./app/models/message')(mongoose);
+
 //passport.use(new LocalStrategy(Account.authenticate()));
 passport.use(Account.createStrategy());
 passport.serializeUser(Account.serializeUser());
@@ -104,25 +121,16 @@ app.engine('jade', require('jade').__express);
 app.set('view engine', 'jade');
 app.set('views', './app/views');
 
-// ======== DATABASE ========
-// Mongoose
-var dbName = 'mongodb://localhost/' + (process.env.NODE_ENV === 'production'
-        ? 'stereo_glass'
-        : 'dev_stereo_glass');
-mongoose.connect(dbName, function (err) {
-    if (err) {
-        console.log('Connection error: ', err);
-        process.exit(1);
-    }
-});
-
 // ======== MULTER =========
 require('./app/helpers/uploader')(app);
 
 // ======== ROUTES ========
 app.use('/', require('./app/routes/base')(express, Account));
 app.use('/auth', require('./app/routes/auth')(express, passport, Account));
-app.use('/api', require('./app/routes/api')(app, express, mongoose, Account));
+app.use('/api/users', require('./app/routes/api-users')(express, Account, Layout));
+app.use('/api/categories', require('./app/routes/api-categories')(express, Category));
+app.use('/api/layouts', require('./app/routes/api-layouts')(express, Layout));
+app.use('/api/files', require('./app/routes/api-files')(express));
 
 // ======== START APP ========
 app.listen(APP_PORT, 'localhost', function () {
@@ -154,12 +162,12 @@ var mailOptions = {
 
 // Send email.
 /*app.mailer.send('mail-templates/hello', mailOptions, function (error) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Message sent');
-    }
-});*/
+ if (error) {
+ console.log(error);
+ } else {
+ console.log('Message sent');
+ }
+ });*/
 
 
 // exports app

@@ -58,7 +58,7 @@
             var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
             if (~idx) {
                 console.log(layout.ratings);
-                $http.delete('/api/layout/' + layout['_id'] + '/rating')
+                $http.delete('/api/layouts/' + layout['_id'] + '/rating')
                     .then(function (response) {
                         if (response.status === 204) {
                             layout.ratings.splice(idx, 1);
@@ -71,7 +71,7 @@
 
         function changeMyRating(layout, value) {
             var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
-            return $http.put('/api/layout/' + layout['_id'] + '/rating/' + value)
+            return $http.put('/api/layouts/' + layout['_id'] + '/rating/' + value)
                 .then(function (result) {
                     if (result.status !== 200) return $q.reject('Rating error: ' + result.status);
                     if (~idx) { // rating exists

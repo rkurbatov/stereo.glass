@@ -24,7 +24,7 @@
         svc.deleteUser = deleteUser;
 
         function getLayoutAuthors() {
-            return $http.get('/api/authors')
+            return $http.get('/api/users/authors')
                 .then(function (response) {
                     return $q.resolve(_.pluck(response.data, '_id'));
                 });
@@ -51,9 +51,7 @@
         }
 
         function deleteUser(user) {
-            return $http.delete('/api/users', {
-                params: {'_id': user['_id']}
-            });
+            return $http.delete('/api/users/' + user['_id']);
         }
 
     }
