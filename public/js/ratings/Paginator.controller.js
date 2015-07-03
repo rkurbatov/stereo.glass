@@ -51,8 +51,7 @@
 
             // Fill designers list
             sgUsers.getLayoutAuthors().then(function (authors) {
-                // TODO: move arrToOptions to service
-                vm.authors = arrToOptions(authors);
+                vm.authors = authors;
             });
 
             vm.refreshData();
@@ -77,7 +76,7 @@
             vm.currentLayout = vm.filteredLayouts[vm.currentLayoutIndex];
         }
 
-        function unselectLayout (){
+        function unselectLayout() {
             vm.$index = -1;
             vm.currentLayoutIndex = -1;
         }

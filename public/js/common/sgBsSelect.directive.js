@@ -13,6 +13,7 @@
             restrict: 'A',
             scope: {
                 htmlContent: '=',
+                content: '=',
                 selection: '=',
                 execOnChange: '&'
             },
@@ -30,6 +31,17 @@
                 function (newV) {
                     if (newV) {
                         elm.html(scope.htmlContent).selectpicker('refresh');
+                    }
+                }
+            );
+
+            scope.$watch(
+                function () {
+                    return scope.content;
+                },
+                function (newV) {
+                    if (newV) {
+                        elm.html(arrToOptions(scope.content)).selectpicker('refresh');
                     }
                 }
             );
@@ -54,6 +66,13 @@
                 scope.execOnChange();
             });
         }
+
+        function arrToOptions(arr) {
+            return arr.map(function (v) {
+                return '<option value="' + v + '">' + v + '</option>';
+            }).join('');
+        }
+
     }
 
 })();

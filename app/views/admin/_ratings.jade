@@ -24,7 +24,7 @@
             .form-group
                 label.col-xs-6.control-label(ng-click="paginator.reset('authors')") Дизайнеры
                 select.selectpicker(multiple data-width='50%'
-                data-none-selected-text="Все" bs-select html-content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
+                data-none-selected-text="Все" bs-select content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
             .form-group
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
