@@ -20,7 +20,8 @@
     "multer": "~0.1.0",
     "lodash": "~3.9.3",
     "morgan": "~1.6.0",
-    "easyimage": "~2.0.3"
+    "easyimage": "~2.0.3",
+    "express-mailer": "~0.3.0"
   },
   "devDependencies": {
     "gulp": "~3.9.0",

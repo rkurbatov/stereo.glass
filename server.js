@@ -14,6 +14,7 @@ var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy;
 var mongoose = require('mongoose');
+var mailer = require('express-mailer');
 //var favicon = require('express-favicon');
 
 var app = express();
@@ -106,10 +107,10 @@ app.set('views', './app/views');
 // ======== DATABASE ========
 // Mongoose
 var dbName = 'mongodb://localhost/' + (process.env.NODE_ENV === 'production'
-    ? 'stereo_glass'
-    : 'dev_stereo_glass');
-mongoose.connect(dbName, function(err) {
-    if(err) {
+        ? 'stereo_glass'
+        : 'dev_stereo_glass');
+mongoose.connect(dbName, function (err) {
+    if (err) {
         console.log('Connection error: ', err);
         process.exit(1);
     }
@@ -127,6 +128,39 @@ app.use('/api', require('./app/routes/api')(app, express, mongoose, Account));
 app.listen(APP_PORT, 'localhost', function () {
     console.log('Listening on port ' + APP_PORT + ' ...');
 });
+
+
+// ======== MAILER =========
+mailer.extend(app, {
+    from: '"Stereo.Glass" <mailer@stereo.glass>',
+    host: 'smtp.stereo.glass',
+    port: 587,
+    transportMethod: 'SMTP',
+    auth: {
+        user: 'mailer@stereo.glass',
+        pass: 'bFlnx37Q'
+    }
+});
+
+// Setup email data.
+var mailOptions = {
+    to: 'rkurbatov@gmail.com',
+    subject: 'Hello ✔',
+    vars: {
+        title: 'Hello',
+        message: 'Welcome to my website'
+    }
+};
+
+// Send email.
+/*app.mailer.send('mail-templates/hello', mailOptions, function (error) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Message sent');
+    }
+});*/
+
 
 // exports app
 module.exports = app;
