@@ -1,2 +1,20 @@
-.panel.panel-default(ng-controller="Messages as msg")
-    h5 Сообщения
+.panel.panel-default(ng-controller="Messages as messages")
+	.row
+		.col-sm-12.col-lg12.col-xs-12
+			table.table.table-striped(st-table='messages')
+				thead
+					tr
+						th
+							i.refresh-button.fa.fa-refresh.sg-shadowed-text(ng-click='messages.refreshList()')
+							|  Тема
+						th Автор сообщения	
+						th Дата отправки    
+				tbody(ng-repeat='row in messages.list')
+					tr
+						td {{ row.header }}
+						td {{ row.fromUser }}
+						td {{ row.createdAt | date }}
+				//-tfoot
+				//-    tr
+				//-        td.text-center(colspan='5')
+				//-            div(st-pagination='', st-items-by-page='3', st-displayed-pages='2')

@@ -10,18 +10,18 @@
     function Messages(sgMessages, sgUsers){
 
     	var vm = this;
-    	vm.refresh = refresh;
+    	vm.refreshList = refreshList;
 
     	initController();
 
     	function initController() {
-    		refresh();
+    		vm.refreshList();
     	}
 
-    	function refresh() {
+    	function refreshList() {
     		sgMessages.getList(sgUsers.currentUser.name, ['admin'])
     			.then(function(messages){
-
+                    vm.list = messages;
     			});
     	}
 
