@@ -34,6 +34,13 @@
                 | Показывать &nbsp;
                 select.form-control-static(ng-model="paginator.filters.currentClient"
                 ng-options="opt.name for opt in paginator.filters.client")
+                select.form-control-static(ng-model="paginator.filters.currentRater"
+                    ng-options="opt.user for opt in paginator.filters.raters"
+                    ng-show='paginator.filters.currentClient.mode === "byRater"'
+                    ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
+                select.form-control-static(ng-model="paginator.filters.currentDesigner"
+                    ng-options="opt.name for opt in paginator.filters.designers"
+                    ng-show='paginator.filters.currentClient.mode === "byDesigner"')
                 | &nbsp;&nbsp; Найдено: {{ paginator.filteredLayouts.length }}
             sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")
 
@@ -63,12 +70,12 @@
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
                     ng-click="paginator.handleLayoutClick($index)"
                     hm-swipeup="setSelectedIndex($index); show2dModal()")
-                    sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "rate"')
-                    .text-center(ng-show='paginator.filters.currentClient.mode === "view"'
+                    sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "byLayout"')
+                    .text-center(ng-show='paginator.filters.currentClient.mode === "byRater"'
                     style='font-size: 20px')
                         i.glyphicon.glyphicon-star.sg-gold-i
                         | {{ layout.compareValue }}
-                    .sg-layoutname.text-center {{layout.name}}
+                    .sg-layoutname.text-center {{ layout.name }}
     //-
     //- bottom pagination controls
     //-

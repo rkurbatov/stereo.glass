@@ -38,7 +38,7 @@
             client: [
                 {
                     name: "все",
-                    mode: 'rate',
+                    mode: 'byLayout',
                     value: function (v) {
                         v.compareValue = v.average;
                         return !v.isHidden;
@@ -46,20 +46,21 @@
                 },
                 {
                     name: "еще не просмотренные",
-                    mode: 'rate',
+                    mode: 'byLayout',
                     value: function (v) {
                         return (v.rating === -1 || v.notRatedByMe) && !v.isHidden;
                     }
                 },
                 {
                     name: "только оцененные и просмотренные мной",
-                    mode: 'rate',
+                    mode: 'byLayout',
                     value: function (v) {
                         v.compareValue = v.average;
                         return v.rating > -1 && !v.isHidden;
                     }
                 }
             ],
+            raters: [],
             server: {
                 assortment: [],
                 colors: [],
@@ -69,7 +70,12 @@
             },
             currentOrder: {},
             currentClient: {},
-            currentServer: {}
+            currentServer: {},
+            currentRater: {},
+            currentRaterFilter: {
+                name: "оцененные пользователем",
+                mode: "byRater"
+            }
         };
 
         initService();
@@ -80,12 +86,33 @@
             filters.currentOrder = filters.order[0];
             filters.currentClient = filters.client[0];
 
+            // add to filters array filter by founder name
+            sgUsers.getRaters()
+                .then(function (raters) {
+                    _.forEach(raters, addFilter);
+
+                    function addFilter(userName) {
+                        var filterObject = {
+                            user: userName,
+                            value: function (layout) {
+                                layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
+                                return _.any(layout.ratings, {assignedBy: userName});
+                            }
+                        };
+                        filters.raters.push(filterObject)
+                    }
+
+                    filters.currentRater = filters.raters[0];
+                    filters.client.push(filters.currentRaterFilter);
+
+                });
+
             // add to filters 'deleted' filter
             if (sgUsers.currentUser.role === 'admin') {
                 filters.client.push(
                     {
                         name: 'удалённые',
-                        mode: 'rate',
+                        mode: 'byLayout',
                         value: function (layout) {
                             layout.compareValue = layout.average;
                             return layout.isHidden;
@@ -94,25 +121,6 @@
                 );
             }
 
-            // add to filters array filter by founder name
-            sgUsers.getRaters()
-                .then(function (raters) {
-                    _.forEach(raters, addFilter);
-
-                    function addFilter(userName) {
-                        var filterObject = {
-                            name: 'оцененные ' + userName,
-                            mode: 'view',
-                            user: userName,
-                            value: function (layout) {
-                                layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
-                                return _.any(layout.ratings, {assignedBy: userName});
-                            }
-                        };
-
-                        filters.client.push(filterObject)
-                    }
-                });
         }
     }
 
