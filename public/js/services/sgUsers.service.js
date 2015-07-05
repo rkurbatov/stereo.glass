@@ -21,7 +21,8 @@
         svc.getListOfUsers = getListOfUsers;
         svc.getRaters = getRaters;
         svc.getDesigners = getDesigners;
-        svc.deleteUser = deleteUser;
+        svc.remove = remove;
+        svc.update = update;
 
         function getLayoutAuthors() {
             return $http.get('/api/users/authors')
@@ -50,8 +51,20 @@
             });
         }
 
-        function deleteUser(user) {
-            return $http.delete('/api/users/' + user['_id']);
+        function remove(id) {
+            return $http.delete('/api/users/' + id);
+        }
+
+        function update(id, setObject) {
+            if (!setObject) {
+                return $q.reject();
+            }
+
+            var params = {
+                setObject: setObject
+            };
+
+            return $http.put('/api/users/' + id, { params: params });
         }
 
     }

@@ -22,5 +22,5 @@
 .modal-footer
     .center-block
         .col-xs-2
-        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()" ng-disabled="form.$pristine || form.$invalid") Да
+        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()" ng-disabled="vm.newPassword !== vm.confirmPassword") Да
         button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет

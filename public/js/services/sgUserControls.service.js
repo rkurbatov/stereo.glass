@@ -33,7 +33,10 @@
     		vm.roles = ['user', 'designer', 'founder', 'admin'];
 
     		vm.ok = function() {
-    			$modalInstance.close('ok');
+                if (vm.newPassword) {
+                    vm.user.password = vm.newPassword;
+                }    
+    			$modalInstance.close(vm.user);
     		}
 
     		vm.cancel = function() {

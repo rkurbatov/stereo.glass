@@ -63,27 +63,41 @@ module.exports = function (express, Account, Layout) {
     }
 
     function putUsersById(req, res) {
+
         // only admin can modify users (or user itself)
         if (req.isAuthenticated() && (req.user.role === 'admin' || req.user['_id'] === req.params.id)) {
-            Account.findById(req.params.id).exec(function (err, acc) {
-                if (req.body.username) acc.username = req.body.username;
-                if (req.body.usermail) acc.usermail = req.body.usermail;
-                if (req.body.role) acc.role = req.body.role;
-                acc.save();
-                if (req.body.password) {
-                    acc.setPassword(req.body.password, function (err) {
-                        if (err) {
-                            console.log("Cant't change user password: ", err);
-                        } else {
-                            acc.save();
-                            res.status(200).json({success: 'user with password is modified'});
-                        }
 
+            var setObject = req.body.params.setObject;
+
+            Account.findById(req.params.id).exec(function (err, user) {
+                
+                if (err) {
+                    console.log('User not found! ', err);
+                    return res.status('404').json({ status: 'User not found' });
+                }
+
+                user.username = setObject.username;
+                user.usermail = setObject.usermail;
+                user.role = setObject.role;
+
+                // !!! Saving needed before password change. 
+                user.save();
+
+                if (setObject.password) {
+                    user.setPassword(setObject.password, function (err) {
+                        if (err) {
+                            console.log("Can't change user password: ", err);
+                            return res.status(500).json({ status: 'server error', message: err });
+                        } else {
+                            user.save();
+                        }
                     })
-                } else res.status(200).json({success: 'user is modified'});
+                } 
+
+                res.status(200).json({ success: 'user is modified' });
             });
         } else {
-            res.status(403).send('forbidden').end();
+            res.status(403).send('forbidden');
         }
     }
 
