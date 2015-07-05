@@ -1,7 +1,7 @@
 extends adminLayout
 block content
     .container(ng-app='sgAppAdmin'): #content
-        ul#tabs.nav.nav-tabs(data-tabs="tabs")
+        ul#tabs.nav.nav-tabs(data-tabs="tabs" ng-controller="Tabs as tabs")
 
             //- Users tab header
             if user.role === 'admin'
@@ -23,16 +23,19 @@ block content
             if user.role === 'admin' || user.role === 'designer'
                 li: a(href='#admin-ratings', data-toggle='tab')
                     span.glyphicon.glyphicon-star
-                    |  Оценки
+                    span.badge {{ tabs.layouts.unratedCount }}
+                    |  Оценки                 
+
             if user.role === 'founder'
                 li.active: a(href='#admin-ratings', data-toggle='tab')
                     span.glyphicon.glyphicon-star
+                    span.badge {{ tabs.layouts.unratedCount }}
                     |  Оценки
 
             //- Messages tab header
             li: a(href='#messages', data-toggle='tab')
                 span.glyphicon.glyphicon-envelope
-                span.badge 0
+                span.badge {{ tabs.messages.unreadCount }}
                 |  Сообщения
 
             //- Profile tab header    

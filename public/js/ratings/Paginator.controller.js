@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('Paginator', Paginator);
 
-    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers'];
+    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers', 'sgMessages'];
 
-    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers) {
+    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers, sgMessages) {
 
         // ==== DECLARATION =====
 
@@ -83,16 +83,40 @@
 
         function assignDoer(layout) {
             sgLayoutControls.modalAssignDoer(layout)
+                .then(function(response){
+                    var setObject = {
+                        assignedTo: response.assignedTo,
+                        assignedBy: sgUsers.currentUser.name,
+                        assignedAt: new Date(),
+                        assignedComment: response.comment || "",
+                        status: 'assigned'
+                    };
+
+                    // TODO: error reporting
+                    return sgLayouts.update(layout._id, setObject)
+                        .then(function() {
+                            _.extend(layout, setObject);
+                            var message = {
+                                fromUser: setObject.assignedBy,
+                                toUser: setObject.assignedTo,
+                                type: 'designer',
+                                subType: 'jobAssigned',
+                                header: 'Новое задание',
+                                body: layout._id
+                            };
+                            return sgMessages.create(message);
+                        });
+            });
         }
 
         function confirmRemove(layout) {
             sgLayoutControls.modalRemove(layout)
                 .then(function () {
-                    sgLayouts.removeLayout(layout['_id']).then(function () {
+                    sgLayouts.remove(layout).then(function () {
                         vm.unselectLayout();
                         vm.refreshData();
                     });
-                })
+                });
         }
 
 

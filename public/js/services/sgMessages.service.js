@@ -5,32 +5,40 @@
         .module('sgAppAdmin')
         .service('sgMessages', sgMessages);
 
-    sgMessages.$inject = [];
+    sgMessages.$inject = ['$http'];
 
-    function sgMessages() {
+    function sgMessages($http) {
         var svc = this;
 
         // DECLARATION
 
         svc.create = create;
         svc.getList = getList;
+        svc.unreadCount = 0;
 
         // IMPLEMENTATION
 
         function create(message) {
-            return $http.post('/api/messages', {params: message});
+            var params = {};
+            params.message = message;
+
+            return $http.post('/api/messages', {params: params});
 
         }
 
-        function getList(name, roles) {
+        function getList(user, groups) {
             return $http.post('/api/messages/search' +
-                '/name/' + encodeURIComponent(name) +
-                '/roles/' + encodeURIComponent(roles))
+                '/user/' + encodeURIComponent(user) +
+                '/groups/' + encodeURIComponent(groups))
                 .then(function (response) {
+                    svc.unreadCount = _.countBy(response.data, function(message) {
+                        return message.readStatus === 'unread';
+                    }).true || 0;
                     console.log(response.data);
                     return response.data;
                 });
         }
 
     }
+
 })();

@@ -4,11 +4,13 @@ module.exports = function (mongoose) {
     var Schema = mongoose.Schema;
     
     var MessageSchema = new Schema({
-        from: String,
-        to: String,
+        fromUser: String,
+        toUser: String,
         toGroup: [String],
         createdAt: Date,
         type: String,
+        subType: String,
+        readStatus: String,
         header: String,
         body: String
     });
@@ -17,6 +19,10 @@ module.exports = function (mongoose) {
 
         if (!this.createdAt) {
             this.createdAt = new Date;
+        }
+
+        if (!this.readStatus) {
+            this.readStatus = 'unread';
         }
 
         next();

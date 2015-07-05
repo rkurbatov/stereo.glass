@@ -6,6 +6,8 @@ module.exports = function (express, Layout) {
 
     // DECLARATION
 
+    // Creates layout
+    // uses req.body.params.layout for new layout
     Router.post('/', postLayouts);
     Router.post('/search/name/:name', postSearchByName);
 
@@ -13,7 +15,9 @@ module.exports = function (express, Layout) {
     Router.get('/:id', getLayoutsById);
 
     // Updates layout
-    Router.put('/', putLayouts);
+    // uses req.body.params.setObject to update and 
+    // req.body.params.unsetArray to remove db record values
+    Router.put('/:id', putLayoutsById);
     // Adds rating of current user and updated average to layout
     Router.put('/:id/rating/:value', putLayoutsByIdRatingByValue);
     // Deletes rating of current user in selected layout
@@ -167,19 +171,36 @@ module.exports = function (express, Layout) {
         }
     }
 
-    function putLayouts(req, res) {
+    function putLayoutsById(req, res) {
         if (req.isAuthenticated()) {
-            var data = JSON.parse(req.body.data);
+            var conditions = {
+                _id : req.params.id
+            }
+            var update = {};
 
-            Layout.create(data, function (err) {
-                if (err) {
-                    console.log('Ошибка при сохранении макета! ' + err);
-                    res.status(400).json({status: 'error', message: err});
-                }
-                else {
-                    res.status(200).json({status: 'success'});
+            var setObject = req.body.params.setObject;
+            if (setObject) {
+                update.$set = setObject;
+            }
+
+            var unsetArray = req.body.params.unsetArray;
+            if (unsetArray) {
+                update.$unset = _.zipObject(unsetArray, _.fill(_.range(unsetArray.length), ''));
+            }
+
+            if (!update.$set && !update.$unset) {
+                return res.status(400).json({status: 'error', message: 'Bad request'});
+            }
+
+            Layout.findOneAndUpdate(conditions, update, function (err){
+               if (err) {
+                   console.log('Ошибка при обновлении макета! ' + err);
+                   res.status(400).json({status: 'error', message: err});
+                } else {
+                    res.status(200).json({status: 'success'});                    
                 }
             });
+
         } else {
             res.status(403).send('forbidden').end();
         }

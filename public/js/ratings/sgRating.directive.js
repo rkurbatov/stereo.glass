@@ -38,7 +38,10 @@
             });
 
             function removeRating() {
-                sgLayouts.removeMyRating(scope.linkedObject);
+                sgLayouts.removeMyRating(scope.linkedObject)
+                    .then(function(){
+                    });
+                scope.linkedObject.isProcessing = true;
             }
 
             function markViewed() {

@@ -1,12 +1,12 @@
 .sg-rating-block
     span
         i.glyphicon(ng-class="getRatingClassName()"
-        ng-dblclick="removeRating()"
-        hm-tap="removeRating()")
+        ng-click="linkedObject.notRatedByMe || removeRating()"
+        style="cursor:pointer;")
     b {{ linkedObject.average !== -1 ? linkedObject.average : 0 | number : 2 }}/{{ linkedObject.ratings.length }}
     br(ng-show='!oneRow')
     span(ng-show='oneRow') &nbsp;&nbsp;
-    i.fa(style="vertical-align: text-bottom;"
+    i.fa(style="vertical-align: text-bottom; cursor: pointer"
     ng-class="{'fa-thumbs-o-down': linkedObject.rating != 0, 'fa-thumbs-down': linkedObject.rating == 0}"
     ng-click='markViewed()')
-    rating(ng-model='linkedObject.rating' max='3')
+    rating(ng-model='linkedObject.rating' max='3' style="cursor: pointer")

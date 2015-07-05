@@ -13,9 +13,11 @@
 
         var svc = this;
         svc.loadData = loadData;
+        svc.unratedCount = 0;
         svc.removeMyRating = removeMyRating;
         svc.changeMyRating = changeMyRating;
-        svc.removeLayout = removeLayout;
+        svc.remove = remove;
+        svc.update = update;
 
         svc.rawLayouts = [];
 
@@ -40,6 +42,7 @@
                         e.rating = -1;
                         // Hack to prevent early filtering (hiding rated layouts)
                         e.notRatedByMe = true;
+                        svc.unratedCount +=1;
                     }
                     // needed for correct order
                     e.average = calcAverageRating(e.ratings);
@@ -55,23 +58,32 @@
         }
 
         function removeMyRating(layout) {
-            var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
+            if (layout.isProcessing) {
+                return $q.reject();
+            }
+
+            var idx = _.findIndex(layout.ratings, { assignedBy: sgUsers.currentUser.name });
             if (~idx) {
-                console.log(layout.ratings);
-                $http.delete('/api/layout/' + layout['_id'] + '/rating')
+                return $http.delete('/api/layouts/' + layout['_id'] + '/rating')
                     .then(function (response) {
                         if (response.status === 204) {
                             layout.ratings.splice(idx, 1);
                             layout.rating = -1;
                             layout.average = calcAverageRating(layout.ratings);
+                            layout.notRatedByMe = true;
+                            svc.unratedCount += 1;
                         }
+                        if (layout.isProcessing) delete layout.isProcessing;
                     });
+            } else {
+                if (layout.isProcessing) delete layout.isProcessing;
+                return $q.reject();
             }
         }
 
         function changeMyRating(layout, value) {
             var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
-            return $http.put('/api/layout/' + layout['_id'] + '/rating/' + value)
+            return $http.put('/api/layouts/' + layout['_id'] + '/rating/' + value)
                 .then(function (result) {
                     if (result.status !== 200) return $q.reject('Rating error: ' + result.status);
                     if (~idx) { // rating exists
@@ -81,18 +93,32 @@
                             value: value,
                             assignedBy: sgUsers.currentUser.name
                         });
+                        svc.unratedCount -= 1;
+                        layout.notRatedByMe = false;
                     }
                     layout.average = calcAverageRating(layout.ratings);
                 });
         }
 
-        function removeLayout(id) {
+        function remove(id) {
             return $http.delete('/api/layouts/' + id)
                 .success(function (response) {
                     return response.status === 204
                         ? $q.resolve()
                         : $q.reject();
                 });
+        }
+
+        function update(id, setObject, unsetArray) {
+            if (!setObject && !unsetArray) {
+                return $q.reject();
+            }
+
+            var params = {};
+            if(setObject) { params.setObject = setObject};
+            if (unsetArray) { params.unsetArray = unsetArray};
+
+            return $http.put('/api/layouts/' + id, { params: params });
         }
 
         function calcAverageRating(rateArr) {

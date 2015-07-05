@@ -12,11 +12,11 @@
             .form-group
                 label.control-label.col-xs-2 Дизайнер
                 .col-xs-5.sg-nopadding
-                    select.form-control(ng-options='d for d in vm.designers' ng-model='vm.assigned')
+                    select.form-control(ng-options='d for d in vm.designers' ng-model='vm.assignedTo')
             .form-group
-                textarea.col-xs-12.sg-noresize(rows="6")
+                textarea.col-xs-12.sg-noresize(rows="6" ng-model='vm.comment')
     .row
 .modal-footer
     .col-xs-4
-    button.btn.btn-primary.col-xs-2(ng-click="vm.ok()" ng-disabled='!vm.assigned') Назначить
+    button.btn.btn-primary.col-xs-2(ng-click="vm.ok()" ng-disabled='!vm.assignedTo') Назначить
     button.btn.col-xs-2(ng-click="vm.cancel()") Отмена
