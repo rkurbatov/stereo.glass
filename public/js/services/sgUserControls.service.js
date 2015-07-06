@@ -5,16 +5,16 @@
         .module('sgAppAdmin')
         .service('sgUserControls', sgUserControls);
 
-    sgUserControls.$inject = ['$modal'];
+    sgUserControls.$inject = ['$modal', 'sgUsers'];
 
-    function sgUserControls($modal) {
+    function sgUserControls($modal, sgUsers) {
     	var vm = this;
     	vm.modalEditUser = modalEditUser;
 
     	function modalEditUser(user) {
     		var modalDO = {
     			templateUrl: '/partials/modal-EditUser',
-                controller: ['$modalInstance', 'user', editUserCtrl],
+                controller: editUserCtrl,
                 controllerAs: 'vm',
                 resolve: {
                     user: function () {
@@ -27,10 +27,12 @@
             return $modal.open(modalDO).result;  
     	}
 
-    	function editUserCtrl($modalInstance, user) {
+        editUserCtrl.$inject = ['$modalInstance', 'sgUsers', 'user'];
+
+    	function editUserCtrl($modalInstance, sgUsers, user) {
     		var vm = this;
     		vm.user = user;
-    		vm.roles = ['user', 'designer', 'founder', 'admin'];
+    		vm.roles = sgUsers.allRoles;
 
     		vm.ok = function() {
                 if (vm.newPassword) {

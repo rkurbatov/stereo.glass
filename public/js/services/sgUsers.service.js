@@ -28,7 +28,7 @@
 
         svc.getMail = getMail;
 
-        var allRoles = ['admin', 'curator', 'founder', 'designer', 'user'];
+        svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'user'];
 
         initService();
 
@@ -38,7 +38,7 @@
 
         function reload() {
             var usersPromise = $http.get('/api/users', {
-                params: {roles: allRoles}
+                params: {roles: svc.allRoles}
             }).then(function (response) {
                 createFilteredList(svc.list = response.data);
             });

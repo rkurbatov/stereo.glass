@@ -14,7 +14,7 @@ block content
                 li.active: a(href='#admin-layouts', data-toggle='tab')
                     span.fa.fa-picture-o
                     |  Загрузка картинок
-            if user.role === 'admin' || user.role === 'founder'
+            if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
                 li: a(href='#admin-layouts', data-toggle='tab')
                     span.fa.fa-picture-o
                     |  Загрузка картинок
@@ -26,7 +26,7 @@ block content
                     span.badge {{ tabs.layouts.unratedCount }}
                     |  Оценки                 
 
-            if user.role === 'founder'
+            if user.role === 'founder' || user.role === 'curator'
                 li.active: a(href='#admin-ratings', data-toggle='tab')
                     span.glyphicon.glyphicon-star
                     span.badge {{ tabs.layouts.unratedCount }}
@@ -61,7 +61,7 @@ block content
                 #admin-users.tab-pane.active
                     include ./_users
 
-            if user.role === 'admin' || user.role === 'founder'
+            if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
                 #admin-layouts.tab-pane
                     include ./_layouts
             if user.role === 'designer'
@@ -71,7 +71,7 @@ block content
             if user.role === 'admin' || user.role === 'designer'
                 #admin-ratings.tab-pane
                     include ./_ratings
-            if user.role === 'founder'
+            if user.role === 'founder' || user.role === 'curator'
                 #admin-ratings.tab-pane.active
                     include ./_ratings
 

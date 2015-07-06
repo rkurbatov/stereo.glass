@@ -90,7 +90,7 @@ module.exports = function (express, Layout) {
     }
 
     function deleteLayoutsById(req, res) {
-        if (req.isAuthenticated() && _.contains(['admin', 'designer', 'founder'], req.user.role)) {
+        if (req.isAuthenticated() && _.contains(['admin', 'designer', 'founder', 'curator'], req.user.role)) {
             Layout.findOne({'_id': req.params.id}, function (err, layout) {
                 if (err) {
                     console.log('Error removing layout: ', err);
