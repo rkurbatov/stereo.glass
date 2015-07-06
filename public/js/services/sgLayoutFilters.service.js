@@ -114,20 +114,28 @@
                 });
 
             // add to filters 'assigned to designer' filters.
-            if (sgUsers.currentUser.role === 'admin' || sgUsers.currentUser.role === 'founder') {
+            if (_.contains(['admin', 'founder', 'curator', 'designer'], sgUsers.currentUser.role)) {
                 sgUsers.loaded
-                    .then(function(){
+                    .then(function () {
                         _.forEach(sgUsers.designers, addFilter);
 
                         function addFilter(designerName) {
+
                             var filterObject = {
-                                designer: designerName,
+                                designer: (sgUsers.currentUser.role === 'designer' && sgUsers.currentUser.name === designerName)
+                                    ? 'мне'
+                                    : designerName,
                                 value: function (layout) {
                                     layout.compareValue = layout.status;
                                     return layout.assignedTo === designerName;
                                 }
                             };
-                            filters.designers.push(filterObject)
+
+                            // place own name at the beginning
+                            (sgUsers.currentUser.role === 'designer' && sgUsers.currentUser.name === designerName)
+                                ? filters.designers.unshift(filterObject)
+                                : filters.designers.push(filterObject);
+
                         }
 
                         filters.currentDesigner = filters.designers[0];
@@ -151,7 +159,6 @@
                 );
             }
 
-            
 
         }
     }
