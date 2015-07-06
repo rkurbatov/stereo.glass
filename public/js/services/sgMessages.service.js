@@ -16,6 +16,7 @@
         svc.getList = getList;
         svc.unreadCount = 0;
         svc.systemMail = '"Stereo.Glass" <mailer@stereo.glass>';
+        svc.eMail = eMail;
 
         // IMPLEMENTATION
 
@@ -32,11 +33,20 @@
                 '/user/' + encodeURIComponent(user) +
                 '/groups/' + encodeURIComponent(groups))
                 .then(function (response) {
-                    svc.unreadCount = _.countBy(response.data, function(message) {
-                        return message.readStatus === 'unread';
-                    }).true || 0;
+                    svc.unreadCount = _.countBy(response.data, function (message) {
+                            return message.readStatus === 'unread';
+                        }).true || 0;
                     return response.data;
                 });
+        }
+
+        function eMail(mail, vars) {
+            return $http.post('/api/mail/', {
+                params: {
+                    mail: mail,
+                    vars: vars
+                }
+            });
         }
 
     }

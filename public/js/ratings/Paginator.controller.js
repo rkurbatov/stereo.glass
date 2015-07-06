@@ -108,11 +108,16 @@
                         })
                         .then(function () {
                             var mail = {
-                                fromUser: sgMessages.systemMail,
-                                toUser: sgUsers.getMail(setObject.assignedTo)
+                                to: sgUsers.getMail(setObject.assignedTo),
+                                subject: "Новое задание",
+                                template: 'designer-newTask'
                             };
-                            console.log(mail);
-                            //return sgMessages.eMail(mail)
+
+                            var vars = {
+                                sender: sgUsers.currentUser.name,
+                                comment: setObject.assignedComment
+                            };
+                            return sgMessages.eMail(mail, vars);
                         });
                 });
         }

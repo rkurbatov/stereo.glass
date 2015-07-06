@@ -124,21 +124,6 @@ app.set('views', './app/views');
 // ======== MULTER =========
 require('./app/helpers/uploader')(app);
 
-// ======== ROUTES ========
-app.use('/', require('./app/routes/base')(express, Account));
-app.use('/auth', require('./app/routes/auth')(express, passport, Account));
-app.use('/api/users', require('./app/routes/api-users')(express, Account, Layout));
-app.use('/api/categories', require('./app/routes/api-categories')(express, Category));
-app.use('/api/layouts', require('./app/routes/api-layouts')(express, Layout));
-app.use('/api/files', require('./app/routes/api-files')(express));
-app.use('/api/messages', require('./app/routes/api-messages')(express, Message, Account));
-
-// ======== START APP ========
-app.listen(APP_PORT, 'localhost', function () {
-    console.log('Listening on port ' + APP_PORT + ' ...');
-});
-
-
 // ======== MAILER =========
 mailer.extend(app, {
     from: '"Stereo.Glass" <mailer@stereo.glass>',
@@ -151,24 +136,20 @@ mailer.extend(app, {
     }
 });
 
-// Setup email data.
-var mailOptions = {
-    to: 'rkurbatov@gmail.com',
-    subject: 'Hello ✔',
-    vars: {
-        title: 'Hello',
-        message: 'Welcome to my website'
-    }
-};
+// ======== ROUTES ========
+app.use('/', require('./app/routes/base')(express, Account));
+app.use('/auth', require('./app/routes/auth')(express, passport, Account));
+app.use('/api/users', require('./app/routes/api-users')(express, Account, Layout));
+app.use('/api/categories', require('./app/routes/api-categories')(express, Category));
+app.use('/api/layouts', require('./app/routes/api-layouts')(express, Layout));
+app.use('/api/files', require('./app/routes/api-files')(express));
+app.use('/api/messages', require('./app/routes/api-messages')(express, Message));
+app.use('/api/mail', require('./app/routes/api-mail')(express, app.mailer));
 
-// Send email.
-/*app.mailer.send('mail-templates/hello', mailOptions, function (error) {
- if (error) {
- console.log(error);
- } else {
- console.log('Message sent');
- }
- });*/
+// ======== START APP ========
+app.listen(APP_PORT, 'localhost', function () {
+    console.log('Listening on port ' + APP_PORT + ' ...');
+});
 
 
 // exports app
