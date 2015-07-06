@@ -1,4 +1,4 @@
-module.exports = function (express, Message, Account) {
+module.exports = function (express, Message) {
     'use strict';
 
     var Router = express.Router();
@@ -16,13 +16,10 @@ module.exports = function (express, Message, Account) {
     function postMessage(req, res) {
         if (req.isAuthenticated()) {
 
-            console.log(req.body);
-
             var message = req.body.params.message;
             if (!message) {
                return res.status(400).json({status: 'error', message: "Bad request!"}); 
             }
-            console.log(message);
 
             Message.create(message, function (err) {
                 if (err) {
@@ -60,10 +57,8 @@ module.exports = function (express, Message, Account) {
                 conditions = condGroup;
             } else if (!groups) {
                 conditions = condUser;
-            };
+            }
             
-            console.log(conditions);
-
             Message.find(conditions, function(err, messages){
                 if (err) {
                     console.log('Error creating message! ' + err);
