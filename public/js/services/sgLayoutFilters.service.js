@@ -117,7 +117,6 @@
             if (sgUsers.currentUser.role === 'admin' || sgUsers.currentUser.role === 'founder') {
                 sgUsers.getDesigners()
                     .then(function(designers){
-                        console.log(designers);
                         _.forEach(designers, addFilter);
 
                         function addFilter(designerName) {

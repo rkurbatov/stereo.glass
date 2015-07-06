@@ -34,7 +34,6 @@
                     svc.unreadCount = _.countBy(response.data, function(message) {
                         return message.readStatus === 'unread';
                     }).true || 0;
-                    console.log(response.data);
                     return response.data;
                 });
         }
