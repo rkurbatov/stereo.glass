@@ -15,6 +15,7 @@
         svc.create = create;
         svc.getList = getList;
         svc.unreadCount = 0;
+        svc.systemMail = '"Stereo.Glass" <mailer@stereo.glass>';
 
         // IMPLEMENTATION
 

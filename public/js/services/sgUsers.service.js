@@ -21,6 +21,13 @@
         svc.update = update;
         svc.reload = reload;
 
+        svc.list = {};
+        svc.authors = [];
+        svc.designers = [];
+        svc.raters = [];
+
+        svc.getMail = getMail;
+
         var allRoles = ['admin', 'curator', 'founder', 'designer', 'user'];
 
         initService();
@@ -69,6 +76,10 @@
             };
 
             return $http.put('/api/users/' + id, {params: params});
+        }
+
+        function getMail(userName) {
+            return (_.find(svc.list, { username: userName }) || {}).usermail;
         }
 
     }

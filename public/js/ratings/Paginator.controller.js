@@ -83,7 +83,7 @@
 
         function assignDoer(layout) {
             sgLayoutControls.modalAssignDoer(layout)
-                .then(function(response){
+                .then(function (response) {
                     var setObject = {
                         assignedTo: response.assignedTo,
                         assignedBy: sgUsers.currentUser.name,
@@ -94,7 +94,7 @@
 
                     // TODO: error reporting
                     return sgLayouts.update(layout._id, setObject)
-                        .then(function() {
+                        .then(function () {
                             _.extend(layout, setObject);
                             var message = {
                                 fromUser: setObject.assignedBy,
@@ -105,14 +105,22 @@
                                 body: layout._id
                             };
                             return sgMessages.create(message);
+                        })
+                        .then(function () {
+                            var mail = {
+                                fromUser: sgMessages.systemMail,
+                                toUser: sgUsers.getMail(setObject.assignedTo)
+                            };
+                            console.log(mail);
+                            //return sgMessages.eMail(mail)
                         });
-            });
+                });
         }
 
         function confirmRemove(layout) {
             sgLayoutControls.modalRemove(layout)
                 .then(function () {
-                    sgLayouts.remove(layout).then(function () {
+                    sgLayouts.remove(layout['_id']).then(function () {
                         vm.unselectLayout();
                         vm.refreshData();
                     });
