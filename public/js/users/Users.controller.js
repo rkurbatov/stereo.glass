@@ -31,7 +31,7 @@
                     return sgUsers.remove(user['_id']);
                 })
                 .then(function () {
-                    vm.svcUsers.reload;
+                    vm.svcUsers.reload();
                 });
         };
 
