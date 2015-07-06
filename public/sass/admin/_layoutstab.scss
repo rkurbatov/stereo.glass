@@ -58,14 +58,14 @@ ul.sg-layout-list {
     }
   }
 
-  .control24 {
-    @include layout-control(24px);
-    margin: 0 5px;
+  .control32 {
+    @include layout-control(32px);
+    margin: 0 10px;
   }
 
-  .control28 {
-    @include layout-control(28px);
-    margin: 0 3px;
+  .control36 {
+    @include layout-control(36px);
+    margin: 0 5px;
   }
 
 }
