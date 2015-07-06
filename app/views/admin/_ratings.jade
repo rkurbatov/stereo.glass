@@ -31,7 +31,7 @@
                 ng-model="dateRange", options="dpopts")
         .col-xs-8
             .form-group
-                | Показывать &nbsp;
+                | Показать &nbsp;
                 select.form-control-static(ng-model="paginator.filters.currentClient"
                 ng-options="opt.name for opt in paginator.filters.client")
                 select.form-control-static(ng-model="paginator.filters.currentRater"
@@ -39,8 +39,9 @@
                     ng-show='paginator.filters.currentClient.mode === "byRater"'
                     ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
                 select.form-control-static(ng-model="paginator.filters.currentDesigner"
-                    ng-options="opt.name for opt in paginator.filters.designers"
-                    ng-show='paginator.filters.currentClient.mode === "byDesigner"')
+                    ng-options="opt.designer for opt in paginator.filters.designers"
+                    ng-show='paginator.filters.currentClient.mode === "byDesigner"'
+                    ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
                 | &nbsp;&nbsp; Найдено: {{ paginator.filteredLayouts.length }}
             sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")
 

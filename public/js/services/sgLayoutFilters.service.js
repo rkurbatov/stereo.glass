@@ -61,6 +61,7 @@
                 }
             ],
             raters: [],
+            designers: [],
             server: {
                 assortment: [],
                 colors: [],
@@ -75,6 +76,11 @@
             currentRaterFilter: {
                 name: "оцененные пользователем",
                 mode: "byRater"
+            },
+            currentDesigner: {},
+            currentDesignerFilter: {
+                name: "назначенные дизайнеру",
+                mode: "byDesigner"
             }
         };
 
@@ -107,6 +113,31 @@
 
                 });
 
+            // add to filters 'assigned to designer' filters.
+            if (sgUsers.currentUser.role === 'admin' || sgUsers.currentUser.role === 'founder') {
+                sgUsers.getDesigners()
+                    .then(function(designers){
+                        console.log(designers);
+                        _.forEach(designers, addFilter);
+
+                        function addFilter(designerName) {
+                            var filterObject = {
+                                designer: designerName,
+                                value: function (layout) {
+                                    layout.compareValue = layout.status;
+                                    return layout.assignedTo === designerName;
+                                }
+                            };
+                            filters.designers.push(filterObject)
+                        }
+
+                        filters.currentDesigner = filters.designers[0];
+                        filters.currentDesignerFilter.value = filters.currentDesigner.value;
+                        filters.client.push(filters.currentDesignerFilter);
+
+                    });
+            }
+
             // add to filters 'deleted' filter
             if (sgUsers.currentUser.role === 'admin') {
                 filters.client.push(
@@ -120,6 +151,8 @@
                     }
                 );
             }
+
+            
 
         }
     }
