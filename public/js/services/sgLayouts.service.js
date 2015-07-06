@@ -13,7 +13,7 @@
 
         var svc = this;
         svc.loadData = loadData;
-        svc.unratedCount = 0;
+        svc.unratedCount = 0;       // TODO: check if unratedCount is correct after delete
         svc.removeMyRating = removeMyRating;
         svc.changeMyRating = changeMyRating;
         svc.remove = remove;
@@ -33,6 +33,7 @@
                     selection: JSON.stringify(selection)
                 }
             }).then(function (response) {
+                svc.unratedCount = 0;
                 var transformedData = response.data.map(function (e) {
                     // get rating, set by current user or -1
                     var rating = _.pluck(_.where(e.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
@@ -42,7 +43,9 @@
                         e.rating = -1;
                         // Hack to prevent early filtering (hiding rated layouts)
                         e.notRatedByMe = true;
-                        svc.unratedCount +=1;
+                        if (!e.isHidden) {
+                            svc.unratedCount += 1;
+                        }
                     }
                     // needed for correct order
                     e.average = calcAverageRating(e.ratings);
@@ -62,7 +65,7 @@
                 return $q.reject();
             }
 
-            var idx = _.findIndex(layout.ratings, { assignedBy: sgUsers.currentUser.name });
+            var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
             if (~idx) {
                 return $http.delete('/api/layouts/' + layout['_id'] + '/rating')
                     .then(function (response) {
@@ -102,10 +105,11 @@
 
         function remove(id) {
             return $http.delete('/api/layouts/' + id)
-                .success(function (response) {
-                    return response.status === 204
-                        ? $q.resolve()
-                        : $q.reject();
+                .then(function (response) {
+                    console.log(response);
+                    if (response.status === 204) {
+                        svc.unratedCount -= 1;
+                    }
                 });
         }
 
@@ -115,10 +119,15 @@
             }
 
             var params = {};
-            if(setObject) { params.setObject = setObject};
-            if (unsetArray) { params.unsetArray = unsetArray};
+            if (setObject) {
+                params.setObject = setObject
+            }
 
-            return $http.put('/api/layouts/' + id, { params: params });
+            if (unsetArray) {
+                params.unsetArray = unsetArray
+            }
+
+            return $http.put('/api/layouts/' + id, {params: params});
         }
 
         function calcAverageRating(rateArr) {

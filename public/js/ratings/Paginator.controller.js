@@ -127,7 +127,8 @@
                 .then(function () {
                     sgLayouts.remove(layout['_id']).then(function () {
                         vm.unselectLayout();
-                        vm.refreshData();
+                        //vm.refreshData();
+                        layout.isHidden = true;
                     });
                 });
         }
