@@ -93,9 +93,9 @@
             filters.currentClient = filters.client[0];
 
             // add to filters array filter by founder name
-            sgUsers.getRaters()
-                .then(function (raters) {
-                    _.forEach(raters, addFilter);
+            sgUsers.loaded
+                .then(function () {
+                    _.forEach(sgUsers.raters, addFilter);
 
                     function addFilter(userName) {
                         var filterObject = {
@@ -115,9 +115,9 @@
 
             // add to filters 'assigned to designer' filters.
             if (sgUsers.currentUser.role === 'admin' || sgUsers.currentUser.role === 'founder') {
-                sgUsers.getDesigners()
-                    .then(function(designers){
-                        _.forEach(designers, addFilter);
+                sgUsers.loaded
+                    .then(function(){
+                        _.forEach(sgUsers.designers, addFilter);
 
                         function addFilter(designerName) {
                             var filterObject = {

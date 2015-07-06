@@ -17,38 +17,42 @@
             role: $cookies.get('userrole')
         };
 
-        svc.getLayoutAuthors = getLayoutAuthors;
-        svc.getListOfUsers = getListOfUsers;
-        svc.getRaters = getRaters;
-        svc.getDesigners = getDesigners;
         svc.remove = remove;
         svc.update = update;
+        svc.reload = reload;
 
-        function getLayoutAuthors() {
-            return $http.get('/api/users/authors')
-                .then(function (response) {
-                    return $q.resolve(_.pluck(response.data, '_id'));
-                });
+        var allRoles = ['admin', 'curator', 'founder', 'designer', 'user'];
+
+        initService();
+
+        function initService() {
+            reload();
         }
 
-        function getRaters() {
-            return getListOfUsers(['admin', 'founder']).then(function (raters) {
-                return _.without(_.pluck(raters, 'username'), 'Roman Kurbatov');
-            });
-        }
-
-        function getDesigners() {
-            return getListOfUsers(['designer']).then(function (designers) {
-                return _.pluck(designers, 'username');
-            });
-        }
-
-        function getListOfUsers(roles) {
-            return $http.get('/api/users', {
-                params: {roles: roles || []}
+        function reload() {
+            var usersPromise = $http.get('/api/users', {
+                params: {roles: allRoles}
             }).then(function (response) {
-                return response.data;
+                createFilteredList(svc.list = response.data);
             });
+
+            var authorsPromise = $http.get('/api/users/authors')
+                .then(function (response) {
+                    svc.authors = _.pluck(response.data, '_id');
+                });
+
+            svc.loaded = $q.all([usersPromise, authorsPromise]);
+
+            function createFilteredList(users) {
+                svc.raters = _.pluck(_.filter(users, function (user) {
+                    return _.contains(['admin', 'curator', 'founder'], user.role) && user.username !== 'Roman Kurbatov';
+                }), 'username');
+
+                svc.designers = _.pluck(_.filter(users, function (user) {
+                    return user.role === 'designer';
+                }), 'username');
+
+            }
         }
 
         function remove(id) {
@@ -64,7 +68,7 @@
                 setObject: setObject
             };
 
-            return $http.put('/api/users/' + id, { params: params });
+            return $http.put('/api/users/' + id, {params: params});
         }
 
     }

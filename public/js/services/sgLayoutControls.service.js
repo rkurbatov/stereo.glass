@@ -50,14 +50,14 @@
         function modalAssignDoer(layout) {
             var modalDO = {
                 templateUrl: '/partials/modal-assignDoer',
-                controller: ['$modalInstance', 'layout', 'getDesigners', AssignDoerModalCtrl],
+                controller: ['$modalInstance', 'layout', 'designers', AssignDoerModalCtrl],
                 controllerAs: 'vm',
                 resolve: {
                     layout: function () {
                         return layout
                     },
-                    getDesigners: function () {
-                        return sgUsers.getDesigners;
+                    designers: function () {
+                        return sgUsers.designers;
                     }
                 },
                 size: 'lg'
@@ -66,24 +66,24 @@
             return $modal.open(modalDO).result;
         }
 
-        function AssignDoerModalCtrl($modalInstance, layout, getDesigners) {
+        function AssignDoerModalCtrl($modalInstance, layout, designers) {
             var vm = this;
             vm.layout = layout;
             vm.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
             vm.comment = [];
+            vm.sendEmail = true;
 
-            getDesigners().then(function (designers) {
-                vm.designers = designers;
-                if (_.contains(designers, layout.createdBy)) {
-                    vm.assignedTo = layout.createdBy;
-                }
-            });
+            vm.designers = designers;
+            if (_.contains(designers, layout.createdBy)) {
+                vm.assignedTo = layout.createdBy;
+            }
 
             vm.ok = function () {
                 var response = {
                     assignedTo: vm.assignedTo,
-                    comment: vm.comment
-                }
+                    comment: vm.comment,
+                    sendEmail: vm.sendEmail
+                };
                 $modalInstance.close(response);
             };
 

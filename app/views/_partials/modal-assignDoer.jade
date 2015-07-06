@@ -15,6 +15,12 @@
                     select.form-control(ng-options='d for d in vm.designers' ng-model='vm.assignedTo')
             .form-group
                 textarea.col-xs-12.sg-noresize(rows="6" ng-model='vm.comment')
+            .form-group
+                .checkbox-inline
+                    label
+                        input(type='checkbox' ng-model='vm.sendEmail')
+                        | Отправить уведомление по e-mail
+
     .row
 .modal-footer
     .col-xs-4

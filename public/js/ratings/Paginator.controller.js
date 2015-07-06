@@ -50,8 +50,8 @@
             });
 
             // Fill designers list
-            sgUsers.getLayoutAuthors().then(function (authors) {
-                vm.authors = authors;
+            sgUsers.loaded.then(function () {
+                vm.authors = sgUsers.authors;
             });
 
             vm.refreshData();

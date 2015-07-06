@@ -12,21 +12,13 @@
     function Users(sgUsers, sgUserControls, sgModals) {
 
         var vm = this;
-        vm.mail = sgUsers.currentUser.mail;
-        vm.list = [];
-        vm.refreshList = refreshList;
+        vm.svcUsers = sgUsers;
+        vm.mail = vm.svcUsers.currentUser.mail;
 
         initController();
 
         function initController() {
-            vm.refreshList();
-        }
 
-
-        function refreshList() {
-            sgUsers.getListOfUsers().then(function (users) {
-                vm.list = users;
-            });
         }
 
 
@@ -39,7 +31,7 @@
                     return sgUsers.remove(user['_id']);
                 })
                 .then(function () {
-                    refreshList();
+                    vm.svcUsers.reload;
                 });
         };
 
@@ -47,7 +39,7 @@
             sgUserControls.modalEditUser(_.pick(user, ['_id', 'username', 'usermail', 'role']))
                 .then(function (modifiedProperties) {
                     sgUsers.update(user['_id'], modifiedProperties)
-                        .then(function(){
+                        .then(function () {
                             _.merge(user, modifiedProperties);
                         });
                 });

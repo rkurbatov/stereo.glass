@@ -22,7 +22,7 @@
                     }
                 },
                 size: 'sm'
-            }
+            };
             
             return $modal.open(modalDO).result;  
     	}
@@ -37,7 +37,7 @@
                     vm.user.password = vm.newPassword;
                 }    
     			$modalInstance.close(vm.user);
-    		}
+    		};
 
     		vm.cancel = function() {
     			$modalInstance.dismiss('cancel');
