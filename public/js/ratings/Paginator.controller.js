@@ -215,7 +215,8 @@
         }
 
         function finishJob(layout) {
-
+            sgLayoutControls.modalFinishJob(layout)
+                .then();
         }
 
         function searchFilter(layout) {

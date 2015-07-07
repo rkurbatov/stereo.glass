@@ -1,0 +1,33 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title.text-center Загрузить макеты
+
+.modal-body
+    .row
+        .col-xs-4
+            img.img-responsive.center-block(ng-src="{{::vm.url}}")
+        .col-xs-8
+            span Работа будет считается выполненной, если вы загрузите следующие gif-файлы:
+            br
+            br
+            .row
+                .col-xs-6
+                    | в высоком разрешении
+                    br
+                    | (для просмотра)
+                    br
+                    button.btn Загрузить файл
+                .col-xs-6
+                    | в низком разрешении (250 пикс.
+                    br
+                    | по одной из сторон, для сайта)
+                    br
+                    button.btn Загрузить файл
+            .row
+                br
+                label.control-label Комментарий
+                textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
+
+.modal-footer
+    button.btn.btn-primary.col-xs-3(ng-click="vm.submit()") Принять
+    button.btn.col-xs-3(ng-click="vm.cancel()") Отмена

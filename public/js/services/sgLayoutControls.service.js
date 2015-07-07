@@ -16,6 +16,7 @@
         svc.modalRemove = modalRemove;
         svc.modalAssignDoer = modalAssignDoer;
         svc.modalAccept = modalAccept;
+        svc.modalFinishJob = modalFinishJob;
 
         // === IMPLEMENTATION ===
 
@@ -218,6 +219,41 @@
                 $modalInstance.dismiss('cancel');
             }
 
+        }
+
+        function modalFinishJob(layout) {
+            var modalDO = {
+                templateUrl: '/partials/modal-finishJob',
+                controller: modalFinishJobCtrl,
+                controllerAs: 'vm',
+                resolve: {
+                    layout: function () {
+                        return layout
+                    }
+                },
+                size: 'lg'
+            };
+
+            return $modal.open(modalDO).result;
+        }
+
+        modalFinishJobCtrl.$inject = ['$modalInstance', 'layout'];
+
+        function modalFinishJobCtrl($modalInstance, layout) {
+            var vm = this;
+
+            vm.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
+
+            vm.submit = submit;
+            vm.cancel = cancel;
+
+            function submit() {
+                $modalInstance.close('ok');
+            }
+
+            function cancel() {
+                $modalInstance.dismiss('cancel');
+            }
         }
     }
 

@@ -33,18 +33,34 @@ module.exports = function (mongoose) {
         acceptedComment: String,
         finishedAt: Date,
         finishedComment: String
+        reference: Number
     });
 
     Ratings.pre('save', function (next) {
-        if (!this.assignedAt) {
-            this.assignedAt = new Date();
+        var self  = this;
+
+        if (!self.assignedAt) {
+            self.assignedAt = new Date();
         }
         next();
     });
 
     LayoutSchema.pre('save', function (next) {
-        if (!this.createdAt) {
-            this.createdAt = new Date();
+        var self = this;
+
+        if (!self.createdAt) {
+            self.createdAt = new Date();
+        }
+
+        if (self.status === 'finished' && !self.reference) {
+            /*self.constructor.aggregate({
+                $group: {
+                    reference: '',
+                    last: {
+                        $max: "reference"
+                    }
+                }
+            })*/
         }
         next();
     });
