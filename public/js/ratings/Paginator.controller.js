@@ -29,6 +29,7 @@
         vm.resetAll = resetAll;
 
         vm.handleLayoutClick = handleLayoutClick;
+        vm.showInGallery = showInGallery;
         vm.unselectLayout = unselectLayout;
         vm.changeStatus = changeStatus;
         vm.getAssignmentClass = getAssignmentClass;
@@ -117,6 +118,10 @@
 
         }
 
+        function showInGallery() {
+            sgLayoutControls.modalGallery(vm)
+        }
+
         function assignDoer(layout) {
             sgLayoutControls.modalAssignDoer(layout)
                 .then(function (response) {
@@ -129,6 +134,7 @@
                     };
 
                     // TODO: error reporting
+                    // don't forget to destroy listeners on close
                     return sgLayouts.update(layout._id, setObject)
                         .then(function () {
                             _.extend(layout, setObject);

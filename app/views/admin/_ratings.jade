@@ -71,7 +71,8 @@
                 .sg-layout-block(ng-class='{"selected" : paginator.$index === $index}')
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
                     ng-click="paginator.handleLayoutClick($index)"
-                    hm-swipeup="setSelectedIndex($index); show2dModal()")
+                    ng-dblclick="paginator.showInGallery()"
+                    hm-swipeup="paginator.showInGallery()")
                     sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "byLayout"')
                     .text-center(ng-show='paginator.filters.currentClient.mode === "byRater"'
                     style='font-size: 20px')

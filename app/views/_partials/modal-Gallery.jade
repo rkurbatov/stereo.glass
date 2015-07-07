@@ -1,0 +1,19 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    sg-rating(linked-object='vm.layouts[vm.idx]' one-row ng-show='vm.filters.currentClient.mode === "byLayout"').sg-inline-block
+    i.glyphicon.glyphicon-star.sg-gold-i(ng-show='_.contains(["byDesigner", "byRater"], vm.filters.currentClient.mode)'
+    style='font-size: 20px')
+    | {{ getAssignedRating(lts[idx]) }}
+    | &nbsp;&nbsp;
+    span
+        i.fa.fa-spinner.fa-pulse.sg-multicolor(ng-class='{"sg-hidden": !vm.imgIsLoading}')
+    | &nbsp;&nbsp;
+    span
+        | Просмотр изображений: {{vm.idx + 1}} из {{ vm.layouts.length }} &nbsp;
+
+.modal-body(ng-keypress="keyHandler($event)" tabindex="0")
+    a.carousel-control.left(href="" ng-click='vm.prevImg()' ng-show="vm.idx !== 0")
+        span.glyphicon.glyphicon-chevron-left
+    img.img-responsive.center-block(ng-src='{{vm.getLayoutUrl()}}' sg-on-img-load="{{vm.imgIsLoaded()}}")
+    a.carousel-control.right(href="" ng-click='vm.nextImg()' ng-show="vm.idx !== (vm.layouts.length - 1)")
+        span.glyphicon.glyphicon-chevron-right

@@ -12,11 +12,84 @@
         // ==== DECLARATION =====
         var svc = this;
 
+        svc.modalGallery = modalGallery;
         svc.modalRemove = modalRemove;
         svc.modalAssignDoer = modalAssignDoer;
         svc.modalAccept = modalAccept;
 
         // === IMPLEMENTATION ===
+
+        function modalGallery(pgScope) {
+            var modalDO = {
+                templateUrl: '/partials/modal-Gallery',
+                controller: GalleryCtrl,
+                controllerAs: 'vm',
+                resolve: {
+                    pgScope: function () {
+                        return pgScope;
+                    }
+                },
+                size: 'lg'
+            };
+
+            return $modal.open(modalDO).result;
+        }
+
+        GalleryCtrl.$inject = ['$modalInstance', 'pgScope'];
+
+        function GalleryCtrl($modalInstance, pgScope) {
+            var vm = this;
+            vm.cancel = cancel;
+            vm.getLayoutUrl = getLayoutUrl;
+            vm.prevImg = prevImg;
+            vm.nextImg = nextImg;
+            vm.keyHandler = keyHandler;
+            vm.imgIsLoaded = imgIsLoaded;
+
+            initController();
+
+            function initController() {
+                vm.layouts = pgScope.filteredLayouts;
+                vm.idx = pgScope.currentLayoutIndex;
+                vm.filters = pgScope.filters;
+                vm.imgIsLoading = true;
+            }
+
+
+            function imgIsLoaded() {
+                console.log('loaded');
+                vm.imgIsLoading = false;
+            }
+
+            // TODO: Rewrite as directive for left-right detection
+            function keyHandler(e) {
+                if (e.keyCode === 37) vm.idx -= 1;
+                if (e.keyCode === 39) vm.idx += 1;
+            }
+
+            function getLayoutUrl() {
+                return '/uploads/' + vm.layouts[vm.idx].urlDir + '/' + vm.layouts[vm.idx].url2d;
+            }
+
+            // TODO: Mark image as viewed
+            function prevImg() {
+                if (vm.idx > 0) {
+                    vm.idx -= 1;
+                }
+                vm.imgIsLoading = true;
+            }
+
+            function nextImg() {
+                if (vm.idx < (vm.layouts.length - 1)){
+                    vm.idx += 1;
+                }
+                vm.imgIsLoading = true;
+            }
+
+            function cancel() {
+                $modalInstance.dismiss('cancel');
+            }
+        }
 
         function modalRemove(layout) {
             var modalDO = {
