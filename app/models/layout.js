@@ -28,8 +28,11 @@ module.exports = function (mongoose) {
         assignedTo: String,
         assignedBy: String,
         assignedAt: Date,
+        assignedComment: String,
         acceptedAt: Date,
-        finishedAt: Date
+        acceptedComment: String,
+        finishedAt: Date,
+        finishedComment: String
     });
 
     Ratings.pre('save', function (next) {

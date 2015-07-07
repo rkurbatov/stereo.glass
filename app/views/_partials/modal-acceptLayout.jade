@@ -1,0 +1,18 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title.text-center Принять в работу
+
+.modal-body
+    .row
+        .col-xs-4
+            img.img-responsive.center-block(ng-src="{{::vm.url}}")
+        .col-xs-8
+            span Вы принимаете данное изображение и обязуетесь сделать работу в установленный срок?
+            br
+            br
+            textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
+
+.modal-footer
+    button.btn.btn-primary.col-xs-3(ng-click="vm.accept()") Принять
+    button.btn.btn-danger.col-xs-3(ng-click="vm.reject()") Отказаться
+    button.btn.col-xs-3(ng-click="vm.cancel()") Отмена

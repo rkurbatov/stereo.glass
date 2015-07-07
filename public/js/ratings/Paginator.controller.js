@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('Paginator', Paginator);
 
-    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers', 'sgMessages'];
+    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers', 'sgMessages', '$q'];
 
-    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers, sgMessages) {
+    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers, sgMessages, $q) {
 
         // ==== DECLARATION =====
 
@@ -30,7 +30,9 @@
 
         vm.handleLayoutClick = handleLayoutClick;
         vm.unselectLayout = unselectLayout;
-        vm.assignDoer = assignDoer;
+        vm.changeStatus = changeStatus;
+        vm.getAssignmentClass = getAssignmentClass;
+        vm.getAssignmentVisibility = getAssignmentVisibility;
         vm.confirmRemove = confirmRemove;
 
         initController();
@@ -81,6 +83,40 @@
             vm.currentLayoutIndex = -1;
         }
 
+        function getAssignmentClass(status) {
+            switch (status) {
+                case "assigned":
+                    return "sg-silver-i";
+                case "accepted":
+                    return "sg-gold-i";
+                case undefined:
+                default:
+                    return "sg-blue-i";
+            }
+        }
+
+        function getAssignmentVisibility(role, layout) {
+            var status = layout.status;
+            var assignedToMe = layout.assignedTo === sgUsers.currentUser.name;
+            return ((role === "admin" || role === "curator") && !status)
+                || (role === "designer" && (status === "assigned" || status === "accepted") && assignedToMe);
+        }
+
+        function changeStatus(layout) {
+            switch (layout.status) {
+                case "assigned":
+                    acceptLayout(layout);
+                    break;
+                case "accepted":
+                    finishJob(layout);
+                    break;
+                case undefined:
+                default:
+                    assignDoer(layout);
+            }
+
+        }
+
         function assignDoer(layout) {
             sgLayoutControls.modalAssignDoer(layout)
                 .then(function (response) {
@@ -122,12 +158,52 @@
                 });
         }
 
+        function acceptLayout(layout) {
+            sgLayoutControls.modalAccept(layout)
+                .then(function (response) {
+                    var setObject = {
+                        status: response.rejected
+                            ? "rejected"
+                            : "accepted",
+                        acceptedDate: new Date(),
+                        acceptedComment: response.comment
+                    };
+                    sgLayouts.update(layout._id, setObject)
+                        .then(function () {
+                            _.extend(layout, setObject);
+                            var designerMessage = {
+                                fromUser: "Stereo.Glass",
+                                toUser: layout.assignedTo,
+                                type: 'designer',
+                                subType: 'jobAssigned',
+                                header: 'Задание принято вами в работу',
+                                body: layout._id
+                            };
+
+                            var adminMessage = {
+                                fromUser: layout.assignedTo,
+                                toUser: layout.assignedBy,
+                                type: 'designer',
+                                subType: 'jobAccepted',
+                                header: 'Задание принято ' + layout.assignedTo + ' в работу',
+                                body: layout._id
+                            };
+
+                            return $q.all([sgMessages.create(designerMessage), sgMessages.create(adminMessage)]);
+                        });
+                });
+
+        }
+
+        function finishJob(layout) {
+
+        }
+
         function confirmRemove(layout) {
             sgLayoutControls.modalRemove(layout)
                 .then(function () {
                     sgLayouts.remove(layout['_id']).then(function () {
                         vm.unselectLayout();
-                        //vm.refreshData();
                         layout.isHidden = true;
                     });
                 });

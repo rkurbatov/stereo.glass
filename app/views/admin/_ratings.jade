@@ -57,10 +57,11 @@
             li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
             dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | filter: paginator.filters.currentClient.value | orderBy: paginator.filters.currentOrder.value) | itemsPerPage: paginator.currentItemsPerPage")
                 //- layout controls
-                .sg-layout-controls.text-center()
+                .sg-layout-controls.text-center(style="height: 36px")
                     //- Assign
-                    i.fa.fa-check-square-o.sg-blue-i.sg-shadowed-text.control32(ng-click='paginator.assignDoer(layout)'
-                    ng-show='(paginator.currentUser.role === "admin" || paginator.currentUser.role === "curator") && !layout.status')
+                    i.fa.fa-check-square-o.sg-shadowed-text.control32(ng-click='paginator.changeStatus(layout)'
+                    ng-show='paginator.getAssignmentVisibility(paginator.currentUser.role, layout)'
+                    ng-class='paginator.getAssignmentClass(layout.status)')
                     //- Eidt
                     i.fa.fa-pencil-square-o.sg-green-i.sg-shadowed-text.control32(ng-click='openEditLayoutDialog(layout)'
                     ng-show='layout.createdBy === paginator.currentUser.name || paginator.currentUser.role === "admin" || paginator.currentUser.role === "curator"')
