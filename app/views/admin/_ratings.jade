@@ -29,19 +29,23 @@
                 label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
                 ng-model="dateRange", options="dpopts")
+            .form-group
+                label.col-xs-6.control-label Поиск
+                input.col-xs-6(ng-model='paginator.search.string' ng-change='paginator.search.update()'
+                ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
         .col-xs-8
             .form-group
                 | Показать &nbsp;
                 select.form-control-static(ng-model="paginator.filters.currentClient"
                 ng-options="opt.name for opt in paginator.filters.client")
                 select.form-control-static(ng-model="paginator.filters.currentRater"
-                    ng-options="opt.user for opt in paginator.filters.raters"
-                    ng-show='paginator.filters.currentClient.mode === "byRater"'
-                    ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
+                ng-options="opt.user for opt in paginator.filters.raters"
+                ng-show='paginator.filters.currentClient.mode === "byRater"'
+                ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
                 select.form-control-static(ng-model="paginator.filters.currentDesigner"
-                    ng-options="opt.designer for opt in paginator.filters.designers"
-                    ng-show='paginator.filters.currentClient.mode === "byDesigner"'
-                    ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
+                ng-options="opt.designer for opt in paginator.filters.designers"
+                ng-show='paginator.filters.currentClient.mode === "byDesigner"'
+                ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
                 | &nbsp;&nbsp; Найдено: {{ paginator.filteredLayouts.length }}
             sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")
 
@@ -55,7 +59,7 @@
     .row
         ul.sg-layout-list
             li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
-            dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | filter: paginator.filters.currentClient.value | orderBy: paginator.filters.currentOrder.value) | itemsPerPage: paginator.currentItemsPerPage")
+            dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | filter: paginator.filters.currentClient.value | filter: paginator.search.filter | orderBy: paginator.filters.currentOrder.value) | itemsPerPage: paginator.currentItemsPerPage")
                 //- layout controls
                 .sg-layout-controls.text-center(style="height: 36px")
                     //- Assign

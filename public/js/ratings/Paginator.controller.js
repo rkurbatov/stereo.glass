@@ -35,6 +35,12 @@
         vm.getAssignmentClass = getAssignmentClass;
         vm.getAssignmentVisibility = getAssignmentVisibility;
         vm.confirmRemove = confirmRemove;
+        vm.search = {
+            filter: searchFilter,
+            string: '',
+            reName: new RegExp(''),
+            update: searchUpdate
+        };
 
         initController();
 
@@ -203,6 +209,14 @@
 
         function finishJob(layout) {
 
+        }
+
+        function searchFilter(layout) {
+            return !!layout.name.toLowerCase().replace(/[\_\-]/, ' ').match(vm.search.reName);
+        }
+
+        function searchUpdate(){
+            vm.search.reName = new RegExp(vm.search.string.toLowerCase());
         }
 
         function confirmRemove(layout) {
