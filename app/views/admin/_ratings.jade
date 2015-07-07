@@ -22,7 +22,7 @@
                 select.selectpicker(multiple data-selectable-optgroup data-width='50%'
                 data-none-selected-text="Международный" bs-select html-content='paginator.countries' selection='paginator.filters.server.countries' exec-on-change='paginator.refreshData()')
             .form-group
-                label.col-xs-6.control-label(ng-click="paginator.reset('authors')") Дизайнеры
+                label.col-xs-6.control-label(ng-click="paginator.reset('authors')") Авторы
                 select.selectpicker(multiple data-width='50%'
                 data-none-selected-text="Все" bs-select content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
             .form-group
