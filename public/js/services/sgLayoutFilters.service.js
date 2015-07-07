@@ -138,6 +138,15 @@
 
                         }
 
+                        var allFilter = {
+                            designer: "Всем",
+                            value: function (layout) {
+                                layout.compareValue = layout.average;
+                                return _.contains(["assigned", "accepted", "rejected"], layout.status);
+                            }
+                        };
+
+                        filters.designers.unshift(allFilter);
                         filters.currentDesigner = filters.designers[0];
                         filters.currentDesignerFilter.value = filters.currentDesigner.value;
                         filters.client.push(filters.currentDesignerFilter);
