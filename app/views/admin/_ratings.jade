@@ -30,7 +30,7 @@
                 input.col-xs-6#rate-daterange.date-picker(date-range-picker, type="text",
                 ng-model="dateRange", options="dpopts")
             .form-group
-                label.col-xs-6.control-label Поиск
+                label.col-xs-6.control-label(ng-click="paginator.search.string =''; paginator.search.update()") Поиск
                 input.col-xs-6(ng-model='paginator.search.string' ng-change='paginator.search.update()'
                 ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
         .col-xs-8
