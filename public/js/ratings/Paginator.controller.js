@@ -75,6 +75,10 @@
             angular.forEach(vm.filters.server, function (value, key) {
                 vm.filters.server[key] = [];
             });
+            if (vm.search.string) {
+                vm.search.string = '';
+                vm.search.update();
+            }
             vm.unselectLayout();
             vm.refreshData();
         }
