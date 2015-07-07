@@ -1,3 +1,5 @@
+
+
 ul.sg-layout-list {
   display: block;
   list-style: outside none none;
@@ -68,4 +70,22 @@ ul.sg-layout-list {
     margin: 0 5px;
   }
 
+}
+
+
+
+.sg-border-assigned {
+  border: 2px dashed dodgerblue !important;
+}
+
+.sg-border-accepted {
+  border: 2px solid silver !important;
+}
+
+.sg-border-rejected {
+  border: 2px solid red !important;
+}
+
+.sg-border-finished {
+  border: 2px solid #D9A441 !important;
 }

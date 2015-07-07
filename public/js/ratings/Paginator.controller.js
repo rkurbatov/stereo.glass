@@ -24,23 +24,26 @@
         vm.$index = -1;
         vm.currentLayoutIndex = -1;
 
-        vm.refreshData = sgLayouts.loadData;
-        vm.reset = reset;
-        vm.resetAll = resetAll;
-
-        vm.handleLayoutClick = handleLayoutClick;
-        vm.showInGallery = showInGallery;
-        vm.unselectLayout = unselectLayout;
-        vm.changeStatus = changeStatus;
-        vm.getAssignmentClass = getAssignmentClass;
-        vm.getAssignmentVisibility = getAssignmentVisibility;
-        vm.confirmRemove = confirmRemove;
         vm.search = {
             filter: searchFilter,
             string: '',
             reName: new RegExp(''),
             update: searchUpdate
         };
+
+        vm.refreshData = sgLayouts.loadData;
+        vm.reset = reset;
+        vm.resetAll = resetAll;
+
+        vm.getAssignmentClass = getAssignmentClass;
+        vm.getAssignmentVisibility = getAssignmentVisibility;
+        vm.getThumbClass = getThumbClass;
+
+        vm.handleLayoutClick = handleLayoutClick;
+        vm.showInGallery = showInGallery;
+        vm.unselectLayout = unselectLayout;
+        vm.changeStatus = changeStatus;
+        vm.confirmRemove = confirmRemove;
 
         initController();
 
@@ -219,7 +222,7 @@
             return !!layout.name.toLowerCase().replace(/[\_\-]/, ' ').match(vm.search.reName);
         }
 
-        function searchUpdate(){
+        function searchUpdate() {
             vm.search.reName = new RegExp(vm.search.string.toLowerCase());
         }
 
@@ -233,6 +236,11 @@
                 });
         }
 
+        function getThumbClass(layout) {
+            return layout.status
+                ? 'sg-border-' + layout.status
+                : '';
+        }
 
     }
 

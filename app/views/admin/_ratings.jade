@@ -76,7 +76,8 @@
                     img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
                     ng-click="paginator.handleLayoutClick($index)"
                     ng-dblclick="paginator.showInGallery()"
-                    hm-swipeup="paginator.showInGallery()")
+                    hm-swipeup="paginator.showInGallery()"
+                    ng-class='paginator.getThumbClass(layout)')
                     sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentClient.mode === "byLayout"')
                     .text-center(ng-show='paginator.filters.currentClient.mode === "byRater"'
                     style='font-size: 20px')
