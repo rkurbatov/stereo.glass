@@ -38,6 +38,7 @@
         vm.getAssignmentClass = getAssignmentClass;
         vm.getAssignmentVisibility = getAssignmentVisibility;
         vm.getThumbClass = getThumbClass;
+        vm.getThumbUrl = sgLayouts.getThumbUrl;
 
         vm.handleLayoutClick = handleLayoutClick;
         vm.showInGallery = showInGallery;

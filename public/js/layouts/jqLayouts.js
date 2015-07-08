@@ -68,8 +68,7 @@
 
         function saveCurrentLayout() {
             // set name of layout upload subdirectory
-            var dir = 'layouts-' + moment().format('YYYY-MM-DD');
-
+            var dir = moment().format('YYYY-MM-DD');
 
             // deferreds for upload 2d, upload 3d and layout files
             var $u2d = $('#upload-2d'),
@@ -87,7 +86,7 @@
 
             layoutsMessage('Сохраняю макет');
             $('#save-layout').addClass('disabled');
-            $u2d.fileinput('setPrependData', 'uploadDir', dir);
+            $u2d.fileinput('setPrependData', 'uploadDir', 'pictures/' + dir);
             $u2d.fileinput('upload').one('fileuploaded', l2dUploadedHandler);
 
             function l2dUploadedHandler(e, data) {

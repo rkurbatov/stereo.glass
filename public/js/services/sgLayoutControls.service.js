@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .service('sgLayoutControls', sgLayoutControls);
 
-    sgLayoutControls.$inject = ['$modal', 'sgUsers'];
+    sgLayoutControls.$inject = ['$modal', 'sgUsers', 'sgLayouts'];
 
-    function sgLayoutControls($modal, sgUsers) {
+    function sgLayoutControls($modal, sgUsers, sgLayouts) {
 
         // ==== DECLARATION =====
         var svc = this;
@@ -69,7 +69,9 @@
             }
 
             function getLayoutUrl() {
-                return '/uploads/' + vm.layouts[vm.idx].urlDir + '/' + vm.layouts[vm.idx].url2d;
+                var layout = vm.layouts[vm.idx];
+                return sgLayouts.getImgUrl(layout);
+                //return '/uploads/' + vm.layouts[vm.idx].urlDir + '/' + vm.layouts[vm.idx].url2d;
             }
 
             // TODO: Mark image as viewed
@@ -99,7 +101,7 @@
                 controllerAs: 'vm',
                 resolve: {
                     url: function () {
-                        return '/uploads/' + layout.urlDir + '/' + layout.urlThumb
+                        return sgLayouts.getThumbUrl(layout);
                     }
                 },
                 size: 'sm'
@@ -147,7 +149,7 @@
         function AssignDoerModalCtrl($modalInstance, layout, designers) {
             var vm = this;
             vm.layout = layout;
-            vm.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
+            vm.url = sgLayouts.getThumbUrl(layout);
             vm.comment = [];
             vm.sendEmail = true;
 
@@ -196,7 +198,7 @@
             vm.cancel = cancel;
 
             vm.comment = "";
-            vm.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
+            vm.url = sgLayouts.getThumbUrl(layout);
 
             function accept() {
                 var response = {
@@ -242,7 +244,7 @@
         function modalFinishJobCtrl($modalInstance, layout) {
             var vm = this;
 
-            vm.url = '/uploads/' + layout.urlDir + '/' + layout.urlThumb;
+            vm.url = sgLayouts.getThumbUrl(layout);
 
             vm.submit = submit;
             vm.cancel = cancel;

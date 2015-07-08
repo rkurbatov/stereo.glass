@@ -18,6 +18,8 @@
         svc.changeMyRating = changeMyRating;
         svc.remove = remove;
         svc.update = update;
+        svc.getThumbUrl = getThumbUrl;
+        svc.getImgUrl = getImgUrl;
 
         svc.rawLayouts = [];
 
@@ -148,6 +150,18 @@
                     })) / _.size(rateArr);
                 return Number(avg.toFixed(2));
             }
+        }
+
+        function getThumbUrl(layout) {
+            return '/uploads/' + (layout.status
+                ? 'items/'
+                : 'pictures/') + layout.urlDir + '/' + layout.urlThumb;
+        }
+
+        function getImgUrl(layout) {
+            return '/uploads/' + (layout.status
+                ? 'items/'
+                : 'pictures/') + layout.urlDir + '/' + layout.url2d;
         }
     }
 

@@ -1,5 +1,5 @@
 .sg-layout-block(ng-class='{"selected" : paginator.$index === $index}')
-    img(ng-src='/uploads/{{layout.urlDir}}/{{layout.urlThumb}}'
+    img(ng-src='{{ paginator.getThumbUrl(layout) }}'
     ng-click="paginator.handleLayoutClick($index)"
     ng-dblclick="paginator.showInGallery()"
     hm-swipeup="paginator.showInGallery()"
