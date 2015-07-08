@@ -52,7 +52,27 @@
 
         function initController() {
             // init paginator
-
+            vm.dateRangeOptions = {
+                todayHighlight: true,
+                format: 'DD.MM.YY',
+                maxDate: moment(),
+                language: 'ru',
+                locale: {
+                    applyClass: 'btn-green',
+                    applyLabel: "Применить",
+                    fromLabel: "С",
+                    toLabel: "по",
+                    cancelLabel: 'Отмена',
+                    customRangeLabel: 'Другой интервал'
+                },
+                ranges: {
+                    'Всё время': ['01.01.15', moment()],
+                    'Сегодня': [moment(), moment()],
+                    'Вчера и сегодня': [moment().subtract(1, 'days'), moment()],
+                    'Неделя': [moment().subtract(6, 'days'), moment()],
+                    'Месяц': [moment().subtract(1, 'month'), moment()]
+                }
+            };
 
             // form selectors data
             sgCategories.loaded.then(function () {
@@ -129,7 +149,6 @@
                 default:
                     assignDoer(layout);
             }
-
         }
 
         function showInGallery() {

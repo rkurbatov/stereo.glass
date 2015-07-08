@@ -81,7 +81,8 @@
             currentDesignerFilter: {
                 name: "назначенные дизайнеру",
                 mode: "byDesigner"
-            }
+            },
+            dateRange: {}
         };
 
         initService();

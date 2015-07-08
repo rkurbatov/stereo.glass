@@ -59,6 +59,10 @@
                 transformedData.forEach(function (v) {
                     svc.rawLayouts.push(v);
                 });
+
+                // zero startDate and endDate borders
+                sgLayoutFilters.dateRange.startDate = null;
+                sgLayoutFilters.dateRange.endDate = null;
             });
         }
 
