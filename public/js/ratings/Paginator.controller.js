@@ -163,17 +163,19 @@
                             return sgMessages.create(message);
                         })
                         .then(function () {
-                            var mail = {
-                                to: sgUsers.getMail(setObject.assignedTo),
-                                subject: "Новое задание",
-                                template: 'designer-newTask'
-                            };
+                            if (response.sendEmail) {
+                                var mail = {
+                                    to: sgUsers.getMail(setObject.assignedTo),
+                                    subject: "Новое задание",
+                                    template: 'designer-newTask'
+                                };
 
-                            var vars = {
-                                sender: sgUsers.currentUser.name,
-                                comment: setObject.assignedComment
-                            };
-                            return sgMessages.eMail(mail, vars);
+                                var vars = {
+                                    sender: sgUsers.currentUser.name,
+                                    comment: setObject.assignedComment
+                                };
+                                return sgMessages.eMail(mail, vars);
+                            }
                         });
                 });
         }
