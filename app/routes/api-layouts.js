@@ -3,6 +3,9 @@ module.exports = function (express, Layout) {
 
     var Router = express.Router();
     var _ = require('lodash');
+    var Promise = require('bluebird');
+    var mv = Promise.promisify(require('mv'));
+    var UploadRoot = __dirname + '/../../uploads/';
 
     // DECLARATION
 
@@ -185,7 +188,7 @@ module.exports = function (express, Layout) {
             layoutQuery
                 .then(function (layout) {
                     if (setObject.status === 'assigned' && !layout.reference) {
-
+                        console.log("I need to make ref query");
                         var referenceQuery = Layout
                             .find({}, "-_id reference")
                             .exists("reference")
@@ -193,14 +196,34 @@ module.exports = function (express, Layout) {
                             .limit(1)
                             .exec();
 
-                        return referenceQuery.then(function (result) {
-                            if (result.length === 0) {
-                                layout.reference = 1;
-                            } else {
-                                layout.reference = result[0].reference + 1;
-                            }
-                            return layout;
-                        });
+                        return referenceQuery
+                            .then(function (result) {
+                                if (result.length === 0) {
+                                    layout.reference = 1;
+                                } else {
+                                    layout.reference = result[0].reference + 1;
+                                }
+
+                                console.log("reference is: ", layout.reference);
+
+                                var refDir = _.padLeft(layout.reference, 5, '0');
+                                var fromDir = UploadRoot + 'pictures/' + layout.urlDir + '/';
+                                var toDir = UploadRoot + 'ready/' + refDir + '/';
+
+                                return mv(fromDir + layout.urlThumb, toDir + layout.urlThumb, {mkdirp: true})
+                                    .then(function () {
+                                        console.log('moved thumb');
+                                        return mv(fromDir + layout.url2d, toDir + layout.url2d, {mkdirp: true});
+                                    })
+                                    .then(function () {
+                                        console.log('moved url');
+                                        layout.urlDir = refDir;
+                                        return layout;
+                                    }).catch(function (err) {
+                                        throw new Error("Cant'move file! " + err)
+                                    });
+                            });
+
                     } else {
                         return layout;
                     }
@@ -217,7 +240,7 @@ module.exports = function (express, Layout) {
                     });
 
                     layout.save();
-                    return res.status(200).json({status: 'success', reference: layout.reference});
+                    return res.status(200).json({status: 'success', layout: layout});
 
                 })
                 .then(null, function (err) {

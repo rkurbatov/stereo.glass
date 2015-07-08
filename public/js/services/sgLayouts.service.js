@@ -154,13 +154,13 @@
 
         function getThumbUrl(layout) {
             return '/uploads/' + (layout.status
-                ? 'items/'
+                ? 'ready/'
                 : 'pictures/') + layout.urlDir + '/' + layout.urlThumb;
         }
 
         function getImgUrl(layout) {
             return '/uploads/' + (layout.status
-                ? 'items/'
+                ? 'ready/'
                 : 'pictures/') + layout.urlDir + '/' + layout.url2d;
         }
     }

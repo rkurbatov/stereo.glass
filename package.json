@@ -21,7 +21,9 @@
     "lodash": "~3.9.3",
     "morgan": "~1.6.0",
     "easyimage": "~2.0.3",
-    "express-mailer": "~0.3.0"
+    "express-mailer": "~0.3.0",
+    "mv": "~2.1.1",
+    "bluebird": "~2.9.32"
   },
   "devDependencies": {
     "gulp": "~3.9.0",

@@ -151,8 +151,9 @@
                     // don't forget to destroy listeners on close
                     return sgLayouts.update(layout._id, setObject)
                         .then(function (result) {
-                            if (result.data && result.data.reference) {
-                                layout.reference = result.data.reference;
+                            if (result.data && result.data.layout) {
+                                layout.reference = result.data.layout.reference;
+                                layout.urlDir = result.data.layout.urlDir;
                             }
                             _.extend(layout, setObject);
                             var message = {
