@@ -32,7 +32,7 @@ module.exports = function (mongoose) {
         acceptedAt: Date,
         acceptedComment: String,
         finishedAt: Date,
-        finishedComment: String
+        finishedComment: String,
         reference: Number
     });
 
