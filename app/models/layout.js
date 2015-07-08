@@ -52,16 +52,6 @@ module.exports = function (mongoose) {
             self.createdAt = new Date();
         }
 
-        if (self.status === 'finished' && !self.reference) {
-            /*self.constructor.aggregate({
-                $group: {
-                    reference: '',
-                    last: {
-                        $max: "reference"
-                    }
-                }
-            })*/
-        }
         next();
     });
 

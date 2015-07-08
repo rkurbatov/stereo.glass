@@ -173,33 +173,58 @@ module.exports = function (express, Layout) {
 
     function putLayoutsById(req, res) {
         if (req.isAuthenticated()) {
-            var conditions = {
-                _id : req.params.id
-            }
-            var update = {};
 
             var setObject = req.body.params.setObject;
-            if (setObject) {
-                update.$set = setObject;
-            }
-
             var unsetArray = req.body.params.unsetArray;
-            if (unsetArray) {
-                update.$unset = _.zipObject(unsetArray, _.fill(_.range(unsetArray.length), ''));
-            }
-
-            if (!update.$set && !update.$unset) {
+            if (!setObject && !unsetArray) {
                 return res.status(400).json({status: 'error', message: 'Bad request'});
             }
 
-            Layout.findOneAndUpdate(conditions, update, function (err){
-               if (err) {
-                   console.log('Ошибка при обновлении макета! ' + err);
-                   res.status(400).json({status: 'error', message: err});
-                } else {
-                    res.status(200).json({status: 'success'});                    
-                }
-            });
+            var layoutQuery = Layout.findById(req.params.id).exec();
+
+            layoutQuery
+                .then(function (layout) {
+                    if (setObject.status === 'assigned' && !layout.reference) {
+
+                        var referenceQuery = Layout
+                            .find({}, "-_id reference")
+                            .exists("reference")
+                            .sort("-reference")
+                            .limit(1)
+                            .exec();
+
+                        return referenceQuery.then(function (result) {
+                            if (result.length === 0) {
+                                layout.reference = 1;
+                            } else {
+                                layout.reference = result[0].reference + 1;
+                            }
+                            return layout;
+                        });
+                    } else {
+                        return layout;
+                    }
+                })
+                .then(function (layout) {
+                    _.each(setObject, function (value, key) {
+                        if (key !== 'reference') {
+                            layout[key] = value;
+                        }
+                    });
+
+                    _.each(unsetArray, function (key) {
+                        layout[key] = undefined;
+                    });
+
+                    layout.save();
+                    return res.status(200).json({status: 'success', reference: layout.reference});
+
+                })
+                .then(null, function (err) {
+                    console.log('Макет не найден! ' + err);
+                    res.status(404).json({status: 'error', message: err});
+                });
+
 
         } else {
             res.status(403).send('forbidden').end();

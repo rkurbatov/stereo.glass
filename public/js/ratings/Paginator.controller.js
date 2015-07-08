@@ -150,7 +150,10 @@
                     // TODO: error reporting
                     // don't forget to destroy listeners on close
                     return sgLayouts.update(layout._id, setObject)
-                        .then(function () {
+                        .then(function (result) {
+                            if (result.data && result.data.reference) {
+                                layout.reference = result.data.reference;
+                            }
                             _.extend(layout, setObject);
                             var message = {
                                 fromUser: setObject.assignedBy,
