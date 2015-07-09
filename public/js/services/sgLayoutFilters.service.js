@@ -156,18 +156,22 @@
             }
 
             // add to filters 'deleted' filter
-            if (sgUsers.currentUser.role === 'admin') {
-                filters.client.push(
-                    {
-                        name: 'удалённые',
-                        mode: 'byLayout',
-                        value: function (layout) {
-                            layout.compareValue = layout.average;
-                            return layout.isHidden;
-                        }
+            sgUsers.loaded
+                .then(function(){
+                    if (sgUsers.currentUser.role === 'admin') {
+                        filters.client.push(
+                            {
+                                name: 'удалённые',
+                                mode: 'byLayout',
+                                value: function (layout) {
+                                    layout.compareValue = layout.average;
+                                    return layout.isHidden;
+                                }
+                            }
+                        );
                     }
-                );
-            }
+                });
+
 
 
         }
