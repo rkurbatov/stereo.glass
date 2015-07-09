@@ -9,4 +9,5 @@
     style='font-size: 20px')
         i.glyphicon.glyphicon-star.sg-gold-i
         | {{ layout.compareValue }}
-    .sg-layoutname.text-center {{ layout.reference ? "арт. " + _.padLeft(layout.reference, 5, '0'): layout.name }}
+    .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
+    .sg-layoutname.text-center(ng-if='paginator.viewMode === "Progress"') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}

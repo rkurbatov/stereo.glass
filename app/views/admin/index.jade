@@ -22,15 +22,15 @@ block content
             //- Ratings tab header        
             if user.role === 'admin' || user.role === 'designer'
                 li: a(href='#admin-ratings', data-toggle='tab')
-                    span.glyphicon.glyphicon-star
+                    span.glyphicon.glyphicon-th-large
                     span.badge {{ tabs.layouts.unratedCount }}
-                    |  Оценки                 
+                    |  Макеты
 
             if user.role === 'founder' || user.role === 'curator'
                 li.active: a(href='#admin-ratings', data-toggle='tab')
-                    span.glyphicon.glyphicon-star
+                    span.glyphicon.glyphicon-th-large
                     span.badge {{ tabs.layouts.unratedCount }}
-                    |  Оценки
+                    |  Макеты
 
             //- Messages tab header
             li: a(href='#messages', data-toggle='tab')

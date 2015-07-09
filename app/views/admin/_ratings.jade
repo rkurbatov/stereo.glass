@@ -20,7 +20,9 @@
     .row
         .col-xs-1
             | &nbsp;&nbsp;&nbsp;&nbsp;
-            i.fa.fa-2x.fa-mail-reply.sg-red-i.sg-shadowed-text(ng-click="paginator.resetAll()" style="cursor:pointer")
+            span.fa.fa-stack.fa-lg(ng-click="paginator.resetAll()" style="cursor:pointer")
+                .fa.fa-circle-thin.fa-stack-2x.sg-red-i.sg-shadowed-text
+                .fa.fa-close.fa-stack-1x.sg-red-i.sg-shadowed-text
 
         .col-xs-10
             //- Server filters
@@ -60,14 +62,16 @@
     include ratings/paginator-controls
 
     //- pagination
-    .row
-        ul.sg-layout-list
-            li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
-            dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | filter: paginator.filters.currentClient.value | filter: paginator.search.filter | orderBy: paginator.filters.currentOrder.value) | itemsPerPage: paginator.currentItemsPerPage")
-                //- layout controls
-                include ratings/layout-controls
-                //- layout-block
-                include ratings/layout-block
+    .row: ul.sg-layout-list
+        li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
+        dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | \
+                filter: paginator.viewModeFilter | filter: paginator.filters.currentClient.value | \
+                filter: paginator.search.filter | orderBy: paginator.filters.currentOrder.value) | \
+                itemsPerPage: paginator.currentItemsPerPage")
+            //- layout controls
+            include ratings/layout-controls
+            //- layout-block
+            include ratings/layout-block
 
     //- bottom pagination controls
     include ratings/paginator-controls

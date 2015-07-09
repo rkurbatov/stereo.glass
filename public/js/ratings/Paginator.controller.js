@@ -33,6 +33,8 @@
             update: searchUpdate
         };
 
+        vm.viewModeFilter = viewModeFilter;
+
         vm.refreshData = sgLayouts.loadData;
         vm.reset = reset;
         vm.resetAll = resetAll;
@@ -123,12 +125,12 @@
         function getAssignmentClass(status) {
             switch (status) {
                 case "assigned":
-                    return "sg-silver-i";
+                    return "sg-silver-i fa-check-square-o";
                 case "accepted":
-                    return "sg-gold-i";
+                    return "sg-yellow-i fa-upload";
                 case undefined:
                 default:
-                    return "sg-blue-i";
+                    return "sg-blue-i fa-check-square-o";
             }
         }
 
@@ -253,6 +255,17 @@
 
         function searchUpdate() {
             vm.search.reName = new RegExp(vm.search.string.toLowerCase());
+        }
+
+        function viewModeFilter(layout) {
+            switch (vm.viewMode) {
+                case "Rating":
+                    return !layout.status;
+                case "Progress":
+                    return layout.status && layout.status !== "finished";
+                case "Ready":
+                    return layout.status === "finished";
+            }
         }
 
         function confirmRemove(layout) {

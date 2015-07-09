@@ -1,6 +1,6 @@
 .sg-layout-controls.text-center(style="height: 36px")
     //- Assign
-    i.fa.fa-check-square-o.sg-shadowed-text.control32(ng-click='paginator.changeStatus(layout)'
+    i.fa.sg-shadowed-text.control32(ng-click='paginator.changeStatus(layout)'
     ng-show='paginator.getAssignmentVisibility(paginator.currentUser.role, layout)'
     ng-class='paginator.getAssignmentClass(layout.status)')
     //- Eidt
