@@ -12,7 +12,7 @@ block content
             //- Layouts tab header
             if user.role === 'designer'
                 li.active: a(href='#admin-layouts', data-toggle='tab')
-                    span.fa.fa-picture-o
+                    span.fa.fa-upload
                     |  Загрузка картинок
             if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
                 li: a(href='#admin-layouts', data-toggle='tab')

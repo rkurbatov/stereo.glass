@@ -19,7 +19,7 @@
                         td
                             i.fa.fa-pencil.sg-green-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== users.mail" ng-click="users.openEditDialog(row)")
                         td
-                            i.fa.fa-remove.sg-red-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== users.mail" ng-click="users.confirmRemove(row)")
+                            i.fa.fa-user-times.sg-red-i.sg-shadowed-text(style="cursor:pointer" ng-show="row.usermail !== users.mail" ng-click="users.confirmRemove(row)")
                         td: a(ng-href='mailto:{{row.usermail}}') email
                         td {{row.role}}
                         td {{row.createdAt | date}}

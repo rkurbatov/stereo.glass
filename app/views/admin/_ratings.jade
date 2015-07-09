@@ -1,7 +1,60 @@
 .panel.panel-default(ng-controller='Paginator as paginator')
     br
-    //- Server filters
-    include ratings/paginator-filters
+
+    //- Switch mode        
+    .row
+        .form-group.text-center
+            label.control-label Режим отображения 
+            | &nbsp;&nbsp;
+            .btn-group
+                label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Rating'") 
+                    i.fa.fa-star
+                    |   Рейтинги
+                label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Progress'") 
+                    i.fa.fa-check-square-o
+                    |   Прогресс
+                label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Ready'") 
+                    i.fa.fa-picture-o
+                    |   Готовые макеты
+
+    .row
+        .col-xs-1
+            | &nbsp;&nbsp;&nbsp;&nbsp;
+            i.fa.fa-2x.fa-mail-reply.sg-red-i.sg-shadowed-text(ng-click="paginator.resetAll()" style="cursor:pointer")
+
+        .col-xs-10
+            //- Server filters
+            include ratings/paginator-filters
+        
+        .cols-xs-1    
+        
+    //-    sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")    
+    
+    .row
+        //- Client filters
+        .col-xs-4
+            .input-group(style="padding-left: 20px")
+                span.input-group-addon: i.fa.fa-search                
+                input.form-control(ng-model='paginator.search.string' ng-change='paginator.search.update()'
+                ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
+        .col-xs-8
+            .form-horizontal
+                .form-group
+                    | Показать &nbsp;
+                    select.form-control-static(ng-model="paginator.filters.currentClient"
+                    ng-options="opt.name for opt in paginator.filters.client")
+                    select.form-control-static(ng-model="paginator.filters.currentRater"
+                    ng-options="opt.user for opt in paginator.filters.raters"
+                    ng-show='paginator.filters.currentClient.mode === "byRater"'
+                    ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
+                    select.form-control-static(ng-model="paginator.filters.currentDesigner"
+                    ng-options="opt.designer for opt in paginator.filters.designers"
+                    ng-show='paginator.filters.currentClient.mode === "byDesigner"'
+                    ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
+                    | &nbsp;&nbsp; Найдено: 
+                    |  
+                    b {{ paginator.filteredLayouts.length }}
+        
 
     //- top pagination controls
     include ratings/paginator-controls

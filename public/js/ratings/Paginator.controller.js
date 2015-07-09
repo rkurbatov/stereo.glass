@@ -13,6 +13,8 @@
 
         var vm = this;
 
+        vm.viewMode = "Rating";
+
         vm.filters = sgLayoutFilters;
         vm.currentUser = sgUsers.currentUser;
         vm.rawLayouts = sgLayouts.rawLayouts;

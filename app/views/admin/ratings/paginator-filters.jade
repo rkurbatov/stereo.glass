@@ -1,49 +1,28 @@
-.row
-    .col-xs-4: .form-horizontal
-        .form-group
-            button.btn.btn-primary.pull-right.col-xs-10(ng-click="paginator.resetAll()") Сбросить все фильтры
-        .form-group
-            label.col-xs-6.control-label(ng-click="paginator.reset('colors')") Цвета
-            select.selectpicker(multiple data-width='50%'
-            data-none-selected-text="Все" bs-select html-content='paginator.colors' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
-        .form-group
-            label.col-xs-6.control-label(ng-click="paginator.reset('assortment')") Ассортимент
-            select.selectpicker(multiple data-selectable-optgroup data-width='50%'
-            data-none-selected-text="Весь" bs-select html-content='paginator.assortment' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
-        .form-group
-            label.col-xs-6.control-label(ng-click="paginator.reset('plots')") Сюжеты
-            select.selectpicker(multiple data-selectable-optgroup data-width='50%'
-            data-none-selected-text="Все" bs-select html-content='paginator.plots' selection='paginator.filters.server.plots' exec-on-change='paginator.refreshData()')
-        .form-group
-            label.col-xs-6.control-label(ng-click="paginator.reset('countries')") Страны
-            select.selectpicker(multiple data-selectable-optgroup data-width='50%'
-            data-none-selected-text="Международный" bs-select html-content='paginator.countries' selection='paginator.filters.server.countries' exec-on-change='paginator.refreshData()')
-        .form-group
-            label.col-xs-6.control-label(ng-click="paginator.reset('authors')") Авторы
-            select.selectpicker(multiple data-width='50%'
-            data-none-selected-text="Все" bs-select content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
-        .form-group
-            label.col-xs-6.control-label(ng-click="resetDR()") Интервал дат
-            .col-xs-6.sg-nopadding
-                input.form-control(date-range-picker, type="text",
-                ng-model="paginator.filters.dateRange", options="paginator.dateRangeOptions")
-        .form-group
-            label.col-xs-6.control-label(ng-click="paginator.search.string =''; paginator.search.update()") Поиск
-            .col-xs-6.sg-nopadding
-                input.form-control(ng-model='paginator.search.string' ng-change='paginator.search.update()'
-            ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
-    .col-xs-8
-        .form-group
-            | Показать &nbsp;
-            select.form-control-static(ng-model="paginator.filters.currentClient"
-            ng-options="opt.name for opt in paginator.filters.client")
-            select.form-control-static(ng-model="paginator.filters.currentRater"
-            ng-options="opt.user for opt in paginator.filters.raters"
-            ng-show='paginator.filters.currentClient.mode === "byRater"'
-            ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
-            select.form-control-static(ng-model="paginator.filters.currentDesigner"
-            ng-options="opt.designer for opt in paginator.filters.designers"
-            ng-show='paginator.filters.currentClient.mode === "byDesigner"'
-            ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
-            | &nbsp;&nbsp; Найдено: {{ paginator.filteredLayouts.length }}
-        sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")
+.col-xs-4: .form-horizontal
+    .form-group
+        label.col-xs-6.control-label(ng-click="paginator.reset('colors')") Цвета
+        select.selectpicker(multiple data-width='50%'
+        data-none-selected-text="Все" bs-select html-content='paginator.colors' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
+    .form-group
+        label.col-xs-6.control-label(ng-click="paginator.reset('assortment')") Ассортимент
+        select.selectpicker(multiple data-selectable-optgroup data-width='50%'
+        data-none-selected-text="Весь" bs-select html-content='paginator.assortment' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
+.col-xs-4: .form-horizontal    
+    .form-group
+        label.col-xs-6.control-label(ng-click="paginator.reset('plots')") Сюжеты
+        select.selectpicker(multiple data-selectable-optgroup data-width='50%'
+        data-none-selected-text="Все" bs-select html-content='paginator.plots' selection='paginator.filters.server.plots' exec-on-change='paginator.refreshData()')
+    .form-group
+        label.col-xs-6.control-label(ng-click="paginator.reset('countries')") Страны
+        select.selectpicker(multiple data-selectable-optgroup data-width='50%'
+        data-none-selected-text="Международный" bs-select html-content='paginator.countries' selection='paginator.filters.server.countries' exec-on-change='paginator.refreshData()')
+.col-xs-4: .form-horizontal
+    .form-group
+        label.col-xs-6.control-label(ng-click="paginator.reset('authors')") Авторы
+        select.selectpicker(multiple data-width='50%'
+        data-none-selected-text="Все" bs-select content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
+    .form-group
+        label.col-xs-6.control-label(ng-click="resetDR()") Даты загрузки
+        .col-xs-6.sg-nopadding
+            input.form-control(date-range-picker, type="text",
+            ng-model="paginator.filters.dateRange", options="paginator.dateRangeOptions")
