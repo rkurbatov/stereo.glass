@@ -6,9 +6,9 @@
         .module('sgAppAdmin')
         .directive('sgRating', sgRating);
 
-    sgRating.$inject = ['sgLayouts'];
+    sgRating.$inject = ['sgLayouts', 'toastr'];
 
-    function sgRating(sgLayouts) {
+    function sgRating(sgLayouts, toastr) {
         var ddo = {
             restrict: 'E',
             scope: {
@@ -25,15 +25,32 @@
             scope.markViewed = markViewed;
             scope.oneRow = attrs.oneRow;
 
+            var toastrInfoConfig = {
+                allowHtml: true,
+                timeOut: 750
+            };
+            var toastrErrorConfig = {
+                closeButton: true,
+                timeOut: 0
+            };
+
+            var toastrMsg;
+
             scope.$watch('linkedObject.rating', function (newValue, oldValue) {
                 if (newValue === oldValue || newValue === -1) return;
                 sgLayouts.changeMyRating(scope.linkedObject, newValue)
                     .then(function () {
-                        // Hack to prevent early filtering. Now we can filter our layout
-                        // scope.linkedObject.notRatedByMe = false;
+                        newValue
+                            ? toastrMsg = _.repeat('<i class="fa fa-star"></i>', newValue)
+                            : toastrMsg = '<i class="fa fa-thumbs-down"></i>';
+                        if (!attrs.secondInstance) {
+                            toastr.info(toastrMsg, toastrInfoConfig);
+                        }
                     })
                     .catch(function (err) {
-                        console.log(err);
+                        if (!attrs.secondInstance){
+                            toastr.error(err, toastrErrorConfig);
+                        }
                     });
             });
 

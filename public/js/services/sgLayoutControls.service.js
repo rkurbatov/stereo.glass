@@ -56,9 +56,7 @@
                 vm.imgIsLoading = true;
             }
 
-
             function imgIsLoaded() {
-                console.log('loaded');
                 vm.imgIsLoading = false;
             }
 
@@ -69,27 +67,38 @@
             }
 
             function getLayoutUrl() {
-                var layout = vm.layouts[vm.idx];
-                return sgLayouts.getImgUrl(layout);
-                //return '/uploads/' + vm.layouts[vm.idx].urlDir + '/' + vm.layouts[vm.idx].url2d;
+                return sgLayouts.getImgUrl(vm.layouts[vm.idx]);
             }
 
             // TODO: Mark image as viewed
             function prevImg() {
                 if (vm.idx > 0) {
+                    // set as viewed if no rating was selected
+                    if (vm.layouts[vm.idx].rating === -1) {
+                        vm.layouts[vm.idx].rating = 0;
+                    }
                     vm.idx -= 1;
                 }
                 vm.imgIsLoading = true;
             }
 
             function nextImg() {
+
                 if (vm.idx < (vm.layouts.length - 1)){
+                    // set as viewed if no rating was selected
+                    if (vm.layouts[vm.idx].rating === -1) {
+                        vm.layouts[vm.idx].rating = 0;
+                    }
                     vm.idx += 1;
                 }
                 vm.imgIsLoading = true;
             }
 
             function cancel() {
+                // set as viewed if no rating was selected
+                if (vm.layouts[vm.idx].rating === -1) {
+                    vm.layouts[vm.idx].rating = 0;
+                }
                 $modalInstance.dismiss('cancel');
             }
         }
