@@ -6,7 +6,8 @@ angular
         'daterangepicker',
         'ui.bootstrap',
         'ngCookies',
-        'hmTouchEvents'
+        'hmTouchEvents',
+        'toastr'
     ])
     .constant('_', window._)        // use lodash as $rootScope constant
     .run(function ($rootScope) {

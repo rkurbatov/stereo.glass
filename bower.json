@@ -19,7 +19,8 @@
     "angular-utils-pagination": "~0.8.2",
     "angular-smart-table": "~2.1.0",
     "ryanmullins-angular-hammer": "~2.1.10",
-    "sg.ui": "https://github.com/rkurbatov/sg.ui.git"
+    "sg.ui": "https://github.com/rkurbatov/sg.ui.git",
+    "angular-toastr": "~1.4.1"
   },
   "resolutions": {
     "angular": "~1.4.1",
