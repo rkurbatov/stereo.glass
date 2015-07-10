@@ -248,15 +248,26 @@
             return $modal.open(modalDO).result;
         }
 
-        modalFinishJobCtrl.$inject = ['$modalInstance', 'layout'];
+        modalFinishJobCtrl.$inject = ['$scope', '$modalInstance', 'layout'];
 
-        function modalFinishJobCtrl($modalInstance, layout) {
+        function modalFinishJobCtrl($scope, $modalInstance, layout) {
             var vm = this;
 
             vm.url = sgLayouts.getThumbUrl(layout);
 
             vm.submit = submit;
             vm.cancel = cancel;
+
+            vm.files = {};
+
+            vm.progresses = {
+                gifHiRes: 0,
+                gifLoRes: 0,
+                psdLayout: 0,
+                tiffLayout: 0,
+                txtProject: 0
+            };
+
 
             function submit() {
                 $modalInstance.close('ok');

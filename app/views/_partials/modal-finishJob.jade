@@ -7,22 +7,29 @@
         .col-xs-4
             img.img-responsive.center-block(ng-src="{{::vm.url}}")
         .col-xs-8
-            span Работа будет считается выполненной, если вы загрузите следующие gif-файлы:
+            span Работа будет считается выполненной, если вы загрузите следующие файлы:
             br
             br
             .row
-                .col-xs-6
-                    | в высоком разрешении
-                    br
-                    | (для просмотра)
-                    br
-                    button.btn Загрузить файл
-                .col-xs-6
-                    | в низком разрешении (250 пикс.
-                    br
-                    | по одной из сторон, для сайта)
-                    br
-                    button.btn Загрузить файл
+                .col-xs-8
+                    | <b>GIF</b> в <b>высоком</b> разрешении (для просмотра)
+                sg-file-upload.col-xs-4(accept='.gif')
+            .row
+                .col-xs-8
+                    | <b>GIF</b> в <b>низком</b> разрешении (250 пикс. по одной из сторон, для сайта)
+                sg-file-upload.col-xs-4(accept='.gif')
+            .row
+                .col-xs-8
+                    | оригинал-макет в формате <b>PSD</b>
+                sg-file-upload.col-xs-4(accept='.psd')
+            .row
+                .col-xs-8
+                    | файл проекта в формате <b>TXT</b>
+                sg-file-upload.col-xs-4(accept='.txt')
+            .row
+                .col-xs-8
+                    | (опционально) макет для печати в формате <b>TIFF</b>
+                sg-file-upload.col-xs-4(accept='.tif,.tiff')
             .row
                 br
                 label.control-label Комментарий
