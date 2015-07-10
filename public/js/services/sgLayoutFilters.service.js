@@ -143,7 +143,7 @@
                         }
 
                         var allFilter = {
-                            designer: "Всем",
+                            designer: "всем",
                             value: function (layout) {
                                 layout.compareValue = layout.average;
                                 return _.contains(["assigned", "accepted", "rejected"], layout.status);
