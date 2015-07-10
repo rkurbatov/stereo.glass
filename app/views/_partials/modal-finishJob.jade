@@ -13,25 +13,25 @@
             .row
                 .col-xs-8
                     | <b>GIF</b> в <b>высоком</b> разрешении (для просмотра)
-                sg-file-upload.col-xs-4(accept='.gif')
+                sg-file-upload.col-xs-4(accept='.gif' layout='vm.layout' field='gifHiRes')
             .row
                 .col-xs-8
                     | <b>GIF</b> в <b>низком</b> разрешении (250 пикс. по одной из сторон, для сайта)
-                sg-file-upload.col-xs-4(accept='.gif')
+                sg-file-upload.col-xs-4(accept='.gif' layout='vm.layout' field='gifLoRes')
             .row
                 .col-xs-8
                     | оригинал-макет в формате <b>PSD</b>
-                sg-file-upload.col-xs-4(accept='.psd')
+                sg-file-upload.col-xs-4(accept='.psd' layout='vm.layout' field='psdLayout')
             .row
                 .col-xs-8
                     | файл проекта в формате <b>TXT</b>
-                sg-file-upload.col-xs-4(accept='.txt')
+                sg-file-upload.col-xs-4(accept='.txt' layout='vm.layout' field='txtProject')
             .row
                 .col-xs-8
                     | (опционально) макет для печати в формате <b>TIFF</b>
-                sg-file-upload.col-xs-4(accept='.tif,.tiff')
+                sg-file-upload.col-xs-4(accept='.tif,.tiff' layout='vm.layout' field='tifLayout')
             .row
-                br
+                br1
                 label.control-label Комментарий
                 textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
 

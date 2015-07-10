@@ -257,17 +257,7 @@
 
             vm.submit = submit;
             vm.cancel = cancel;
-
-            vm.files = {};
-
-            vm.progresses = {
-                gifHiRes: 0,
-                gifLoRes: 0,
-                psdLayout: 0,
-                tiffLayout: 0,
-                txtProject: 0
-            };
-
+            vm.layout = layout;
 
             function submit() {
                 $modalInstance.close('ok');
