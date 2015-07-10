@@ -11,30 +11,40 @@
             br
             br
             .row
-                .col-xs-8
+                .col-xs-7
                     | <b>GIF</b> в <b>высоком</b> разрешении (для просмотра)
-                sg-file-upload.col-xs-4(accept='.gif' layout='vm.layout' field='gifHiRes')
+                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifHiRes")
+                .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlGifHiRes, \
+                'sg-red-i fa-remove': !vm.layout.urlGifHiRes}")
             .row
-                .col-xs-8
+                .col-xs-7
                     | <b>GIF</b> в <b>низком</b> разрешении (250 пикс. по одной из сторон, для сайта)
-                sg-file-upload.col-xs-4(accept='.gif' layout='vm.layout' field='gifLoRes')
+                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifLoRes")
+                .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlGifLoRes, \
+                'sg-red-i fa-remove': !vm.layout.urlGifLoRes}")
             .row
-                .col-xs-8
-                    | оригинал-макет в формате <b>PSD</b>
-                sg-file-upload.col-xs-4(accept='.psd' layout='vm.layout' field='psdLayout')
+                .col-xs-7
+                    | оригинал-макет в формате <b>PSD (ZIP, RAR)</b>
+                sg-file-upload.col-xs-4(accept='.psd,.zip,.rar' layout="vm.layout" field='urlPsdLayout')
+                .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlPsdLayout, \
+                'sg-red-i fa-remove': !vm.layout.urlPsdLayout}")
             .row
-                .col-xs-8
+                .col-xs-7
                     | файл проекта в формате <b>TXT</b>
-                sg-file-upload.col-xs-4(accept='.txt' layout='vm.layout' field='txtProject')
+                sg-file-upload.col-xs-4(accept='.txt' layout="vm.layout" field='urlTxtProject')
+                .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlTxtProject, \
+                'sg-red-i fa-remove': !vm.layout.urlTxtProject}")
             .row
-                .col-xs-8
-                    | (опционально) макет для печати в формате <b>TIFF</b>
-                sg-file-upload.col-xs-4(accept='.tif,.tiff' layout='vm.layout' field='tifLayout')
+                .col-xs-7
+                    | макет для печати в формате <b>TIFF</b> <b>(опционально)</b>
+                sg-file-upload.col-xs-4(accept='' layout="vm.layout" field='urlTifLayout')
+                .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlTifLayout, \
+                'sg-red-i fa-remove': !vm.layout.urlTifLayout}" style="opacity: 0.5")
             .row
                 br1
                 label.control-label Комментарий
                 textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
 
 .modal-footer
-    button.btn.btn-primary.col-xs-3(ng-click="vm.submit()") Принять
+    button.btn.btn-primary.col-xs-3(ng-click="vm.submit()" ng-disabled="!vm.canSubmit()") Принять
     button.btn.col-xs-3(ng-click="vm.cancel()") Отмена

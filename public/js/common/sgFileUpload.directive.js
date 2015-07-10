@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .directive('sgFileUpload', sgFileUpload);
 
-    sgFileUpload.$inject = ['Upload'];
+    sgFileUpload.$inject = ['Upload', 'sgLayouts'];
 
-    function sgFileUpload(Upload) {
+    function sgFileUpload(Upload, sgLayouts) {
         var ddo = {
             restrict: 'E',
             scope: {
@@ -38,8 +38,14 @@
                     }).progress(function (evt) {
                         scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                     }).then(function (result) {
-                        console.log('result ', result);
-                        scope.ready = true;
+                        if (attrs.field && result && result.data && result.data.filenames && result.data.filenames.length > 0) {
+                            var setObject = {};
+                            setObject[attrs.field] = result.data.filenames[0];
+                            sgLayouts.update(scope.layout._id, setObject)
+                                .then(function(){
+                                    scope.layout[attrs.field] = result.data.filenames[0];
+                                });
+                        }
                     });
                 }
             }

@@ -246,7 +246,25 @@
 
         function finishJob(layout) {
             sgLayoutControls.modalFinishJob(layout)
-                .then();
+                .then(function (response) {
+                    var setObject = {
+                        status: 'finished',
+                        responseComment: response.comment
+                    };
+                    sgLayouts.update(layout._id, setObject)
+                        .then(function(){
+                            _.extend(layout, setObject);
+                            var adminMessage = {
+                                fromUser: layout.assignedTo,
+                                toUser: layout.assignedBy,
+                                type: 'designer',
+                                subType: 'jobFinished',
+                                header: layout.assignedTo + ' завершил работу над макетом',
+                                body: layout._id
+                            };
+                            sgMessages.create(adminMessage);
+                        });
+                });
         }
 
         function searchFilter(layout) {

@@ -258,9 +258,18 @@
             vm.submit = submit;
             vm.cancel = cancel;
             vm.layout = layout;
+            vm.canSubmit = canSubmit;
+
+            function canSubmit() {
+                return vm.layout.urlGifHiRes && vm.layout.urlGifLoRes && vm.layout.urlPsdLayout && vm.layout.urlTxtProject;
+            }
 
             function submit() {
-                $modalInstance.close('ok');
+                var response = {
+                    comment: vm.comment
+                };
+
+                $modalInstance.close(response);
             }
 
             function cancel() {
