@@ -262,7 +262,7 @@
                 case "Rating":
                     return !layout.status && vm.filters.currentRating.value(layout);
                 case "Progress":
-                    return layout.status && layout.status !== "finished";
+                    return layout.status && layout.status !== "finished" && vm.filters.currentProgress.value(layout);
                 case "Ready":
                     return layout.status === "finished";
             }
