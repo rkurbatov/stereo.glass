@@ -7,7 +7,8 @@ angular
         'ui.bootstrap',
         'ngCookies',
         'hmTouchEvents',
-        'toastr'
+        'toastr',
+        'ngFileUpload'
     ])
     .constant('_', window._)        // use lodash as $rootScope constant
     .run(function ($rootScope) {
