@@ -1,4 +1,7 @@
-.sg-layout-block(ng-class='{"selected" : paginator.$index === $index}')
+.fa.fa-2x.fa-comment.sg-silver-i.text-center(ng-if="layout.designerComment && paginator.$index !== $index"
+style="position: absolute; right: 0px;")
+.sg-layout-block(ng-class='{"selected" : paginator.$index === $index}'
+popover="{{ layout.designerComment }}" popover-trigger="focus" tabindex="{{$index}}")
     img(ng-src='{{ paginator.getThumbUrl(layout) }}'
     ng-click="paginator.handleLayoutClick($index)"
     ng-dblclick="paginator.showInGallery()"
