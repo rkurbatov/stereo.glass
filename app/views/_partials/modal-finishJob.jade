@@ -41,9 +41,15 @@
                 .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlTifLayout, \
                 'sg-red-i fa-remove': !vm.layout.urlTifLayout}" style="opacity: 0.5")
             .row
-                br1
-                label.control-label Комментарий
-                textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
+                .col-xs-12
+                    | Размер каждого файла не должен превышать <b>400 МБ</b>
+    br
+    br
+    .row
+        .form-horizontal
+            .form-group
+                label.control-label.col-xs-2 Комментарий
+                .col-xs-9: textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
 
 .modal-footer
     button.btn.btn-primary.col-xs-3(ng-click="vm.submit()" ng-disabled="!vm.canSubmit()") Принять
