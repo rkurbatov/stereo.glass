@@ -41,29 +41,31 @@
                 ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
         .col-xs-8
             .form-horizontal
-                .form-group
+                .form-group(ng-if='paginator.viewMode === "Rating"')
                     | Показать &nbsp;
                     //- Client filters for Rating viewmode
-                    select.form-control-static(ng-model="paginator.filters.currentRating"
-                    ng-options="opt.name for opt in paginator.filters.rating"
-                    ng-if='paginator.viewMode === "Rating"')
+                    select.form-control.sg-select-inline(ng-model="paginator.filters.currentRating"
+                    ng-options="opt.name for opt in paginator.filters.rating")
+                    | &nbsp;&nbsp;
                     //- Raters filters (list of admin and founder)
-                    select.form-control-static(ng-model="paginator.filters.currentRater"
+                    select.form-control.sg-select-inline(ng-model="paginator.filters.currentRater"
                     ng-options="opt.user for opt in paginator.filters.raters"
-                    ng-if='paginator.viewMode === "Rating" && paginator.filters.currentRating.mode === "byRater"'
+                    ng-if='paginator.filters.currentRating.mode === "byRater"'
                     ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
+                    span &nbsp;&nbsp; Найдено:
+                        b {{ paginator.filteredLayouts.length }}
+                .form-group(ng-if='paginator.viewMode === "Progress"')
                     //- Client filters for Progress Viemode
-                    select.form-control-static(ng-model='paginator.filters.currentProgress'
-                    ng-options="opt.name for opt in paginator.filters.progress"
-                    ng-if='paginator.viewMode === "Progress"')
+                    select.form-control.sg-select-inline(ng-model='paginator.filters.currentProgress'
+                    ng-options="opt.name for opt in paginator.filters.progress")
+                    | &nbsp;&nbsp;
                     //- Designers filters (list of designers)
-                    select.form-control-static(ng-model="paginator.filters.currentDesigner"
+                    select.form-control.sg-select-inline(ng-model="paginator.filters.currentDesigner"
                     ng-options="opt.designer for opt in paginator.filters.designers"
-                    ng-if='paginator.viewMode === "Progress" && paginator.filters.currentProgress.mode === "byDesigner"'
+                    ng-if='paginator.filters.currentProgress.mode === "byDesigner"'
                     ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
-                    | &nbsp;&nbsp; Найдено: 
-                    |  
-                    b {{ paginator.filteredLayouts.length }}
+                    span &nbsp;&nbsp; Найдено:
+                        b {{ paginator.filteredLayouts.length }}
         
 
     //- top pagination controls

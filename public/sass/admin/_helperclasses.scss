@@ -33,3 +33,9 @@
 textarea.sg-noresize {
   resize: none;
 }
+
+// Used as class for .form-control selects but with their auto width set.
+.sg-select-inline {
+  width: auto !important;
+  display: inline-block !important;
+}
