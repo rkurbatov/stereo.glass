@@ -1,8 +1,8 @@
 .modal-header
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
     sg-rating(linked-object='vm.layouts[vm.idx]' one-row second-instance
-    ng-show='vm.filters.currentClient.mode === "byLayout"').sg-inline-block
-    i.glyphicon.glyphicon-star.sg-gold-i(ng-show='_.contains(["byDesigner", "byRater"], vm.filters.currentClient.mode)'
+    ng-show='vm.filters.currentRating.mode === "byLayout"').sg-inline-block
+    i.glyphicon.glyphicon-star.sg-gold-i(ng-show='_.contains(["byDesigner", "byRater"], vm.filters.currentRating.mode)'
     style='font-size: 20px')
     | {{ getAssignedRating(lts[idx]) }}
     | &nbsp;&nbsp;
