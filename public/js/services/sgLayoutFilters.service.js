@@ -35,7 +35,7 @@
                     value: ['ratings.length']
                 }
             ],
-            client: [
+            rating: [
                 {
                     name: "все",
                     mode: 'byLayout',
@@ -60,6 +60,7 @@
                     }
                 }
             ],
+            progress: [],
             raters: [],
             designers: [],
             server: {
@@ -70,7 +71,8 @@
                 designers: []
             },
             currentOrder: {},
-            currentClient: {},
+            currentRating: {},
+            currentProgress: {},
             currentServer: {},
             currentRater: {},
             currentRaterFilter: {
@@ -91,7 +93,7 @@
 
         function initService() {
             filters.currentOrder = filters.order[0];
-            filters.currentClient = filters.client[0];
+            filters.currentRating = filters.rating[0];
 
             // add to filters array filter by founder name
             sgUsers.loaded
@@ -110,7 +112,8 @@
                     }
 
                     filters.currentRater = filters.raters[0];
-                    filters.client.push(filters.currentRaterFilter);
+                    filters.currentRaterFilter.value = filters.currentRater.value;
+                    filters.rating.push(filters.currentRaterFilter);
 
                 });
 
@@ -150,7 +153,8 @@
                         filters.designers.unshift(allFilter);
                         filters.currentDesigner = filters.designers[0];
                         filters.currentDesignerFilter.value = filters.currentDesigner.value;
-                        filters.client.push(filters.currentDesignerFilter);
+                        filters.progress.push(filters.currentDesignerFilter);
+                        filters.currentProgress = filters.progress[0];
 
                     });
             }
@@ -159,7 +163,7 @@
             sgUsers.loaded
                 .then(function(){
                     if (sgUsers.currentUser.role === 'admin') {
-                        filters.client.push(
+                        filters.rating.push(
                             {
                                 name: 'удалённые',
                                 mode: 'byLayout',

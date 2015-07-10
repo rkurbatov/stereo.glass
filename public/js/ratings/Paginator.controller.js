@@ -260,7 +260,7 @@
         function viewModeFilter(layout) {
             switch (vm.viewMode) {
                 case "Rating":
-                    return !layout.status;
+                    return !layout.status && vm.filters.currentRating.value(layout);
                 case "Progress":
                     return layout.status && layout.status !== "finished";
                 case "Ready":

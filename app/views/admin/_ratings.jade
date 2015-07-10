@@ -43,15 +43,23 @@
             .form-horizontal
                 .form-group
                     | Показать &nbsp;
-                    select.form-control-static(ng-model="paginator.filters.currentClient"
-                    ng-options="opt.name for opt in paginator.filters.client")
+                    //- Client filters for Rating viewmode
+                    select.form-control-static(ng-model="paginator.filters.currentRating"
+                    ng-options="opt.name for opt in paginator.filters.rating"
+                    ng-if='paginator.viewMode === "Rating"')
+                    //- Raters filters (list of admin and founder)
                     select.form-control-static(ng-model="paginator.filters.currentRater"
                     ng-options="opt.user for opt in paginator.filters.raters"
-                    ng-show='paginator.filters.currentClient.mode === "byRater"'
+                    ng-if='paginator.viewMode === "Rating" && paginator.filters.currentRating.mode === "byRater"'
                     ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
+                    //- Client filters for Progress Viemode
+                    select.form-control-static(ng-model='paginator.filters.currentProgress'
+                    ng-options="opt.name for opt in paginator.filters.progress"
+                    ng-if='paginator.viewMode === "Progress"')
+                    //- Designers filters (list of designers)
                     select.form-control-static(ng-model="paginator.filters.currentDesigner"
                     ng-options="opt.designer for opt in paginator.filters.designers"
-                    ng-show='paginator.filters.currentClient.mode === "byDesigner"'
+                    ng-if='paginator.viewMode === "Progress" && paginator.filters.currentProgress.mode === "byDesigner"'
                     ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
                     | &nbsp;&nbsp; Найдено: 
                     |  
@@ -65,8 +73,8 @@
     .row: ul.sg-layout-list
         li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
         dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | \
-                filter: paginator.viewModeFilter | filter: paginator.filters.currentClient.value | \
-                filter: paginator.search.filter | orderBy: paginator.filters.currentOrder.value) | \
+                filter: paginator.viewModeFilter | filter: paginator.search.filter | \
+                orderBy: paginator.filters.currentOrder.value) | \
                 itemsPerPage: paginator.currentItemsPerPage")
             //- layout controls
             include ratings/layout-controls
