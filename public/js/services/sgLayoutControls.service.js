@@ -160,7 +160,8 @@
             vm.layout = layout;
             vm.url = sgLayouts.getThumbUrl(layout);
             vm.comment = [];
-            vm.sendEmail = true;
+            // Mail is not sent by default!
+            vm.sendEmail = false;
 
             vm.designers = designers;
             if (_.contains(designers, layout.createdBy)) {
