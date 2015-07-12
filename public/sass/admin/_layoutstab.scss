@@ -45,29 +45,15 @@ ul.sg-layout-list {
   height: 270px;
 }
 
-.sg-layout-controls {
-  margin-bottom: -28px;
+.sg-layout-control {
+  cursor: pointer;
+  opacity: 0.55;
 
-  @mixin layout-control($height) {
-    cursor: pointer;
-    font-size: $height;
-    opacity: 0.55;
-
-    &:hover {
-      opacity: 1;
-    }
+  &:hover {
+    opacity: 1;
   }
 
-  .control32 {
-    @include layout-control(32px);
-    margin: 0 10px;
-  }
-
-  .control36 {
-    @include layout-control(36px);
-    margin: 0 5px;
-  }
-
+  margin: 0 5px;
 }
 
 .sg-border-assigned {
