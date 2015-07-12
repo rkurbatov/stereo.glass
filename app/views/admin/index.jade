@@ -21,16 +21,16 @@ block content
 
             //- Ratings tab header        
             if user.role === 'admin' || user.role === 'designer'
-                li: a(href='#admin-ratings', data-toggle='tab')
+                li: a(href='#admin-gallery', data-toggle='tab')
                     span.glyphicon.glyphicon-th-large
                     span.badge {{ tabs.layouts.unratedCount }}
-                    |  Макеты
+                    |  Галерея
 
             if user.role === 'founder' || user.role === 'curator'
                 li.active: a(href='#admin-ratings', data-toggle='tab')
                     span.glyphicon.glyphicon-th-large
                     span.badge {{ tabs.layouts.unratedCount }}
-                    |  Макеты
+                    |  Галерея
 
             //- Messages tab header
             li: a(href='#messages', data-toggle='tab')
@@ -69,11 +69,11 @@ block content
                     include ./_layouts
 
             if user.role === 'admin' || user.role === 'designer'
-                #admin-ratings.tab-pane
-                    include ./_ratings
+                #admin-gallery.tab-pane
+                    include ./_gallery
             if user.role === 'founder' || user.role === 'curator'
                 #admin-ratings.tab-pane.active
-                    include ./_ratings
+                    include ./_gallery
 
             #messages.tab-pane
                 include ./_messages
