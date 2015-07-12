@@ -45,6 +45,10 @@ ul.sg-layout-list {
   height: 270px;
 }
 
+.sg-layout-controls {
+  margin-bottom: -28px;
+}
+
 .sg-layout-control {
   cursor: pointer;
   opacity: 0.55;
@@ -56,18 +60,18 @@ ul.sg-layout-list {
   margin: 0 5px;
 }
 
-.sg-border-assigned {
+/*.sg-border-assigned {
   border: 2px dashed dodgerblue !important;
 }
 
 .sg-border-accepted {
   border: 2px solid silver !important;
-}
+}*/
 
 .sg-border-rejected {
   border: 2px solid red !important;
 }
 
-.sg-border-finished {
+/*.sg-border-finished {
   border: 2px solid #D9A441 !important;
-}
+}*/
