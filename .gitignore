@@ -32,6 +32,8 @@ public/img
 public/.sass-cache
 public/sass/.sass-cache
 public/video
+public/scripts/*
+public/stylesheets/*
 uploads
 
 *.sublime-project
