@@ -5,6 +5,7 @@ var concat = require('gulp-concat');
 var notify = require('gulp-notify');
 
 gulp.task('deployVendor', deployVendor);
+gulp.task('deployCustom', deployCustom);
 
 function deployVendor() {
     var vendorLibsArrayAdmin = [
@@ -46,6 +47,25 @@ function deployVendor() {
 
     gulp.src(vendorStylesArrayAdmin)
         .pipe(concat('vendor-admin.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
+}
+
+function deployCustom() {
+    var customStylesArrayAdmin = [
+        'public/css/admin/admin.css'
+    ];
+
+    gulp.src([
+        'public/app/ngAdmin.js',
+        'public/app/adminpage/**/*.js'
+    ])
+        .pipe(concat('custom-admin.min.js'))
+        //.pipe(uglify())
+        .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(customStylesArrayAdmin)
+        .pipe(concat('custom-admin.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 }
