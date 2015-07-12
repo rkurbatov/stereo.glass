@@ -5,46 +5,46 @@ block content
 
             //- Users tab header
             if user.role === 'admin'
-                li.active: a(href='#admin-users', data-toggle='tab')
+                li.active: a(href='#tab-users', data-toggle='tab')
                     span.fa.fa-users
                     |  Пользователи
 
             //- Layouts tab header
             if user.role === 'designer'
-                li.active: a(href='#admin-layouts', data-toggle='tab')
+                li.active: a(href='#tab-layouts', data-toggle='tab')
                     span.fa.fa-upload
                     |  Загрузка картинок
             if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
-                li: a(href='#admin-layouts', data-toggle='tab')
+                li: a(href='#tab-layouts', data-toggle='tab')
                     span.fa.fa-picture-o
                     |  Загрузка картинок
 
             //- Ratings tab header        
             if user.role === 'admin' || user.role === 'designer'
-                li: a(href='#admin-gallery', data-toggle='tab')
+                li: a(href='#tab-gallery', data-toggle='tab')
                     span.glyphicon.glyphicon-th-large
                     span.badge {{ tabs.layouts.unratedCount }}
                     |  Галерея
 
             if user.role === 'founder' || user.role === 'curator'
-                li.active: a(href='#admin-ratings', data-toggle='tab')
+                li.active: a(href='#tab-gallery', data-toggle='tab')
                     span.glyphicon.glyphicon-th-large
                     span.badge {{ tabs.layouts.unratedCount }}
                     |  Галерея
 
             //- Messages tab header
-            li: a(href='#messages', data-toggle='tab')
+            li: a(href='#tab-messages', data-toggle='tab')
                 span.glyphicon.glyphicon-envelope
                 span.badge {{ tabs.messages.unreadCount }}
                 |  Сообщения
 
             //- Profile tab header    
             if user.role === 'user'
-                li.active: a(href='#profile', data-toggle='tab')
+                li.active: a(href='#tab-profile', data-toggle='tab')
                     span.fa.fa-user
                     |  Профиль
             else
-                li: a(href='#profile', data-toggle='tab')
+                li: a(href='#tab-profile', data-toggle='tab')
                     span.fa.fa-user
                     |  Профиль
 
@@ -58,29 +58,29 @@ block content
         #tabs-content.tab-content
 
             if user.role === 'admin'
-                #admin-users.tab-pane.active
+                #tab-users.tab-pane.active
                     include ./_users
 
             if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
-                #admin-layouts.tab-pane
+                #tab-layouts.tab-pane
                     include ./_layouts
             if user.role === 'designer'
-                #admin-layouts.tab-pane.active
+                #tab-layouts.tab-pane.active
                     include ./_layouts
 
             if user.role === 'admin' || user.role === 'designer'
-                #admin-gallery.tab-pane
+                #tab-gallery.tab-pane
                     include ./_gallery
             if user.role === 'founder' || user.role === 'curator'
-                #admin-ratings.tab-pane.active
+                #tab-gallery.tab-pane.active
                     include ./_gallery
 
-            #messages.tab-pane
+            #tab-messages.tab-pane
                 include ./_messages
 
             if user.role === 'user'
-                #profile.tab-pane.active
+                #tab-profile.tab-pane.active
                     include ./_profile
             else
-                #profile.tab-pane
+                #tab-profile.tab-pane
                     include ./_profile
