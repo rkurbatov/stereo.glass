@@ -74,6 +74,15 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Environment middleware
+app.use(function (req, res, next) {
+    if (process.env.NODE_ENV === 'development') {
+        res.locals.env = 'dev';
+    }
+
+    next();
+});
+
 // ======== DATABASE ========
 // Mongoose
 var dbName = 'mongodb://localhost/' + (process.env.NODE_ENV === 'production'
