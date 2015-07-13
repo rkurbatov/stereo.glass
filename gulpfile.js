@@ -27,7 +27,7 @@ function deployVendor() {
         'public/libs/angular-smart-table/dist/smart-table.js',
         'public/libs/angular-toastr/dist/angular-toastr.tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
-        'public/libs/ng-file-upload/ng-file-upload.js',
+        'public/libs/ng-file-upload/ng-file-upload-all.js',
         'public/libs/ryanmullins-angular-hammer/angular.hammer.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];

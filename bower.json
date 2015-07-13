@@ -21,7 +21,7 @@
     "ryanmullins-angular-hammer": "~2.1.10",
     "sg.ui": "https://github.com/rkurbatov/sg.ui.git",
     "angular-toastr": "~1.4.1",
-    "ng-file-upload": "~5.0.4"
+    "ng-file-upload": "5.0.4"
   },
   "resolutions": {
     "angular": "~1.4.1",
