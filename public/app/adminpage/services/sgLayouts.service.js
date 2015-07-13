@@ -27,9 +27,10 @@
         // === IMPLEMENTATION ===
 
         function loadData() {
-
             var selection = sgLayoutFilters.server;
-
+            selection.startDate = sgLayoutFilters.dateRange.startDate;
+            selection.endDate = sgLayoutFilters.dateRange.endDate;
+            console.log(selection);
             return $http.get('/api/layouts', {
                 params: {
                     selection: JSON.stringify(selection)
@@ -59,10 +60,6 @@
                 transformedData.forEach(function (v) {
                     svc.rawLayouts.push(v);
                 });
-
-                // zero startDate and endDate borders
-                sgLayoutFilters.dateRange.startDate = null;
-                sgLayoutFilters.dateRange.endDate = null;
             });
         }
 
@@ -112,7 +109,6 @@
         function remove(id) {
             return $http.delete('/api/layouts/' + id)
                 .then(function (response) {
-                    console.log(response);
                     if (response.status === 204) {
                         svc.unratedCount -= 1;
                     }

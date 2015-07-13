@@ -22,7 +22,7 @@
         select.selectpicker(multiple data-width='50%'
         data-none-selected-text="Все" bs-select content='paginator.authors' selection='paginator.filters.server.authors' exec-on-change='paginator.refreshData()')
     .form-group
-        label.col-xs-6.control-label(ng-click="resetDR()") Даты загрузки
+        label.col-xs-6.control-label(ng-click="paginator.resetDateRange()") Даты загрузки
         .col-xs-6.sg-nopadding
             input.form-control(date-range-picker, type="text",
             ng-model="paginator.filters.dateRange", options="paginator.dateRangeOptions")

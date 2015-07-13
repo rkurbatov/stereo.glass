@@ -37,6 +37,7 @@ module.exports = function (express, Layout) {
     function getLayouts(req, res) {
         var sel, findObj = {}, tmpArr = [], tmpDateQueryObj = {};
 
+        console.log(req.query);
 
         if (req.isAuthenticated()) {
             if (req.query.selection) {
@@ -62,12 +63,12 @@ module.exports = function (express, Layout) {
                     tmpArr.push({createdBy: {$in: sel.authors}});
                 }
 
-                if (sel.fromDate || sel.toDate) {
-                    if (sel.fromDate) {
-                        tmpDateQueryObj.$gte = sel.fromDate;
+                if (sel.startDate || sel.endDate) {
+                    if (sel.startDate) {
+                        tmpDateQueryObj.$gte = sel.startDate;
                     }
-                    if (sel.toDate) {
-                        tmpDateQueryObj.$lt = sel.toDate;
+                    if (sel.endDate) {
+                        tmpDateQueryObj.$lt = sel.endDate;
                     }
                     tmpArr.push({createdAt: tmpDateQueryObj});
                 }
@@ -75,7 +76,10 @@ module.exports = function (express, Layout) {
                 if (tmpArr.length > 0) {
                     findObj = {$and: tmpArr};
                 }
+
             }
+
+            console.log(findObj);
 
             Layout.find(findObj, '', function (err, layouts) {
                 if (err) {

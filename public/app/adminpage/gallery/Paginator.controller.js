@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('Paginator', Paginator);
 
-    Paginator.$inject = ['sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers', 'sgMessages', '$q'];
+    Paginator.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers', 'sgMessages', '$q'];
 
-    function Paginator(sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers, sgMessages, $q) {
+    function Paginator($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers, sgMessages, $q) {
 
         // ==== DECLARATION =====
 
@@ -91,6 +91,16 @@
                 vm.authors = sgUsers.authors;
             });
 
+            // Watch over datarange change
+            $scope.$watch(function(){
+                return vm.filters.dateRange;
+            }, function(newVal, oldVal){
+                if (newVal.startDate && newVal.endDate) {
+                    vm.refreshData();
+                }
+            });
+
+            // Initial data load
             vm.refreshData();
         }
 
@@ -103,6 +113,8 @@
             angular.forEach(vm.filters.server, function (value, key) {
                 vm.filters.server[key] = [];
             });
+            vm.filters.dateRange.startDate = null;
+            vm.filters.dateRange.endDate = null;
             if (vm.search.string) {
                 vm.search.string = '';
                 vm.search.update();

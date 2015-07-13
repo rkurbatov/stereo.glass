@@ -84,7 +84,10 @@
                 name: "назначенные дизайнеру",
                 mode: "byDesigner"
             },
-            dateRange: {}
+            dateRange: {
+                startDate: null,
+                endDate: null
+            }
         };
 
         initService();
