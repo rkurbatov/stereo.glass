@@ -1,0 +1,25 @@
+.sg-layout-controls.text-center(style="height: 36px")
+    //- Assign
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
+    ng-show='toolbar.isAssignVisible()')
+        .fa-stack-2x.sg-shadowed-text.fa-check-square-o.sg-blue-i
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.acceptJob(toolbar.layout)'
+    ng-show='toolbar.isAcceptVisible()')
+        .fa-stack-2x.fa-check-square-o.sg-silver-i.sg-shadowed-text
+    //- Upload
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.uploadFiles(toolbar.layout)'
+    ng-show='toolbar.isUploadVisible()')
+        .fa-upload.fa-stack-2x.sg-shadowed-text.sg-orange-i
+    //- Download
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.downloadFiles(toolbar.layout)'
+    ng-show='toolbar.isDownloadVisible()')
+        .fa-download.fa-stack-2x.sg-shadowed-text.sg-violet-i
+    //- Edit
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.editLayout(toolbar.layout)'
+    ng-show='toolbar.isEditVisible()')
+        .fa-pencil-square-o.fa-stack-2x.sg-green-i.sg-shadowed-text
+    //- Remove
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.confirmRemove(toolbar.layout)'
+    ng-show='toolbar.isRemoveVisible()')
+        .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
+        .fa-remove.fa-stack-1x.sg-red-i.sg-shadowed-text

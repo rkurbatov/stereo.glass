@@ -30,8 +30,6 @@
         
         .cols-xs-1    
         
-    //-    sg-layout-info(ng-show="paginator.currentLayoutIndex !== -1" layout="paginator.currentLayout")    
-    
     .row
         //- Client filters
         .col-xs-4
@@ -79,7 +77,7 @@
                 orderBy: paginator.filters.currentOrder.value) | \
                 itemsPerPage: paginator.currentItemsPerPage")
             //- layout controls
-            include gallery/layout-controls
+            sg-layout-toolbar(layout='layout')
             //- layout-block
             include gallery/layout-block
 
