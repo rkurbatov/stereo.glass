@@ -1,5 +1,6 @@
-.btn.btn-primary.form-control(ngf-select accept="{{ accept }}"
-ng-model="file") Загрузить файл
+.btn.btn-primary.form-control(ngf-select='true'
+ngf-change='upload($files)'
+accept="{{ accept }}") Загрузить файл
 progressbar.progress-striped(type='success'
     value='progress || 0'
     ng-class='{ "active": progress < 100 }')

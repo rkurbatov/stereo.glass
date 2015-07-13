@@ -22,12 +22,14 @@
         function link(scope, elm, attrs) {
 
             scope.accept = attrs.accept;
+            scope.upload = loadFileHandler;
 
-            scope.$watch('file', loadFileHandler);
+            //scope.$watch('file', loadFileHandler);
 
             function loadFileHandler(newVal) {
-                if (newVal) {
-                    var upload = Upload.upload({
+                if (newVal && newVal.length > 0) {
+                    console.log(newVal);
+                    Upload.upload({
                         url: '/api/files',
                         fields: {
                             uploadDir: (scope.layout.status
