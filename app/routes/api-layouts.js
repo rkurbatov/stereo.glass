@@ -14,6 +14,9 @@ module.exports = function (express, Layout) {
     Router.post('/', postLayouts);
     Router.post('/search/name/:name', postSearchByName);
 
+    // Posts comment to given layout
+    Router.post('/comment/:id', postCommentById);
+
     Router.get('/', getLayouts);
     Router.get('/:id', getLayoutsById);
 
@@ -36,8 +39,6 @@ module.exports = function (express, Layout) {
 
     function getLayouts(req, res) {
         var sel, findObj = {}, tmpArr = [], tmpDateQueryObj = {};
-
-        console.log(req.query);
 
         if (req.isAuthenticated()) {
             if (req.query.selection) {
@@ -78,8 +79,6 @@ module.exports = function (express, Layout) {
                 }
 
             }
-
-            console.log(findObj);
 
             Layout.find(findObj, '', function (err, layouts) {
                 if (err) {
@@ -339,6 +338,34 @@ module.exports = function (express, Layout) {
             });
         } else {
             res.status(403).send('forbidden').end();
+        }
+    }
+
+    function postCommentById(req, res) {
+        if (req.isAuthenticated()) {
+            var layoutQuery = Layout.findById(req.params.id).exec();
+
+            layoutQuery
+                .then(function (layout) {
+                    var validQuery = req.body.params
+                        && req.body.params.postedBy
+                        && req.body.params.postedAt
+                        && req.body.params.text;
+
+                    if (!validQuery) {
+                        throw Error('Invalid post comment query!')
+                    }
+
+                    layout.comments.push(req.body.params);
+                    layout.save();
+                    return res.status(200).send({status: 'success'});
+                })
+                .then(null, function (err) {
+                    console.log('Error posting comment: ', err);
+                    return res.status(500).send({status: 'server error', message: err});
+                });
+        } else {
+            return res.status(403).send('forbidden');
         }
     }
 

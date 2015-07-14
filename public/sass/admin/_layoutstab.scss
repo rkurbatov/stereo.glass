@@ -60,18 +60,31 @@ ul.sg-layout-list {
   margin: 0 5px;
 }
 
-/*.sg-border-assigned {
-  border: 2px dashed dodgerblue !important;
-}
-
-.sg-border-accepted {
-  border: 2px solid silver !important;
-}*/
-
 .sg-border-rejected {
   border: 2px solid red !important;
 }
 
-/*.sg-border-finished {
-  border: 2px solid #D9A441 !important;
-}*/
+.sg-layout-comment-add {
+  z-index: 10;
+  cursor: pointer;
+  position: absolute;
+  right: -30px;
+  bottom: 45px;
+  width: 40px;
+  height: 40px;
+}
+
+.sg-layout-comments {
+  @extend .sg-silver-i;
+  z-index: 10;
+  position: absolute;
+  right: -15px;
+  top: 35px;
+  width: 50px;
+  height: 40px;
+}
+
+.sg-comments-number {
+  color: white;
+  font-size: 11px;
+}

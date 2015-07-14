@@ -3,10 +3,16 @@ module.exports = function (mongoose) {
 
     var Schema = mongoose.Schema;
 
-    var Ratings = new Schema({
+    var Rating = new Schema({
         value: Number,
         assignedBy: String,
         assignedAt: Date
+    });
+
+    var Comment = new Schema({
+        postedBy: String,
+        postedAt: Date,
+        text: String
     });
 
     var LayoutSchema = new Schema({
@@ -21,7 +27,8 @@ module.exports = function (mongoose) {
         urlTxtProject: String,
         createdBy: String,
         createdAt: Date,
-        ratings: [Ratings],
+        ratings: [Rating],
+        comments: [Comment],
         average: Number,
         catColors: [String],
         catPlots: [String],
@@ -41,8 +48,8 @@ module.exports = function (mongoose) {
         reference: Number
     });
 
-    Ratings.pre('save', function (next) {
-        var self  = this;
+    Rating.pre('save', function (next) {
+        var self = this;
 
         if (!self.assignedAt) {
             self.assignedAt = new Date();

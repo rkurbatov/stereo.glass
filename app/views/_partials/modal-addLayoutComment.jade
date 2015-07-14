@@ -1,0 +1,14 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.close()") &times;
+    h4.modal-title.text-center Добавить комментарий
+.modal-body
+    .row
+        .col-xs-4
+            img.img-responsive.center-block(ng-src="{{::vm.url}}")
+        .col-xs-8
+            textarea.col-xs-12.sg-noresize(rows='12' ng-model="vm.commentText")
+.modal-footer
+    .center-block
+        .col-xs-3
+        button.btn.btn-danger.col-xs-3(ng-click="vm.save()" ng-disabled="!vm.commentText") Сохранить
+        button.btn.btn-primary.col-xs-3(ng-click="vm.close()") Отмена

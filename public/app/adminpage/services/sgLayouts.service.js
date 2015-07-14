@@ -20,6 +20,7 @@
         svc.update = update;
         svc.getThumbUrl = getThumbUrl;
         svc.getImgUrl = getImgUrl;
+        svc.addComment = addComment;
 
         svc.rawLayouts = [];
 
@@ -37,22 +38,55 @@
                 }
             }).then(function (response) {
                 svc.unratedCount = 0;
-                var transformedData = response.data.map(function (e) {
+                var transformedData = response.data.map(function (layout) {
                     // get rating, set by current user or -1
-                    var rating = _.pluck(_.where(e.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
+                    var rating = _.pluck(_.where(layout.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
                     if (rating >= 0) {
-                        e.rating = rating;
+                        layout.rating = rating;
                     } else {
-                        e.rating = -1;
+                        layout.rating = -1;
                         // Hack to prevent early filtering (hiding rated layouts)
-                        e.notRatedByMe = true;
-                        if (!e.isHidden) {
+                        layout.notRatedByMe = true;
+                        if (!layout.isHidden) {
                             svc.unratedCount += 1;
                         }
                     }
                     // needed for correct order
-                    e.average = calcAverageRating(e.ratings);
-                    return e;
+                    layout.average = calcAverageRating(layout.ratings);
+
+                    if (layout.designerComment) {
+                        layout.comments.push({
+                            postedBy: layout.createdBy,
+                            postedAt: layout.createdAt,
+                            text: layout.designerComment
+                        });
+                    }
+
+                    if (layout.assignedComment) {
+                        layout.comments.push({
+                            postedBy: layout.assignedBy,
+                            postedAt: layout.createdAt,
+                            text: layout.assignedComment
+                        });
+                    }
+
+                    if (layout.acceptedComment) {
+                        layout.comments.push({
+                            postedBy: layout.assignedTo,
+                            postedAt: layout.acceptedAt,
+                            text: layout.acceptedComment
+                        });
+                    }
+
+                    if (layout.finishedComment) {
+                        layout.comments.push({
+                            postedBy: layout.assignedTo,
+                            postedAt: layout.finishedAt,
+                            text: layout.finishedComment
+                        });
+                    }
+
+                    return layout;
                 });
 
                 // replace old value to store reference
@@ -154,14 +188,29 @@
 
         function getThumbUrl(layout) {
             return '/uploads/' + (layout.status
-                ? 'ready/'
-                : 'pictures/') + layout.urlDir + '/' + layout.urlThumb;
+                    ? 'ready/'
+                    : 'pictures/') + layout.urlDir + '/' + layout.urlThumb;
         }
 
         function getImgUrl(layout) {
             return '/uploads/' + (layout.status
-                ? 'ready/'
-                : 'pictures/') + layout.urlDir + '/' + layout.url2d;
+                    ? 'ready/'
+                    : 'pictures/') + layout.urlDir + '/' + layout.url2d;
+        }
+
+        function addComment(layout, text) {
+            var newComment = {
+                postedBy: sgUsers.currentUser.name,
+                postedAt: new Date(),
+                text: text
+            };
+
+            return $http.post('/api/layouts/comment/' + layout._id, {
+                params: newComment
+            }).then(function () {
+                layout.comments = layout.comments || [];
+                layout.comments.push(newComment);
+            });
         }
     }
 
