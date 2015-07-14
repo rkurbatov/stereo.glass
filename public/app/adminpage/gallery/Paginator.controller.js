@@ -39,8 +39,10 @@
         vm.resetAll = resetAll;
 
         vm.getThumbUrl = sgLayouts.getThumbUrl;
+        vm.addComment = addComment;
 
         vm.handleLayoutClick = handleLayoutClick;
+        vm.addComment = addComment;
         vm.showInGallery = showInGallery;
         vm.unselectLayout = unselectLayout;
 
@@ -86,9 +88,9 @@
             });
 
             // Watch over datarange change
-            $scope.$watch(function(){
+            $scope.$watch(function () {
                 return vm.filters.dateRange;
-            }, function(newVal, oldVal){
+            }, function (newVal, oldVal) {
                 if (newVal.startDate && newVal.endDate) {
                     vm.refreshData();
                 }
@@ -149,6 +151,13 @@
                 case "Ready":
                     return layout.status === "finished";
             }
+        }
+
+        function addComment(layout) {
+            sgLayoutControls.modalAddLayoutComment(layout)
+                .then(function (commentText) {
+                    return sgLayouts.addComment(layout, commentText);
+                });
         }
 
     }

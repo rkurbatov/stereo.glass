@@ -18,6 +18,7 @@
         svc.modalAccept = modalAccept;
         svc.modalFinishJob = modalFinishJob;
         svc.modalDownloadFiles = modalDownloadFiles;
+        svc.modalAddLayoutComment = modalAddLayoutComment;
 
         // === IMPLEMENTATION ===
 
@@ -85,7 +86,7 @@
 
             function nextImg() {
 
-                if (vm.idx < (vm.layouts.length - 1)){
+                if (vm.idx < (vm.layouts.length - 1)) {
                     // set as viewed if no rating was selected
                     if (vm.layouts[vm.idx].rating === -1) {
                         vm.layouts[vm.idx].rating = 0;
@@ -250,9 +251,9 @@
             return $modal.open(modalDO).result;
         }
 
-        modalFinishJobCtrl.$inject = ['$scope', '$modalInstance', 'layout'];
+        modalFinishJobCtrl.$inject = ['$modalInstance', 'layout'];
 
-        function modalFinishJobCtrl($scope, $modalInstance, layout) {
+        function modalFinishJobCtrl($modalInstance, layout) {
             var vm = this;
 
             vm.url = sgLayouts.getThumbUrl(layout);
@@ -263,7 +264,10 @@
             vm.canSubmit = canSubmit;
 
             function canSubmit() {
-                return vm.layout.urlGifHiRes && vm.layout.urlGifLoRes && vm.layout.urlPsdLayout && vm.layout.urlTxtProject;
+                return vm.layout.urlGifHiRes
+                    && vm.layout.urlGifLoRes
+                    && vm.layout.urlPsdLayout
+                    && vm.layout.urlTxtProject;
             }
 
             function submit() {
@@ -306,6 +310,41 @@
 
             function cancel() {
                 $modalInstance.dismiss('cancel');
+            }
+        }
+
+        function modalAddLayoutComment(layout) {
+            var modalDO = {
+                templateUrl: '/partials/modal-addLayoutComment',
+                controller: modalAddLayoutCommentCtrl,
+                controllerAs: 'vm',
+                resolve: {
+                    layout: function () {
+                        return layout
+                    }
+                },
+                size: 'lg'
+            };
+
+            return $modal.open(modalDO).result;
+        }
+
+        modalAddLayoutCommentCtrl.$inject = ['$modalInstance', 'layout'];
+
+        function modalAddLayoutCommentCtrl($modalInstance, layout) {
+            var vm = this;
+
+            vm.url = sgLayouts.getThumbUrl(layout);
+            vm.close = close;
+            vm.save = save;
+            vm.commentText = '';
+
+            function save() {
+                $modalInstance.close(vm.commentText);
+            }
+
+            function close() {
+                $modalInstance.dismiss('close');
             }
         }
     }
