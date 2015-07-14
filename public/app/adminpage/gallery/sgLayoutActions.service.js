@@ -16,6 +16,7 @@
         svc.assignDoer = assignDoer;
         svc.acceptJob = acceptJob;
         svc.uploadFiles = uploadFiles;
+        svc.downloadFiles = downloadFiles;
         svc.editLayout = editLayout;
         svc.confirmRemove = confirmRemove;
 
@@ -128,6 +129,10 @@
                             sgMessages.create(adminMessage);
                         });
                 });
+        }
+
+        function downloadFiles(layout){
+            sgLayoutControls.modalDownloadFiles(layout);
         }
 
         function editLayout(layout) {

@@ -1,0 +1,28 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title.text-center Скачать файлы макета
+.modal-body
+    .col-sm-3
+        img.img-responsive.center-block(ng-src="{{::vm.dir}}{{::vm.layout.urlGifLoRes}}")
+    .col-sm-9
+        .form-horizontal(role='form')
+            .form-group
+                label.control-label.col-xs-7 Файл макета (PSD, ZIP, RAR)
+                | &nbsp;
+                a(target="_self" href="{{::vm.dir}}{{::vm.layout.urlPsdLayout}}"
+                style="cursor:pointer")
+                    i.fa.fa-download.fa-2x
+            .form-group(ng-show="vm.layout.urlTifLayout")
+                label.control-label.col-xs-7 Файл макета для печати (TIFF)
+                | &nbsp;
+                a(target="_self" href="{{::vm.dir}}{{::vm.layout.urlTifLayout}}"
+                style="cursor:pointer")
+                    i.fa.fa-download.fa-2x
+            .form-group
+                label.control-label.col-xs-7 Файл проекта (P3D)
+                | &nbsp;
+                a(target="_self" href="{{::vm.dir}}{{::vm.layout.urlTxtProject}}"
+                style="cursor:pointer")
+                    i.fa.fa-download.fa-2x
+
+.modal-footer

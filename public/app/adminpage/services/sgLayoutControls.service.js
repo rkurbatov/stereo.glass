@@ -17,6 +17,7 @@
         svc.modalAssignDoer = modalAssignDoer;
         svc.modalAccept = modalAccept;
         svc.modalFinishJob = modalFinishJob;
+        svc.modalDownloadFiles = modalDownloadFiles;
 
         // === IMPLEMENTATION ===
 
@@ -272,6 +273,36 @@
 
                 $modalInstance.close(response);
             }
+
+            function cancel() {
+                $modalInstance.dismiss('cancel');
+            }
+        }
+
+        function modalDownloadFiles(layout) {
+            var modalDO = {
+                templateUrl: '/partials/modal-downloadFiles',
+                controller: modalDownloadFilesCtrl,
+                controllerAs: 'vm',
+                resolve: {
+                    layout: function () {
+                        return layout
+                    }
+                },
+                size: 'lg'
+            };
+
+            return $modal.open(modalDO).result;
+        }
+
+        modalDownloadFilesCtrl.$inject = ['$modalInstance', 'layout'];
+
+        function modalDownloadFilesCtrl($modalInstance, layout) {
+            var vm = this;
+
+            vm.layout = layout;
+            vm.dir = '/uploads/ready/' + vm.layout.urlDir + '/';
+            vm.cancel = cancel;
 
             function cancel() {
                 $modalInstance.dismiss('cancel');
