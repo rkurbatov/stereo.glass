@@ -58,6 +58,14 @@
                         v.compareValue = v.average;
                         return v.rating > -1 && !v.isHidden;
                     }
+                },
+                {
+                    name: "с комментариями",
+                    mode: 'byLayout',
+                    value: function(v){
+                        v.compareValue = v.comments.length;
+                        return v.comments.length;
+                    }
                 }
             ],
             progress: [],
