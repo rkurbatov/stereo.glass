@@ -174,7 +174,7 @@
         function initiateUploaders() {
             $('#upload-2d').fileinput({
                 showUpload: false,
-                allowedFileExtensions: ['jpg', 'jpeg', 'png'],
+                allowedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
                 uploadUrl: '/api/files?thumb=true',
                 dropZoneEnabled: false
             });
