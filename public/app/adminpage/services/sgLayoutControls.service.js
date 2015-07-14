@@ -69,7 +69,10 @@
             }
 
             function getLayoutUrl() {
-                return sgLayouts.getImgUrl(vm.layouts[vm.idx]);
+                return pgScope.viewMode === 'Ready'
+                    ? '/uploads/ready/' + vm.layouts[vm.idx].urlDir + '/' + vm.layouts[vm.idx].urlGifHiRes
+                    : sgLayouts.getImgUrl(vm.layouts[vm.idx]);
+
             }
 
             // TODO: Mark image as viewed
