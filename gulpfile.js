@@ -23,11 +23,12 @@ function deployVendor() {
         'public/libs/angular-cookies/angular-cookies.js',
         'public/libs/angular-bootstrap/ui-bootstrap.js',
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
-        //'public/libs/angular-daterangepicker-plus/src/angular-daterangepicker-plus.js',
+        'public/libs/angular-daterangepicker/js/angular-daterangepicker.js',
         'public/libs/angular-smart-table/dist/smart-table.js',
         'public/libs/angular-toastr/dist/angular-toastr.tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
         'public/libs/ng-file-upload/ng-file-upload-all.js',
+        'public/libs/nsPopover/src/nsPopover.js',
         'public/libs/ryanmullins-angular-hammer/angular.hammer.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];
@@ -58,7 +59,6 @@ function deployCustom() {
 
     gulp.src([
         'public/app/ngAdmin.js',
-        'public/app/tmp/js/angular-daterangepicker.js',
         'public/app/adminpage/**/*.js'
     ])
         .pipe(concat('custom-admin.min.js'))
