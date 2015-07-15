@@ -1,0 +1,42 @@
+ul.popover-comments-list {
+  padding-left: 0;
+}
+
+.popover-comments-block {
+  width: 270px;
+  max-height: 270px;
+  margin-bottom: 15px;
+  background-color: whitesmoke;
+  position: relative;
+  z-index: 20;
+  box-shadow: 0 0 3px 3px rgba(black, 0.2);
+  border-radius: 3px;
+  padding: 5px;
+  overflow-y: scroll;
+
+  li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+
+    hr {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border-top: 1px solid rgba(silver, 0.5);
+    }
+  }
+
+  li:last-child hr {
+    display: none;
+  }
+
+  .popover-comment-header {
+    margin-bottom: 5px;
+  }
+
+  .popover-comment-text {
+
+  }
+}
+

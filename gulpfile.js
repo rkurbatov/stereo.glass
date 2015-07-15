@@ -28,7 +28,8 @@ function deployVendor() {
         'public/libs/angular-toastr/dist/angular-toastr.tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
         'public/libs/ng-file-upload/ng-file-upload-all.js',
-        'public/libs/nsPopover/src/nsPopover.js',
+        //'public/libs/nsPopover/src/nsPopover.js',
+        'public/app/tmp/js/nsPopover.js',
         'public/libs/ryanmullins-angular-hammer/angular.hammer.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];
@@ -62,7 +63,7 @@ function deployCustom() {
         'public/app/adminpage/**/*.js'
     ])
         .pipe(concat('custom-admin.min.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesArrayAdmin)
