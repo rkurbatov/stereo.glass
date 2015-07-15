@@ -26,7 +26,7 @@ tabindex="{{$index}}")
         i.glyphicon.glyphicon-star.sg-gold-i
         | {{ layout.compareValue }}
     .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
-    .sg-layoutname.text-center(ng-if='paginator.viewMode === "Progress"') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
+    .sg-layoutname.text-center(ng-if='paginator.viewMode === "Progress" || paginator.viewMode === "Ready"') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
 //-
 //- Add comment button
 //-
