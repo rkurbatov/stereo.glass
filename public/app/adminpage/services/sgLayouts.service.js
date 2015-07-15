@@ -1,4 +1,4 @@
-(function () {
+(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -28,10 +28,11 @@
         // === IMPLEMENTATION ===
 
         function loadData() {
+
             var selection = sgLayoutFilters.server;
             selection.startDate = sgLayoutFilters.dateRange.startDate;
             selection.endDate = sgLayoutFilters.dateRange.endDate;
-            console.log(selection);
+
             return $http.get('/api/layouts', {
                 params: {
                     selection: JSON.stringify(selection)
@@ -214,4 +215,4 @@
         }
     }
 
-})();
+})(window, window.angular);

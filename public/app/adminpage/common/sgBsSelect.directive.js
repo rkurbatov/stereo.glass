@@ -1,5 +1,5 @@
 // directive to data communication with bootstrap selectors
-(function () {
+;(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -75,4 +75,4 @@
 
     }
 
-})();
+})(window, window.angular);

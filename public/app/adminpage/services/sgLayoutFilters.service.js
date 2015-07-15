@@ -1,4 +1,4 @@
-(function () {
+(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -62,7 +62,7 @@
                 {
                     name: "с комментариями",
                     mode: 'byLayout',
-                    value: function(v){
+                    value: function (v) {
                         v.compareValue = v.comments.length;
                         return v.comments.length;
                     }
@@ -172,7 +172,7 @@
 
             // add to filters 'deleted' filter
             sgUsers.loaded
-                .then(function(){
+                .then(function () {
                     if (sgUsers.currentUser.role === 'admin') {
                         filters.rating.push(
                             {
@@ -186,10 +186,7 @@
                         );
                     }
                 });
-
-
-
         }
     }
 
-})();
+})(window, window.angular);

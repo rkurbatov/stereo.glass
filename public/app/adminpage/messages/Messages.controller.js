@@ -1,4 +1,4 @@
-(function(){
+(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -7,24 +7,24 @@
 
     Messages.$inject = ['sgMessages', 'sgUsers'];
 
-    function Messages(sgMessages, sgUsers){
+    function Messages(sgMessages, sgUsers) {
 
-    	var vm = this;
-    	vm.refreshList = refreshList;
+        var vm = this;
+        vm.refreshList = refreshList;
 
-    	initController();
+        initController();
 
-    	function initController() {
-    		vm.refreshList();
-    	}
+        function initController() {
+            vm.refreshList();
+        }
 
-    	function refreshList() {
-    		sgMessages.getList(sgUsers.currentUser.name, ['admin'])
-    			.then(function(messages){
+        function refreshList() {
+            sgMessages.getList(sgUsers.currentUser.name, ['admin'])
+                .then(function (messages) {
                     vm.list = messages;
-    			});
-    	}
+                });
+        }
 
     }
 
-})();
+})(window, window.angular);

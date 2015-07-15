@@ -1,6 +1,4 @@
-//TODO: search for duplications after editing user
-//TODO: delete user sessions after user delete
-(function () {
+(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -47,5 +45,5 @@
 
     }
 
-})();
+})(window, window.angular);
 

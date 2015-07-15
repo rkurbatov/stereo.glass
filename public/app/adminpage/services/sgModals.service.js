@@ -16,7 +16,7 @@
         function modalYesNo(header, message) {
             var modalDO = {
                 templateUrl: '/partials/modal-YesNo',
-                controller: ['$modalInstance', 'header', 'message', YesNoCtrl],
+                controller: YesNoCtrl,
                 controllerAs: 'vm',
                 resolve: {
                     header: function () {
@@ -31,6 +31,8 @@
 
             return $modal.open(modalDO).result;
         }
+
+        YesNoCtrl.$inject = ['$modalInstance', 'header', 'message'];
 
         function YesNoCtrl($modalInstance, header, message) {
             var vm = this;

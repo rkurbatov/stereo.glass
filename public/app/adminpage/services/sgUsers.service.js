@@ -1,4 +1,4 @@
-(function () {
+(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -79,9 +79,9 @@
         }
 
         function getMail(userName) {
-            return (_.find(svc.list, { username: userName }) || {}).usermail;
+            return (_.find(svc.list, {username: userName}) || {}).usermail;
         }
 
     }
 
-})();
+})(window, window.angular);

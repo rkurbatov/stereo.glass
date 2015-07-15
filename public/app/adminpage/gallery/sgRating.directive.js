@@ -1,4 +1,4 @@
-(function () {
+(function (window, angular, undefined) {
 
     'use strict';
 
@@ -83,4 +83,4 @@
         return ddo;
     }
 
-})();
+})(window, window.angular);

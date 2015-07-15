@@ -1,4 +1,4 @@
-(function () {
+;(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -22,7 +22,6 @@
         function link(scope, elm, attrs) {
 
             scope.accept = attrs.accept;
-
             scope.$watch('file', loadFileHandler);
 
             function loadFileHandler(newVal) {
@@ -52,4 +51,4 @@
             }
         }
     }
-})();
+})(window, window.angular);

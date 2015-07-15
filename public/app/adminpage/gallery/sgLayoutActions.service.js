@@ -1,4 +1,4 @@
-(function(){
+(function (window, angular, undefined) {
 
     'use strict';
 
@@ -116,7 +116,7 @@
                         responseComment: response.comment
                     };
                     sgLayouts.update(layout._id, setObject)
-                        .then(function(){
+                        .then(function () {
                             _.extend(layout, setObject);
                             var adminMessage = {
                                 fromUser: layout.assignedTo,
@@ -131,7 +131,7 @@
                 });
         }
 
-        function downloadFiles(layout){
+        function downloadFiles(layout) {
             sgLayoutControls.modalDownloadFiles(layout);
         }
 
@@ -151,4 +151,4 @@
         }
     }
 
-})();
+})(window, window.angular);
