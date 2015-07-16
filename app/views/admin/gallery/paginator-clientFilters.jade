@@ -1,7 +1,7 @@
 //- Client filters
 .col-xs-5
     .col-xs-6: .input-group
-        span.input-group-addon(ng-click='paginator.search.string=""')
+        span.input-group-addon(ng-click='paginator.resetSearch()')
             i.fa.fa-search
         input.form-control(ng-model='paginator.search.string' ng-change='paginator.search.update()'
         ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")

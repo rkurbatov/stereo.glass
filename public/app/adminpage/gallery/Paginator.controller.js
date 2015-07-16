@@ -36,6 +36,8 @@
 
         vm.refreshData = sgLayouts.loadData;
         vm.reset = reset;
+        vm.resetDateRange = resetDateRange;
+        vm.resetSearch = resetSearch;
         vm.resetAll = resetAll;
 
         vm.getThumbUrl = sgLayouts.getThumbUrl;
@@ -105,16 +107,26 @@
             vm.refreshData();
         }
 
-        function resetAll() {
-            angular.forEach(vm.filters.server, function (value, key) {
-                vm.filters.server[key] = [];
-            });
+        function resetDateRange() {
             vm.filters.dateRange.startDate = null;
             vm.filters.dateRange.endDate = null;
+            vm.refreshData()
+        }
+
+        function resetSearch() {
+            console.log('click');
             if (vm.search.string) {
                 vm.search.string = '';
                 vm.search.update();
             }
+        }
+
+        function resetAll() {
+            angular.forEach(vm.filters.server, function (value, key) {
+                vm.filters.server[key] = [];
+            });
+            vm.resetDateRange();
+            vm.resetSearch();
             vm.unselectLayout();
             vm.refreshData();
         }
