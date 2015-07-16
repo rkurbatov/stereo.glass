@@ -16,6 +16,9 @@
                 label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Ready'") 
                     i.fa.fa-picture-o
                     |   Готовые макеты
+            | &nbsp;&nbsp;
+            label.control-label Найдено:
+            |  {{ paginator.filteredLayouts.length }}
 
     .row
         .col-xs-1
@@ -26,44 +29,12 @@
 
         .col-xs-10
             //- Server filters
-            include gallery/paginator-filters
+            include gallery/paginator-serverFilters
         
         .cols-xs-1    
         
     .row
-        //- Client filters
-        .col-xs-4
-            .input-group(style="padding-left: 20px")
-                span.input-group-addon: i.fa.fa-search                
-                input.form-control(ng-model='paginator.search.string' ng-change='paginator.search.update()'
-                ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
-        .col-xs-8
-            .form-horizontal
-                .form-group(ng-if='paginator.viewMode === "Rating"')
-                    | Показать &nbsp;
-                    //- Client filters for Rating viewmode
-                    select.form-control.sg-select-inline(ng-model="paginator.filters.currentRating"
-                    ng-options="opt.name for opt in paginator.filters.rating")
-                    | &nbsp;&nbsp;
-                    //- Raters filters (list of admin and founder)
-                    select.form-control.sg-select-inline(ng-model="paginator.filters.currentRater"
-                    ng-options="opt.user for opt in paginator.filters.raters"
-                    ng-if='paginator.filters.currentRating.mode === "byRater"'
-                    ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
-                    span &nbsp;&nbsp; Найдено:
-                        b {{ paginator.filteredLayouts.length }}
-                .form-group(ng-if='paginator.viewMode === "Progress"')
-                    //- Client filters for Progress Viemode
-                    select.form-control.sg-select-inline(ng-model='paginator.filters.currentProgress'
-                    ng-options="opt.name for opt in paginator.filters.progress")
-                    | &nbsp;&nbsp;
-                    //- Designers filters (list of designers)
-                    select.form-control.sg-select-inline(ng-model="paginator.filters.currentDesigner"
-                    ng-options="opt.designer for opt in paginator.filters.designers"
-                    ng-if='paginator.filters.currentProgress.mode === "byDesigner"'
-                    ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
-                    span &nbsp;&nbsp; Найдено:
-                        b {{ paginator.filteredLayouts.length }}
+        include gallery/paginator-clientFilters
         
 
     //- top pagination controls

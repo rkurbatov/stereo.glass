@@ -1,0 +1,37 @@
+//- Client filters
+.col-xs-5
+    .col-xs-6: .input-group
+        span.input-group-addon(ng-click='paginator.search.string=""')
+            i.fa.fa-search
+        input.form-control(ng-model='paginator.search.string' ng-change='paginator.search.update()'
+        ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
+    .col-xs-6: .input-group
+        span.input-group-addon(ng-click='paginator.resetDateRange()')
+            i.fa.fa-calendar
+        input.form-control(date-range-picker, type="text",
+        ng-model='paginator.filters.dateRange', options='paginator.dateRangeOptions')
+.col-xs-7
+    .form-horizontal
+        //- Rating view filters
+        .form-group(ng-if='paginator.viewMode === "Rating"')
+            | Показать &nbsp;
+            //- Client filters for Rating viewmode
+            select.form-control.sg-select-inline(ng-model="paginator.filters.currentRating"
+            ng-options="opt.name for opt in paginator.filters.rating")
+            | &nbsp;&nbsp;
+            //- Raters filters (list of admin and founder)
+            select.form-control.sg-select-inline(ng-model="paginator.filters.currentRater"
+            ng-options="opt.user for opt in paginator.filters.raters"
+            ng-if='paginator.filters.currentRating.mode === "byRater"'
+            ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
+        //- Progress view filters
+        .form-group(ng-if='paginator.viewMode === "Progress"')
+            //- Client filters for Progress Viemode
+            select.form-control.sg-select-inline(ng-model='paginator.filters.currentProgress'
+            ng-options="opt.name for opt in paginator.filters.progress")
+            | &nbsp;&nbsp;
+            //- Designers filters (list of designers)
+            select.form-control.sg-select-inline(ng-model="paginator.filters.currentDesigner"
+            ng-options="opt.designer for opt in paginator.filters.designers"
+            ng-if='paginator.filters.currentProgress.mode === "byDesigner"'
+            ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')

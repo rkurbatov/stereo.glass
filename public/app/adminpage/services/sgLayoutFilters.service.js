@@ -52,7 +52,7 @@
                     }
                 },
                 {
-                    name: "только оцененные и просмотренные мной",
+                    name: "оцененные и просмотренные мной",
                     mode: 'byLayout',
                     value: function (v) {
                         v.compareValue = v.average;
