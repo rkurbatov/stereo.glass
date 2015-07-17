@@ -52,14 +52,6 @@
                     }
                 },
                 {
-                    name: "оцененные и просмотренные мной",
-                    mode: 'byLayout',
-                    value: function (v) {
-                        v.compareValue = v.average;
-                        return v.rating > -1 && !v.isHidden;
-                    }
-                },
-                {
                     name: "с комментариями",
                     mode: 'byLayout',
                     value: function (v) {
@@ -113,13 +105,19 @@
 
                     function addFilter(userName) {
                         var filterObject = {
-                            user: userName,
+                            user: userName === sgUsers.currentUser.name
+                                ? 'мной'
+                                : userName,
                             value: function (layout) {
                                 layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
                                 return _.any(layout.ratings, {assignedBy: userName});
                             }
                         };
-                        filters.raters.push(filterObject)
+
+                        // place filter 'rated by me' at the beginning
+                        userName === sgUsers.currentUser.name
+                            ? filters.raters.unshift(filterObject)
+                            : filters.raters.push(filterObject);
                     }
 
                     filters.currentRater = filters.raters[0];
