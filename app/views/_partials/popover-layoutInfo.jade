@@ -16,7 +16,7 @@
                 i  {{ layout.assignedAt | date : 'd MMM, H:mm' }}
             .popover-comment-text
                 | {{ layout.assignedComment }}
-        .accepted-comment(ng-show='_.contains(layout.status, ["accepted", "finished"])')
+        .accepted-comment(ng-show='_.contains(["accepted", "finished"], layout.status)')
             hr
             .popover-comment-header
                 b.sg-blue-i {{ layout.assignedTo }}
