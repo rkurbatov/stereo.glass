@@ -13,10 +13,10 @@
                 b.sg-blue-i {{ layout.assignedBy }}
                 |  назначил исполнителем
                 b.sg-blue-i  {{ layout.assignedTo }}
-                i  {{ layout.createdAt | date : 'd MMM, H:mm' }}
+                i  {{ layout.assignedAt | date : 'd MMM, H:mm' }}
             .popover-comment-text
                 | {{ layout.assignedComment }}
-        .accepted-comment(ng-show='layout.status === "accepted" || layout.status === "finished"')
+        .accepted-comment(ng-show='_.contains(layout.status, ["accepted", "finished"])')
             hr
             .popover-comment-header
                 b.sg-blue-i {{ layout.assignedTo }}
