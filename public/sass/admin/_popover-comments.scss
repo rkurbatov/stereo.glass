@@ -1,11 +1,6 @@
-ul.popover-comments-list {
-  padding-left: 0;
-}
-
-.popover-comments-block {
+.popover-comments-block, .popover-info-block {
   width: 270px;
   max-height: 270px;
-  margin-bottom: 15px;
   background-color: whitesmoke;
   position: relative;
   z-index: 20;
@@ -13,18 +8,26 @@ ul.popover-comments-list {
   border-radius: 3px;
   padding: 5px;
   overflow-y: scroll;
+  font-size: 12px;
+
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top: 1px solid rgba(silver, 0.5);
+  }
+}
+
+.popover-comments-block {
+  margin-bottom: 15px;
+
+  ul.popover-comments-list {
+    padding-left: 0;
+  }
 
   li {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    font-size: 12px;
-
-    hr {
-      margin-top: 5px;
-      margin-bottom: 5px;
-      border-top: 1px solid rgba(silver, 0.5);
-    }
   }
 
   li:last-child hr {
@@ -40,3 +43,6 @@ ul.popover-comments-list {
   }
 }
 
+.popover-info-block {
+  margin-top: 15px;
+}

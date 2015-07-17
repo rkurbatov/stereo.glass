@@ -11,22 +11,24 @@ span.sg-layout-comments(ng-if="paginator.$index !== $index && layout.comments.le
 .sg-layout-block(ng-class='{"selected" : paginator.$index === $index}'
 ns-popover="{{ layout.comments.length > 0 }}"
 ns-popover-trigger="click"
-
 ns-popover-placement="top|center"
-ns-popover-template="/partials/popover-comments"
-tabindex="{{$index}}")
-    img(ng-src='{{ paginator.getThumbUrl(layout) }}'
-    ng-click="paginator.handleLayoutClick($index)"
-    ng-dblclick="paginator.showInGallery()"
-    hm-swipeup="paginator.showInGallery()"
-    ng-class='paginator.getThumbClass(layout)')
-    sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentRating.mode === "byLayout"')
-    .text-center(ng-show='paginator.filters.currentRating.mode === "byRater"'
-    style='font-size: 20px')
-        i.glyphicon.glyphicon-star.sg-gold-i
-        | {{ layout.compareValue }}
-    .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
-    .sg-layoutname.text-center(ng-if='paginator.viewMode === "Progress" || paginator.viewMode === "Ready"') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
+ns-popover-template="/partials/popover-layoutComments")
+    div(ns-popover
+    ns-popover-trigger="click"
+    ns-popover-placement="bottom|center"
+    ns-popover-template="/partials/popover-layoutInfo")
+        img(ng-src='{{ paginator.getThumbUrl(layout) }}'
+        ng-click="paginator.handleLayoutClick($index)"
+        ng-dblclick="paginator.showInGallery()"
+        hm-swipeup="paginator.showInGallery()"
+        ng-class='paginator.getThumbClass(layout)')
+        sg-rating.text-center(linked-object='layout' ng-show='paginator.filters.currentRating.mode === "byLayout"')
+        .text-center(ng-show='paginator.filters.currentRating.mode === "byRater"'
+        style='font-size: 20px')
+            i.glyphicon.glyphicon-star.sg-gold-i
+            | {{ layout.compareValue }}
+        .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
+        .sg-layoutname.text-center(ng-if='paginator.viewMode === "Progress" || paginator.viewMode === "Ready"') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
 //-
 //- Add comment button
 //-

@@ -1,0 +1,42 @@
+.ns-popover-tooltip
+    .popover-info-block
+        .designer-comment
+            .popover-comment-header
+                b.sg-blue-i {{ layout.createdBy }}
+                |  добавил(-а) изображение
+                i  {{ layout.createdAt | date : 'd MMM, H:mm' }}
+            .popover-comment-text
+                | {{ layout.designerComment }}
+        .assigned-comment(ng-show='layout.status')
+            hr
+            .popover-comment-header
+                b.sg-blue-i {{ layout.assignedBy }}
+                |  назначил исполнителем
+                b.sg-blue-i  {{ layout.assignedTo }}
+                i  {{ layout.createdAt | date : 'd MMM, H:mm' }}
+            .popover-comment-text
+                | {{ layout.assignedComment }}
+        .accepted-comment(ng-show='layout.status === "accepted" || layout.status === "finished"')
+            hr
+            .popover-comment-header
+                b.sg-blue-i {{ layout.assignedTo }}
+                |  принял(-а) задание
+                i  {{ layout.acceptedAt | date : 'd MMM, H:mm' }}
+            .popover-comment-text
+                | {{ comment.acceptedComment }}
+        .rejected-comment(ng-show='layout.status === "rejected"')
+            hr
+            .popover-comment-header
+                b.sg-blue-i {{ layout.assignedTo }}
+                |  отказался(-ась) от задания
+                i  {{ layout.acceptedAt | date : 'd MMM, H:mm' }}
+                .popover-comment-text
+                | {{ layout.acceptedComment }}
+        .finished-comment(ng-show='layout.status === "finished"')
+            hr
+            .popover-comment-header
+                b.sg-blue-i {{ layout.assignedTo }}
+                |  загрузил(-а) макет
+                i  {{ layout.finishedAt | date : 'd MMM, H:mm' }}
+            .popover-comment-text
+                | {{ layout.finishedComment }}

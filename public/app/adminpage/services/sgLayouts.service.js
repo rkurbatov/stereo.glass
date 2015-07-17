@@ -55,38 +55,6 @@
                     // needed for correct order
                     layout.average = calcAverageRating(layout.ratings);
 
-                    if (layout.designerComment) {
-                        layout.comments.push({
-                            postedBy: layout.createdBy,
-                            postedAt: layout.createdAt,
-                            text: layout.designerComment
-                        });
-                    }
-
-                    if (layout.assignedComment) {
-                        layout.comments.push({
-                            postedBy: layout.assignedBy,
-                            postedAt: layout.createdAt,
-                            text: layout.assignedComment
-                        });
-                    }
-
-                    if (layout.acceptedComment) {
-                        layout.comments.push({
-                            postedBy: layout.assignedTo,
-                            postedAt: layout.acceptedAt,
-                            text: layout.acceptedComment
-                        });
-                    }
-
-                    if (layout.finishedComment) {
-                        layout.comments.push({
-                            postedBy: layout.assignedTo,
-                            postedAt: layout.finishedAt,
-                            text: layout.finishedComment
-                        });
-                    }
-
                     return layout;
                 });
 

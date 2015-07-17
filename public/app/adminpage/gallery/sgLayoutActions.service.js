@@ -78,7 +78,7 @@
                         status: response.rejected
                             ? "rejected"
                             : "accepted",
-                        acceptedDate: new Date(),
+                        acceptedAt: new Date(),
                         acceptedComment: response.comment
                     };
                     sgLayouts.update(layout._id, setObject)
@@ -113,6 +113,7 @@
                 .then(function (response) {
                     var setObject = {
                         status: 'finished',
+                        finishedAt: new Date(),
                         responseComment: response.comment
                     };
                     sgLayouts.update(layout._id, setObject)
