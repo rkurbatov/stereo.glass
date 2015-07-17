@@ -3,7 +3,12 @@
 
     //- Switch mode        
     .row
-        .form-group.text-center
+        .col-xs-2
+            | &nbsp;&nbsp;
+            span.fa.fa-stack.fa-lg(ng-click="paginator.resetAll()" style="cursor:pointer")
+                .fa.fa-circle-thin.fa-stack-2x.sg-red-i.sg-shadowed-text
+                .fa.fa-close.fa-stack-1x.sg-red-i.sg-shadowed-text
+        .col-xs-10: .form-group.text-center
             label.control-label Режим отображения 
             | &nbsp;&nbsp;
             .btn-group
@@ -21,18 +26,9 @@
             |  {{ paginator.filteredLayouts.length }}
 
     .row
-        .col-xs-1
-            | &nbsp;&nbsp;&nbsp;&nbsp;
-            span.fa.fa-stack.fa-lg(ng-click="paginator.resetAll()" style="cursor:pointer")
-                .fa.fa-circle-thin.fa-stack-2x.sg-red-i.sg-shadowed-text
-                .fa.fa-close.fa-stack-1x.sg-red-i.sg-shadowed-text
+        //- Server filters
+        include gallery/paginator-serverFilters
 
-        .col-xs-10
-            //- Server filters
-            include gallery/paginator-serverFilters
-        
-        .cols-xs-1    
-        
     .row
         include gallery/paginator-clientFilters
         

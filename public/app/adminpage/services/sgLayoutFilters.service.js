@@ -11,12 +11,12 @@
         var filters = {
             order: [
                 {
-                    name: "По дате (от старых к новым)",
-                    value: ['createdAt']
-                },
-                {
                     name: "По дате (от новых к старым)",
                     value: ['-createdAt']
+                },
+                {
+                    name: "По дате (от старых к новым)",
+                    value: ['createdAt']
                 },
                 {
                     name: "По убыванию рейтинга",
@@ -27,11 +27,11 @@
                     value: ['compareValue']
                 },
                 {
-                    name: "По уменьшению числа оценивших",
+                    name: "По уменьшению числа оценок",
                     value: ['-ratings.length']
                 },
                 {
-                    name: "По увеличению числа оценивших",
+                    name: "По увеличению числа оценок",
                     value: ['ratings.length']
                 }
             ],
@@ -132,6 +132,17 @@
             if (_.contains(['admin', 'founder', 'curator', 'designer'], sgUsers.currentUser.role)) {
                 sgUsers.loaded
                     .then(function () {
+
+                        var allFilter = {
+                            designer: "всем",
+                            value: function (layout) {
+                                layout.compareValue = layout.average;
+                                return _.contains(["assigned", "accepted", "rejected"], layout.status);
+                            }
+                        };
+
+                        filters.designers.unshift(allFilter);
+
                         _.forEach(sgUsers.designers, addFilter);
 
                         function addFilter(designerName) {
@@ -153,15 +164,6 @@
 
                         }
 
-                        var allFilter = {
-                            designer: "всем",
-                            value: function (layout) {
-                                layout.compareValue = layout.average;
-                                return _.contains(["assigned", "accepted", "rejected"], layout.status);
-                            }
-                        };
-
-                        filters.designers.unshift(allFilter);
                         filters.currentDesigner = filters.designers[0];
                         filters.currentDesignerFilter.value = filters.currentDesigner.value;
                         filters.progress.push(filters.currentDesignerFilter);
