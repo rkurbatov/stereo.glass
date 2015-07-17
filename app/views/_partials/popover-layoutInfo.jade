@@ -23,7 +23,7 @@
                 |  принял(-а) задание
                 i  {{ layout.acceptedAt | date : 'd MMM, H:mm' }}
             .popover-comment-text
-                | {{ comment.acceptedComment }}
+                | {{ layout.acceptedComment }}
         .rejected-comment(ng-show='layout.status === "rejected"')
             hr
             .popover-comment-header
