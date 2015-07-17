@@ -11,12 +11,12 @@
         var filters = {
             order: [
                 {
-                    name: "По дате (от старых к новым)",
-                    value: ['createdAt']
-                },
-                {
                     name: "По дате (от новых к старым)",
                     value: ['-createdAt']
+                },
+                {
+                    name: "По дате (от старых к новым)",
+                    value: ['createdAt']
                 },
                 {
                     name: "По убыванию рейтинга",
@@ -27,11 +27,11 @@
                     value: ['compareValue']
                 },
                 {
-                    name: "По уменьшению числа оценивших",
+                    name: "По уменьшению числа оценок",
                     value: ['-ratings.length']
                 },
                 {
-                    name: "По увеличению числа оценивших",
+                    name: "По увеличению числа оценок",
                     value: ['ratings.length']
                 }
             ],
@@ -49,14 +49,6 @@
                     mode: 'byLayout',
                     value: function (v) {
                         return (v.rating === -1 || v.notRatedByMe) && !v.isHidden;
-                    }
-                },
-                {
-                    name: "оцененные и просмотренные мной",
-                    mode: 'byLayout',
-                    value: function (v) {
-                        v.compareValue = v.average;
-                        return v.rating > -1 && !v.isHidden;
                     }
                 },
                 {
@@ -113,13 +105,19 @@
 
                     function addFilter(userName) {
                         var filterObject = {
-                            user: userName,
+                            user: userName === sgUsers.currentUser.name
+                                ? 'мной'
+                                : userName,
                             value: function (layout) {
                                 layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
                                 return _.any(layout.ratings, {assignedBy: userName});
                             }
                         };
-                        filters.raters.push(filterObject)
+
+                        // place filter 'rated by me' at the beginning
+                        userName === sgUsers.currentUser.name
+                            ? filters.raters.unshift(filterObject)
+                            : filters.raters.push(filterObject);
                     }
 
                     filters.currentRater = filters.raters[0];
@@ -132,6 +130,17 @@
             if (_.contains(['admin', 'founder', 'curator', 'designer'], sgUsers.currentUser.role)) {
                 sgUsers.loaded
                     .then(function () {
+
+                        var allFilter = {
+                            designer: "всем",
+                            value: function (layout) {
+                                layout.compareValue = layout.average;
+                                return _.contains(["assigned", "accepted", "rejected"], layout.status);
+                            }
+                        };
+
+                        filters.designers.unshift(allFilter);
+
                         _.forEach(sgUsers.designers, addFilter);
 
                         function addFilter(designerName) {
@@ -153,15 +162,6 @@
 
                         }
 
-                        var allFilter = {
-                            designer: "всем",
-                            value: function (layout) {
-                                layout.compareValue = layout.average;
-                                return _.contains(["assigned", "accepted", "rejected"], layout.status);
-                            }
-                        };
-
-                        filters.designers.unshift(allFilter);
                         filters.currentDesigner = filters.designers[0];
                         filters.currentDesignerFilter.value = filters.currentDesigner.value;
                         filters.progress.push(filters.currentDesignerFilter);

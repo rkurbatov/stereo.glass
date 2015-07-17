@@ -52,7 +52,7 @@
 
             function createFilteredList(users) {
                 svc.raters = _.pluck(_.filter(users, function (user) {
-                    return _.contains(['admin', 'curator', 'founder'], user.role) && user.username !== 'Roman Kurbatov';
+                    return _.contains(['admin', 'curator', 'founder', 'designer'], user.role) && user.username !== 'Roman Kurbatov';
                 }), 'username');
 
                 svc.designers = _.pluck(_.filter(users, function (user) {
