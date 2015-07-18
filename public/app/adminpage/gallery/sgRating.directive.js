@@ -6,9 +6,9 @@
         .module('sgAppAdmin')
         .directive('sgRating', sgRating);
 
-    sgRating.$inject = ['sgLayouts', 'toastr'];
+    sgRating.$inject = ['sgLayouts', 'sgUsers', 'toastr'];
 
-    function sgRating(sgLayouts, toastr) {
+    function sgRating(sgLayouts, sgUsers, toastr) {
         var ddo = {
             restrict: 'E',
             scope: {
@@ -24,6 +24,7 @@
             scope.removeRating = removeRating;
             scope.markViewed = markViewed;
             scope.oneRow = attrs.oneRow;
+            scope.isAuthor = sgUsers.currentUser.name === scope.linkedObject.createdBy;
 
             var toastrInfoConfig = {
                 allowHtml: true,
@@ -48,15 +49,17 @@
                         }
                     })
                     .catch(function (err) {
-                        if (!attrs.secondInstance){
+                        if (!attrs.secondInstance) {
                             toastr.error(err, toastrErrorConfig);
                         }
                     });
             });
 
             function removeRating() {
+                if (scope.isAuthor || scope.linkedObject.notRatedByMe) return;
+
                 sgLayouts.removeMyRating(scope.linkedObject)
-                    .then(function(){
+                    .then(function () {
                     });
                 scope.linkedObject.isProcessing = true;
             }
