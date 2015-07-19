@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('Paginator', Paginator);
 
-    Paginator.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutControls', 'sgUsers'];
+    Paginator.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutSortOrder', 'sgLayoutControls', 'sgUsers'];
 
-    function Paginator($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutControls, sgUsers) {
+    function Paginator($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutSortOrder, sgLayoutControls, sgUsers) {
 
         // ==== DECLARATION =====
 
@@ -16,6 +16,7 @@
         vm.viewMode = "Rating";
 
         vm.filters = sgLayoutFilters;
+        vm.sortOrder = sgLayoutSortOrder;
         vm.rawLayouts = sgLayouts.rawLayouts;
         vm.filteredLayouts = [];
 
@@ -103,8 +104,17 @@
                 if (newVal.endDate) {
                     vm.filters.dateRange.endDateString = newVal.endDate.toISOString();
                 }
-                console.log(vm.filters.dateRange);
             });
+
+            // Change sort order depending on viewMode
+            $scope.$watch(
+                function () {
+                    return vm.viewMode;
+                },
+                function (mode) {
+                    vm.sortOrder.current = vm.sortOrder[mode][0];
+                }
+            );
 
             // Initial data load
             vm.refreshData();

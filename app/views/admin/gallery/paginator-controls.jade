@@ -1,6 +1,6 @@
 //- Sort filter for one page
 .sg-rate-paginator.text-center(ng-show="paginator.filteredLayouts.length <= paginator.currentItemsPerPage && paginator.filteredLayouts.length > 0")
-    sg-layout-page-sort-order
+    include paginator-sortOrder
 //- Sort filter for multiple pages
 .sg-rate-paginator.text-center(ng-show="paginator.filteredLayouts.length > paginator.currentItemsPerPage")
     dir-pagination-controls(template-url="../templates/dirPagination.tpl.html"
@@ -9,4 +9,4 @@
     span На странице
     select.form-control.sg-inline-block(ng-model="paginator.currentItemsPerPage"
     ng-options="opt for opt in paginator.itemsPerPage" style="width: auto")
-    sg-layout-page-sort-order
+    include paginator-sortOrder

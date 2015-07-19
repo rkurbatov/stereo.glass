@@ -9,32 +9,6 @@
 
     function sgLayoutFilters(sgUsers) {
         var filters = {
-            order: [
-                {
-                    name: "По дате загрузки (от новых к старым)",
-                    value: ['-createdAt']
-                },
-                {
-                    name: "По дате загрузки (от старых к новым)",
-                    value: ['createdAt']
-                },
-                {
-                    name: "По убыванию рейтинга",
-                    value: ['-compareValue']
-                },
-                {
-                    name: "По возрастанию рейтинга",
-                    value: ['compareValue']
-                },
-                {
-                    name: "По уменьшению числа оценок",
-                    value: ['-ratings.length']
-                },
-                {
-                    name: "По увеличению числа оценок",
-                    value: ['ratings.length']
-                }
-            ],
             rating: [
                 {
                     name: "все",
@@ -95,7 +69,6 @@
         return filters;
 
         function initService() {
-            filters.currentOrder = filters.order[0];
             filters.currentRating = filters.rating[0];
 
             // add to filters array filter by founder name
