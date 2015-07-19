@@ -30,8 +30,9 @@
         function loadData() {
 
             var selection = sgLayoutFilters.server;
-            selection.startDate = sgLayoutFilters.dateRange.startDate;
-            selection.endDate = sgLayoutFilters.dateRange.endDate;
+            // remains of dateRange server filter
+            //selection.startDate = sgLayoutFilters.dateRange.startDate;
+            //selection.endDate = sgLayoutFilters.dateRange.endDate;
 
             return $http.get('/api/layouts', {
                 params: {

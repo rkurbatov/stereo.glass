@@ -95,10 +95,15 @@
             // Watch over datarange change
             $scope.$watch(function () {
                 return vm.filters.dateRange;
-            }, function (newVal, oldVal) {
-                if (newVal.startDate && newVal.endDate) {
-                    vm.refreshData();
+            }, function (newVal) {
+                // convert moment objects to ISO 8601 strings for comparison
+                if (newVal.startDate) {
+                    vm.filters.dateRange.startDateString = newVal.startDate.toISOString();
                 }
+                if (newVal.endDate) {
+                    vm.filters.dateRange.endDateString = newVal.endDate.toISOString();
+                }
+                console.log(vm.filters.dateRange);
             });
 
             // Initial data load
@@ -113,7 +118,6 @@
         function resetDateRange() {
             vm.filters.dateRange.startDate = null;
             vm.filters.dateRange.endDate = null;
-            vm.refreshData()
         }
 
         function resetSearch() {
@@ -160,11 +164,37 @@
         function viewModeFilter(layout) {
             switch (vm.viewMode) {
                 case "Rating":
-                    return !layout.status && vm.filters.currentRating.value(layout);
+                    return (
+                            !layout.status
+                            && vm.filters.currentRating.value(layout)   // current rating filter
+                        ) && (
+                            !vm.filters.dateRange.startDate
+                            || vm.filters.dateRange.startDateString < layout.createdAt
+                        ) && (
+                            !vm.filters.dateRange.endDate
+                            || vm.filters.dateRange.endDateString > layout.createdAt
+                        );
                 case "Progress":
-                    return layout.status && layout.status !== "finished" && vm.filters.currentProgress.value(layout);
+                    return (
+                            layout.status
+                            && layout.status !== "finished"
+                            && vm.filters.currentProgress.value(layout)
+                        ) && (
+                            !vm.filters.dateRange.startDate
+                            || vm.filters.dateRange.startDateString < layout.assignedAt
+                        ) && (
+                            !vm.filters.dateRange.endDate
+                            || vm.filters.dateRange.endDateString > layout.assignedAt
+                        );
                 case "Ready":
-                    return layout.status === "finished";
+                    return layout.status === "finished"
+                        && (
+                            !vm.filters.dateRange.startDate
+                            || vm.filters.dateRange.startDateString < layout.finishedAt
+                        ) && (
+                            !vm.filters.dateRange.endDate
+                            || vm.filters.dateRange.endDateString > layout.finishedAt
+                        );
             }
         }
 
