@@ -39,7 +39,8 @@ function deployVendor() {
         'public/libs/font-awesome/css/font-awesome.css',
         'public/libs/bootstrap-select/dist/css/bootstrap-select.css',
         'public/app/tmp/fileinput.css',
-        'public/libs/bootstrap-daterangepicker/daterangepicker-bs3.css'
+        'public/libs/bootstrap-daterangepicker/daterangepicker-bs3.css',
+        'public/libs/angular-toastr/dist/angular-toastr.css'
     ];
 
     gulp.src(vendorLibsArrayAdmin)
