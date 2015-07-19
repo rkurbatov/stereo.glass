@@ -65,9 +65,12 @@
             }
 
             function isRemoveVisible() {
-                return (vm.layout.createdBy === name && !vm.layout.status)
-                    || role === 'admin'
-                    || role === 'curator';
+                return !vm.layout.status &&
+                    (
+                        vm.layout.createdBy === name
+                        || role === 'admin'
+                        || role === 'curator'
+                    );
             }
 
             function isUploadVisible() {

@@ -13,24 +13,24 @@
                 {
                     name: "все",
                     mode: 'byLayout',
-                    value: function (v) {
-                        v.compareValue = v.average;
-                        return !v.isHidden;
+                    value: function (layout) {
+                        layout.compareValue = layout.average;
+                        return !layout.isHidden;
                     }
                 },
                 {
                     name: "еще не просмотренные",
                     mode: 'byLayout',
-                    value: function (v) {
-                        return (v.rating === -1 || v.notRatedByMe) && !v.isHidden;
+                    value: function (layout) {
+                        return (layout.rating === -1 || layout.notRatedByMe) && !layout.isHidden;
                     }
                 },
                 {
                     name: "с комментариями",
                     mode: 'byLayout',
-                    value: function (v) {
-                        v.compareValue = v.comments.length;
-                        return v.comments.length;
+                    value: function (layout) {
+                        layout.compareValue = layout.comments.length;
+                        return layout.comments.length;
                     }
                 }
             ],
@@ -83,7 +83,7 @@
                                 : userName,
                             value: function (layout) {
                                 layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
-                                return _.any(layout.ratings, {assignedBy: userName});
+                                return !layout.isHidden && _.any(layout.ratings, {assignedBy: userName});
                             }
                         };
 
@@ -124,7 +124,7 @@
                                     : designerName,
                                 value: function (layout) {
                                     layout.compareValue = layout.status;
-                                    return layout.assignedTo === designerName;
+                                    return !layout.isHidden && layout.assignedTo === designerName;
                                 }
                             };
 
