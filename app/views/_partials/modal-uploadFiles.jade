@@ -24,13 +24,13 @@
                 'sg-red-i fa-remove': !vm.layout.urlGifLoRes}")
             .row
                 .col-xs-7
-                    | оригинал-макет в формате <b>PSD (ZIP, RAR)</b>
+                    | оригинал-макет в формате <b>PSD (ZIP, RAR)</b> <b>(опционально)</b>
                 sg-file-upload.col-xs-4(accept='.psd,.zip,.rar' layout="vm.layout" field='urlPsdLayout')
                 .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlPsdLayout, \
                 'sg-red-i fa-remove': !vm.layout.urlPsdLayout}")
             .row
                 .col-xs-7
-                    | файл проекта в формате <b>P3D</b>
+                    | файл проекта в формате <b>P3D</b> <b>(опционально)</b>
                 sg-file-upload.col-xs-4(accept='.p3d' layout="vm.layout" field='urlTxtProject')
                 .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlTxtProject, \
                 'sg-red-i fa-remove': !vm.layout.urlTxtProject}")

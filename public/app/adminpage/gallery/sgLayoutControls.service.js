@@ -268,9 +268,9 @@
 
             function canSubmit() {
                 return vm.layout.urlGifHiRes
-                    && vm.layout.urlGifLoRes
-                    && vm.layout.urlPsdLayout
-                    && vm.layout.urlTxtProject;
+                    && vm.layout.urlGifLoRes;
+                    //&& vm.layout.urlPsdLayout
+                    //&& vm.layout.urlTxtProject;
             }
 
             function submit() {
