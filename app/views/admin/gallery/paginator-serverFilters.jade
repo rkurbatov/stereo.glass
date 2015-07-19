@@ -5,9 +5,9 @@
     bs-select html-content='paginator.colors' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
 .form-group.col-xs-3
     label.col-xs-4.control-label(ng-click="paginator.reset('assortment')"
-    style='text-align: right; margin-top: 6px') Ас-т
+    style='text-align: right; margin-top: 6px') Товар
     select.selectpicker(multiple data-selectable-optgroup data-width='65%'
-    data-none-selected-text="Весь" bs-select html-content='paginator.assortment' selection='paginator.filters.server.colors' exec-on-change='paginator.refreshData()')
+    data-none-selected-text="Весь" bs-select html-content='paginator.assortment' selection='paginator.filters.server.assortment' exec-on-change='paginator.refreshData()')
 .form-group.col-xs-3
     label.col-xs-4.control-label(ng-click="paginator.reset('plots')"
     style='text-align: right; margin-top: 6px') Сюжеты
