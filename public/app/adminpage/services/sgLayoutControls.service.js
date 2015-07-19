@@ -16,7 +16,7 @@
         svc.modalRemove = modalRemove;
         svc.modalAssignDoer = modalAssignDoer;
         svc.modalAccept = modalAccept;
-        svc.modalFinishJob = modalFinishJob;
+        svc.modalUploadFiles = modalUploadFiles;
         svc.modalDownloadFiles = modalDownloadFiles;
         svc.modalAddLayoutComment = modalAddLayoutComment;
 
@@ -238,10 +238,10 @@
 
         }
 
-        function modalFinishJob(layout) {
+        function modalUploadFiles(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-finishJob',
-                controller: modalFinishJobCtrl,
+                templateUrl: '/partials/modal-uploadFiles',
+                controller: modalUploadFilesCtrl,
                 controllerAs: 'vm',
                 resolve: {
                     layout: function () {
@@ -254,9 +254,9 @@
             return $modal.open(modalDO).result;
         }
 
-        modalFinishJobCtrl.$inject = ['$modalInstance', 'layout'];
+        modalUploadFilesCtrl.$inject = ['$modalInstance', 'layout'];
 
-        function modalFinishJobCtrl($modalInstance, layout) {
+        function modalUploadFilesCtrl($modalInstance, layout) {
             var vm = this;
 
             vm.url = sgLayouts.getThumbUrl(layout);

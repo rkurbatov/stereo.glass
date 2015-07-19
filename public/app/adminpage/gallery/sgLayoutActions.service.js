@@ -109,7 +109,7 @@
         }
 
         function uploadFiles(layout) {
-            sgLayoutControls.modalFinishJob(layout)
+            sgLayoutControls.modalUploadFiles(layout)
                 .then(function (response) {
                     var setObject = {
                         status: 'finished',
