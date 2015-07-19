@@ -67,7 +67,7 @@ function deployCustom() {
         'public/app/adminpage/**/*.js'
     ])
         .pipe(concat('custom-admin.min.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesArrayAdmin)

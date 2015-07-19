@@ -37,7 +37,9 @@
                     sgUsers.update(user['_id'], modifiedProperties)
                         .then(function () {
                             _.merge(user, modifiedProperties);
-                            console.log(user);
+                            if (modifiedProperties.borderColor) {
+                                sgUsers.borderColors[user.username] = modifiedProperties.borderColor;
+                            }
                         });
                 });
         }

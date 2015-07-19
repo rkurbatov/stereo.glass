@@ -9,13 +9,18 @@ ul.sg-layout-list {
   }
 }
 
-.sg-layout-block {
+.sg-layout-block-outer {
   display: block;
+  box-sizing: content-box;
   width: 165px;
   height: 240px;
   margin: auto;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgba(0, 0, 0, 0);
 
   img {
     width: 125px;
@@ -39,10 +44,13 @@ ul.sg-layout-list {
   }
 }
 
-.layout-info {
-  /*background-color: lightyellow;*/
-  margin-right: 20px;
-  height: 270px;
+.sg-layout-block-inner {
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgba(0, 0, 0, 0);
+
+  width: 165px;
+  height: 240px;
 }
 
 .sg-layout-controls {
@@ -58,10 +66,6 @@ ul.sg-layout-list {
   }
 
   margin: 0 5px;
-}
-
-.sg-border-rejected {
-  border: 2px solid red !important;
 }
 
 .sg-layout-comment-add {

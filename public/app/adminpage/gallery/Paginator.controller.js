@@ -43,6 +43,9 @@
         vm.getThumbUrl = sgLayouts.getThumbUrl;
         vm.addComment = addComment;
 
+        vm.getAuthorBorderColor = getAuthorBorderColor;
+        vm.getAssigneeBorderColor = getAssigneeBorderColor;
+
         vm.handleLayoutClick = handleLayoutClick;
         vm.addComment = addComment;
         vm.showInGallery = showInGallery;
@@ -170,6 +173,14 @@
                 .then(function (commentText) {
                     return sgLayouts.addComment(layout, commentText);
                 });
+        }
+
+        function getAuthorBorderColor(layout) {
+            return 'border-color: ' + sgUsers.borderColors[layout.createdBy];
+        }
+
+        function getAssigneeBorderColor(layout) {
+            return 'border-color: ' + sgUsers.borderColors[layout.assignedTo];
         }
 
     }

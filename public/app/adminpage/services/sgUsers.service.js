@@ -25,6 +25,7 @@
         svc.authors = [];
         svc.designers = [];
         svc.raters = [];
+        svc.borderColors = {};
 
         svc.getMail = getMail;
 
@@ -59,6 +60,12 @@
                     return user.role === 'designer';
                 }), 'username');
 
+                // Fill border colors hash
+                _.each(svc.list, function(user){
+                    if (_.contains(['admin', 'curator', 'founder', 'designer'], user.role)) {
+                        svc.borderColors[user.username] = user.borderColor;
+                    }
+                });
             }
         }
 
