@@ -23,7 +23,8 @@
     "angular-toastr": "~1.4.1",
     "ng-file-upload": "5.0.4",
     "angular-daterangepicker": "~0.1.16",
-    "nsPopover": "~0.6.8"
+    "nsPopover": "~0.6.8",
+    "angularjs-color-picker": "~0.6.2"
   },
   "resolutions": {
     "angular": "~1.4.3",

@@ -15,6 +15,7 @@ module.exports = function (mongoose) {
             type: String,
             default: "user"
         },
+        borderColor: String,
         createdAt: Date,
         activeAt: Date
     });

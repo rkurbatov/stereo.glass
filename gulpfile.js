@@ -31,6 +31,8 @@ function deployVendor() {
         //'public/libs/nsPopover/src/nsPopover.js',
         'public/app/tmp/js/nsPopover.js',
         'public/libs/ryanmullins-angular-hammer/angular.hammer.js',
+        'public/libs/tinycolor/tinycolor.js',
+        'public/libs/angularjs-color-picker/angularjs-color-picker.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];
 
@@ -40,7 +42,8 @@ function deployVendor() {
         'public/libs/bootstrap-select/dist/css/bootstrap-select.css',
         'public/app/tmp/fileinput.css',
         'public/libs/bootstrap-daterangepicker/daterangepicker-bs3.css',
-        'public/libs/angular-toastr/dist/angular-toastr.css'
+        'public/libs/angular-toastr/dist/angular-toastr.css',
+        'public/libs/angularjs-color-picker/angularjs-color-picker.css'
     ];
 
     gulp.src(vendorLibsArrayAdmin)

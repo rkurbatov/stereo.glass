@@ -13,6 +13,11 @@
         label.control-label Права доступа
         select.form-control(name="roles", ng-model="vm.user.role", ng-options="r for r in vm.roles")
     .form-group
+        label.control-label Цвет рамки
+        color-picker(ng-model="vm.borderColor"
+        color-picker-format="'rgb'"
+        color-picker-alpha='false')
+    .form-group
         label.control-label Пароль
         input.form-control(name="password", ng-model="vm.newPassword")
     .form-group
@@ -22,5 +27,6 @@
 .modal-footer
     .center-block
         .col-xs-2
-        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()" ng-disabled="vm.newPassword !== vm.confirmPassword") Да
+        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()"
+        ng-disabled="(vm.newPassword || vm.comfirmPassword) && vm.newPassword !== vm.confirmPassword") Да
         button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет

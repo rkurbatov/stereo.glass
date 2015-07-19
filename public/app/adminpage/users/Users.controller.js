@@ -12,15 +12,12 @@
         var vm = this;
         vm.svcUsers = sgUsers;
         vm.mail = vm.svcUsers.currentUser.mail;
+        vm.confirmRemove = confirmRemove;
+        vm.openEditDialog = openEditDialog;
 
-        initController();
+        // IMPLEMENTATION
 
-        function initController() {
-
-        }
-
-
-        vm.confirmRemove = function (user) {
+        function confirmRemove(user) {
             var header = "Удаление пользователя";
             var message = "Вы действительно хотите удалить пользователя <b>" + user.username + "</b>?";
 
@@ -31,14 +28,16 @@
                 .then(function () {
                     vm.svcUsers.reload();
                 });
-        };
+        }
 
-        vm.openEditDialog = function (user) {
-            sgUserControls.modalEditUser(_.pick(user, ['_id', 'username', 'usermail', 'role']))
+        // TODO: Check for pristine form
+        function openEditDialog(user) {
+            sgUserControls.modalEditUser(user)
                 .then(function (modifiedProperties) {
                     sgUsers.update(user['_id'], modifiedProperties)
                         .then(function () {
                             _.merge(user, modifiedProperties);
+                            console.log(user);
                         });
                 });
         }

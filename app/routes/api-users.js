@@ -31,7 +31,7 @@ module.exports = function (express, Account, Layout) {
                         : [req.query.roles]
                 }
             }
-            Account.find(findObj, '_id username usermail role createdAt activeAt', function (err, users) {
+            Account.find(findObj, '-password', function (err, users) {
                 if (err) {
                     console.log(err);
                     res.status(500).end();
@@ -79,6 +79,9 @@ module.exports = function (express, Account, Layout) {
                 user.username = setObject.username;
                 user.usermail = setObject.usermail;
                 user.role = setObject.role;
+                if (setObject.borderColor) {
+                    user.borderColor = setObject.borderColor;
+                }
 
                 // !!! Saving needed before password change. 
                 user.save();

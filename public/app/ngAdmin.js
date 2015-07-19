@@ -13,7 +13,8 @@
             'hmTouchEvents',
             'toastr',
             'ngFileUpload',
-            'nsPopover'
+            'nsPopover',
+            'color.picker'
         ])
         .constant('_', window._)        // use lodash as $rootScope constant
         .run(LoDashProvider);

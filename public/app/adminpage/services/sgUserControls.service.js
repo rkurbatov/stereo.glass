@@ -32,9 +32,14 @@
         function editUserCtrl($modalInstance, sgUsers, user) {
             var vm = this;
             vm.user = user;
+            vm.newPassword = '';
             vm.roles = sgUsers.allRoles;
+            vm.borderColor = vm.user.borderColor || "rgb(255, 255, 255)";
 
             vm.ok = function () {
+                if (vm.borderColor !== "rgb(255, 255, 255") {
+                    vm.user.borderColor = vm.borderColor;
+                }
                 if (vm.newPassword) {
                     vm.user.password = vm.newPassword;
                 }
