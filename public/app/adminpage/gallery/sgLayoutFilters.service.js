@@ -59,9 +59,12 @@
                 }
             },
             {
-                name: 'назначенные',
-                subType: 'byAssignee',
-                value: {}
+                name: 'еще не принятые',
+                subType: 'firstOrder',
+                value: function(layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden && layout.status === 'assigned';
+                }
             },
             {
                 name: 'отклонённые',
@@ -70,6 +73,11 @@
                     layout.compareValue = layout.average;
                     return !layout.isHidden && layout.status === 'rejected';
                 }
+            },
+            {
+                name: 'назначенные',
+                subType: 'byAssignee',
+                value: {}
             },
             {
                 name: 'с комментариями',
