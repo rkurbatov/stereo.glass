@@ -2,11 +2,22 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var concat = require('gulp-concat');
+var gulpif = require('gulp-if');
+
+gulp.task('deployDevel', function(){
+    deployVendor();
+    deployCustom();
+});
+
+gulp.task('deployProduction', function(){
+    deployVendor(true);
+    deployCustom(true);
+});
 
 gulp.task('deployVendor', deployVendor);
 gulp.task('deployCustom', deployCustom);
 
-function deployVendor() {
+function deployVendor(production) {
     var vendorLibsArrayAdmin = [
         'public/libs/jquery/dist/jquery.js',
         'public/libs/jquery-color/jquery.color.js',
@@ -46,7 +57,7 @@ function deployVendor() {
 
     gulp.src(vendorLibsArrayAdmin)
         .pipe(concat('vendor-admin.min.js'))
-        .pipe(uglify())
+        .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(vendorStylesArrayAdmin)
@@ -55,7 +66,7 @@ function deployVendor() {
         .pipe(gulp.dest('public/stylesheets'));
 }
 
-function deployCustom() {
+function deployCustom(production) {
     var customStylesArrayAdmin = [
         'public/css/admin/admin.css'
     ];
@@ -65,7 +76,7 @@ function deployCustom() {
         'public/app/adminpage/**/*.js'
     ])
         .pipe(concat('custom-admin.min.js'))
-        .pipe(uglify())
+        .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesArrayAdmin)
