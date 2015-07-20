@@ -88,21 +88,21 @@
                 vm.plots = sgCategories.plots;
             });
 
-            // Fill designers list
-            sgUsers.loaded.then(function () {
-                vm.authors = sgUsers.authors;
-            });
+            vm.dateRange = {
+                startDate: null,
+                    endDate: null
+            };
 
             // Watch over datarange change
             $scope.$watch(function () {
-                return vm.filters.dateRange;
+                return vm.dateRange;
             }, function (newVal) {
                 // convert moment objects to ISO 8601 strings for comparison
                 if (newVal.startDate) {
-                    vm.filters.dateRange.startDateString = newVal.startDate.toISOString();
+                    vm.dateRange.startDateString = newVal.startDate.toISOString();
                 }
                 if (newVal.endDate) {
-                    vm.filters.dateRange.endDateString = newVal.endDate.toISOString();
+                    vm.dateRange.endDateString = newVal.endDate.toISOString();
                 }
             });
 
@@ -113,6 +113,7 @@
                 },
                 function (mode) {
                     vm.sortOrder.current = vm.sortOrder[mode][0];
+                    vm.filters.current[mode] = vm.filters[mode][0];
                 }
             );
 
@@ -126,8 +127,8 @@
         }
 
         function resetDateRange() {
-            vm.filters.dateRange.startDate = null;
-            vm.filters.dateRange.endDate = null;
+            vm.dateRange.startDate = null;
+            vm.dateRange.endDate = null;
         }
 
         function resetSearch() {
@@ -171,39 +172,41 @@
             vm.search.reName = new RegExp(vm.search.string.toLowerCase());
         }
 
+        // Filter by viewMode, status and date range
         function viewModeFilter(layout) {
             switch (vm.viewMode) {
                 case "Rating":
                     return (
                             !layout.status
-                            && vm.filters.currentRating.value(layout)   // current rating filter
+                            && vm.filters.current.Rating.value(layout)   // current rating filter
                         ) && (
-                            !vm.filters.dateRange.startDate
-                            || vm.filters.dateRange.startDateString < layout.createdAt
+                            !vm.dateRange.startDate
+                            || vm.dateRange.startDateString < layout.createdAt
                         ) && (
-                            !vm.filters.dateRange.endDate
-                            || vm.filters.dateRange.endDateString > layout.createdAt
+                            !vm.dateRange.endDate
+                            || vm.dateRange.endDateString > layout.createdAt
                         );
                 case "Progress":
                     return (
                             layout.status
                             && layout.status !== "finished"
-                            && vm.filters.currentProgress.value(layout)
+                            && vm.filters.current.Progress.value(layout)
                         ) && (
-                            !vm.filters.dateRange.startDate
-                            || vm.filters.dateRange.startDateString < layout.assignedAt
+                            !vm.dateRange.startDate
+                            || vm.dateRange.startDateString < layout.assignedAt
                         ) && (
-                            !vm.filters.dateRange.endDate
-                            || vm.filters.dateRange.endDateString > layout.assignedAt
+                            !vm.dateRange.endDate
+                            || vm.dateRange.endDateString > layout.assignedAt
                         );
                 case "Ready":
                     return layout.status === "finished"
+                        && vm.filters.current.Ready.value(layout)
                         && (
-                            !vm.filters.dateRange.startDate
-                            || vm.filters.dateRange.startDateString < layout.finishedAt
+                            !vm.dateRange.startDate
+                            || vm.dateRange.startDateString < layout.finishedAt
                         ) && (
-                            !vm.filters.dateRange.endDate
-                            || vm.filters.dateRange.endDateString > layout.finishedAt
+                            !vm.dateRange.endDate
+                            || vm.dateRange.endDateString > layout.finishedAt
                         );
             }
         }

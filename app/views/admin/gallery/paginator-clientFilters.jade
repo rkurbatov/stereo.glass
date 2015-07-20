@@ -9,29 +9,36 @@
         span.input-group-addon(ng-click='paginator.resetDateRange()')
             i.fa.fa-calendar
         input.form-control(date-range-picker, type="text",
-        ng-model='paginator.filters.dateRange', options='paginator.dateRangeOptions')
+        ng-model='paginator.dateRange', options='paginator.dateRangeOptions')
 .col-xs-7
     .form-horizontal
-        //- Rating view filters
-        .form-group(ng-if='paginator.viewMode === "Rating"')
+        .form-group
             | Показать &nbsp;
-            //- Client filters for Rating viewmode
-            select.form-control.sg-select-inline(ng-model="paginator.filters.currentRating"
-            ng-options="opt.name for opt in paginator.filters.rating")
+            //- first order filter (depends on viewMode)
+            select.form-control.sg-select-inline(ng-model="paginator.filters.current[paginator.viewMode]"
+            ng-options="opt.name for opt in paginator.filters[paginator.viewMode]")
             | &nbsp;&nbsp;
-            //- Raters filters (list of admin and founder)
-            select.form-control.sg-select-inline(ng-model="paginator.filters.currentRater"
-            ng-options="opt.user for opt in paginator.filters.raters"
-            ng-if='paginator.filters.currentRating.mode === "byRater"'
-            ng-change='paginator.filters.currentRaterFilter.value = paginator.filters.currentRater.value')
-        //- Progress view filters
-        .form-group(ng-if='paginator.viewMode === "Progress"')
-            //- Client filters for Progress Viemode
-            select.form-control.sg-select-inline(ng-model='paginator.filters.currentProgress'
-            ng-options="opt.name for opt in paginator.filters.progress")
-            | &nbsp;&nbsp;
-            //- Designers filters (list of designers)
-            select.form-control.sg-select-inline(ng-model="paginator.filters.currentDesigner"
-            ng-options="opt.designer for opt in paginator.filters.designers"
-            ng-if='paginator.filters.currentProgress.mode === "byDesigner"'
-            ng-change='paginator.filters.currentDesignerFilter.value = paginator.filters.currentDesigner.value')
+
+            //- second order rater filter
+            select.form-control.sg-select-inline(ng-model="paginator.filters.current.rater"
+            ng-options="opt.rater for opt in paginator.filters.raters"
+            ng-if='paginator.filters.current[paginator.viewMode].subType === "byRater"'
+            ng-change='paginator.filters.current[paginator.viewMode].value = paginator.filters.current.rater.value')
+
+            //- second order author filter
+            select.form-control.sg-select-inline(ng-model="paginator.filters.current.author"
+            ng-options="opt.author for opt in paginator.filters.authors"
+            ng-if='paginator.filters.current[paginator.viewMode].subType === "byAuthor"'
+            ng-change='paginator.filters.current[paginator.viewMode].value = paginator.filters.current.author.value')
+
+            //- second order commenter filter
+            select.form-control.sg-select-inline(ng-model="paginator.filters.current.commenter"
+            ng-options="opt.commenter for opt in paginator.filters.commenters"
+            ng-if='paginator.filters.current[paginator.viewMode].subType === "byCommenter"'
+            ng-change='paginator.filters.current[paginator.viewMode].value = paginator.filters.current.commenter.value')
+
+            //- second order assignee filter
+            select.form-control.sg-select-inline(ng-model="paginator.filters.current.assignee"
+            ng-options="opt.assignee for opt in paginator.filters.assignees"
+            ng-if='paginator.filters.current[paginator.viewMode].subType === "byAssignee"'
+            ng-change='paginator.filters.current[paginator.viewMode].value = paginator.filters.current.assignee.value')

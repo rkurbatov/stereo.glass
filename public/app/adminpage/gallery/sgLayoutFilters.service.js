@@ -8,59 +8,122 @@
     sgLayoutFilters.$inject = ['sgUsers'];
 
     function sgLayoutFilters(sgUsers) {
-        var filters = {
-            rating: [
-                {
-                    name: "все",
-                    mode: 'byLayout',
-                    value: function (layout) {
-                        layout.compareValue = layout.average;
-                        return !layout.isHidden;
-                    }
-                },
-                {
-                    name: "еще не просмотренные",
-                    mode: 'byLayout',
-                    value: function (layout) {
-                        return (layout.rating === -1 || layout.notRatedByMe) && !layout.isHidden;
-                    }
-                },
-                {
-                    name: "с комментариями",
-                    mode: 'byLayout',
-                    value: function (layout) {
-                        layout.compareValue = layout.comments.length;
-                        return layout.comments.length;
-                    }
+
+        var ratingMode = [
+            {
+                name: 'все',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden;
                 }
-            ],
-            progress: [],
+            },
+            {
+                name: 'ещё не просмотренные',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    return !layout.isHidden &&
+                        (
+                            layout.rating === -1
+                            || layout.notRatedByMe
+                        );
+                }
+            },
+            {
+                name: 'оцененные',
+                subType: 'byRater',
+                value: {}
+            },
+            {
+                name: 'загруженные',
+                subType: 'byAuthor',
+                value: {}
+            },
+            {
+                name: 'с комментариями',
+                subType: 'byCommenter',
+                value: function (layout) {
+                    layout.compareValue = layout.comments.length;
+                    return layout.comments.length;
+                }
+            }
+        ];
+
+        var progressMode = [
+            {
+                name: 'все',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden;
+                }
+            },
+            {
+                name: 'назначенные',
+                subType: 'byAssignee',
+                value: {}
+            },
+            {
+                name: 'отклонённые',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden && layout.status === 'rejected';
+                }
+            },
+            {
+                name: 'с комментариями',
+                subType: 'byCommenter',
+                value: function (layout) {
+                    layout.compareValue = layout.comments.length;
+                    return layout.comments.length;
+                }
+            }
+        ];
+
+        var readyMode = [
+            {
+                name: 'все',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden;
+                }
+            },
+            {
+                name: 'выполненные',
+                subType: 'byAssignee',
+                value: {}
+            },
+            {
+                name: 'с комментариями',
+                subType: 'byCommenter',
+                value: function (layout) {
+                    layout.compareValue = layout.comments.length;
+                    return layout.comments.length;
+                }
+            }
+        ];
+
+        var filters = {
+            Rating: ratingMode,
+            Progress: progressMode,
+            Ready: readyMode,
+
             raters: [],
-            designers: [],
-            server: {
-                assortment: [],
-                colors: [],
-                countries: [],
-                plots: [],
-                designers: []
-            },
-            currentOrder: {},
-            currentRating: {},
-            currentProgress: {},
-            currentServer: {},
-            currentRater: {},
-            currentRaterFilter: {
-                name: "оцененные пользователем",
-                mode: "byRater"
-            },
-            currentDesigner: {},
-            currentDesignerFilter: {
-                name: "назначенные дизайнеру",
-                mode: "byDesigner"
-            },
-            dateRange: {
-                startDate: null,
-                endDate: null
+            commenters: [],
+            authors: [],
+            assignees: [],
+
+            current: {
+                Rating: {},
+                Progress: {},
+                Ready: {},
+
+                author: {},
+                rater: {},
+                commenter: {},
+                assignee: {}
             }
         };
 
@@ -68,98 +131,123 @@
 
         return filters;
 
+        // IMPLEMENTATION
+
         function initService() {
-            filters.currentRating = filters.rating[0];
 
-            // add to filters array filter by founder name
-            sgUsers.loaded
-                .then(function () {
-                    _.forEach(sgUsers.raters, addFilter);
-
-                    function addFilter(userName) {
-                        var filterObject = {
-                            user: userName === sgUsers.currentUser.name
-                                ? 'мной'
-                                : userName,
-                            value: function (layout) {
-                                layout.compareValue = (_.find(layout.ratings, {assignedBy: userName}) || {}).value;
-                                return !layout.isHidden && _.any(layout.ratings, {assignedBy: userName});
-                            }
-                        };
-
-                        // place filter 'rated by me' at the beginning
-                        userName === sgUsers.currentUser.name
-                            ? filters.raters.unshift(filterObject)
-                            : filters.raters.push(filterObject);
-                    }
-
-                    filters.currentRater = filters.raters[0];
-                    filters.currentRaterFilter.value = filters.currentRater.value;
-                    filters.rating.push(filters.currentRaterFilter);
-
-                });
-
-            // add to filters 'assigned to designer' filters.
-            if (_.contains(['admin', 'founder', 'curator', 'designer'], sgUsers.currentUser.role)) {
-                sgUsers.loaded
-                    .then(function () {
-
-                        var allFilter = {
-                            designer: "всем",
-                            value: function (layout) {
-                                layout.compareValue = layout.average;
-                                return _.contains(["assigned", "accepted", "rejected"], layout.status);
-                            }
-                        };
-
-                        filters.designers.unshift(allFilter);
-
-                        _.forEach(sgUsers.designers, addFilter);
-
-                        function addFilter(designerName) {
-
-                            var filterObject = {
-                                designer: (sgUsers.currentUser.role === 'designer' && sgUsers.currentUser.name === designerName)
-                                    ? 'мне'
-                                    : designerName,
-                                value: function (layout) {
-                                    layout.compareValue = layout.status;
-                                    return !layout.isHidden && layout.assignedTo === designerName;
-                                }
-                            };
-
-                            // place own name at the beginning
-                            (sgUsers.currentUser.role === 'designer' && sgUsers.currentUser.name === designerName)
-                                ? filters.designers.unshift(filterObject)
-                                : filters.designers.push(filterObject);
-
-                        }
-
-                        filters.currentDesigner = filters.designers[0];
-                        filters.currentDesignerFilter.value = filters.currentDesigner.value;
-                        filters.progress.push(filters.currentDesignerFilter);
-                        filters.currentProgress = filters.progress[0];
-
-                    });
+            if (sgUsers.currentUser.role === 'admin') {
+                addRemovedFilter();
             }
 
-            // add to filters 'deleted' filter
             sgUsers.loaded
                 .then(function () {
-                    if (sgUsers.currentUser.role === 'admin') {
-                        filters.rating.push(
-                            {
-                                name: 'удалённые',
-                                mode: 'byLayout',
-                                value: function (layout) {
-                                    layout.compareValue = layout.average;
-                                    return layout.isHidden;
-                                }
-                            }
-                        );
-                    }
+                    _.forEach(sgUsers.raters, addRaterFilter);
+                    _.forEach(sgUsers.commenters, addCommenterFilter);
+                    _.forEach(sgUsers.authors, addAuthorFilter);
+                    _.forEach(sgUsers.assignees, addAssigneeFilter);
+
+                    addAllCommentersFilter();
+
+                    filters.current.rater = filters.raters[0];
+                    filters.current.author = filters.authors[0];
+                    filters.current.commenter = filters.commenters[0];
+                    filters.current.assignee = filters.assignees[0];
                 });
         }
+
+        function addRemovedFilter() {
+            ratingMode.push(
+                {
+                    name: 'удалённые',
+                    mode: 'firstOrder',
+                    value: function (layout) {
+                        layout.compareValue = layout.average;
+                        return layout.isHidden;
+                    }
+                }
+            );
+        }
+
+        function addRaterFilter(raterName) {
+            var filterObject = {
+                rater: raterName === sgUsers.currentUser.name
+                    ? 'мной'
+                    : raterName,
+                value: function (layout) {
+                    layout.compareValue = (_.find(layout.ratings, {assignedBy: raterName}) || {}).value;
+                    return !layout.isHidden && _.any(layout.ratings, {assignedBy: raterName});
+                }
+            };
+
+            // place filter 'rated by me' at the beginning
+            raterName === sgUsers.currentUser.name
+                ? filters.raters.unshift(filterObject)
+                : filters.raters.push(filterObject);
+        }
+
+        function addCommenterFilter(commenterName) {
+            var filterObject = {
+                commenter: commenterName === sgUsers.currentUser.name
+                    ? 'мной'
+                    : commenterName,
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden && _.any(layout.comments, {postedBy: commenterName});
+                }
+            };
+
+            // place filter 'rated by me' at the beginning
+            commenterName === sgUsers.currentUser.name
+                ? filters.commenters.unshift(filterObject)
+                : filters.commenters.push(filterObject);
+        }
+
+        function addAllCommentersFilter() {
+            var filterObject = {
+                commenter: 'всеми',
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden && layout.comments.length;
+                }
+            };
+
+            filters.commenters.unshift(filterObject);
+        }
+
+        function addAuthorFilter(authorName) {
+            var filterObject = {
+                author: authorName === sgUsers.currentUser.name
+                    ? 'мной'
+                    : authorName,
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden && layout.createdBy === '';
+                }
+            };
+
+            // place filter 'rated by me' at the beginning
+            authorName === sgUsers.currentUser.name
+                ? filters.authors.unshift(filterObject)
+                : filters.authors.push(filterObject);
+        }
+
+        function addAssigneeFilter(assigneeName) {
+            var filterObject = {
+                assignee: sgUsers.currentUser.name === assigneeName
+                    ? 'мне'
+                    : assigneeName,
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden && layout.assignedTo === assigneeName;
+                }
+            };
+
+            // place own name at the beginning
+            sgUsers.currentUser.name === assigneeName
+                ? filters.assignees.unshift(filterObject)
+                : filters.assignees.push(filterObject);
+        }
+
     }
 
 })(window, window.angular);
