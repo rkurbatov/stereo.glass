@@ -161,10 +161,13 @@
             }
         }
 
-        function getThumbUrl(layout) {
+        function getThumbUrl(layout, viewMode) {
+            var img = (layout.status === 'finished' && viewMode === 'Ready')
+                ? layout.urlGifLoRes
+                : layout.urlThumb;
             return '/uploads/' + (layout.status
                     ? 'ready/'
-                    : 'pictures/') + layout.urlDir + '/' + layout.urlThumb;
+                    : 'pictures/') + layout.urlDir + '/' + img;
         }
 
         function getImgUrl(layout) {
