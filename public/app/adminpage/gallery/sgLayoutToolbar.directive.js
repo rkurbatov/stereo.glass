@@ -11,7 +11,6 @@
         var ddo = {
             restrict: 'E',
             templateUrl: '/partials/directive-sgLayoutToolbar',
-            link: link,
             scope: {},
             bindToController: {
                 layout: '='
@@ -20,11 +19,9 @@
             controllerAs: 'toolbar'
         };
 
+        sgLayoutToolbarController.$inject = ['$scope'];
+
         return ddo;
-
-        function link(scope, elm, attrs) {
-
-        }
 
         function sgLayoutToolbarController($scope) {
             // DECLARATION
