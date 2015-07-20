@@ -4,12 +4,17 @@ var uglifycss = require('gulp-uglifycss');
 var concat = require('gulp-concat');
 var gulpif = require('gulp-if');
 
-gulp.task('deployDevel', function(){
+
+gulp.task('default', ['buildDevel']);
+
+gulp.task('buildDevel', function(){
+    require('fs').writeFileSync('app/views/admin/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor();
     deployCustom();
 });
 
-gulp.task('deployProduction', function(){
+gulp.task('buildProduction', function(){
+    require('fs').writeFileSync('app/views/admin/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor(true);
     deployCustom(true);
 });
