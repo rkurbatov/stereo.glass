@@ -25,8 +25,8 @@ style='{{paginator.getAuthorBorderColor(layout)}}')
         hm-swipeup="paginator.showInGallery()"
         ng-class='paginator.getThumbClass(layout)')
         sg-rating.text-center(linked-object='layout'
-        ng-show='paginator.filters.currentRating.mode === "byLayout"')
-        .text-center(ng-show='paginator.filters.currentRating.mode === "byRater"'
+        ng-show='paginator.filters.current[paginator.viewMode].subType !== "byRater"')
+        .text-center(ng-show='paginator.filters.current[paginator.viewMode].subType === "byRater"'
         style='font-size: 20px')
             i.glyphicon.glyphicon-star.sg-gold-i
             | {{ layout.compareValue }}
