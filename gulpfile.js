@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var concat = require('gulp-concat');
-var notify = require('gulp-notify');
 
 gulp.task('deployVendor', deployVendor);
 gulp.task('deployCustom', deployCustom);
@@ -28,7 +27,6 @@ function deployVendor() {
         'public/libs/angular-toastr/dist/angular-toastr.tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
         'public/libs/ng-file-upload/ng-file-upload-all.js',
-        //'public/libs/nsPopover/src/nsPopover.js',
         'public/app/tmp/js/nsPopover.js',
         'public/libs/ryanmullins-angular-hammer/angular.hammer.js',
         'public/libs/tinycolor/tinycolor.js',
@@ -67,7 +65,7 @@ function deployCustom() {
         'public/app/adminpage/**/*.js'
     ])
         .pipe(concat('custom-admin.min.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesArrayAdmin)

@@ -85,8 +85,4 @@ block content
                 #tab-profile.tab-pane
                     include ./_profile
 
-    .text-center: sub
-        | Stereo Glass admin panel v
-        include ../../../VERSION.txt
-        if env == 'dev'
-            | -dev
+    include _version

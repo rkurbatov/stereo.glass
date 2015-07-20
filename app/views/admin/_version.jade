@@ -1,0 +1,6 @@
+.text-center: sub
+    | Stereo Glass admin panel v
+    include ../../../VERSION.txt
+    if env == 'dev'
+        | -dev-
+        include ../../../COMMIT.txt

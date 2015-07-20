@@ -19,3 +19,5 @@ check_run bower.json "bower install && bower prune"
 cd public
 compass compile
 cd ..
+
+git rev-list HEAD --count > COMMIT.txt

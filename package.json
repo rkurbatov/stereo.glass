@@ -34,6 +34,7 @@
     "gulp-exec": "~2.1.1",
     "gulp-git": "~1.2.4",
     "gulp-notify": "~2.2.0",
-    "gulp-connect-pm2": "0.0.2"
+    "gulp-connect-pm2": "0.0.2",
+    "gulp-compass": "~2.1.0"
   }
 }
