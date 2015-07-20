@@ -17,6 +17,7 @@
         svc.removeMyRating = removeMyRating;
         svc.changeMyRating = changeMyRating;
         svc.remove = remove;
+        svc.restore = restore;
         svc.update = update;
         svc.getThumbUrl = getThumbUrl;
         svc.getImgUrl = getImgUrl;
@@ -117,6 +118,10 @@
                         svc.unratedCount -= 1;
                     }
                 });
+        }
+
+        function restore(id) {
+            return update(id, {isHidden: false});
         }
 
         function update(id, setObject, unsetArray) {

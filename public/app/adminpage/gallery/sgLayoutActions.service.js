@@ -6,9 +6,9 @@
         .module('sgAppAdmin')
         .service('sgLayoutActions', sgLayoutActions);
 
-    sgLayoutActions.$inject = ['sgUsers', 'sgLayouts', 'sgLayoutControls', 'sgMessages', '$q'];
+    sgLayoutActions.$inject = ['sgUsers', 'sgLayouts', 'sgLayoutModals', 'sgMessages', '$q'];
 
-    function sgLayoutActions(sgUsers, sgLayouts, sgLayoutControls, sgMessages, $q) {
+    function sgLayoutActions(sgUsers, sgLayouts, sgLayoutModals, sgMessages, $q) {
 
         // ==== DECLARATION =====
         var svc = this;
@@ -18,13 +18,14 @@
         svc.uploadFiles = uploadFiles;
         svc.downloadFiles = downloadFiles;
         svc.editLayout = editLayout;
-        svc.confirmRemove = confirmRemove;
+        svc.moveToTrash = moveToTrash;
+        svc.restoreFromTrash = restoreFromTrash;
 
         var name = sgUsers.currentUser.name;
         var role = sgUsers.currentUser.role;
 
         function assignDoer(layout) {
-            sgLayoutControls.modalAssignDoer(layout)
+            sgLayoutModals.assignDoer(layout)
                 .then(function (response) {
                     var setObject = {
                         assignedTo: response.assignedTo,
@@ -72,7 +73,7 @@
         }
 
         function acceptJob(layout) {
-            sgLayoutControls.modalAccept(layout)
+            sgLayoutModals.accept(layout)
                 .then(function (response) {
                     var setObject = {
                         status: response.rejected
@@ -109,7 +110,7 @@
         }
 
         function uploadFiles(layout) {
-            sgLayoutControls.modalUploadFiles(layout)
+            sgLayoutModals.uploadFiles(layout)
                 .then(function (response) {
                     var setObject = {
                         status: 'finished',
@@ -133,20 +134,33 @@
         }
 
         function downloadFiles(layout) {
-            sgLayoutControls.modalDownloadFiles(layout);
+            sgLayoutModals.downloadFiles(layout);
         }
 
         function editLayout(layout) {
 
         }
 
-        function confirmRemove(layout) {
-            sgLayoutControls.modalRemove(layout)
+        function moveToTrash(layout) {
+            var header = '<span class="sg-red-i">Удаление изображения</span>';
+            var message = 'Вы хотите удалить это изображение в корзину?';
+            sgLayoutModals.remove(layout, header, message)
                 .then(function () {
                     sgLayouts.remove(layout['_id']).then(function () {
-                        //TODO: Fix issue with unselection after layout delete
-                        //vm.unselectLayout();
+                        // hack! Imported from paginator via sgLayoutToolbar controller's scope
+                        svc.unselectLayout();
                         layout.isHidden = true;
+                    });
+                });
+        }
+
+        function restoreFromTrash(layout) {
+            var header = 'Восстановление изображения';
+            var message = 'Вы хотите восстановить это изображение?';
+            sgLayoutModals.restore(layout, header, message)
+                .then(function () {
+                    sgLayouts.restore(layout['_id']).then(function () {
+                        layout.isHidden = false;
                     });
                 });
         }

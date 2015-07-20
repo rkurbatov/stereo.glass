@@ -56,7 +56,9 @@
             });
 
             function removeRating() {
-                if (scope.isAuthor || scope.linkedObject.notRatedByMe) return;
+                if (scope.isAuthor
+                    || scope.linkedObject.notRatedByMe
+                    || scope.linkedObject.isHidden) return;
 
                 sgLayouts.removeMyRating(scope.linkedObject)
                     .then(function () {

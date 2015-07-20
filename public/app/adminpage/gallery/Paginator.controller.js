@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .controller('Paginator', Paginator);
 
-    Paginator.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutSortOrder', 'sgLayoutControls', 'sgUsers'];
+    Paginator.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutSortOrder', 'sgLayoutModals', 'sgUsers'];
 
-    function Paginator($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutSortOrder, sgLayoutControls, sgUsers) {
+    function Paginator($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutSortOrder, sgLayoutModals, sgUsers) {
 
         // ==== DECLARATION =====
 
@@ -161,7 +161,7 @@
         }
 
         function showInGallery() {
-            sgLayoutControls.modalGallery(vm)
+            sgLayoutModals.showInGallery(vm)
         }
 
         function searchFilter(layout) {
@@ -212,7 +212,7 @@
         }
 
         function addComment(layout) {
-            sgLayoutControls.modalAddLayoutComment(layout)
+            sgLayoutModals.addLayoutComment(layout)
                 .then(function (commentText) {
                     return sgLayouts.addComment(layout, commentText);
                 });

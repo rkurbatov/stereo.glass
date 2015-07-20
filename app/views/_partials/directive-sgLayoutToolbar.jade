@@ -19,7 +19,11 @@
     ng-show='toolbar.isEditVisible()')
         .fa-pencil-square-o.fa-stack-2x.sg-green-i.sg-shadowed-text
     //- Remove
-    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.confirmRemove(toolbar.layout)'
-    ng-show='toolbar.isRemoveVisible()')
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.moveToTrash(toolbar.layout)'
+    ng-show='toolbar.isTrashVisible()')
         .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
         .fa-trash.fa-stack-1x.sg-red-i.sg-shadowed-text
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.restoreFromTrash(toolbar.layout)'
+    ng-show='toolbar.isRestoreVisible()')
+        .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
+        .fa-undo.fa-stack-1x.sg-red-i.sg-shadowed-text

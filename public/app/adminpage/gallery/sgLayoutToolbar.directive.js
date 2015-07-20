@@ -26,8 +26,7 @@
 
         }
 
-        function sgLayoutToolbarController() {
-
+        function sgLayoutToolbarController($scope) {
             // DECLARATION
 
             var vm = this;
@@ -37,9 +36,11 @@
             vm.isUploadVisible = isUploadVisible;
             vm.isDownloadVisible = isDownloadVisible;
             vm.isEditVisible = isEditVisible;
-            vm.isRemoveVisible = isRemoveVisible;
+            vm.isTrashVisible = isTrashVisible;
+            vm.isRestoreVisible = isRestoreVisible;
 
             vm.actions = sgLayoutActions;
+            vm.actions.unselectLayout = $scope.$parent.$parent.paginator.unselectLayout;
 
             var role = sgUsers.currentUser.role;
             var name = sgUsers.currentUser.name;
@@ -47,8 +48,12 @@
             // IMPLEMENTATION
 
             function isAssignVisible() {
-                return (role === "admin" || role === "curator")
-                    && !vm.layout.status;
+                return !vm.layout.isHidden
+                    && !vm.layout.status
+                    && (
+                        role === "admin"
+                        || role === "curator"
+                    );
             }
 
             function isAcceptVisible() {
@@ -59,18 +64,26 @@
             }
 
             function isEditVisible() {
-                return vm.layout.createdBy === name
-                    || role === 'admin'
-                    || role === 'curator';
-            }
-
-            function isRemoveVisible() {
-                return !vm.layout.status &&
-                    (
+                return !vm.layout.isHidden
+                    && (
                         vm.layout.createdBy === name
                         || role === 'admin'
                         || role === 'curator'
                     );
+            }
+
+            function isTrashVisible() {
+                return !vm.layout.status
+                    && !vm.layout.isHidden
+                    && (
+                        vm.layout.createdBy === name
+                        || role === 'admin'
+                        || role === 'curator'
+                    );
+            }
+
+            function isRestoreVisible() {
+                return vm.layout.isHidden;
             }
 
             function isUploadVisible() {

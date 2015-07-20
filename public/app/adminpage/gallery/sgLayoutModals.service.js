@@ -3,26 +3,27 @@
 
     angular
         .module('sgAppAdmin')
-        .service('sgLayoutControls', sgLayoutControls);
+        .service('sgLayoutModals', sgLayoutModals);
 
-    sgLayoutControls.$inject = ['$modal', 'sgUsers', 'sgLayouts'];
+    sgLayoutModals.$inject = ['$modal', '$sce', 'sgUsers', 'sgLayouts'];
 
-    function sgLayoutControls($modal, sgUsers, sgLayouts) {
+    function sgLayoutModals($modal, $sce, sgUsers, sgLayouts) {
 
         // ==== DECLARATION =====
         var svc = this;
 
-        svc.modalGallery = modalGallery;
-        svc.modalRemove = modalRemove;
-        svc.modalAssignDoer = modalAssignDoer;
-        svc.modalAccept = modalAccept;
-        svc.modalUploadFiles = modalUploadFiles;
-        svc.modalDownloadFiles = modalDownloadFiles;
-        svc.modalAddLayoutComment = modalAddLayoutComment;
+        svc.showInGallery = modalShowInGallery;
+        svc.remove = modalYesNoImage;
+        svc.restore = modalYesNoImage;
+        svc.assignDoer = modalAssignDoer;
+        svc.accept = modalAccept;
+        svc.uploadFiles = modalUploadFiles;
+        svc.downloadFiles = modalDownloadFiles;
+        svc.addLayoutComment = modalAddLayoutComment;
 
         // === IMPLEMENTATION ===
 
-        function modalGallery(pgScope) {
+        function modalShowInGallery(pgScope) {
             var modalDO = {
                 templateUrl: '/partials/modal-Gallery',
                 controller: GalleryCtrl,
@@ -108,14 +109,23 @@
             }
         }
 
-        function modalRemove(layout) {
+        function modalYesNoImage(layout, header, message, hasComment) {
             var modalDO = {
                 templateUrl: '/partials/modal-YesNoImage',
-                controller: YesNoModalCtrl,
+                controller: YesNoImageModalCtrl,
                 controllerAs: 'vm',
                 resolve: {
                     url: function () {
                         return sgLayouts.getThumbUrl(layout);
+                    },
+                    header: function () {
+                        return $sce.trustAsHtml(header);
+                    },
+                    message: function () {
+                        return $sce.trustAsHtml(message);
+                    },
+                    hasComment: function() {
+                        return hasComment;
                     }
                 },
                 size: 'sm'
@@ -124,11 +134,13 @@
             return $modal.open(modalDO).result;
         }
 
-        YesNoModalCtrl.$inject = ['$modalInstance', 'url'];
+        YesNoImageModalCtrl.$inject = ['$modalInstance', 'url', 'header', 'message', 'hasComment'];
 
-        function YesNoModalCtrl($modalInstance, url) {
+        function YesNoImageModalCtrl($modalInstance, url, header, message, hasComment) {
             var vm = this;
             vm.url = url;
+            vm.header = header;
+            vm.message = message;
 
             vm.ok = function () {
                 $modalInstance.close('ok');
@@ -269,8 +281,8 @@
             function canSubmit() {
                 return vm.layout.urlGifHiRes
                     && vm.layout.urlGifLoRes;
-                    //&& vm.layout.urlPsdLayout
-                    //&& vm.layout.urlTxtProject;
+                //&& vm.layout.urlPsdLayout
+                //&& vm.layout.urlTxtProject;
             }
 
             function submit() {

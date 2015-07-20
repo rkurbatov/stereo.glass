@@ -7,12 +7,12 @@
     b {{ linkedObject.average !== -1 ? linkedObject.average : 0 | number : 2 }}/{{ linkedObject.ratings.length }}
     br(ng-show='!oneRow')
     span(ng-show='oneRow') &nbsp;&nbsp;
-    span(ng-if='!isAuthor')
+    span(ng-if='!isAuthor && !linkedObject.isHidden')
         i.fa(style="vertical-align: text-bottom; cursor: pointer"
         ng-class="{'fa-thumbs-o-down': linkedObject.rating != 0, 'fa-thumbs-down': linkedObject.rating == 0}"
         ng-click='markViewed()')
         rating(ng-model='linkedObject.rating' max='3' style="cursor: pointer")
-    span(ng-if='isAuthor')
+    span(ng-if='isAuthor || linkedObject.isHidden')
         i.fa.fa-thumbs-o-down.sg-silver-i
         | &nbsp;
         i.glyphicon.glyphicon-star-empty.sg-silver-i
