@@ -148,10 +148,19 @@
 
                     addAllCommentersFilter();
 
+                    // Set default second-order filters
                     filters.current.rater = filters.raters[0];
                     filters.current.author = filters.authors[0];
                     filters.current.commenter = filters.commenters[0];
                     filters.current.assignee = filters.assignees[0];
+                    // and corresponding first-order filters
+                    _.each(filters, function (modeFilters) {
+                        (_.find(modeFilters, {subType: 'byRater'}) || {}).value = filters.raters[0].value;
+                        (_.find(modeFilters, {subType: 'byAuthor'}) || {}).value = filters.authors[0].value;
+                        (_.find(modeFilters, {subType: 'byCommenter'}) || {}).value = filters.commenters[0].value;
+                        (_.find(modeFilters, {subType: 'byAssignee'}) || {}).value = filters.assignees[0].value;
+                    });
+
                 });
         }
 
