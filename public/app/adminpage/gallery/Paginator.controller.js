@@ -46,6 +46,7 @@
 
         vm.getAuthorBorderColor = getAuthorBorderColor;
         vm.getAssigneeBorderColor = getAssigneeBorderColor;
+        vm.getCommenterTextColor = getCommenterTextColor;
 
         vm.handleLayoutClick = handleLayoutClick;
         vm.addComment = addComment;
@@ -90,7 +91,7 @@
 
             vm.dateRange = {
                 startDate: null,
-                    endDate: null
+                endDate: null
             };
 
             // Watch over datarange change
@@ -219,11 +220,15 @@
         }
 
         function getAuthorBorderColor(layout) {
-            return 'border-color: ' + sgUsers.borderColors[layout.createdBy];
+            return {'border-color': sgUsers.borderColors[layout.createdBy]};
         }
 
         function getAssigneeBorderColor(layout) {
-            return 'border-color: ' + sgUsers.borderColors[layout.assignedTo];
+            return {'border-color': sgUsers.borderColors[layout.assignedTo]};
+        }
+
+        function getCommenterTextColor(user) {
+            return {'color': sgUsers.borderColors[user] || '#23527c'};
         }
 
     }

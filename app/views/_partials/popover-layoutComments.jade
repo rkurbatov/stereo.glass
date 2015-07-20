@@ -3,7 +3,7 @@
         ul.popover-comments-list
             li(ng-repeat="comment in layout.comments")
                 .popover-comment-header
-                    b.sg-blue-i {{ comment.postedBy }}
+                    b(ng-style='paginator.getCommenterTextColor(comment.postedBy)') {{ comment.postedBy }}
                     | &nbsp;&nbsp;
                     i {{ comment.postedAt | date : 'd MMM, H:mm' }}
                 .popover-comment-text

@@ -13,12 +13,12 @@ ns-popover="{{ layout.comments.length > 0 }}"
 ns-popover-trigger="click"
 ns-popover-placement="top|center"
 ns-popover-template="/partials/popover-layoutComments"
-style='{{paginator.getAuthorBorderColor(layout)}}')
+ng-style='paginator.getAuthorBorderColor(layout)')
     .sg-layout-block-inner(ns-popover
     ns-popover-trigger="click"
     ns-popover-placement="bottom|center"
     ns-popover-template="/partials/popover-layoutInfo"
-    style="{{paginator.getAssigneeBorderColor(layout)}}")
+    ng-style="paginator.getAssigneeBorderColor(layout)")
         img(ng-src='{{ paginator.getThumbUrl(layout) }}'
         ng-click="paginator.handleLayoutClick($index)"
         ng-dblclick="paginator.showInGallery()"
