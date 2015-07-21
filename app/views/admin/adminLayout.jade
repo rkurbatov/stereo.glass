@@ -4,7 +4,10 @@ html(lang=en)
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        title Stereo.Glass Admin Panel
+        if env == 'dev'
+            title DEV - Stereo.Glass Admin Panel
+        else
+            title Stereo.Glass Admin Panel
         include builddate
         link(rel='stylesheet', href='../stylesheets/vendor-admin.min.css?#{builddate}')
         link(rel='stylesheet', href='../css/admin/admin.css?#{builddate}')
