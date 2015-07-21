@@ -238,7 +238,7 @@
                     : authorName,
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden && layout.createdBy === '';
+                    return !layout.isHidden && layout.createdBy === authorName;
                 }
             };
 
