@@ -61,7 +61,7 @@
             {
                 name: 'еще не принятые',
                 subType: 'firstOrder',
-                value: function(layout) {
+                value: function (layout) {
                     layout.compareValue = layout.average;
                     return !layout.isHidden && layout.status === 'assigned';
                 }
@@ -209,7 +209,19 @@
                     : commenterName,
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden && _.any(layout.comments, {postedBy: commenterName});
+                    return !layout.isHidden &&
+                        (
+                            _.any(layout.comments, {postedBy: commenterName})
+                            || (layout.designerComment && layout.createdBy === commenterName)
+                            || (
+                                (layout.assignedComment || layout.approvedComment)
+                                && layout.assignedBy === commenterName
+                            )
+                            || (
+                                (layout.acceptedComment || layout.finishedComment)
+                                && layout.assignedTo === commenterName
+                            )
+                        );
                 }
             };
 
@@ -224,7 +236,14 @@
                 commenter: 'всеми',
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden && layout.comments.length;
+                    return !layout.isHidden
+                        && (
+                            layout.comments.length
+                            || layout.assignedComment
+                            || layout.acceptedComment
+                            || layout.finishedComment
+                            || layout.approvedComment
+                        );
                 }
             };
 
