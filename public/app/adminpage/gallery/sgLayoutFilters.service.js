@@ -11,11 +11,21 @@
 
         var ratingMode = [
             {
-                name: 'все',
-                subType: 'firstOrder',
+                name: 'загруженные',
+                subType: 'byAuthor',
+                value: {}
+            },
+            {
+                name: 'оцененные',
+                subType: 'byRater',
+                value: {}
+            },
+            {
+                name: 'с комментариями',
+                subType: 'byCommenter',
                 value: function (layout) {
-                    layout.compareValue = layout.average;
-                    return !layout.isHidden;
+                    layout.compareValue = layout.comments.length;
+                    return layout.comments.length;
                 }
             },
             {
@@ -28,35 +38,14 @@
                             || layout.notRatedByMe
                         );
                 }
-            },
-            {
-                name: 'оцененные',
-                subType: 'byRater',
-                value: {}
-            },
-            {
-                name: 'загруженные',
-                subType: 'byAuthor',
-                value: {}
-            },
-            {
-                name: 'с комментариями',
-                subType: 'byCommenter',
-                value: function (layout) {
-                    layout.compareValue = layout.comments.length;
-                    return layout.comments.length;
-                }
             }
         ];
 
         var progressMode = [
             {
-                name: 'все',
-                subType: 'firstOrder',
-                value: function (layout) {
-                    layout.compareValue = layout.average;
-                    return !layout.isHidden;
-                }
+                name: 'назначенные',
+                subType: 'byAssignee',
+                value: {}
             },
             {
                 name: 'еще не принятые',
@@ -75,11 +64,6 @@
                 }
             },
             {
-                name: 'назначенные',
-                subType: 'byAssignee',
-                value: {}
-            },
-            {
                 name: 'с комментариями',
                 subType: 'byCommenter',
                 value: function (layout) {
@@ -90,14 +74,6 @@
         ];
 
         var readyMode = [
-            {
-                name: 'все',
-                subType: 'firstOrder',
-                value: function (layout) {
-                    layout.compareValue = layout.average;
-                    return !layout.isHidden;
-                }
-            },
             {
                 name: 'выполненные',
                 subType: 'byAssignee',
@@ -146,12 +122,14 @@
 
             sgUsers.loaded
                 .then(function () {
-                    _.forEach(sgUsers.raters, addRaterFilter);
-                    _.forEach(sgUsers.commenters, addCommenterFilter);
                     _.forEach(sgUsers.authors, addAuthorFilter);
+                    _.forEach(sgUsers.raters, addRaterFilter);
                     _.forEach(sgUsers.assignees, addAssigneeFilter);
+                    _.forEach(sgUsers.commenters, addCommenterFilter);
 
+                    addAllAuthorsFilter();
                     addAllCommentersFilter();
+                    addAllAssigneesFilter();
 
                     // Set default second-order filters
                     filters.current.rater = filters.raters[0];
@@ -265,6 +243,18 @@
                 : filters.authors.push(filterObject);
         }
 
+        function addAllAuthorsFilter(){
+            var filterObject = {
+                author: 'всеми',
+                value: function (layout) {
+                    layout.compareValue = layout.average;
+                    return !layout.isHidden;
+                }
+            };
+
+            filters.authors.unshift(filterObject);
+        }
+
         function addAssigneeFilter(assigneeName) {
             var filterObject = {
                 assignee: sgUsers.currentUser.name === assigneeName
@@ -280,6 +270,17 @@
             sgUsers.currentUser.name === assigneeName
                 ? filters.assignees.unshift(filterObject)
                 : filters.assignees.push(filterObject);
+        }
+
+        function addAllAssigneesFilter(assigneeName) {
+            var filterObject = {
+                assignee: "все",
+                value: function(layout) {
+                    return !layout.isHidden;
+                }
+            };
+
+            filters.assignees.unshift(filterObject);
         }
 
     }
