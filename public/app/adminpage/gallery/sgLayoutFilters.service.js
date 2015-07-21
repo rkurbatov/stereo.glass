@@ -106,10 +106,7 @@
             {
                 name: 'с комментариями',
                 subType: 'byCommenter',
-                value: function (layout) {
-                    layout.compareValue = layout.comments.length;
-                    return layout.comments.length;
-                }
+                value: {}
             }
         ];
 
@@ -239,6 +236,7 @@
                     return !layout.isHidden
                         && (
                             layout.comments.length
+                            || layout.designerComment
                             || layout.assignedComment
                             || layout.acceptedComment
                             || layout.finishedComment
