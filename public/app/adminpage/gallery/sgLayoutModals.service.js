@@ -160,8 +160,8 @@
                     layout: function () {
                         return layout
                     },
-                    designers: function () {
-                        return sgUsers.designers;
+                    assignees: function () {
+                        return sgUsers.assignees;
                     }
                 },
                 size: 'lg'
@@ -170,9 +170,9 @@
             return $modal.open(modalDO).result;
         }
 
-        AssignDoerModalCtrl.$inject = ['$modalInstance', 'layout', 'designers'];
+        AssignDoerModalCtrl.$inject = ['$modalInstance', 'layout', 'assignees'];
 
-        function AssignDoerModalCtrl($modalInstance, layout, designers) {
+        function AssignDoerModalCtrl($modalInstance, layout, assignees) {
             var vm = this;
             vm.layout = layout;
             vm.url = sgLayouts.getThumbUrl(layout);
@@ -180,8 +180,8 @@
             // Mail is not sent by default!
             vm.sendEmail = false;
 
-            vm.designers = designers;
-            if (_.contains(designers, layout.createdBy)) {
+            vm.designers = assignees;
+            if (_.contains(assignees, layout.createdBy)) {
                 vm.assignedTo = layout.createdBy;
             }
 
