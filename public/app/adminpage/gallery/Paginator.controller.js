@@ -200,7 +200,7 @@
                             || vm.dateRange.endDateString > layout.assignedAt
                         );
                 case "Ready":
-                    return layout.status === "finished"
+                    return (layout.status === "finished" || layout.status === "approved")
                         && vm.filters.current.Ready.value(layout)
                         && (
                             !vm.dateRange.startDate

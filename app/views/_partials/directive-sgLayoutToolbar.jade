@@ -3,9 +3,14 @@
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
     ng-show='toolbar.isAssignVisible()')
         .fa-stack-2x.sg-shadowed-text.fa-check-square-o.sg-blue-i
+    //- Accept
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.acceptJob(toolbar.layout)'
     ng-show='toolbar.isAcceptVisible()')
         .fa-stack-2x.fa-check-square-o.sg-silver-i.sg-shadowed-text
+    //- Approve
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.approveJob(toolbar.layout)'
+    ng-show='toolbar.isApproveVisible()')
+        .fa-stack-2x.fa-check-square-o.sg-gold-i.sg-shadowed-text
     //- Upload
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.uploadFiles(toolbar.layout)'
     ng-show='toolbar.isUploadVisible()')

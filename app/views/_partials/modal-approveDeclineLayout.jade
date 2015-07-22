@@ -1,0 +1,18 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title.text-center Принять работу
+
+.modal-body
+    .row
+        .col-xs-4
+            img.img-responsive.center-block(ng-src="{{::vm.url}}")
+        .col-xs-8
+            span Вы принимаете выполненную работу?
+            br
+            br
+            textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
+
+.modal-footer
+    button.btn.btn-primary.col-xs-3(ng-click="vm.approve()") Принять
+    button.btn.btn-danger.col-xs-3(ng-click="vm.decline()") Доработать
+    button.btn.col-xs-3(ng-click="vm.cancel()") Отмена

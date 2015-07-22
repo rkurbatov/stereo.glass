@@ -30,6 +30,7 @@
 
             vm.isAssignVisible = isAssignVisible;
             vm.isAcceptVisible = isAcceptVisible;
+            vm.isApproveVisible = isApproveVisible;
             vm.isUploadVisible = isUploadVisible;
             vm.isDownloadVisible = isDownloadVisible;
             vm.isEditVisible = isEditVisible;
@@ -48,16 +49,23 @@
                 return !vm.layout.isHidden
                     && !vm.layout.status
                     && (
-                        role === "admin"
-                        || role === "curator"
+                        role === 'admin'
+                        || role === 'curator'
                     );
             }
 
             function isAcceptVisible() {
                 var assignedToMe = vm.layout.assignedTo === name;
-                return role === "designer"
-                    && vm.layout.status === "assigned"
+                return role === 'designer'
+                    && vm.layout.status === 'assigned'
                     && assignedToMe;
+            }
+
+            function isApproveVisible() {
+                return !vm.layout.isHidden
+                    && vm.layout.status === 'finished'
+                    && (role === 'admin'
+                    || role === 'curator');
             }
 
             function isEditVisible() {
@@ -85,8 +93,8 @@
 
             function isUploadVisible() {
                 var assignedToMe = vm.layout.assignedTo === name;
-                return role === "designer"
-                    && vm.layout.status === "accepted"
+                return role === 'designer'
+                    && vm.layout.status === 'accepted'
                     && assignedToMe;
             }
 
@@ -97,7 +105,10 @@
                         || role === 'admin'
                         || role === 'curator'
                     )
-                    && vm.layout.status === 'finished';
+                    && (
+                        vm.layout.status === 'finished'
+                        || vm.layout.status === 'approved'
+                    );
             }
 
         }

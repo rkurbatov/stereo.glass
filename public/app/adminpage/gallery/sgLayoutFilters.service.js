@@ -80,6 +80,20 @@
                 value: {}
             },
             {
+                name: 'одобренные',
+                subType: 'firstOrder',
+                value: function(layout) {
+                    return !layout.isHidden && layout.status === 'approved';
+                }
+            },
+            {
+                name: 'еще не одобренные',
+                subType: 'firstOrder',
+                value: function(layout) {
+                    return !layout.isHidden && layout.status === 'finished';
+                }
+            },
+            {
                 name: 'с комментариями',
                 subType: 'byCommenter',
                 value: {}

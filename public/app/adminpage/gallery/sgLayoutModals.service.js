@@ -16,7 +16,8 @@
         svc.remove = modalYesNoImage;
         svc.restore = modalYesNoImage;
         svc.assignDoer = modalAssignDoer;
-        svc.accept = modalAccept;
+        svc.acceptReject = modalAcceptReject;
+        svc.approveDecline = modalApproveDecline;
         svc.uploadFiles = modalUploadFiles;
         svc.downloadFiles = modalDownloadFiles;
         svc.addLayoutComment = modalAddLayoutComment;
@@ -199,10 +200,10 @@
             };
         }
 
-        function modalAccept(layout) {
+        function modalAcceptReject(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-acceptLayout',
-                controller: modalAcceptCtrl,
+                templateUrl: '/partials/modal-acceptRejectLayout',
+                controller: modalAcceptRejectCtrl,
                 controllerAs: 'vm',
                 resolve: {
                     layout: function () {
@@ -215,9 +216,9 @@
             return $modal.open(modalDO).result;
         }
 
-        modalAcceptCtrl.$inject = ['$modalInstance', 'layout'];
+        modalAcceptRejectCtrl.$inject = ['$modalInstance', 'layout'];
 
-        function modalAcceptCtrl($modalInstance, layout) {
+        function modalAcceptRejectCtrl($modalInstance, layout) {
             var vm = this;
 
             vm.accept = accept;
@@ -238,6 +239,57 @@
             function reject() {
                 var reason = {
                     rejected: true,
+                    comment: vm.comment
+                };
+
+                $modalInstance.close(reason);
+            }
+
+            function cancel() {
+                $modalInstance.dismiss('cancel');
+            }
+
+        }
+
+        function modalApproveDecline(layout) {
+            var modalDO = {
+                templateUrl: '/partials/modal-approveDeclineLayout.jade',
+                controller: modalApproveDeclineCtrl,
+                controllerAs: 'vm',
+                resolve: {
+                    layout: function () {
+                        return layout
+                    }
+                },
+                size: 'lg'
+            };
+
+            return $modal.open(modalDO).result;
+        }
+
+        modalApproveDeclineCtrl.$inject = ['$modalInstance', 'layout'];
+
+        function modalApproveDeclineCtrl($modalInstance, layout) {
+            var vm = this;
+
+            vm.approve = approve;
+            vm.decline = decline;
+            vm.cancel = cancel;
+
+            vm.comment = "";
+            vm.url = sgLayouts.getThumbUrl(layout);
+
+            function approve() {
+                var response = {
+                    comment: vm.comment
+                };
+
+                $modalInstance.close(response);
+            }
+
+            function decline() {
+                var reason = {
+                    declined: true,
                     comment: vm.comment
                 };
 

@@ -45,6 +45,9 @@ module.exports = function (mongoose) {
         acceptedComment: String,
         finishedAt: Date,
         finishedComment: String,
+        approvedBy: String,
+        approvedAt: Date,
+        approvedComment: String,
         reference: Number
     });
 
