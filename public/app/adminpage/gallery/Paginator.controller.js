@@ -178,7 +178,10 @@
             switch (vm.viewMode) {
                 case "Rating":
                     return (
-                            !layout.status
+                            (
+                                !layout.status
+                                || _.contains(['rejected', 'dismissed'], layout.status)
+                            )
                             && vm.filters.current.Rating.value(layout)   // current rating filter
                         ) && (
                             !vm.dateRange.startDate
@@ -189,8 +192,7 @@
                         );
                 case "Progress":
                     return (
-                            layout.status
-                            && layout.status !== "finished"
+                            _.contains(['assigned', 'accepted'], layout.status)
                             && vm.filters.current.Progress.value(layout)
                         ) && (
                             !vm.dateRange.startDate

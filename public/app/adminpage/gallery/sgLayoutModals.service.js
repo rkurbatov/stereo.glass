@@ -15,7 +15,7 @@
         svc.showInGallery = modalShowInGallery;
         svc.remove = modalYesNoImage;
         svc.restore = modalYesNoImage;
-        svc.assignDoer = modalAssignDoer;
+        svc.assignDoer = modalAssignDismissDoer;
         svc.acceptReject = modalAcceptReject;
         svc.approveDecline = modalApproveDecline;
         svc.uploadFiles = modalUploadFiles;
@@ -125,7 +125,7 @@
                     message: function () {
                         return $sce.trustAsHtml(message);
                     },
-                    hasComment: function() {
+                    hasComment: function () {
                         return hasComment;
                     }
                 },
@@ -152,10 +152,10 @@
             };
         }
 
-        function modalAssignDoer(layout) {
+        function modalAssignDismissDoer(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-assignDoer',
-                controller: AssignDoerModalCtrl,
+                templateUrl: '/partials/modal-assignDismissDoer',
+                controller: AssignDismissDoerModalCtrl,
                 controllerAs: 'vm',
                 resolve: {
                     layout: function () {
@@ -171,27 +171,49 @@
             return $modal.open(modalDO).result;
         }
 
-        AssignDoerModalCtrl.$inject = ['$modalInstance', 'layout', 'assignees'];
+        AssignDismissDoerModalCtrl.$inject = ['$modalInstance', 'layout', 'assignees'];
 
-        function AssignDoerModalCtrl($modalInstance, layout, assignees) {
+        function AssignDismissDoerModalCtrl($modalInstance, layout, assignees) {
             var vm = this;
             vm.layout = layout;
+
+            // viewmode flags
+            vm.newAssign = !vm.layout.status;
+            vm.reAssign = vm.layout.status === 'assigned' || vm.layout.status === 'accepted';
+
             vm.url = sgLayouts.getThumbUrl(layout);
-            vm.comment = [];
+            vm.comment = '';
+
             // Mail is not sent by default!
             vm.sendEmail = false;
 
-            vm.designers = assignees;
-            if (_.contains(assignees, layout.createdBy)) {
-                vm.assignedTo = layout.createdBy;
+            // Current assignee excluded from list in case of reassign
+            vm.designers = vm.reAssign
+                ? _.without(assignees, vm.layout.assignedTo)
+                : assignees;
+
+            // Author is selected by default
+            if (_.contains(vm.designers, layout.createdBy)) {
+                vm.assignee = layout.createdBy;
             }
 
-            vm.ok = function () {
+            vm.assign = function () {
                 var response = {
-                    assignedTo: vm.assignedTo,
+                    assignedTo: vm.assignee,
                     comment: vm.comment,
                     sendEmail: vm.sendEmail
                 };
+
+                $modalInstance.close(response);
+            };
+
+            vm.dismiss = function () {
+                var response = {
+                    dismissed: true,
+                    comment: vm.comment,
+                    sendEmail: vm.sendEmail
+                };
+
                 $modalInstance.close(response);
             };
 

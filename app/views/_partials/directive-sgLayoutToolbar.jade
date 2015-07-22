@@ -2,7 +2,12 @@
     //- Assign
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
     ng-show='toolbar.isAssignVisible()')
-        .fa-stack-2x.sg-shadowed-text.fa-check-square-o.sg-blue-i
+        .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-blue-i
+        .fa-stack-1x.sg-shadowed-text.fa-user.sg-blue-i
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
+    ng-show='toolbar.isReAssignVisible()')
+        .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-blue-i
+        .fa-stack-1x.sg-shadowed-text.fa-user.sg-red-i
     //- Accept
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.acceptJob(toolbar.layout)'
     ng-show='toolbar.isAcceptVisible()')

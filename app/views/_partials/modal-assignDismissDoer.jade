@@ -1,0 +1,40 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
+    h4.modal-title.text-center(ng-if="vm.newAssign") Выбрать исполнителя для изображения
+    h4.modal-title.text-center(ng-if="vm.reAssign")
+        | Выбрать
+        b.sg-blue-i  нового
+        |  исполнителя или
+        b.sg-red-i  отказаться
+        |  от текущего
+.modal-body
+    .col-sm-3
+        img.img-responsive.center-block(ng-src="{{::vm.url}}")
+    .col-sm-9
+        .form-horizontal(role='form')
+            .form-group
+                label.control-label.col-xs-4 Автор
+                label.control-label.sg-plain {{ vm.layout.createdBy }}
+            .form-group(ng-if='vm.reAssign')
+                label.control-label.col-xs-4 Текущий исполнитель
+                label.control-label.sg-plain {{ vm.layout.assignedTo }}
+            .form-group
+                label.control-label.col-xs-4 Исполнитель
+                .col-xs-5.sg-nopadding
+                    select.form-control(ng-options='d for d in vm.designers'
+                    ng-model='vm.assignee')
+            .form-group
+                textarea.col-xs-12.sg-noresize(rows="6" ng-model='vm.comment')
+            .form-group
+                .checkbox-inline
+                    label
+                        input(type='checkbox' ng-model='vm.sendEmail')
+                        | Отправить уведомление по e-mail
+
+    .row
+.modal-footer
+    .col-xs-4(ng-if='vm.newAssign')
+    .col-xs-3(ng-if='vm.reAssign')
+    button.btn.btn-primary.col-xs-2(ng-click="vm.assign()" ng-disabled='!vm.assignee') Назначить
+    button.btn.btn-danger.col-xs-2(ng-click="vm.dismiss()" ng-if='vm.reAssign') Отказаться
+    button.btn.col-xs-2(ng-click="vm.cancel()") Отмена

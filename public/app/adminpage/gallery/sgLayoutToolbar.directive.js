@@ -29,6 +29,7 @@
             var vm = this;
 
             vm.isAssignVisible = isAssignVisible;
+            vm.isReAssignVisible = isReAssignVisible;
             vm.isAcceptVisible = isAcceptVisible;
             vm.isApproveVisible = isApproveVisible;
             vm.isUploadVisible = isUploadVisible;
@@ -46,9 +47,21 @@
             // IMPLEMENTATION
 
             function isAssignVisible() {
+                return (
+                        !vm.layout.status
+                        || _.contains(['rejected', 'dismissed'], vm.layout.status)
+                    ) && (
+                        role === 'admin'
+                        || role === 'curator'
+                    );
+            }
+
+            function isReAssignVisible() {
                 return !vm.layout.isHidden
-                    && !vm.layout.status
                     && (
+                        vm.layout.status === 'assigned'
+                        || vm.layout.status === 'accepted'
+                    ) && (
                         role === 'admin'
                         || role === 'curator'
                     );
@@ -69,12 +82,11 @@
             }
 
             function isEditVisible() {
-                return !vm.layout.isHidden
-                    && (
-                        vm.layout.createdBy === name
-                        || role === 'admin'
-                        || role === 'curator'
-                    );
+                return (
+                    vm.layout.createdBy === name
+                    || role === 'admin'
+                    || role === 'curator'
+                );
             }
 
             function isTrashVisible() {

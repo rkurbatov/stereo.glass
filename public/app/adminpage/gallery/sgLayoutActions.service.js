@@ -32,13 +32,23 @@
 
             sgLayoutModals.assignDoer(layout)
                 .then(function (response) {
-                    setObject = {
-                        assignedTo: response.assignedTo,
-                        assignedBy: name,
-                        assignedAt: new Date(),
-                        assignedComment: response.comment || "",
-                        status: 'assigned'
-                    };
+                    if (response.dismissed) {
+                        setObject = {
+                            dismissedBy: name,
+                            dismissedAt: new Date(),
+                            dismissedComment: response.comment || '',
+                            status: 'dismissed'
+                        }
+                    } else {
+                        setObject = {
+                            assignedTo: response.assignedTo,
+                            assignedBy: name,
+                            assignedAt: new Date(),
+                            assignedComment: response.comment || "",
+                            status: 'assigned'
+                        };
+                    }
+
                     doSendEmail = response.sendEmail;
                     // TODO: error reporting
                     // don't forget to destroy listeners on close
@@ -131,7 +141,7 @@
                     if (response.declined) {
                         setObject = {
                             status: "assigned",
-                            assignedBy: sgUsers.currentUser.name,
+                            assignedBy: name,
                             assignedComment: response.comment
                         }
                     } else {
