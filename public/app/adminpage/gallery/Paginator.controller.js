@@ -29,6 +29,7 @@
         vm.search = {
             filter: searchFilter,
             string: '',
+            reRef: new RegExp(''),
             reName: new RegExp(''),
             update: searchUpdate
         };
@@ -166,7 +167,9 @@
         }
 
         function searchFilter(layout) {
-            return !!layout.name.toLowerCase().replace(/[\_\-]/, ' ').match(vm.search.reName);
+            return 'Rating' === vm.viewMode
+                ? !!layout.name.toLowerCase().replace(/[\_\-]/, ' ').match(vm.search.reName)
+                : !!String(layout.reference).match(vm.search.reName);
         }
 
         function searchUpdate() {
