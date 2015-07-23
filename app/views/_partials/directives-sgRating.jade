@@ -7,7 +7,7 @@
     b {{ linkedObject.average !== -1 ? linkedObject.average : 0 | number : 2 }}/{{ linkedObject.ratings.length }}
     br(ng-show='!oneRow')
     span(ng-show='oneRow') &nbsp;&nbsp;
-    span(ng-if='!isAuthor && "deleted" === !linkedObject.status')
+    span(ng-if='!isAuthor && "deleted" !== linkedObject.status')
         i.fa(style="vertical-align: text-bottom; cursor: pointer"
         ng-class="{'fa-thumbs-o-down': linkedObject.rating != 0, 'fa-thumbs-down': linkedObject.rating == 0}"
         ng-click='markViewed()')
