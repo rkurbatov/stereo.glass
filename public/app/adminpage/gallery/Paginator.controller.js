@@ -177,40 +177,33 @@
         function viewModeFilter(layout) {
             switch (vm.viewMode) {
                 case "Rating":
-                    return (
-                            (
-                                !layout.status
-                                || _.contains(['rejected', 'dismissed'], layout.status)
-                            )
-                            && vm.filters.current.Rating.value(layout)   // current rating filter
+                    return (!layout.status
+                            || _.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         ) && (
                             !vm.dateRange.startDate
                             || vm.dateRange.startDateString < layout.createdAt
                         ) && (
                             !vm.dateRange.endDate
                             || vm.dateRange.endDateString > layout.createdAt
-                        );
+                        ) && vm.filters.current.Rating.value(layout);   // current rating filter
                 case "Progress":
-                    return (
-                            _.contains(['assigned', 'accepted'], layout.status)
-                            && vm.filters.current.Progress.value(layout)
-                        ) && (
+                    return _.contains(['assigned', 'accepted'], layout.status)
+                        && (
                             !vm.dateRange.startDate
                             || vm.dateRange.startDateString < layout.assignedAt
                         ) && (
                             !vm.dateRange.endDate
                             || vm.dateRange.endDateString > layout.assignedAt
-                        );
+                        ) && vm.filters.current.Progress.value(layout);
                 case "Ready":
-                    return (layout.status === "finished" || layout.status === "approved")
-                        && vm.filters.current.Ready.value(layout)
+                    return _.contains(['finished', 'approved'], layout.status)
                         && (
                             !vm.dateRange.startDate
                             || vm.dateRange.startDateString < layout.finishedAt
                         ) && (
                             !vm.dateRange.endDate
                             || vm.dateRange.endDateString > layout.finishedAt
-                        );
+                        ) && vm.filters.current.Ready.value(layout);
             }
         }
 

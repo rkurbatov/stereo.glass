@@ -112,16 +112,11 @@
         }
 
         function remove(id) {
-            return $http.delete('/api/layouts/' + id)
-                .then(function (response) {
-                    if (response.status === 204) {
-                        svc.unratedCount -= 1;
-                    }
-                });
+            return update(id, {status: 'deleted'});
         }
 
         function restore(id) {
-            return update(id, {isHidden: false});
+            return update(id, {}, ['status']);
         }
 
         function update(id, setObject, unsetArray) {

@@ -228,7 +228,7 @@
                     sgLayouts.remove(layout['_id']).then(function () {
                         // hack! Imported from paginator via sgLayoutToolbar controller's scope
                         svc.unselectLayout();
-                        layout.isHidden = true;
+                        layout.status = "deleted";
                     });
                 });
         }
@@ -239,7 +239,7 @@
             sgLayoutModals.restore(layout, header, message)
                 .then(function () {
                     sgLayouts.restore(layout['_id']).then(function () {
-                        layout.isHidden = false;
+                        delete layout.status;
                     });
                 });
         }

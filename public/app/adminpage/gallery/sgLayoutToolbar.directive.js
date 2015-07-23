@@ -41,85 +41,75 @@
             vm.actions = sgLayoutActions;
             vm.actions.unselectLayout = $scope.$parent.$parent.paginator.unselectLayout;
 
-            var role = sgUsers.currentUser.role;
             var name = sgUsers.currentUser.name;
 
             // IMPLEMENTATION
 
+            function iAmAdminOrCurator() {
+                return _.contains(['admin', 'curator'], sgUsers.currentUser.role);
+            }
+
+            function createdByMe() {
+                return sgUsers.currentUser.name === vm.layout.createdBy;
+            }
+
+            function assignedToMe() {
+                return sgUsers.currentUser.name === vm.layout.assignedTo;
+            }
+
             function isAssignVisible() {
-                return (
+                return iAmAdminOrCurator()
+                    && (
                         !vm.layout.status
-                        || _.contains(['rejected', 'dismissed'], vm.layout.status)
-                    ) && (
-                        role === 'admin'
-                        || role === 'curator'
+                        || _.contains(['deleted', 'rejected', 'dismissed'], vm.layout.status)
                     );
             }
 
             function isReAssignVisible() {
-                return !vm.layout.isHidden
-                    && (
-                        vm.layout.status === 'assigned'
-                        || vm.layout.status === 'accepted'
-                    ) && (
-                        role === 'admin'
-                        || role === 'curator'
-                    );
+                return 'deleted' !== vm.layout.status
+                    && _.contains(['assigned', 'accepted'], vm.layout.status)
+                    && iAmAdminOrCurator();
             }
 
             function isAcceptVisible() {
-                var assignedToMe = vm.layout.assignedTo === name;
-                return role === 'designer'
-                    && vm.layout.status === 'assigned'
-                    && assignedToMe;
+                return 'designer' === sgUsers.currentUser.role
+                    && 'assigned' === vm.layout.status
+                    && assignedToMe();
             }
 
             function isApproveVisible() {
-                return !vm.layout.isHidden
-                    && vm.layout.status === 'finished'
-                    && (role === 'admin'
-                    || role === 'curator');
+                return vm.layout.status === 'finished'
+                    && iAmAdminOrCurator();
             }
 
             function isEditVisible() {
-                return (
-                    vm.layout.createdBy === name
-                    || role === 'admin'
-                    || role === 'curator'
-                );
+                return createdByMe()
+                    || iAmAdminOrCurator();
             }
 
             function isTrashVisible() {
                 return !vm.layout.status
-                    && !vm.layout.isHidden
                     && (
-                        vm.layout.createdBy === name
-                        || role === 'admin'
-                        || role === 'curator'
+                        createdByMe()
+                        || iAmAdminOrCurator()
                     );
             }
 
             function isRestoreVisible() {
-                return vm.layout.isHidden;
+                return 'deleted' === vm.layout.status;
             }
 
             function isUploadVisible() {
-                var assignedToMe = vm.layout.assignedTo === name;
-                return role === 'designer'
-                    && vm.layout.status === 'accepted'
-                    && assignedToMe;
+                return 'designer' === sgUsers.currentUser.role
+                    && 'accepted' === vm.layout.status
+                    && assignedToMe();
             }
 
             function isDownloadVisible() {
-                var assignedToMe = vm.layout.assignedTo === name;
-                return (
-                        (role === 'designer' && assignedToMe)
-                        || role === 'admin'
-                        || role === 'curator'
-                    )
+                return _.contains(['finished', 'approved'], vm.layout.status)
                     && (
-                        vm.layout.status === 'finished'
-                        || vm.layout.status === 'approved'
+                        ('designer' === sgUsers.currentUser.role && assignedToMe())
+                        || iAmAdminOrCurator()
                     );
             }
 

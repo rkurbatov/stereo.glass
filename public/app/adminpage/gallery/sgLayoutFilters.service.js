@@ -32,8 +32,8 @@
                 name: 'ещё не просмотренные',
                 subType: 'firstOrder',
                 value: function (layout) {
-                    return !layout.isHidden &&
-                        (
+                    return !_.contains(["deleted", "dismissed", "rejected"], layout.status)
+                        && (
                             layout.rating === -1
                             || layout.notRatedByMe
                         );
@@ -52,7 +52,7 @@
                 subType: 'firstOrder',
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden && layout.status === 'assigned';
+                    return 'assigned' === layout.status;
                 }
             },
             {
@@ -75,14 +75,14 @@
                 name: 'одобренные',
                 subType: 'firstOrder',
                 value: function (layout) {
-                    return !layout.isHidden && layout.status === 'approved';
+                    return 'approved' === layout.status;
                 }
             },
             {
                 name: 'еще не одобренные',
                 subType: 'firstOrder',
                 value: function (layout) {
-                    return !layout.isHidden && layout.status === 'finished';
+                    return 'finished' === layout.status;
                 }
             },
             {
@@ -164,8 +164,7 @@
                 subType: 'firstOrder',
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden
-                        && _.contains(['rejected', 'dismissed'], layout.status);
+                    return _.contains(['rejected', 'dismissed'], layout.status);
                 }
             });
 
@@ -178,7 +177,7 @@
                     mode: 'firstOrder',
                     value: function (layout) {
                         layout.compareValue = layout.average;
-                        return layout.isHidden;
+                        return 'deleted' === layout.status;
                     }
                 }
             );
@@ -191,8 +190,7 @@
                     : raterName,
                 value: function (layout) {
                     layout.compareValue = (_.find(layout.ratings, {assignedBy: raterName}) || {}).value;
-                    return !layout.isHidden 
-                        && !_.contains(['rejected', 'dismissed'], layout.status)
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && _.any(layout.ratings, {assignedBy: raterName});
                 }
             };
@@ -210,8 +208,7 @@
                     : commenterName,
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden
-                        && !_.contains(['rejected', 'dismissed'], layout.status)
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && (
                             _.any(layout.comments, {postedBy: commenterName})
                             || (layout.designerComment && layout.createdBy === commenterName)
@@ -238,8 +235,7 @@
                 commenter: 'всеми',
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden
-                        && !_.contains(['rejected', 'dismissed'], layout.status)
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && (
                             layout.comments.length
                             || layout.designerComment
@@ -263,8 +259,7 @@
                     : authorName,
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden
-                        && !_.contains(['rejected', 'dismissed'], layout.status)
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && layout.createdBy === authorName;
                 }
             };
@@ -280,8 +275,7 @@
                 author: 'всеми',
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden
-                        && !_.contains(['rejected', 'dismissed'], layout.status);
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status);
                 }
             };
 
@@ -295,8 +289,7 @@
                     : assigneeName,
                 value: function (layout) {
                     layout.compareValue = layout.average;
-                    return !layout.isHidden
-                        && !_.contains(['rejected', 'dismissed'], layout.status)
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && layout.assignedTo === assigneeName;
                 }
             };
@@ -311,8 +304,7 @@
             var filterObject = {
                 assignee: "все",
                 value: function (layout) {
-                    return !layout.isHidden
-                        && !_.contains(['rejected', 'dismissed'], layout.status);
+                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status);
                 }
             };
 
