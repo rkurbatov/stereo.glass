@@ -6,7 +6,7 @@ header(ng-show='layouter.isSuccessful')
             img#logo-words(src="img/logo-words-glowed.png" alt="design the motion")
         .navwrapper
             nav
-                ul#menu-top
+                ul.menu-pages
                     li(ng-class='{"nav-selected": layouter.currentPage == "about"}'
                     ng-click='layouter.switchPage("about")')
                         a Подробно

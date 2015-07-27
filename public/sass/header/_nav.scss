@@ -5,12 +5,13 @@ nav {
     width: 1040px;
   }
 
-  #menu-top {
+  ul.menu-pages {
     display: table;
     text-align: center;
     width: 100%;
 
     margin: 0; // prevent bootstrap rearrangement;
+    padding: 0;
 
     li {
       display: table-cell;

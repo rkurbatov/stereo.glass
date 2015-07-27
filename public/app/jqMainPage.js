@@ -48,9 +48,9 @@
      }*/
 
     function initBlinkAnimations() {
-        $($('#menu-top')[0].children).each(
+        $($('nav .menu-pages')[0].children).each(
             function (i) {
-                setBlinkInterval('#menu-top :nth-child(' + (i + 1) + ') :nth-child(1)', rnd(15, 25), rnd(5, 9));
+                setBlinkInterval('nav .menu-pages :nth-child(' + (i + 1) + ') :nth-child(1)', rnd(15, 25), rnd(5, 9));
             }
         );
         setBlinkInterval('#logo-blicker', rnd(15, 18), rnd(3, 5));
@@ -99,7 +99,7 @@
 
         var k = 200, // px per s
             prodMenuList = $('#menu-product')[0],
-            topMenuList = $('#menu-top')[0],
+            topMenuList = $('nav .menu-pages')[0],
             logo = $('#logo-blicker');
 
         if (prodMenuList && prodMenuList.children.length > 0) {
