@@ -28,10 +28,8 @@ build/Release
 node_modules
 public/libs
 public/css
-public/img
 public/.sass-cache
 public/sass/.sass-cache
-public/video
 public/scripts/*
 public/stylesheets/*
 uploads
