@@ -39,4 +39,4 @@ uploads
 .idea
 
 COMMIT.txt
-app/views/admin/builddate.jade
+app/views/builddate.jade

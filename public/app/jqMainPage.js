@@ -16,36 +16,6 @@
         $('.sg-hor-scroll').horizon({swipe: true});
     });
 
-    /*$(window).on("load resize orientationchange", function () {
-     var ww = $(window).width(), wh = $(window).height();
-     var imgHeight = ww * 800 / 1500;
-     var centerDelta = (wh - imgHeight) / 2;
-     //$('section.sg-hor-scroll .sg-plate-3d').css({'marginTop': centerDelta});
-     //reDraw3d();
-     });*/
-
-    /*function reDraw3d() {
-     $('#sg-lines-3d').drawPlate3D('.sg-main-sec1 .bg-room');
-     $('#sg-buddha-3d').drawPlate3D('.sg-main-sec1 .bg-room');
-     $('#sg-kitchen-wall1-3d').drawPlate3D('.sg-main-sec2 .bg-room');
-     $('#sg-kitchen-wall2-3d').drawPlate3D('.sg-main-sec2 .bg-room');
-     $('#sg-kitchen-wall3-3d').drawPlate3D('.sg-main-sec2 .bg-room');
-     $('#sg-kitchen-floor').drawPlate3D('.sg-main-sec2 .bg-room');
-     $('#sg-teddybear-3d').drawPlate3D('.sg-main-sec3 .bg-room');
-     $('#sg-teddyhare-3d').drawPlate3D('.sg-main-sec3 .bg-room');
-     $('#sg-teddycat-3d').drawPlate3D('.sg-main-sec3 .bg-room');
-     $('#sg-pavilion-3d').drawPlate3D('.sg-main-sec4 .bg-room');
-     $('#sg-mirror-3d').drawPlate3D('.sg-main-sec4 .bg-room');
-     $('#sg-bathroom-floor').drawPlate3D('.sg-main-sec4 .bg-room');
-     $('#aqua-left-3d').drawPlate3D('.sg-main-sec5 .bg-room');
-     $('#aqua-right-3d').drawPlate3D('.sg-main-sec5 .bg-room');
-     $('#sg-club-floor').drawPlate3D('.sg-main-sec5 .bg-room');
-     $('#coffee-3d').drawPlate3D('.sg-main-sec6 .bg-room');
-     $('#strawberry-3d').drawPlate3D('.sg-main-sec6 .bg-room');
-     $('#citrus-3d').drawPlate3D('.sg-main-sec6 .bg-room');
-     $('#beeline-3d').drawPlate3D('.sg-main-sec6 .bg-room');
-     $('#cube-3d').drawPlate3D('.sg-main-sec6 .bg-room');
-     }*/
 
     function initBlinkAnimations() {
         $($('nav .menu-pages')[0].children).each(

@@ -1,4 +1,4 @@
-(function () {
+(function (window, angular, undefined) {
     'use strict';
 
     angular
@@ -7,4 +7,4 @@
             sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
         });
 
-})();
+})(window, window.angular);

@@ -8,13 +8,13 @@ var gulpif = require('gulp-if');
 gulp.task('default', ['buildDevel']);
 
 gulp.task('buildDevel', function(){
-    require('fs').writeFileSync('app/views/admin/builddate.jade', '- var builddate = "' + Date.now() + '"');
+    require('fs').writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor();
     deployCustom();
 });
 
 gulp.task('buildProduction', function(){
-    require('fs').writeFileSync('app/views/admin/builddate.jade', '- var builddate = "' + Date.now() + '"');
+    require('fs').writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor(true);
     deployCustom(true);
 });
@@ -60,6 +60,19 @@ function deployVendor(production) {
         'public/libs/angularjs-color-picker/angularjs-color-picker.css'
     ];
 
+    var vendorLibsArrayMain = [
+        'public/libs/jquery/dist/jquery.min.js',
+        'public/app/tmp/js/jquery.horizontalscroll.js',
+        'public/app/tmp/js/jquery.touchswipe.js',
+        'public/libs/lodash/lodash.min.js',
+        'public/libs/angular/angular.min.js',
+        'public/libs/sg.ui/build/sg.ui.js'
+    ];
+
+    var vendorStylesArrayMain = [
+
+    ];
+
     gulp.src(vendorLibsArrayAdmin)
         .pipe(concat('vendor-admin.min.js'))
         .pipe(gulpif(production, uglify()))
@@ -69,23 +82,55 @@ function deployVendor(production) {
         .pipe(concat('vendor-admin.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
+
+    gulp.src(vendorLibsArrayMain)
+        .pipe(concat('vendor-main.min.js'))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(vendorStylesArrayMain)
+        .pipe(concat('vendor-main.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
 }
 
 function deployCustom(production) {
+    var customSourceArrayAdmin = [
+        'public/app/ngAdmin.js',
+        'public/app/adminpage/**/*.js'
+    ];
+
     var customStylesArrayAdmin = [
         'public/css/admin/admin.css'
     ];
 
-    gulp.src([
-        'public/app/ngAdmin.js',
-        'public/app/adminpage/**/*.js'
-    ])
+    var customSourceArrayMain = [
+        'public/app/jqMainPage.js',
+        'public/app/ngMainPage.js',
+        'public/app/mainpage/**/*.js'
+    ];
+
+    var customStylesArrayMain = [
+        'public/css/screen.css'
+    ];
+
+    gulp.src(customSourceArrayAdmin)
         .pipe(concat('custom-admin.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesArrayAdmin)
         .pipe(concat('custom-admin.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
+
+    gulp.src(customSourceArrayMain)
+        .pipe(concat('custom-main.min.js'))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(customStylesArrayMain)
+        .pipe(concat('custom-main.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 }
