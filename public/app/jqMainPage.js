@@ -18,13 +18,13 @@
 
 
     function initBlinkAnimations() {
-        $($('nav .menu-pages')[0].children).each(
+        $(($('nav .menu-pages')[0] || {}).children).each(
             function (i) {
                 setBlinkInterval('nav .menu-pages :nth-child(' + (i + 1) + ') :nth-child(1)', rnd(15, 25), rnd(5, 9));
             }
         );
         setBlinkInterval('#logo-blicker', rnd(15, 18), rnd(3, 5));
-        $($('#menu-product')[0].children).each(
+        $(($('#menu-product')[0] || {}).children).each(
             function (i) {
                 setBlinkInterval('#menu-product :nth-child(' + (i + 1) + ') :nth-child(1)', rnd(12, 20), rnd(1, 5));
             }
