@@ -17,8 +17,16 @@
 
         function link(scope, elm, attrs) {
             angular.element($window).on('carousel:resize', function (e) {
-                var delta = ($window.innerHeight - elm.innerHeight()) / 2;
+                var delta;
+                if (attrs.sgCenterVertical === '-') {
+                    delta = -($window.innerHeight - elm.parent().innerHeight()) / 2;
+                } else {
+                    delta = ($window.innerHeight - elm.innerHeight()) / 2;
+                }
+                // positve margin for neutralization of negative margin
                 elm.css('marginTop', delta);
+
+                console.log(delta);
             });
         }
     }

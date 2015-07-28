@@ -70,7 +70,8 @@ function deployVendor(production) {
     ];
 
     var vendorStylesArrayMain = [
-
+        'public/libs/bootstrap/dist/css/bootstrap.css',
+        'public/libs/font-awesome/css/font-awesome.css'
     ];
 
     gulp.src(vendorLibsArrayAdmin)
