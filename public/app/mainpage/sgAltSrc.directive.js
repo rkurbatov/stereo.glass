@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgAltSrc', sgAltSrc);
 
-    sgAltSrc.$inject = [];
+    sgAltSrc.$inject = ['auxData'];
 
-    function sgAltSrc() {
+    function sgAltSrc(auxData) {
         var ddo = {
             restrict: 'A',
             link: link
@@ -17,8 +17,8 @@
 
         function link(scope, elm, attrs) {
             var key = attrs.sgAltSrc;
-            var source = scope.$parent.layouter.bkImgs[key];
-            var altSource = scope.$parent.layouter.animImgs[key];
+            var source = auxData.bkImgs[key];
+            var altSource = auxData.animImgs[key];
             if (source) {
                 scope.$watch(
                     function () {

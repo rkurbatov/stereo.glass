@@ -25,8 +25,6 @@
                 }
                 // positve margin for neutralization of negative margin
                 elm.css('marginTop', delta);
-
-                console.log(delta);
             });
         }
     }
