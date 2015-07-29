@@ -27,6 +27,12 @@
                 }
             });
 
+            angular.element($window).on('carousel:scroll', function (e) {
+                if (scope.main.isPlaying && e.index !== 0) {
+                    scope.switchVideoState();
+                }
+            });
+
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
 
             function switchVideoState() {
