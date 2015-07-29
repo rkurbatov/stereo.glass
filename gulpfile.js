@@ -66,6 +66,7 @@ function deployVendor(production) {
         'public/app/tmp/js/jquery.touchswipe.js',
         'public/libs/lodash/lodash.min.js',
         'public/libs/angular/angular.min.js',
+        'public/libs/angular-cookies/angular-cookies.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];
 
