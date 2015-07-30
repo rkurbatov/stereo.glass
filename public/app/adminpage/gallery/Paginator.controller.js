@@ -134,7 +134,6 @@
         }
 
         function resetSearch() {
-            console.log('click');
             if (vm.search.string) {
                 vm.search.string = '';
                 vm.search.update();
@@ -207,6 +206,15 @@
                             !vm.dateRange.endDate
                             || vm.dateRange.endDateString > layout.finishedAt
                         ) && vm.filters.current.Ready.value(layout);
+                case "Shop":
+                    return "approved" === layout.status
+                        && (
+                            !vm.dateRange.startDate
+                            || vm.dateRange.startDateString < layout.finishedAt
+                        ) && (
+                            !vm.dateRange.endDate
+                            || vm.dateRange.endDateString > layout.finishedAt
+                        ) && vm.filters.current.Shop.value(layout);
             }
         }
 

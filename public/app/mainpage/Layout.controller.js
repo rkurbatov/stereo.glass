@@ -15,7 +15,6 @@
         vm.percentLoaded = 0;
 
         vm.currentUser = Users.currentUser;
-        console.log(vm.currentUser);
 
         vm.getBkSrc = getBkSrc;
         vm.switchPage = switchPage;
@@ -73,7 +72,6 @@
                 case "contacts":
 
             }
-            console.log('switching to page ', pageName);
             vm.settings.currentPage = pageName;
         }
 

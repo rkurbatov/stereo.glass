@@ -90,10 +90,22 @@
             }
         ];
 
+        var shopMode = [
+            {
+                name: "По дате добавления (от новых к старым)",
+                value: ['-approvedAt']
+            },
+            {
+                name: "По дате добавления (от старых к новым)",
+                value: ['approvedAt']
+            }
+        ];
+
         return {
             Rating: ratingMode,
             Progress: progressMode,
             Ready: readyMode,
+            Shop: shopMode,
             current: {}
         };
     }

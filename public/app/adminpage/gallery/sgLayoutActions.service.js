@@ -159,7 +159,6 @@
                 .then(function (result) {
 
                     _.extend(layout, setObject);
-                    console.log(layout);
                     var message;
 
                     if (setObject.status === "approved") {

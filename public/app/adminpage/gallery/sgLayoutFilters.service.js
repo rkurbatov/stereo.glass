@@ -92,10 +92,35 @@
             }
         ];
 
+        var shopMode = [
+            {
+                name: 'все',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    return 'approved' === layout.status;
+                }
+            },
+            {
+                name: 'опубликованные',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    return 'approved' === layout.status && layout.isPublished;
+                }
+            },
+            {
+                name: 'скрытые',
+                subType: 'firstOrder',
+                value: function (layout) {
+                    return 'approved' === layout.status && !layout.isPublished;
+                }
+            }
+        ];
+
         var filters = {
             Rating: ratingMode,
             Progress: progressMode,
             Ready: readyMode,
+            Shop: shopMode,
 
             raters: [],
             commenters: [],
@@ -106,6 +131,7 @@
                 Rating: {},
                 Progress: {},
                 Ready: {},
+                Shop: {},
 
                 author: {},
                 rater: {},

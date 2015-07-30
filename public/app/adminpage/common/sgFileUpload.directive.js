@@ -26,7 +26,6 @@
 
             function loadFileHandler(newVal) {
                 if (newVal) {
-                    console.log(newVal);
                     Upload.upload({
                         url: '/api/files',
                         fields: {
