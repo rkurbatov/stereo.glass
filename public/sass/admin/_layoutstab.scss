@@ -20,6 +20,7 @@ ul.sg-layout-list {
 
   border-style: solid;
   border-width: 3px;
+  border-radius: 3px;
   border-color: rgba(0, 0, 0, 0);
 
   img {
@@ -27,6 +28,7 @@ ul.sg-layout-list {
     height: 125px;
     margin: 10px 20px;
     border: 1px solid #D4D4D4;
+    border-radius: 2px;
   }
 
   &:hover {
@@ -48,6 +50,7 @@ ul.sg-layout-list {
   border-style: solid;
   border-width: 3px;
   border-color: rgba(0, 0, 0, 0);
+  border-radius: 3px;
 
   width: 165px;
   height: 240px;
