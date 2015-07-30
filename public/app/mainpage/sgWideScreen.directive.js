@@ -5,10 +5,10 @@
         .module('MainPage')
         .directive('sgWideScreen', sgWideScreen);
 
-    sgWideScreen.$inject = ['$document', '$window'];
+    sgWideScreen.$inject = ['$document', '$window', 'auxData'];
 
     // sets variable for widescreen displays
-    function sgWideScreen($document, $window) {
+    function sgWideScreen($document, $window, auxData) {
         var ddo = {
             restrict: 'E',
             link: link
@@ -24,11 +24,11 @@
 
             function calcRatio() {
                 var ww = $window.innerWidth, wh = $window.innerHeight;
-                scope.main.isWideScreen = ww / wh > attrs.ratio;
+                auxData.settings.isWideScreen = ww / wh > attrs.ratio;
             }
 
             function setScreenIndex(evt) {
-                scope.main.screenIndex = evt.index;
+                auxData.settings.screenIndex = evt.index;
             }
         }
     }

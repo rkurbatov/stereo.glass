@@ -14,7 +14,7 @@
         // switch coords for 15:8 / 15:10 ratio
         // TODO: move watcher to directive
         $scope.$watch(function () {
-                return vm.isWideScreen;
+                return auxData.settings.isWideScreen;
             },
             function (newVal) {
                 if (newVal) {

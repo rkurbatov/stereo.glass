@@ -12,6 +12,12 @@
         // ==== DECLARATION ====
         var svc = this;
 
+        svc.settings = {
+            currentPage: 'main',
+            isWideScreen: undefined,
+            isMobile: window.isMobile
+        };
+
         var urlBkPrefix = '/img/rooms/', urlBkPostfix = '',
             url2dPrefix = '/img/2d-rooms/', url2dPostfix = '',
             url3dPrefix = '/img/3d-rooms/', url3dPostfix = '';

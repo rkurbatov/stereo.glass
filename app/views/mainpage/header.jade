@@ -7,16 +7,16 @@ header(ng-show='layouter.isSuccessful')
         .navwrapper
             nav
                 ul.menu-pages
-                    li(ng-class='{"nav-selected": layouter.currentPage == "about"}'
+                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "about"}'
                     ng-click='layouter.switchPage("about")')
                         a Подробно
-                    li(ng-class='{"nav-selected": layouter.currentPage == "goods"}'
+                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "goods"}'
                     ng-click='layouter.switchPage("goods")')
                         a Наш товар
-                    li(ng-class='{"nav-selected": layouter.currentPage == "dealers"}'
+                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "dealers"}'
                     ng-click='layouter.switchPage("dealers")')
                         a Дилерам
-                    li(ng-class='{"nav-selected": layouter.currentPage == "contacts"}'
+                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "contacts"}'
                     ng-click='layouter.switchPage("contacts")')
                         a Контакты
                     li
@@ -33,7 +33,7 @@ header(ng-show='layouter.isSuccessful')
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")
                 i.fa.fa-search
-    #wrapper-menu-product.container-fluid(ng-if='layouter.currentPage == "goods"')
+    #wrapper-menu-product.container-fluid(ng-if='layouter.settings.currentPage == "goods"')
         ul#menu-product
             li.prod-selected: a Плитка
             li: a Панно

@@ -8,10 +8,10 @@
     Layout.$inject = ['sgPreloader', '$timeout', 'auxData', 'Users'];
     function Layout(sgPreloader, $timeout, auxData, Users) {
         var vm = this;
+        vm.settings = auxData.settings;
+
         vm.isLoading = true;
         vm.isSuccessful = false;
-        vm.isMobile = window.isMobile;
-        vm.currentPage = "main";
         vm.percentLoaded = 0;
 
         vm.currentUser = Users.currentUser;
@@ -51,8 +51,8 @@
             );
         }
 
-        function getBkSrc(name, isWideScreen) {
-            if (isWideScreen) {
+        function getBkSrc(name) {
+            if (auxData.settings.isWideScreen) {
                 return auxData.bkImgs[name + '-15-8'].src
             } else {
                 return auxData.bkImgs[name + '-15-10'].src
@@ -60,7 +60,7 @@
         }
 
         function switchPage(pageName) {
-            if (vm.currentPage === pageName) {
+            if (vm.settings.currentPage === pageName) {
                 return
             }
 
@@ -74,7 +74,7 @@
 
             }
             console.log('switching to page ', pageName);
-            vm.currentPage = pageName;
+            vm.settings.currentPage = pageName;
         }
 
     }

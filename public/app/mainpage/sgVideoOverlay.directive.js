@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgVideoOverlay', sgVideoOverlay);
 
-    sgVideoOverlay.$inject = ['$window'];
+    sgVideoOverlay.$inject = ['$window', 'auxData'];
 
-    function sgVideoOverlay($window) {
+    function sgVideoOverlay($window, auxData) {
         var ddo = {
             restrict: 'C',
             template: '<div style="width: 100%; height: 100%;" ng-click="switchVideoState()"></div>',
@@ -22,7 +22,7 @@
             scope.pauseVideo = pauseVideo;
 
             angular.element($window).on('keypress', function (e) {
-                if ((e.keyCode == 0 || e.keyCode == 32) && scope.main.screenIndex === 0) {
+                if ((e.keyCode == 0 || e.keyCode == 32) && auxData.settings.screenIndex === 0) {
                     scope.switchVideoState();
                 }
             });
