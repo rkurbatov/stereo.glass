@@ -27,8 +27,8 @@ header(ng-show='layouter.isSuccessful')
             button#login-button.sg-btn(ng-if="!layouter.currentUser.name"
             ng-click="layouter.signIn()") Войти
                 i.fa.fa-sign-in
-            button#logout-button.sg-btn(ng-if="layouter.currentUser.name"
-            ng-click="layouter.signOut()") {{ layouter.currentUser.name }}
+            button#logout-button.sg-btn(ng-if="layouter.currentUser.name")
+                a(href='/auth/logout') {{ layouter.currentUser.name }}
                 i.fa.fa-sign-out
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")

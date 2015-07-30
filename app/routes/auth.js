@@ -39,7 +39,11 @@ module.exports = function (express, passport, Account) {
         res.clearCookie('username');
         res.clearCookie('usermail');
         res.clearCookie('userrole');
-        res.redirect('/auth');
+        if (req.query && req.query.redirect) {
+            res.redirect('/' + req.query.redirect);
+        } else {
+            res.redirect('/');
+        }
     }
 
     function getRegister(req, res) {
