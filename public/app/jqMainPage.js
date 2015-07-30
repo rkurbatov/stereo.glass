@@ -40,6 +40,7 @@
             inpSearchForm = $("form[name='search']"),
             inpSearch = $("#search-input"),
             btnLogin = $("#login-button"),
+            btnLogout = $("#logout-button"),
             dx;
 
         if (list && list.children.length > 4 && list.children[list.children.length - 1]) {
@@ -53,6 +54,11 @@
             if (btnLogin) {
                 btnLogin.innerWidth($(list.children[list.children.length - 2]).innerWidth() + $(list.children[list.children.length - 1]).innerWidth() - 2 * dx);
                 btnLogin.offset({left: $(list.children[list.children.length - 2]).offset().left + dx});
+            }
+
+            if (btnLogout) {
+                btnLogout.innerWidth($(list.children[list.children.length - 2]).innerWidth() + $(list.children[list.children.length - 1]).innerWidth() - 2 * dx);
+                btnLogout.offset({left: $(list.children[list.children.length - 2]).offset().left + dx});
             }
 
             if (inpSearch) {

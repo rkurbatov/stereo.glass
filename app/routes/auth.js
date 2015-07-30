@@ -4,32 +4,53 @@ module.exports = function (express, passport, Account) {
     var Router = express.Router();
 
     //displays our signup page
-    Router.get(['/', '/login'], function (req, res) {
+    Router.get(['/', '/login'], getLogin);
+    //logs user out of site, deleting them from the session, and returns to homepage
+    Router.get('/logout', getLogout);
+    Router.get('/register', getRegister);
+
+    //sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
+    Router.post('/login', passport.authenticate('local', {
+        successRedirect: '../admin',
+        failureRedirect: '/auth'
+    }));
+    //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
+    Router.post('/register', postRegister);
+
+    return Router;
+
+    // === IMPLEMENTATION ===
+
+    function getLogin(req, res) {
         if (req.isAuthenticated()) {
             res.redirect('../admin');
         } else {
             res.render('auth/auth');
         }
-    });
+    }
 
-    Router.get('/register', function (req, res) {
+    function getLogout(req, res, next) {
+        if (req.isAuthenticated()) {
+            var name = req.user.username;
+            console.log("LOGGIN OUT " + name);
+            req.logout();
+            req.session.notice = "You have successfully been logged out " + name + "!";
+        }
+        res.clearCookie('username');
+        res.clearCookie('usermail');
+        res.clearCookie('userrole');
+        res.redirect('/auth');
+    }
+
+    function getRegister(req, res) {
         if (req.isAuthenticated()) {
             res.redirect('../admin');
         } else {
             res.render('auth/register');
         }
-    });
+    }
 
-
-    //sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
-    Router.post('/login', passport.authenticate('local', {
-            successRedirect: '../admin',
-            failureRedirect: '/auth'
-        })
-    );
-
-    //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
-    Router.post('/register', function (req, res, next) {
+    function postRegister(req, res, next) {
         console.log('registering.user ' + req.body.username);
         Account.register(new Account({
             username: req.body.username,
@@ -47,17 +68,5 @@ module.exports = function (express, passport, Account) {
                 res.redirect('../admin');
             });
         });
-    });
-
-    //logs user out of site, deleting them from the session, and returns to homepage
-    Router.get('/logout', function (req, res, next) {
-        if (req.isAuthenticated()) {
-            var name = req.user.username;
-            console.log("LOGGIN OUT " + name);
-            req.logout();
-            req.session.notice = "You have successfully been logged out " + name + "!";
-        }
-        res.redirect('/auth');
-    });
-    return Router;
+    }
 };
