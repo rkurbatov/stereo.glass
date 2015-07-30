@@ -19,7 +19,7 @@ ng-style='paginator.getAuthorBorderColor(layout)')
     ns-popover-placement="bottom|center"
     ns-popover-template="/partials/popover-layoutInfo"
     ng-style="paginator.getAssigneeBorderColor(layout)")
-        img(ng-src='{{ paginator.getThumbUrl(layout, paginator.viewMode) }}'
+        img(ng-src='{{ paginator.getThumbUrl(layout, paginator.viewMode, paginator.$index === $index) }}'
         ng-click="paginator.handleLayoutClick($index)"
         ng-dblclick="paginator.showInGallery()"
         hm-swipeup="paginator.showInGallery()"

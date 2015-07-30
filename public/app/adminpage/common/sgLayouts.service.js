@@ -156,8 +156,12 @@
             }
         }
 
-        function getThumbUrl(layout, viewMode) {
-            var img = (layout.status === 'finished' && viewMode === 'Ready')
+        function getThumbUrl(layout, viewMode, selected) {
+            var img = (
+                selected
+                && _.contains(['finished', 'approved'], layout.status)
+                && _.contains(['Ready', 'Shop'], viewMode)
+            )
                 ? layout.urlGifLoRes
                 : layout.urlThumb;
             return '/uploads/' + (layout.status
