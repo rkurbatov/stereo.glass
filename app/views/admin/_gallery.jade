@@ -3,27 +3,17 @@
 
     //- Switch mode        
     .row
+        .col-xs-1
+            | &nbsp;&nbsp;
+            label.btn.btn-danger(ng-click="paginator.resetAll()")
+                i.fa.fa-close.
         .col-xs-2
-            | &nbsp;&nbsp;
-            span.fa.fa-stack.fa-lg(ng-click="paginator.resetAll()" style="cursor:pointer")
-                .fa.fa-circle-thin.fa-stack-2x.sg-red-i.sg-shadowed-text
-                .fa.fa-close.fa-stack-1x.sg-red-i.sg-shadowed-text
-        .col-xs-10: .form-group.text-center
-            label.control-label Режим отображения 
-            | &nbsp;&nbsp;
-            .btn-group
-                label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Rating'") 
-                    i.fa.fa-star
-                    |   Рейтинги
-                label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Progress'") 
-                    i.fa.fa-check-square-o
-                    |   Прогресс
-                label.btn.btn-primary(ng-model="paginator.viewMode" btn-radio="'Ready'") 
-                    i.fa.fa-picture-o
-                    |   Готовые макеты
-            | &nbsp;&nbsp;
-            label.control-label Найдено:
-            |  {{ paginator.filteredLayouts.length }}
+            .form-group
+                label.control-label Найдено
+                | &nbsp;&nbsp;
+                label.btn.btn-default(ng-disabled='true') {{ paginator.filteredLayouts.length }}
+        .col-xs-9
+            include gallery/paginator-viewMode.jade
 
     .row
         //- Server filters
