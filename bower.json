@@ -20,6 +20,7 @@
     "angular-smart-table": "~2.1.0",
     "ryanmullins-angular-hammer": "~2.1.10",
     "sg.ui": "https://github.com/rkurbatov/sg.ui.git",
+    "angular-bootstrap-select": "https://github.com/rkurbatov/angular-bootstrap-select.git",
     "angular-toastr": "~1.4.1",
     "ng-file-upload": "5.0.4",
     "angular-daterangepicker": "~0.1.16",

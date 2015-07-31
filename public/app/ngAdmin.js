@@ -9,6 +9,7 @@
             'angularUtils.directives.dirPagination',
             'daterangepicker',
             'ui.bootstrap',
+            'angular-bootstrap-select',
             'ngCookies',
             'hmTouchEvents',
             'toastr',
