@@ -6,8 +6,12 @@
             'ngCookies',
             'sg.ui'
         ])
-        .config(function (sgPlate3dOptionsProvider) {
-            sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
-        });
+        .config(MainPagePlate3dConfig);
+
+    MainPagePlate3dConfig.$inject = ['sgPlate3dOptionsProvider'];
+
+    function MainPagePlate3dConfig(sgPlate3dOptionsProvider) {
+        sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
+    }
 
 })(window, window.angular);

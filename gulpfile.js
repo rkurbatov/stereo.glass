@@ -23,7 +23,7 @@ gulp.task('deployVendor', deployVendor);
 gulp.task('deployCustom', deployCustom);
 
 function deployVendor(production) {
-    var vendorLibsArrayAdmin = [
+    var vendorLibsAdmin = [
         'public/libs/jquery/dist/jquery.js',
         'public/libs/jquery-color/jquery.color.js',
         'public/libs/lodash/lodash.js',
@@ -51,7 +51,7 @@ function deployVendor(production) {
         'public/libs/sg.ui/build/sg.ui.js'
     ];
 
-    var vendorStylesArrayAdmin = [
+    var vendorStylesAdmin = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
         'public/libs/font-awesome/css/font-awesome.css',
         'public/libs/bootstrap-select/dist/css/bootstrap-select.css',
@@ -61,37 +61,37 @@ function deployVendor(production) {
         'public/libs/angularjs-color-picker/angularjs-color-picker.css'
     ];
 
-    var vendorLibsArrayMain = [
+    var vendorLibsMain = [
         'public/libs/jquery/dist/jquery.min.js',
         'public/app/tmp/js/jquery.horizontalscroll.js',
         'public/app/tmp/js/jquery.touchswipe.js',
-        'public/libs/lodash/lodash.min.js',
-        'public/libs/angular/angular.min.js',
+        'public/libs/lodash/lodash.js',
+        'public/libs/angular/angular.js',
         'public/libs/angular-cookies/angular-cookies.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];
 
-    var vendorStylesArrayMain = [
+    var vendorStylesMain = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
         'public/libs/font-awesome/css/font-awesome.css'
     ];
 
-    gulp.src(vendorLibsArrayAdmin)
+    gulp.src(vendorLibsAdmin)
         .pipe(concat('vendor-admin.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesArrayAdmin)
+    gulp.src(vendorStylesAdmin)
         .pipe(concat('vendor-admin.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 
-    gulp.src(vendorLibsArrayMain)
+    gulp.src(vendorLibsMain)
         .pipe(concat('vendor-main.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesArrayMain)
+    gulp.src(vendorStylesMain)
         .pipe(concat('vendor-main.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
