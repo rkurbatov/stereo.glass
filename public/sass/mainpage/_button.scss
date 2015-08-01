@@ -1,0 +1,42 @@
+.sg-btn {
+  font-style: italic;
+  font-weight: bold;
+  color: rgba(black, 0.7);
+  &:hover {
+    color: $wine-red;
+  }
+
+  position: relative;
+  z-index: 1;
+
+  cursor: pointer;
+
+  margin-top: 4px;
+  height: 16px;
+  line-height: 16px;
+
+  @include display-sm {
+    margin-top: 6px;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  @include display-md {
+    margin-top: 6px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  @include display-lg {
+    margin-top: 6px;
+    height: 26px;
+    line-height: 26px;
+  }
+
+  border-radius: 10px;
+  padding-left: 10px;
+  float: right;
+
+  @include box-shadow(rgba(black, 0.25) 0 0 2px 2px, inset 0px -4px 4px 4px rgba(0, 0, 0, 0.1));
+
+}

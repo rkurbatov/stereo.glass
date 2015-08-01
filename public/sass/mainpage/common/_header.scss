@@ -1,0 +1,100 @@
+@import "compass/css3/user-interface";
+@import "header-menu-product";
+@import "header-nav";
+@import "header-search";
+
+header {
+  .navwrapper {
+    display: table;
+  }
+
+  nav {
+    display: table-cell;
+    width: 1%;
+  }
+
+  //background-color: $header-bg-color;
+  margin-bottom: 0.25em;
+
+  //@include box-shadow(rgba(0, 0, 0, .5) 0 0 8px 0);
+
+  @include on-xs-plus {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  div.container {
+    padding: 0;
+  }
+}
+
+#container-logo {
+  float: left;
+
+  @include on-xs {
+    width: 140px;
+  }
+
+  @include on-sm {
+    width: 240px;
+  }
+
+  @include on-md {
+    width: 320px;
+  }
+
+  @include on-lg {
+    width: 360px;
+  }
+
+}
+
+#logo-upper {
+  max-width: 100%;
+
+  @include on-sm-plus {
+    -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
+  }
+  @include box-shadow(rgba(0, 0, 0, .5) 3px 10px 10px -10px);
+}
+
+#logo-words {
+  max-width: 100%;
+}
+
+#logo-blicker {
+  position: absolute;
+  z-index: 100;
+
+  @include blicker;
+
+  &:hover {
+    @include blicker-hover;
+  }
+
+  &.hovered {
+    @include blicker-hover;
+  }
+}
+
+#wrapper-nav-buttons {
+
+  /*@include on-xs {
+    margin-top: 14px;
+  }
+
+  @include on-sm {
+    margin-top: 27px;
+  }
+
+  @include on-md {
+    margin-top: 36px;
+  }
+
+  @include on-lg {
+    margin-top: 42px;
+  }*/
+}

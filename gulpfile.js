@@ -98,41 +98,41 @@ function deployVendor(production) {
 }
 
 function deployCustom(production) {
-    var customSourceArrayAdmin = [
+    var customSourceAdmin = [
         'public/app/ngAdmin.js',
         'public/app/adminpage/**/*.js'
     ];
 
-    var customStylesArrayAdmin = [
+    var customStylesAdmin = [
         'public/css/admin/admin.css'
     ];
 
-    var customSourceArrayMain = [
+    var customSourceMain = [
         'public/app/jqMainPage.js',
         'public/app/ngMainPage.js',
         'public/app/mainpage/**/*.js'
     ];
 
-    var customStylesArrayMain = [
-        'public/css/screen.css'
+    var customStylesMain = [
+        'public/css/mainpage.css'
     ];
 
-    gulp.src(customSourceArrayAdmin)
+    gulp.src(customSourceAdmin)
         .pipe(concat('custom-admin.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(customStylesArrayAdmin)
+    gulp.src(customStylesAdmin)
         .pipe(concat('custom-admin.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 
-    gulp.src(customSourceArrayMain)
+    gulp.src(customSourceMain)
         .pipe(concat('custom-main.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(customStylesArrayMain)
+    gulp.src(customStylesMain)
         .pipe(concat('custom-main.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));

@@ -1,0 +1,16 @@
+// Classes for responsive design
+
+.sg-on-xs {
+  @include on-xs-minus {
+    display: none;
+  }
+  @include on-sm-plus {
+    display: none;
+  }
+}
+
+.sg-no-xs {
+  @include on-xs {
+    display: none;
+  }
+}
