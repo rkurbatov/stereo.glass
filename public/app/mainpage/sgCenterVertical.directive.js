@@ -8,12 +8,11 @@
     sgCenterVertical.$inject = ['$window'];
 
     function sgCenterVertical($window) {
-        var ddo = {
+
+        return {
             restrict: 'A',
             link: link
         };
-
-        return ddo;
 
         function link(scope, elm, attrs) {
             angular.element($window).on('carousel:resize', function (e) {

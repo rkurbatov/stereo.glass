@@ -38,7 +38,9 @@
             function parseLeaves(el) {
                 if (el.leaves) {
                     el.leaves.forEach(function (item) {
-                        result[item.value] = (!el.subCatName || el.subCatName === "") ? item.name : el.subCatName + ' - ' + item.name;
+                        result[item.value] = (!el.subCatName || el.subCatName === "")
+                            ? item.name
+                            : el.subCatName + ' - ' + item.name;
                     });
                 }
             }
