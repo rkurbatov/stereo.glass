@@ -33,6 +33,7 @@ header {
 
 #container-logo {
   float: left;
+  cursor: pointer;
 
   @include on-xs {
     width: 140px;

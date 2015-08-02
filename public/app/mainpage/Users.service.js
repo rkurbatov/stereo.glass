@@ -19,20 +19,32 @@
         svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'user', 'visitor'];
 
         svc.modalSignInRegister = modalSignInRegister;
+
         // ==== IMPLEMENTATION ====
 
         function modalSignInRegister() {
             var modalDO = {
-                templateUrl: '/partials/modal-Gallery',
-                controller: SignInRegisterCtrl,
+                templateUrl: '/partials/modal-signInRegister',
+                controller: signInRegisterCtrl,
                 controllerAs: 'vm',
                 resolve: {},
-                size: 'lg'
+                size: 'sm'
             };
 
             return $modal.open(modalDO).result;
         }
 
+        signInRegisterCtrl.$inject = ['$modalInstance']
+
+        function signInRegisterCtrl($modalInstance) {
+            var vm = this;
+
+            this.cancel = cancel;
+
+            function cancel() {
+                $modalInstance.dismiss();
+            }
+        }
 
     }
 

@@ -68,6 +68,8 @@ function deployVendor(production) {
         'public/libs/lodash/lodash.js',
         'public/libs/angular/angular.js',
         'public/libs/angular-cookies/angular-cookies.js',
+        'public/libs/angular-bootstrap/ui-bootstrap.js',
+        'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/sg.ui/build/sg.ui.js'
     ];
 
@@ -114,7 +116,7 @@ function deployCustom(production) {
     ];
 
     var customStylesMain = [
-        'public/css/mainpage.css'
+        'public/css/mainpage/mainpage.css'
     ];
 
     gulp.src(customSourceAdmin)

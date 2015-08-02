@@ -1,0 +1,8 @@
+.modal-body
+    accordion(close-others='true')
+        accordion-group(heading='Вход в кабинет' is-open='true')
+            include ../auth/_main-login
+        accordion-group(heading='Регистрация')
+            include ../auth/_main-register
+        accordion-group(heading='Забыл пароль')
+            include ../auth/_main-forgot
