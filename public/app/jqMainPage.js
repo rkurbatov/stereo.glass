@@ -47,7 +47,7 @@
             dx;
 
         if (list && menuLen > 4 && list.children[menuLen - 1]) {
-            dx = $(list.children[menuLen - 2]).innerWidth() / 4;
+            dx = $(list.children[menuLen - 1]).innerWidth() / 4;
 
             if (logoUpper && logoBlicker) {
                 $(logoBlicker).outerWidth($(logoUpper).outerWidth());
@@ -55,13 +55,13 @@
             }
 
             if (btnLogin) {
-                btnLogin.innerWidth($(items[menuLen - 3]).innerWidth() + $(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
-                btnLogin.offset({left: $(items[menuLen - 3]).offset().left + dx});
+                btnLogin.innerWidth($(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
+                btnLogin.offset({left: $(items[menuLen - 1]).offset().left + dx});
             }
 
             if (btnLogout) {
-                btnLogout.innerWidth($(items[menuLen - 3]).innerWidth() + $(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
-                btnLogout.offset({left: $(items[menuLen - 3]).offset().left + dx});
+                btnLogout.innerWidth($(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
+                btnLogout.offset({left: $(items[menuLen - 2]).offset().left + dx});
             }
 
             if (inpSearch) {
