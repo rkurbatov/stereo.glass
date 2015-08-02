@@ -23,13 +23,18 @@ header(ng-show='main.loader.isSuccessful')
                         a#flag-container
                             img(src="img/flags/UA.png")
                             span UA
+                    li
+                        a(ng-if="!main.currentUser.name" ng-click="main.signIn()")
+                            i.fa.fa-sign-in
+                        a(ng-if="main.currentUser.name" href='/auth/logout')
+                            i.fa.fa-sign-out
         #wrapper-nav-buttons
-            button#login-button.sg-btn(ng-if="!main.currentUser.name"
-            ng-click="main.signIn()") Войти
-                i.fa.fa-sign-in
+            //button#login-button.sg-btn(ng-if="!main.currentUser.name"
+            //ng-click="main.signIn()") Войти
+            //    i.fa.fa-sign-in
             button#logout-button.sg-btn(ng-if="main.currentUser.name")
-                a(href='/auth/logout') {{ main.currentUser.name }}
-                i.fa.fa-sign-out
+                a(href='/admin') {{ main.currentUser.name }}
+                i.fa.fa-user
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")
                 i.fa.fa-search
