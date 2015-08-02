@@ -1,0 +1,30 @@
+.row
+    .col-xs-12
+        .controls
+            p.small Имя пользователя
+    .col-xs-12: .input-group
+        span.input-group-addon: i.fa.fa-user
+        input.form-control(ng-model='vm.register.name')
+    .col-xs-12
+        br
+        .controls
+            p.small E-mail
+    .col-xs-12: .input-group
+        span.input-group-addon: i.fa.fa-envelope
+        input.form-control(ng-model='vm.register.mail')
+    .col-xs-12
+        br
+        .controls
+            p.small Пароль
+    .col-xs-12: .input-group
+        span.input-group-addon: i.fa.fa-key
+        input.form-control(ng-model='vm.register.password' type='password')
+    .col-xs-12
+        br
+        .input-group
+            span.input-group-addon: i.fa.fa-key
+            input.form-control(ng-model='vm.register.confirm' type='password')
+    .col-xs-12
+        br
+        button.form-control.btn.btn-success
+            | Регистрация

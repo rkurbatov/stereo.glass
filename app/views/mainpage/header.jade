@@ -27,9 +27,10 @@ header(ng-show='main.loader.isSuccessful')
             button#login-button.sg-btn(ng-if="!main.currentUser.name"
             ng-click="main.signIn()") Войти
                 i.fa.fa-sign-in
-            button#logout-button.sg-btn(ng-if="main.currentUser.name")
-                a(href='/admin') {{ main.currentUser.name }}
-                i.fa.fa-user
+            button#admin-button.sg-btn(ng-if="main.currentUser.name")
+                a(href='/admin')
+                    | {{ main.currentUser.name }}
+                    i.fa.fa-user
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")
                 i.fa.fa-search

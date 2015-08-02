@@ -19,8 +19,7 @@
 
         vm.getBkSrc = getBkSrc;
         vm.switchPage = switchPage;
-        vm.signIn = Users.signIn;
-        vm.signOut = Users.signOut;
+        vm.signIn = signIn;
 
         initController();
 
@@ -52,6 +51,7 @@
         }
 
         function getBkSrc(name) {
+            /** @namespace auxData.settings.isWideScreen */
             if (auxData.settings.isWideScreen) {
                 return auxData.bkImgs[name + '-15-8'].src
             } else {
@@ -61,7 +61,7 @@
 
         function switchPage(pageName) {
             if (vm.settings.currentPage === pageName) {
-                return
+                return;
             }
 
             switch (pageName) {
@@ -74,6 +74,10 @@
 
             }
             vm.settings.currentPage = pageName;
+        }
+
+        function signIn() {
+            Users.modalSignInRegister();
         }
 
     }

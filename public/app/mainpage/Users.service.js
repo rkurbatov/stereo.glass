@@ -5,9 +5,9 @@
         .module('MainPage')
         .service('Users', Users);
 
-    Users.$inject = ['$cookies'];
+    Users.$inject = ['$cookies', '$modal'];
 
-    function Users($cookies) {
+    function Users($cookies, $modal) {
 
         // ==== DECLARATION ====
         var svc = this;
@@ -18,17 +18,32 @@
         };
         svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'user', 'visitor'];
 
-        svc.signIn = signIn;
-        svc.signOut = signOut;
+        svc.modalSignInRegister = modalSignInRegister;
 
         // ==== IMPLEMENTATION ====
 
-        function signIn(){
+        function modalSignInRegister() {
+            var modalDO = {
+                templateUrl: '/partials/modal-signInRegister',
+                controller: signInRegisterCtrl,
+                controllerAs: 'vm',
+                resolve: {},
+                size: 'sm'
+            };
 
+            return $modal.open(modalDO).result;
         }
 
-        function signOut(){
+        signInRegisterCtrl.$inject = ['$modalInstance']
 
+        function signInRegisterCtrl($modalInstance) {
+            var vm = this;
+
+            this.cancel = cancel;
+
+            function cancel() {
+                $modalInstance.dismiss();
+            }
         }
 
     }

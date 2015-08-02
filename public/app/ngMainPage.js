@@ -4,6 +4,7 @@
     angular
         .module('MainPage', [
             'ngCookies',
+            'ui.bootstrap',
             'sg.ui'
         ])
         .config(MainPagePlate3dConfig);

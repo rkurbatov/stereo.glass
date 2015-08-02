@@ -1,0 +1,18 @@
+.row
+    .col-xs-12
+        .controls
+            p.small.text-justify Для сброса пароля введите имя пользователя
+    .col-xs-12: .input-group
+        span.input-group-addon: i.fa.fa-user
+        input.form-control(ng-model='vm.forgot.name')
+    .col-xs-12
+        br
+        .controls
+            p.small.text-justify или E-mail
+    .col-xs-12: .input-group
+        span.input-group-addon: i.fa.fa-envelope
+        input.form-control(ng-model='vm.forgot.mail')
+    .col-xs-12
+        br
+        button.form-control.btn.btn-warning
+            | Сброс пароля
