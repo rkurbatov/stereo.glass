@@ -19,8 +19,7 @@
 
         vm.getBkSrc = getBkSrc;
         vm.switchPage = switchPage;
-        vm.signIn = Users.signIn;
-        vm.signOut = Users.signOut;
+        vm.signIn = signIn;
 
         initController();
 
@@ -74,6 +73,10 @@
 
             }
             vm.settings.currentPage = pageName;
+        }
+
+        function signIn() {
+
         }
 
     }

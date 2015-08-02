@@ -5,9 +5,9 @@
         .module('MainPage')
         .service('Users', Users);
 
-    Users.$inject = ['$cookies'];
+    Users.$inject = ['$cookies', '$modal'];
 
-    function Users($cookies) {
+    function Users($cookies, $modal) {
 
         // ==== DECLARATION ====
         var svc = this;
@@ -18,18 +18,21 @@
         };
         svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'user', 'visitor'];
 
-        svc.signIn = signIn;
-        svc.signOut = signOut;
-
+        svc.modalSignInRegister = modalSignInRegister;
         // ==== IMPLEMENTATION ====
 
-        function signIn(){
+        function modalSignInRegister() {
+            var modalDO = {
+                templateUrl: '/partials/modal-Gallery',
+                controller: SignInRegisterCtrl,
+                controllerAs: 'vm',
+                resolve: {},
+                size: 'lg'
+            };
 
+            return $modal.open(modalDO).result;
         }
 
-        function signOut(){
-
-        }
 
     }
 
