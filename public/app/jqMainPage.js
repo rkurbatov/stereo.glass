@@ -56,12 +56,12 @@
 
             if (btnLogin) {
                 btnLogin.innerWidth($(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
-                btnLogin.offset({left: $(items[menuLen - 1]).offset().left + dx});
+                btnLogin.offset({left: $(items[menuLen - 2]).offset().left + dx});
             }
 
             if (btnLogout) {
                 btnLogout.innerWidth($(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
-                btnLogout.offset({left: $(items[menuLen - 1]).offset().left + dx});
+                btnLogout.offset({left: $(items[menuLen - 2]).offset().left + dx});
             }
 
             if (inpSearch) {
