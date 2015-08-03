@@ -30,7 +30,7 @@ header(ng-show='main.loader.isSuccessful')
             button#admin-button.sg-btn(ng-if="main.currentUser.name")
                 a(href='/admin')
                     | {{ main.currentUser.name }}
-                    i.fa.fa-user
+                i.fa.fa-user
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")
                 i.fa.fa-search

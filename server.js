@@ -101,8 +101,32 @@ var Category = require('./app/models/category')(mongoose);
 var Layout = require('./app/models/layout')(mongoose);
 var Message = require('./app/models/message')(mongoose);
 
-//passport.use(new LocalStrategy(Account.authenticate()));
 passport.use(Account.createStrategy());
+
+passport.use(new TwitterStrategy({
+        consumerKey: 'sW7cE7pAk3jm00e81tqKjksnW',
+        consumerSecret: 'FzHH1X07aEwZ5Zi9cgba31H0N8s99Al2wLOoyo7qeQSHW78IeT',
+        callbackURL: 'http://localhost:' + APP_PORT + '/auth/twitter/callback'
+    },
+    function (token, tokenSecret, profile, done) {
+        process.nextTick(function () {
+            return done(null, profile);
+        });
+    }));
+
+passport.use(new FacebookStrategy({
+        clientID: '1009423969070500',
+        clientSecret: 'fb4aa53026edd5daf613ed51c3992125',
+        callbackURL: 'http://localhost:' + APP_PORT + '/auth/facebook/callback'
+    },
+    function (accessToken, refreshToken, profile, done) {
+        // asynchronous verification, for effect...
+        process.nextTick(function () {
+            return done(null, profile);
+        });
+    }
+));
+
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 

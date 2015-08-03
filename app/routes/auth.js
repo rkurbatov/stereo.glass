@@ -17,6 +17,12 @@ module.exports = function (express, passport, Account) {
     //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
     Router.post('/register', postRegister);
 
+    Router.get('/auth/twitter', getAuthTwitter);
+    Router.get('/auth/facebook', getAuthFacebook);
+
+    Router.get('/auth/twitter/callback', getAuthTwitterCallback);
+    Router.get('/auth/facebook/callback', getAuthFacebookCallback);
+
     return Router;
 
     // === IMPLEMENTATION ===
@@ -73,4 +79,21 @@ module.exports = function (express, passport, Account) {
             });
         });
     }
+
+    function getAuthTwitter() {
+        return passport.authenticate('twitter');
+    }
+
+    function getAuthFacebook() {
+        return passport.authenticate('facebook');
+    }
+
+    function getAuthTwitterCallback() {
+
+    }
+
+    function getAuthFacebookCallback() {
+
+    }
+
 };
