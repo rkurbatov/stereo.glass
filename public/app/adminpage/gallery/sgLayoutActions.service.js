@@ -216,7 +216,7 @@
         }
 
         function editLayout(layout) {
-
+            sgLayoutModals.edit(layout);
         }
 
         function moveToTrash(layout) {

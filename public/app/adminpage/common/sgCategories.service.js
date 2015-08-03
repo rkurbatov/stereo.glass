@@ -21,14 +21,43 @@
             vm.assortment = catToHtml(responses[0].data);
             vm.assortmentHash = catToHash(responses[0].data);
             vm.colors = catToHtml(responses[1].data);
+            vm.colorsArr = catToArray(responses[1].data);
             vm.countries = catToHtml(responses[2].data);
+            vm.countriesArr = catToArray(responses[2].data);
             vm.countriesHash = catToHash(responses[2].data);
             vm.plots = catToHtml(responses[3].data);
+            vm.plotsArr = catToArray(responses[3].data);
             vm.plotsHash = catToHash(responses[3].data);
             vm.hashes.assortment = catToHash(responses[0].data);
             vm.hashes.countries = catToHash(responses[2].data);
             vm.hashes.plots = catToHash(responses[3].data);
         });
+
+        function catToArray(src) {
+            var dst = [];
+
+            if (!src.length) {
+                return dst;
+            }
+
+            // plain category list
+            var leaves = src[0].leaves || [];
+            _.forEach(leaves, function (elm) {
+                var tmpObject = {};
+                if (elm.icon) {
+                    tmpObject.content = '<span class="' + elm.icon + '"></span>';
+                }
+                if (elm.subtext) {
+                    tmpObject.text = elm.subtext;
+                }
+                if (elm.value) {
+                    tmpObject.value = elm.value;
+                }
+                dst.push(tmpObject);
+            });
+
+            return dst;
+        }
 
         function catToHash(arr) {
             var result = {};

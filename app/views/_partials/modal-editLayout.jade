@@ -1,0 +1,39 @@
+.modal-header
+    button.close(type="button"
+    data-dismiss="modal"
+    aria-hidden="true"
+    ng-click="vm.cancel();")
+        i.fa.fa-remove
+    h5.modal-title Редактирование макета
+
+.modal-body: form(name='editUser')
+    .form-group
+        label.control-label Название
+        input.form-control(ng-required="", autofocus, ng-model="vm.layout.name")
+    .form-group
+        label.control-label Цвета
+        bootstrap-select.col-xs-12(ng-required=""
+        multiple
+        options='vm.categories.colors'
+        selection="vm.layout.colors")
+    .form-group
+        label.control-label Сюжеты
+        bootstrap-select.col-xs-12(ng-required=""
+        multiple
+        options='vm.categories.plots'
+        selection="vm.layout.plots")
+    .form-group
+        label.control-label Страны
+        bootstrap-select.col-xs-12(ng-required=""
+        multiple
+        options='vm.categories.countries'
+        selection="vm.layout.countries")
+
+
+
+//.modal-footer
+//    .center-block
+//        .col-xs-2
+//        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()"
+//        ng-disabled="(vm.newPassword || vm.comfirmPassword) && vm.newPassword !== vm.confirmPassword") Да
+//        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет

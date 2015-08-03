@@ -1,5 +1,9 @@
 .modal-header
-    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel();") &times;
+    button.close(type="button"
+    data-dismiss="modal"
+    aria-hidden="true"
+    ng-click="vm.cancel();")
+        i.fa.fa-remove
     h5.modal-title.text-center Редактирование пользователя
 
 .modal-body: form(name='editUser')
