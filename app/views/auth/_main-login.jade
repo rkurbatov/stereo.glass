@@ -20,8 +20,8 @@
             p.small Пароль
     .col-xs-12: .input-group
         span.input-group-addon: i.fa.fa-key
-        input.form-control(ng-model='vm.signPassword' type='password')
+        input.form-control(ng-model='vm.signInPassword' type='password')
     .col-xs-12
         br
-        button.form-control.btn.btn-primary
+        button.form-control.btn.btn-primary(ng-disabled='!(vm.signInMail && vm.signInPassword)')
             | Войти
