@@ -46,18 +46,15 @@ var Message = require('./app/models/message')(mongoose);
 
 // ===== Passport and sessions =====
 var configSession = require('./app/config/session')(session);
-app.use(session(configSession));
-
-var helperPassport = require('./app/helpers/passport')(APP_PORT, passport, Account);
-helperPassport.init();
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 var helperSession = require('./app/helpers/session');
+
+app.use(session(configSession));
 app.use(helperSession.persistCookies);
 // Session-persisted message middleware
 app.use(helperSession.persistLocals);
+
+var helperPassport = require('./app/helpers/passport')(app, APP_PORT, passport, Account);
+helperPassport.init();
 
 // ======== FILES AND VIEWS ========
 

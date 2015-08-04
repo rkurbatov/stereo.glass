@@ -1,4 +1,4 @@
-module.exports = function helperPassport(APP_PORT, passport, Account) {
+module.exports = function helperPassport(app, APP_PORT, passport, Account) {
 
     var TwitterStrategy = require('passport-twitter').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
@@ -29,6 +29,9 @@ module.exports = function helperPassport(APP_PORT, passport, Account) {
 
         passport.serializeUser(Account.serializeUser());
         passport.deserializeUser(Account.deserializeUser());
+
+        app.use(passport.initialize());
+        app.use(passport.session());
     }
 
 };
