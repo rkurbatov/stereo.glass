@@ -23,5 +23,6 @@
         input.form-control(ng-model='vm.signInPassword' type='password')
     .col-xs-12
         br
-        button.form-control.btn.btn-primary(ng-disabled='!(vm.signInMail && vm.signInPassword)')
+        button.form-control.btn.btn-primary(ng-click='vm.signIn()'
+        ng-disabled='!(vm.signInMail && vm.signInPassword)')
             | Войти
