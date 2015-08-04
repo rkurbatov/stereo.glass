@@ -2,6 +2,7 @@ module.exports = {
     persistCookies: function persistCookies(req, res, next) {
 
         if (!req.isAuthenticated()) {
+            console.log('clearing cookies');
             res.clearCookie('username');
             res.clearCookie('usermail');
             res.clearCookie('userrole');

@@ -2,7 +2,7 @@ extends authLayout
 block content
     .container: .row: .col-sm-6.col-md-4.col-md-offset-4
         h2.text-center Вход
-        form(role='form', action="/auth/login", method="post")
+        form(role='form', action="/auth/login?redirect=../admin", method="post")
             .form-group
                 input.form-control(name="usermail", type='email', required, autofocus, placeholder='адрес Email')
             .form-group

@@ -5,9 +5,9 @@
         .module('MainPage')
         .service('Users', Users);
 
-    Users.$inject = ['$cookies', '$modal'];
+    Users.$inject = ['$cookies', '$modal', '$http', '$window'];
 
-    function Users($cookies, $modal) {
+    function Users($cookies, $modal, $http, $window) {
 
         // ==== DECLARATION ====
         var svc = this;
@@ -39,7 +39,27 @@
         function signInRegisterCtrl($modalInstance) {
             var vm = this;
 
-            this.cancel = cancel;
+            vm.cancel = cancel;
+            vm.signIn = signIn;
+            vm.signInMail = '';
+            vm.signInPassword = '';
+
+            function signIn() {
+                console.log('trying to sign-in');
+
+                $http.post('/auth/login', {
+                        usermail: vm.signInMail,
+                        password: vm.signInPassword
+                    }
+                )
+                    .then(function () {
+                        console.log('signed in');
+                        $window.location = '/admin';
+                    })
+                    .catch(function () {
+                        console.log('sign in error');
+                    });
+            }
 
             function cancel() {
                 $modalInstance.dismiss();

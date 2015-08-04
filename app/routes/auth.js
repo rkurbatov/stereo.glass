@@ -10,10 +10,7 @@ module.exports = function (express, passport, Account) {
     Router.get('/register', getRegister);
 
     //sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
-    Router.post('/login', passport.authenticate('local', {
-        successRedirect: '../admin',
-        failureRedirect: '/auth'
-    }));
+    Router.post('/login', passport.authenticate('local'), postLogin);
     //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
     Router.post('/register', postRegister);
 
@@ -35,16 +32,24 @@ module.exports = function (express, passport, Account) {
         }
     }
 
+    function postLogin(req, res) {
+        if (req.query && req.query.redirect) {
+            res.redirect('/' + req.query.redirect);
+        } else {
+            res.sendStatus(200);
+        }
+    }
+
     function getLogout(req, res, next) {
         if (req.isAuthenticated()) {
             var name = req.user.username;
             console.log("LOGGIN OUT " + name);
             req.logout();
+            res.clearCookie('username');
+            res.clearCookie('usermail');
+            res.clearCookie('userrole');
             req.session.notice = "You have successfully been logged out " + name + "!";
         }
-        res.clearCookie('username');
-        res.clearCookie('usermail');
-        res.clearCookie('userrole');
         if (req.query && req.query.redirect) {
             res.redirect('/' + req.query.redirect);
         } else {
