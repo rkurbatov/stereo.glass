@@ -3,7 +3,7 @@ module.exports = function (session, mongoose) {
 
     return {
         cookie: {
-            maxAge: 1000 * 60 * 60 * 24 * 30    // one month
+            maxAge: 1000 * 60 * 60 * 24 * 3    // one month
         },
         secret: 'barmgalot',
         saveUninitialized: false,
