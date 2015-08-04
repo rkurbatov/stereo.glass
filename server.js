@@ -19,7 +19,7 @@ var app = express();
 app.use(bodyParser.json());
 
 // parse application/vnd.api+json as json
-app.use(bodyParser.json({type: 'application/vnd.api+json'}));
+//app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
@@ -44,27 +44,12 @@ var Category = require('./app/models/category')(mongoose);
 var Layout = require('./app/models/layout')(mongoose);
 var Message = require('./app/models/message')(mongoose);
 
-// ========= STATIC partials route ==============
-// NB! Need to be used BEFORE session code
-app.use('/', require('./app/routes/static')(express));
-
-// ===== Passport and sessions =====
-var configSession = require('./app/config/session')(session);
-var helperSession = require('./app/helpers/session');
-
-app.use(session(configSession));
-app.use(helperSession.persistCookies);
-// Session-persisted message middleware
-app.use(helperSession.persistLocals);
-
-var helperPassport = require('./app/helpers/passport')(app, APP_PORT, passport, Account);
-helperPassport.init();
-
 // ======== FILES AND VIEWS ========
-
 app.engine('jade', require('jade').__express);
 app.set('view engine', 'jade');
 app.set('views', './app/views');
+// NB! Need to be used BEFORE session code
+app.use('/', require('./app/routes/static')(express));
 
 // ======== MULTER =========
 require('./app/helpers/uploader')(app);
@@ -72,6 +57,18 @@ require('./app/helpers/uploader')(app);
 // ======== MAILER =========
 var configMailer = require('./app/config/mailer');
 mailer.extend(app, configMailer);
+
+// ===== Passport and sessions =====
+var configSession = require('./app/config/session')(session);
+app.use(session(configSession));
+
+var helperPassport = require('./app/helpers/passport')(app, APP_PORT, passport, Account);
+helperPassport.init();
+var helperSession = require('./app/helpers/session');
+// Session-persisted message middleware
+app.use(helperSession.persistLocals);
+// Persistent cookies. NB! Should be placed only after passport init!
+app.use(helperSession.persistCookies);
 
 // ======== ROUTES ========
 app.use('/', require('./app/routes/base')(express, Account));
