@@ -1,6 +1,6 @@
 module.exports = {
     persistCookies: function persistCookies(req, res, next) {
-
+        console.log('cookies: ', res.cookies);
         if (!req.isAuthenticated()) {
             res.clearCookie('username');
             res.clearCookie('usermail');
@@ -10,7 +10,7 @@ module.exports = {
             if (req.user) {
                 if (req.user.usermail) res.cookie('usermail', req.user.usermail);
                 if (req.user.username) res.cookie('username', req.user.username);
-                res.cookie('userrole', req.user.role);
+                if (req.user.role) res.cookie('userrole', req.user.role);
             }
 
             // set locals user variable
