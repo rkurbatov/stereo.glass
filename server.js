@@ -59,7 +59,7 @@ var configMailer = require('./app/config/mailer');
 mailer.extend(app, configMailer);
 
 // ===== Passport and sessions =====
-var configSession = require('./app/config/session')(session);
+var configSession = require('./app/config/session')(session, mongoose);
 app.use(session(configSession));
 
 var helperPassport = require('./app/helpers/passport')(app, APP_PORT, passport, Account);

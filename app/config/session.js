@@ -1,4 +1,4 @@
-module.exports = function (session) {
+module.exports = function (session, mongoose) {
     var MongoStore = require('connect-mongo')(session);
 
     return {
@@ -9,12 +9,7 @@ module.exports = function (session) {
         saveUninitialized: false,
         resave: true,
         store: new MongoStore({
-            db: process.env.NODE_ENV === 'production'
-                ? 'stereo_glass'
-                : 'dev_stereo_glass',
-            host: 'localhost',
-            collection: 'sessions',
-            autoReconnect: true
+            mongooseConnection: mongoose.connection
         })
     };
 };
