@@ -44,6 +44,10 @@ var Category = require('./app/models/category')(mongoose);
 var Layout = require('./app/models/layout')(mongoose);
 var Message = require('./app/models/message')(mongoose);
 
+// ========= STATIC partials route ==============
+// NB! Need to be used BEFORE session code
+app.use('/', require('./app/routes/static')(express));
+
 // ===== Passport and sessions =====
 var configSession = require('./app/config/session')(session);
 var helperSession = require('./app/helpers/session');
