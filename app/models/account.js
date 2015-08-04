@@ -1,8 +1,6 @@
 module.exports = function (mongoose) {
     'use strict';
 
-    var async = require('async');
-    var dbAux = require('../helpers/db-aux.js');
     var Schema = mongoose.Schema;
     var passportLocalMongoose = require('passport-local-mongoose');
 

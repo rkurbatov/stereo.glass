@@ -3,26 +3,16 @@
 var APP_PORT = process.env.APP_PORT;
 
 var express = require('express');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    TwitterStrategy = require('passport-twitter').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy;
+var passport = require('passport');
 var mongoose = require('mongoose');
 var mailer = require('express-mailer');
-//var favicon = require('express-favicon');
 
 var app = express();
 
 // ============ CONFIGURE EXPRESS ============
-//app.use(logger('combined'));
-// cookieParser no more needed to parse cookies
-//app.use(cookieParser());
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -37,54 +27,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-app.use(session({
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 30    // one month
-    }, // 60 min
-    secret: 'barmgalot',
-    saveUninitialized: false,
-    resave: true,
-    store: new MongoStore({
-        db: process.env.NODE_ENV === 'production'
-            ? 'stereo_glass'
-            : 'dev_stereo_glass',
-        host: 'localhost',
-        collection: 'sessions',
-        autoReconnect: true
-    })
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Session-persisted message middleware
-app.use(function (req, res, next) {
-    var err = req.session.error,
-        msg = req.session.notice,
-        success = req.session.success;
-
-    delete req.session.error;
-    delete req.session.success;
-    delete req.session.notice;
-
-    if (err) res.locals.error = err;
-    if (msg) res.locals.notice = msg;
-    if (success) res.locals.success = success;
-
-    next();
-});
-
-// Environment middleware
-app.use(function (req, res, next) {
-    if (process.env.NODE_ENV === 'development') {
-        res.locals.env = 'dev';
-    }
-
-    next();
-});
-
 // ======== DATABASE ========
-// Mongoose
 var dbName = 'mongodb://localhost/' + (process.env.NODE_ENV === 'production'
         ? 'stereo_glass'
         : 'dev_stereo_glass');
@@ -101,54 +44,22 @@ var Category = require('./app/models/category')(mongoose);
 var Layout = require('./app/models/layout')(mongoose);
 var Message = require('./app/models/message')(mongoose);
 
-passport.use(Account.createStrategy());
+// ===== Passport and sessions =====
+var configSession = require('./app/config/session')(session);
+app.use(session(configSession));
 
-passport.use(new TwitterStrategy({
-        consumerKey: 'sW7cE7pAk3jm00e81tqKjksnW',
-        consumerSecret: 'FzHH1X07aEwZ5Zi9cgba31H0N8s99Al2wLOoyo7qeQSHW78IeT',
-        callbackURL: 'http://localhost:' + APP_PORT + '/auth/twitter/callback'
-    },
-    function (token, tokenSecret, profile, done) {
-        process.nextTick(function () {
-            return done(null, profile);
-        });
-    }));
+var helperPassport = require('./app/helpers/passport')(APP_PORT, passport, Account);
+helperPassport.init();
 
-passport.use(new FacebookStrategy({
-        clientID: '1009423969070500',
-        clientSecret: 'fb4aa53026edd5daf613ed51c3992125',
-        callbackURL: 'http://localhost:' + APP_PORT + '/auth/facebook/callback'
-    },
-    function (accessToken, refreshToken, profile, done) {
-        // asynchronous verification, for effect...
-        process.nextTick(function () {
-            return done(null, profile);
-        });
-    }
-));
+app.use(passport.initialize());
+app.use(passport.session());
 
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
-
-app.use(function (req, res, next) {
-
-    // set usermail cookie to response
-    if (req.user) {
-        if (req.user.usermail) res.cookie('usermail', req.user.usermail);
-        if (req.user.username) res.cookie('username', req.user.username);
-        res.cookie('userrole', req.user.role);
-    }
-
-    // set locals user variable
-    res.locals.user = req.user;
-    next();
-});
+var helperSession = require('./app/helpers/session');
+app.use(helperSession.persistCookies);
+// Session-persisted message middleware
+app.use(helperSession.persistLocals);
 
 // ======== FILES AND VIEWS ========
-// set the static files location /public/img will be /img for users
-//app.use(express.static(__dirname + '/public'));
-//app.use('/uploads', express.static(__dirname + '/uploads'));
-//app.use(favicon(__dirname + '/pabulic/favicon.ico'));
 
 app.engine('jade', require('jade').__express);
 app.set('view engine', 'jade');
@@ -158,16 +69,8 @@ app.set('views', './app/views');
 require('./app/helpers/uploader')(app);
 
 // ======== MAILER =========
-mailer.extend(app, {
-    from: '"Stereo.Glass" <mailer@stereo.glass>',
-    host: 'smtp.stereo.glass',
-    port: 587,
-    transportMethod: 'SMTP',
-    auth: {
-        user: 'mailer@stereo.glass',
-        pass: 'bFlnx37Q'
-    }
-});
+var configMailer = require('./app/config/mailer');
+mailer.extend(app, configMailer);
 
 // ======== ROUTES ========
 app.use('/', require('./app/routes/base')(express, Account));
@@ -183,7 +86,6 @@ app.use('/api/mail', require('./app/routes/api-mail')(express, app.mailer));
 app.listen(APP_PORT, 'localhost', function () {
     console.log('Listening on port ' + APP_PORT + ' ...');
 });
-
 
 // exports app
 module.exports = app;
