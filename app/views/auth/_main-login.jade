@@ -1,28 +1,30 @@
-.row
+.row: form(name='LoginForm' ng-submit='vm.signIn()' novalidate)
     .col-xs-6
-        button.form-control.btn.btn-primary
+        label.form-control.btn.btn-primary
             i.fa.fa-facebook-official
             |  Facebook
     .col-xs-6
-        button.form-control.btn.btn-info
+        label.form-control.btn.btn-info
             i.fa.fa-twitter
             |  Twitter
     .col-xs-12  
         br
         .controls
             p.small E-mail
-    .col-xs-12: .input-group
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : LoginForm.userMail.$invalid && !LoginForm.userMail.$pristine }")
         span.input-group-addon: i.fa.fa-envelope
-        input.form-control(ng-model='vm.signInMail')
+        input.form-control(ng-model='vm.signInMail' name='userMail'
+        type='email' required)
     .col-xs-12
         br
         .controls
             p.small Пароль
-    .col-xs-12: .input-group
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : LoginForm.userPass.$invalid && !LoginForm.userPass.$pristine }")
         span.input-group-addon: i.fa.fa-key
-        input.form-control(ng-model='vm.signInPassword' type='password')
+        input.form-control(ng-model='vm.signInPassword' name='userPass'
+        type='password' required)
     .col-xs-12
         br
-        button.form-control.btn.btn-primary(ng-click='vm.signIn()'
-        ng-disabled='!(vm.signInMail && vm.signInPassword)')
+        button.form-control.btn.btn-primary(type='submit'
+        ng-disabled='LoginForm.$invalid || LoginForm.$pending')
             | Войти
