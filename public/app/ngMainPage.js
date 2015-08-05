@@ -6,6 +6,7 @@
             'ngCookies',
             'ngAnimate',
             'ui.bootstrap',
+            'ui.validate',
             'sg.ui',
             '720kb.fx',
             'cgBusy'

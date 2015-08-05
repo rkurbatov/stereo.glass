@@ -73,7 +73,8 @@ function deployVendor(production) {
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/sg.ui/build/sg.ui.js',
         'public/libs/angular-fx/src/js/angular-fx.js',
-        'public/libs/angular-busy/dist/angular-busy.js'
+        'public/libs/angular-busy/dist/angular-busy.js',
+        'public/libs/angular-ui-validate/dist/validate.js'
     ];
 
     var vendorStylesMain = [

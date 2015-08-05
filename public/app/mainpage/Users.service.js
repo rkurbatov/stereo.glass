@@ -41,9 +41,13 @@
 
             vm.formError = false;
             vm.cancel = cancel;
+
             vm.signIn = signIn;
             vm.signInMail = '';
             vm.signInPassword = '';
+
+            vm.forgotName = '';
+            vm.forgotMail = ''
 
             function signIn() {
                 console.log('trying to sign-in');

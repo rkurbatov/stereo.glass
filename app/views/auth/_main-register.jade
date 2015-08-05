@@ -1,30 +1,42 @@
-.row
+.row: form(name='RegisterForm' ng-submit='vm.register()' novalidate)
     .col-xs-12
         .controls
             p.small Имя пользователя
-    .col-xs-12: .input-group
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.userName.$invalid && !RegisterForm.userName.$pristine }")
         span.input-group-addon: i.fa.fa-user
-        input.form-control(ng-model='vm.register.name')
+        input.form-control(ng-model='vm.register.name' name='userName' required
+        ng-minlength='2' ng-maxlength='48')
     .col-xs-12
         br
         .controls
             p.small E-mail
-    .col-xs-12: .input-group
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.regMail.$invalid && !RegisterForm.regMail.$pristine }")
         span.input-group-addon: i.fa.fa-envelope
-        input.form-control(ng-model='vm.register.mail')
+        input.form-control(ng-model='vm.register.mail' name='regMail'
+        required
+        type='email')
     .col-xs-12
         br
         .controls
             p.small Пароль
-    .col-xs-12: .input-group
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.regPass.$invalid && !RegisterForm.regPass.$pristine }")
         span.input-group-addon: i.fa.fa-key
-        input.form-control(ng-model='vm.register.password' type='password')
+        input.form-control(ng-model='vm.register.password' type='password' name='regPass'
+        required
+        ng-minlength='6' ng-maxlength='32' autocomplete='false'
+        popover="{{(RegisterForm.regPass.$invalid) ? 'Допустимая длина от 6-32 символа' : ''}}")
     .col-xs-12
         br
-        .input-group
+        .input-group(ng-class="{ 'has-error' : RegisterForm.confirm.$invalid && !RegisterForm.confirm.$pristine }")
             span.input-group-addon: i.fa.fa-key
-            input.form-control(ng-model='vm.register.confirm' type='password')
+            input#password_fake.hidden(type='password' name='password' autocomplete='off' style='display:hidden')
+            input.form-control(ng-model='vm.register.confirm' type='password' name='confirm'
+            required
+            ui-validate=" '$value === vm.register.password' " ui-validate-watch=" 'vm.register.password' "
+            popover="{{(RegisterForm.confirm.$invalid) ? 'Пароли не совпадают!' : ''}}"
+            popover-placement='bottom')
     .col-xs-12
         br
-        button.form-control.btn.btn-success
+        button.form-control.btn.btn-success(type='submit'
+        ng-disabled='RegisterForm.$invalid || RegisterForm.$pending')
             | Регистрация
