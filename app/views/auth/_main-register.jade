@@ -27,6 +27,8 @@
         popover="{{(RegisterForm.regPass.$invalid) ? 'Допустимая длина от 6-32 символа' : ''}}")
     .col-xs-12
         br
+        .controls
+            p.small Подтверждение пароля
         .input-group(ng-class="{ 'has-error' : RegisterForm.confirm.$invalid && !RegisterForm.confirm.$pristine }")
             span.input-group-addon: i.fa.fa-key
             input#password_fake.hidden(type='password' name='password' autocomplete='off' style='display:hidden')
