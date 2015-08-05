@@ -68,17 +68,20 @@ function deployVendor(production) {
         'public/libs/lodash/lodash.js',
         'public/libs/angular/angular.js',
         'public/libs/angular-cookies/angular-cookies.js',
+        'public/libs/angular-animate/angular-animate.js',
         'public/libs/angular-bootstrap/ui-bootstrap.js',
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/sg.ui/build/sg.ui.js',
-        'public/libs/angular-fx/src/js/angular-fx.js'
+        'public/libs/angular-fx/src/js/angular-fx.js',
+        'public/libs/angular-busy/dist/angular-busy.js'
     ];
 
     var vendorStylesMain = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
         'public/libs/font-awesome/css/font-awesome.css',
         'public/libs/animate.css/animate.css',
-        'public/libs/angular-fx/src/css/angular-fx.css'
+        'public/libs/angular-fx/src/css/angular-fx.css',
+        'public/libs/angular-busy/dist/angular-busy.css'
     ];
 
     gulp.src(vendorLibsAdmin)

@@ -4,11 +4,16 @@
     angular
         .module('MainPage', [
             'ngCookies',
+            'ngAnimate',
             'ui.bootstrap',
             'sg.ui',
-            '720kb.fx'
+            '720kb.fx',
+            'cgBusy'
         ])
-        .config(MainPagePlate3dConfig);
+        .config(MainPagePlate3dConfig)
+        .value('cgBusyDefaults', {
+            message: 'Загрузка...'
+        });
 
     MainPagePlate3dConfig.$inject = ['sgPlate3dOptionsProvider'];
 

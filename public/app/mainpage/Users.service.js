@@ -48,7 +48,7 @@
             function signIn() {
                 console.log('trying to sign-in');
 
-                $http.post('/auth/login', {
+                vm.loadingLogin = $http.post('/auth/login', {
                         usermail: vm.signInMail,
                         password: vm.signInPassword
                     }

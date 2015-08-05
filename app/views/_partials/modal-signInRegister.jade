@@ -1,6 +1,7 @@
 .modal-body(ngfx-shake='vm.formError')
     accordion(close-others='true')
         accordion-group(heading='Вход в кабинет' is-open='true')
+            div(cg-busy='vm.loadingLogin')
             include ../auth/_main-login
         accordion-group(heading='Регистрация')
             include ../auth/_main-register
