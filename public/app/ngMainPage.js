@@ -5,7 +5,8 @@
         .module('MainPage', [
             'ngCookies',
             'ui.bootstrap',
-            'sg.ui'
+            'sg.ui',
+            '720kb.fx'
         ])
         .config(MainPagePlate3dConfig);
 

@@ -25,7 +25,9 @@
     "ng-file-upload": "5.0.4",
     "angular-daterangepicker": "~0.1.16",
     "nsPopover": "~0.6.8",
-    "angularjs-color-picker": "~0.6.2"
+    "angularjs-color-picker": "~0.6.2",
+    "angular-fx": "~1.1.0",
+    "animate.css": "~3.3.1"
   },
   "resolutions": {
     "angular": "~1.4.3",
