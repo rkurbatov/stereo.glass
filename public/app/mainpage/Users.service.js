@@ -5,9 +5,9 @@
         .module('MainPage')
         .service('Users', Users);
 
-    Users.$inject = ['$cookies', '$modal', '$http', '$window'];
+    Users.$inject = ['$cookies', '$modal', '$http', '$window', '$timeout'];
 
-    function Users($cookies, $modal, $http, $window) {
+    function Users($cookies, $modal, $http, $window, $timeout) {
 
         // ==== DECLARATION ====
         var svc = this;
@@ -39,6 +39,7 @@
         function signInRegisterCtrl($modalInstance) {
             var vm = this;
 
+            vm.formError = false;
             vm.cancel = cancel;
             vm.signIn = signIn;
             vm.signInMail = '';
@@ -57,12 +58,19 @@
                         $window.location = '/admin';
                     })
                     .catch(function () {
-                        console.log('sign in error');
+                        shakeForm();
                     });
             }
 
             function cancel() {
                 $modalInstance.dismiss();
+            }
+
+            function shakeForm() {
+                vm.formError = true;
+                $timeout(function(){
+                    vm.formError = false;
+                }, 300)
             }
         }
 
