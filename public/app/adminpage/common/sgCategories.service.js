@@ -42,16 +42,20 @@
 
             // plain category list
             var leaves = src[0].leaves || [];
+            console.log(leaves);
             _.forEach(leaves, function (elm) {
                 var tmpObject = {};
                 if (elm.icon) {
-                    tmpObject.content = '<span class="' + elm.icon + '"></span>';
+                    tmpObject.icon = elm.icon;
                 }
                 if (elm.subtext) {
-                    tmpObject.text = elm.subtext;
+                    tmpObject.subtext = elm.subtext;
                 }
                 if (elm.value) {
                     tmpObject.value = elm.value;
+                }
+                if (elm.name) {
+                    tmpObject.text = elm.name;
                 }
                 dst.push(tmpObject);
             });
