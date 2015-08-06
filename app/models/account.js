@@ -5,13 +5,15 @@ module.exports = function (mongoose) {
     var passportLocalMongoose = require('passport-local-mongoose');
 
     var AccountSchema = new Schema({
-        username: String,
-        usermail: String,
-        password: String,
+        username: {type: String, required: true, unique: true},
+        usermail: {type: String, required: true, unique: true},
+        password: {type: String, required: true},
+        resetPasswordToken: String,
+        resetPasswordExpires: String,
         avatar: String,
         role: {
             type: String,
-            default: "user"
+            default: "visitor"
         },
         borderColor: String,
         createdAt: Date,
