@@ -49,6 +49,7 @@
             vm.categories = {};
 
             sgCategories.loaded.then(function(){
+                vm.categories.assortment = sgCategories.assortmentArr;
                 vm.categories.colors = sgCategories.colorsArr;
                 vm.categories.countries = sgCategories.countriesArr;
                 vm.categories.plots = sgCategories.plotsArr;

@@ -11,23 +11,29 @@
         label.control-label Название
         input.form-control(ng-required="", autofocus, ng-model="vm.layout.name")
     .form-group
-        label.control-label Цвета
+        label.control-label.small Товары
         bootstrap-select.col-xs-12(ng-required=""
         multiple
-        options='vm.categories.colors'
-        selection="vm.layout.colors")
+        data='vm.categories.assortment'
+        selection="vm.layout.catAssortment")
+    .form-group
+        label.control-label Цвета
+        bootstrap-select.col-xs-12(ng-required=""
+        simple multiple
+        data='vm.categories.colors'
+        selection="vm.layout.catColors")
     .form-group
         label.control-label Сюжеты
         bootstrap-select.col-xs-12(ng-required=""
-        multiple
-        options='vm.categories.plots'
-        selection="vm.layout.plots")
+        simple multiple
+        data='vm.categories.plots'
+        selection="vm.layout.catPlots")
     .form-group
         label.control-label Страны
         bootstrap-select.col-xs-12(ng-required=""
-        multiple
-        options='vm.categories.countries'
-        selection="vm.layout.countries")
+        simple multiple
+        data='vm.categories.countries'
+        selection="vm.layout.catCountries")
 
 
 

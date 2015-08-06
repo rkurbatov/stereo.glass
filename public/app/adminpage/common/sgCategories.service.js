@@ -17,32 +17,48 @@
             $http.get('/api/categories/colors'),
             $http.get('/api/categories/countries'),
             $http.get('/api/categories/plots')
-        ]).then(function (responses) {
-            vm.assortment = catToHtml(responses[0].data);
-            vm.assortmentHash = catToHash(responses[0].data);
-            vm.colors = catToHtml(responses[1].data);
-            vm.colorsArr = catToArray(responses[1].data);
-            vm.countries = catToHtml(responses[2].data);
-            vm.countriesArr = catToArray(responses[2].data);
-            vm.countriesHash = catToHash(responses[2].data);
-            vm.plots = catToHtml(responses[3].data);
-            vm.plotsArr = catToArray(responses[3].data);
-            vm.plotsHash = catToHash(responses[3].data);
-            vm.hashes.assortment = catToHash(responses[0].data);
-            vm.hashes.countries = catToHash(responses[2].data);
-            vm.hashes.plots = catToHash(responses[3].data);
+        ]).then(function (responseArray) {
+            // old realization
+            vm.assortment = catToHtml(responseArray[0].data);
+            vm.assortmentHash = catToHash(responseArray[0].data);
+            vm.colors = catToHtml(responseArray[1].data);
+            vm.countries = catToHtml(responseArray[2].data);
+            vm.countriesHash = catToHash(responseArray[2].data);
+            vm.plots = catToHtml(responseArray[3].data);
+            vm.plotsHash = catToHash(responseArray[3].data);
+            vm.hashes.assortment = catToHash(responseArray[0].data);
+            vm.hashes.countries = catToHash(responseArray[2].data);
+            vm.hashes.plots = catToHash(responseArray[3].data);
+
+            //new realization
+            vm.assortmentArr = catToArray(responseArray[0].data);
+            console.log(vm.assortmentArr);
+            vm.colorsArr = catToArray(responseArray[1].data);
+            vm.countriesArr = catToArray(responseArray[2].data);
+            vm.plotsArr = catToArray(responseArray[3].data);
         });
 
         function catToArray(src) {
             var dst = [];
 
-            if (!src.length) {
-                return dst;
+            if (src.length === 1) {
+                return leavesToOptions(src[0].leaves);
+            }
+            else if (src.length > 1) {
+                _.forEach(src, function (subCategory) {
+                    dst.push({
+                        label: subCategory.subCatName,
+                        options: leavesToOptions(subCategory.leaves)
+                    });
+                });
             }
 
-            // plain category list
-            var leaves = src[0].leaves || [];
-            console.log(leaves);
+            return dst;
+        }
+
+        function leavesToOptions(leaves) {
+            var dst = [];
+
             _.forEach(leaves, function (elm) {
                 var tmpObject = {};
                 if (elm.icon) {
