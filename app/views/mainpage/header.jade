@@ -23,6 +23,7 @@ header(ng-show='main.loader.isSuccessful')
                         a#flag-container
                             img(src="img/flags/UA.png")
                             span UA
+                sg-lang-switcher
         #wrapper-nav-buttons
             button#login-button.sg-btn(ng-if="!main.currentUser.name"
             ng-click="main.signIn()") Войти
