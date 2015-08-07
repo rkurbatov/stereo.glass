@@ -17,6 +17,9 @@ module.exports = function (express, passport, Account) {
 
     Router.post('/forgot', postForgot);
 
+    Router.post('/check-username', postCheckUsername);
+    Router.post('/check-usermail', postCheckUsermail);
+
     Router.get('/auth/twitter', getAuthTwitter);
     Router.get('/auth/facebook', getAuthFacebook);
 
@@ -32,6 +35,42 @@ module.exports = function (express, passport, Account) {
             res.redirect('../admin');
         } else {
             res.render('auth/auth');
+        }
+    }
+
+    function postCheckUsername(req, res) {
+        console.log('body: ', req.body);
+        if (req.body.username) {
+            Account.findOne({username: req.body.username}, function (err, account) {
+                if (err) {
+                    console.log('Error: ', err);
+                }
+                if (!err && !account) {
+                    res.sendStatus(204);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+        } else {
+            res.sendStatus(400);
+        }
+    }
+
+    function postCheckUsermail(req, res) {
+        console.log('body: ', req.body);
+        if (req.body.usermail) {
+            Account.findOne({usermail: req.body.usermail}, function (err, account) {
+                if (err) {
+                    console.log('Error: ', err);
+                }
+                if (!err && !account) {
+                    res.sendStatus(204);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+        } else {
+            res.sendStatus(400);
         }
     }
 

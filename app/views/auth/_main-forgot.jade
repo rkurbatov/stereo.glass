@@ -13,12 +13,13 @@
     .col-xs-12: .input-group
         span.input-group-addon: i.fa.fa-envelope
         input.form-control(ng-model='vm.forgotMail'
+        sg-lower-case
         ng-disabled='ForgotForm.forgotName.$viewValue'
         type='email' name='forgotMail')
     .col-xs-12: .controls
         p.small.text-justify
             br
-            | На указанный пре регистрации почтовый ящик будут
+            | На указанный при регистрации почтовый ящик будут
             | отправлены инструкции по восстановлению пароля.
     .col-xs-12
         br

@@ -4,17 +4,26 @@
             p.small Имя пользователя
     .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.userName.$invalid && !RegisterForm.userName.$pristine }")
         span.input-group-addon: i.fa.fa-user
-        input.form-control(ng-model='vm.register.name' name='userName' required
-        ng-minlength='2' ng-maxlength='48')
+        input.form-control(name='userName' type='text'
+        required autofocus
+        ng-model='vm.register.name'
+        ng-model-options='{debounce: 500}'
+        ng-minlength='2' ng-maxlength='48'
+        ui-validate-async=" 'vm.validateAsyncUsername($value)' "
+        popover="{{ (RegisterForm.userName.$invalid) ? vm.getRegisterUsernameError(RegisterForm.userName.$error) : ''}}")
     .col-xs-12
         br
         .controls
             p.small E-mail
     .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.regMail.$invalid && !RegisterForm.regMail.$pristine }")
         span.input-group-addon: i.fa.fa-envelope
-        input.form-control(ng-model='vm.register.mail' name='regMail'
+        input.form-control(name='regMail' type='email'
         required
-        type='email')
+        sg-lower-case
+        ui-validate-async=" 'vm.validateAsyncUsermail($value)' "
+        ng-model='vm.register.mail'
+        ng-model-options='{debounce: 500}'
+        popover="{{ (RegisterForm.regMail.$invalid) ? vm.getRegisterUsermailError(RegisterForm.regMail.$error) : ''}}")
     .col-xs-12
         br
         .controls

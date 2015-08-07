@@ -5,9 +5,9 @@
         .module('MainPage')
         .service('Users', Users);
 
-    Users.$inject = ['$cookies', '$modal', '$http', '$window', '$timeout'];
+    Users.$inject = ['$cookies', '$modal', '$http', '$q', '$window', '$timeout'];
 
-    function Users($cookies, $modal, $http, $window, $timeout) {
+    function Users($cookies, $modal, $http, $q, $window, $timeout) {
 
         // ==== DECLARATION ====
         var svc = this;
@@ -54,6 +54,11 @@
             vm.signInMail = '';
             vm.signInPassword = '';
 
+            vm.validateAsyncUsername = validateAsyncUsername;
+            vm.getRegisterUsernameError = getRegisterUsernameError;
+            vm.validateAsyncUsermail = validateAsyncUsermail;
+            vm.getRegisterUsermailError = getRegisterUsermailError;
+
             vm.forgotPassword = forgotPassword;
             vm.forgotName = '';
             vm.forgotMail = '';
@@ -74,6 +79,34 @@
                 }).catch(function () {
                     shakeForm();
                 });
+            }
+
+            function validateAsyncUsername(username) {
+                return $http.post('/auth/check-username', {username: username})
+                    .then(function (result) {
+                        return result.status === 204 || $q.reject();
+                    });
+            }
+
+            function validateAsyncUsermail(usermail) {
+                return $http.post('/auth/check-usermail', {usermail: usermail})
+                    .then(function (result) {
+                        return result.status === 204 || $q.reject();
+                    });
+            }
+
+            function getRegisterUsernameError(error) {
+                if (error.minlength) {
+                    return 'Имя слишком короткое!';
+                } else if (error.validatorAsync) {
+                    return 'Это имя уже занято!';
+                }
+            }
+
+            function getRegisterUsermailError(error) {
+                if (error.validatorAsync) {
+                    return 'Этот почтовый ящик используется!';
+                }
             }
 
             function forgotPassword() {
