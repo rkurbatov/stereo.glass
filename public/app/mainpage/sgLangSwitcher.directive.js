@@ -24,7 +24,7 @@
 
             function rePosition() {
                 var newWidth = flagElement.width();
-                var newTop = flagElement.offset().top + flagElement.height();
+                var newTop = flagElement.offset().top + flagElement.outerHeight();
                 var newLeft = flagElement.offset().left;
 
                 elm.width(newWidth);
