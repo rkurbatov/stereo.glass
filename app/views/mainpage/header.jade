@@ -26,7 +26,7 @@ header(ng-show='main.loader.isSuccessful')
                 sg-lang-switcher
         #wrapper-nav-buttons
             button#login-button.sg-btn(ng-if="!main.currentUser.name"
-            ng-click="main.signIn()") Войти
+            ng-click="main.signInRegister()") Войти
                 i.fa.fa-sign-in
             button#admin-button.sg-btn(ng-if="main.currentUser.name")
                 a(href='/admin')

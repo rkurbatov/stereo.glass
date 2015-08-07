@@ -6,7 +6,7 @@
         span.input-group-addon: i.fa.fa-user
         input.form-control(name='userName' type='text'
         required autofocus
-        ng-model='vm.register.name'
+        ng-model='vm.registerName'
         ng-model-options='{debounce: 500}'
         ng-minlength='2' ng-maxlength='48'
         ui-validate-async=" 'vm.validateAsyncUsername($value)' "
@@ -21,7 +21,7 @@
         required
         sg-lower-case
         ui-validate-async=" 'vm.validateAsyncUsermail($value)' "
-        ng-model='vm.register.mail'
+        ng-model='vm.registerMail'
         ng-model-options='{debounce: 500}'
         popover="{{ (RegisterForm.regMail.$invalid) ? vm.getRegisterUsermailError(RegisterForm.regMail.$error) : ''}}")
     .col-xs-12
@@ -30,7 +30,7 @@
             p.small Пароль
     .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.regPass.$invalid && !RegisterForm.regPass.$pristine }")
         span.input-group-addon: i.fa.fa-key
-        input.form-control(ng-model='vm.register.password' type='password' name='regPass'
+        input.form-control(ng-model='vm.registerPassword' type='password' name='regPass'
         required
         ng-minlength='6' ng-maxlength='32' autocomplete='false'
         popover="{{(RegisterForm.regPass.$invalid) ? 'Допустимая длина от 6-32 символа' : ''}}")
@@ -41,9 +41,9 @@
         .input-group(ng-class="{ 'has-error' : RegisterForm.confirm.$invalid && !RegisterForm.confirm.$pristine }")
             span.input-group-addon: i.fa.fa-key
             input#password_fake.hidden(type='password' name='password' autocomplete='off' style='display:hidden')
-            input.form-control(ng-model='vm.register.confirm' type='password' name='confirm'
+            input.form-control(ng-model='vm.registerConfirm' type='password' name='confirm'
             required
-            ui-validate=" '$value === vm.register.password' " ui-validate-watch=" 'vm.register.password' "
+            ui-validate=" '$value === vm.registerPassword' " ui-validate-watch=" 'vm.registerPassword' "
             popover="{{(RegisterForm.confirm.$invalid) ? 'Пароли не совпадают!' : ''}}"
             popover-placement='bottom')
     .col-xs-12

@@ -32,41 +32,41 @@ module.exports = function (express, passport, Account) {
 
     function getLogin(req, res) {
         if (req.isAuthenticated()) {
-            res.redirect('../admin');
+            return res.redirect('../admin');
         } else {
-            res.render('auth/auth');
+            return res.render('auth/auth');
         }
     }
 
     function postCheckUsername(req, res) {
         if (!req.body.username) {
-            res.sendStatus(400);
+
         }
         Account.findOne({username: req.body.username})
             .then(function (account) {
-                account
+                return account
                     ? res.sendStatus(200)
                     : res.sendStatus(204);
             })
             .catch(function (err) {
-                res.sendStatus(500);
                 console.log('Error: ', err);
+                return res.sendStatus(500);
             });
     }
 
     function postCheckUsermail(req, res) {
         if (!req.body.usermail) {
-            res.sendStatus(400);
+            return res.sendStatus(400);
         }
         Account.findOne({usermail: req.body.usermail})
             .then(function (account) {
-                account
+                return account
                     ? res.sendStatus(200)
                     : res.sendStatus(204);
             })
             .catch(function (err) {
-                res.sendStatus(500);
                 console.log('Error: ', err);
+                return res.sendStatus(500);
             });
     }
 
@@ -76,36 +76,37 @@ module.exports = function (express, passport, Account) {
             setInitialCookies(req, res);
         }
         if (req.query && req.query.redirect) {
-            res.redirect('/' + req.query.redirect);
+            return res.redirect('/' + req.query.redirect);
         } else {
-            res.sendStatus(200);
+            return res.sendStatus(200);
         }
     }
 
     function postRegister(req, res, next) {
-        if (!req.body.username || !req.body.usermail) {
-            res.sendStatus(400);
+        if (!req.body.username || !req.body.usermail || !req.body.password) {
+            return res.sendStatus(400);
         }
         console.log('registering.user ' + req.body.username);
         Account.register(new Account({
             username: req.body.username,
             usermail: req.body.usermail
-        }), req.body.password)
-            .then(function (account) {
-                // http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/#.VS7RauQvDVM
-                console.log('user registered');
-                passport.authenticate('local')(req, res, function () {
-                    console.log('authed after registration');
-                    setInitialCookies(req, res);
-                    res.sendStatus(200);
-                    //res.redirect('../admin');
-                });
-            })
-            .catch(function (err) {
-                console.log('error registering user!');
-                res.sendStatus(500);
+        }), req.body.password, registerCallback);
+
+        function registerCallback(err) {
+            if (err) {
+                console.log('error registering user! ', err);
+                return res.sendStatus(500);
                 //return res.render('auth/register', {account: account}).;
+            }
+            // http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/#.VS7RauQvDVM
+            console.log('user registered');
+            passport.authenticate('local')(req, res, function () {
+                console.log('authed after registration');
+                setInitialCookies(req, res);
+                return res.sendStatus(200);
+                //res.redirect('../admin');
             });
+        }
     }
 
     function getLogout(req, res, next) {

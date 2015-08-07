@@ -7,7 +7,7 @@ module.exports = function (mongoose) {
     var AccountSchema = new Schema({
         username: {type: String, required: true, unique: true},
         usermail: {type: String, required: true, unique: true},
-        password: {type: String, required: true},
+        password: String,
         resetPasswordToken: String,
         resetPasswordExpires: String,
         avatar: String,

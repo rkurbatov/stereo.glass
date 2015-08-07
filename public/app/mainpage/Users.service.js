@@ -54,14 +54,21 @@
             vm.signInMail = '';
             vm.signInPassword = '';
 
+            vm.register = register;
+            vm.registerName = '';
+            vm.registerMail = '';
+            vm.registerPassword = '';
+            vm.registerConfirm = '';
+
+            vm.forgot = forgot;
+            vm.forgotName = '';
+            vm.forgotMail = '';
+
             vm.validateAsyncUsername = validateAsyncUsername;
             vm.getRegisterUsernameError = getRegisterUsernameError;
             vm.validateAsyncUsermail = validateAsyncUsermail;
             vm.getRegisterUsermailError = getRegisterUsermailError;
 
-            vm.forgotPassword = forgotPassword;
-            vm.forgotName = '';
-            vm.forgotMail = '';
 
             function signIn() {
                 vm.loginPromise = $http.post('/auth/login', {
@@ -79,6 +86,34 @@
                 }).catch(function () {
                     shakeForm();
                 });
+            }
+
+            function register() {
+                vm.registerPromise = $http.post('/auth/register', {
+                    username: vm.registerName,
+                    usermail: vm.registerMail,
+                    password: vm.registerPassword
+                });
+
+                vm.registerPromise.then(function () {
+                    updateCurrentUser();
+                    cancel();
+                    if (_.contains(['admin', 'curator', 'designer'], svc.currentUser.userrole)) {
+                        $window.location = '/admin';
+                    }
+                });
+            }
+
+            function forgot() {
+                var forgotObject = {};
+                if (vm.forgotMail) {
+                    forgotObject.forgotMail = vm.forgotMail;
+                }
+                if (vm.forgotName) {
+                    forgotObject.forgotName = vm.forgotName;
+                }
+
+                vm.loadingForgot = $http.post('/auth/forgot', forgotObject);
             }
 
             function validateAsyncUsername(username) {
@@ -107,18 +142,6 @@
                 if (error.validatorAsync) {
                     return 'Этот почтовый ящик используется!';
                 }
-            }
-
-            function forgotPassword() {
-                var forgotObject = {};
-                if (vm.forgotMail) {
-                    forgotObject.forgotMail = vm.forgotMail;
-                }
-                if (vm.forgotName) {
-                    forgotObject.forgotName = vm.forgotName;
-                }
-
-                vm.loadingForgot = $http.post('/auth/forgot', forgotObject);
             }
 
             function cancel() {
