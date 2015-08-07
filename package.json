@@ -23,7 +23,7 @@
     "easyimage": "~2.0.3",
     "express-mailer": "~0.3.0",
     "mv": "~2.1.1",
-    "bluebird": "~2.9.32"
+    "bluebird": "~2.9.34"
   },
   "devDependencies": {
     "gulp": "~3.9.0",

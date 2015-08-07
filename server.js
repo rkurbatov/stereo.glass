@@ -10,6 +10,9 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var mailer = require('express-mailer');
 
+var bluebird = require('bluebird');
+bluebird.promisifyAll(mongoose);
+
 var app = express();
 
 // ============ CONFIGURE EXPRESS ============

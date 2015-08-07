@@ -39,54 +39,73 @@ module.exports = function (express, passport, Account) {
     }
 
     function postCheckUsername(req, res) {
-        console.log('body: ', req.body);
-        if (req.body.username) {
-            Account.findOne({username: req.body.username}, function (err, account) {
-                if (err) {
-                    console.log('Error: ', err);
-                }
-                if (!err && !account) {
-                    res.sendStatus(204);
-                } else {
-                    res.sendStatus(200);
-                }
-            });
-        } else {
+        if (!req.body.username) {
             res.sendStatus(400);
         }
+        Account.findOne({username: req.body.username})
+            .then(function (account) {
+                account
+                    ? res.sendStatus(200)
+                    : res.sendStatus(204);
+            })
+            .catch(function (err) {
+                res.sendStatus(500);
+                console.log('Error: ', err);
+            });
     }
 
     function postCheckUsermail(req, res) {
-        console.log('body: ', req.body);
-        if (req.body.usermail) {
-            Account.findOne({usermail: req.body.usermail}, function (err, account) {
-                if (err) {
-                    console.log('Error: ', err);
-                }
-                if (!err && !account) {
-                    res.sendStatus(204);
-                } else {
-                    res.sendStatus(200);
-                }
-            });
-        } else {
+        if (!req.body.usermail) {
             res.sendStatus(400);
         }
+        Account.findOne({usermail: req.body.usermail})
+            .then(function (account) {
+                account
+                    ? res.sendStatus(200)
+                    : res.sendStatus(204);
+            })
+            .catch(function (err) {
+                res.sendStatus(500);
+                console.log('Error: ', err);
+            });
     }
 
     function postLogin(req, res) {
         if (req.user) {
             // set auth cookies;
-            console.log('initial: ', req.user);
-            if (req.user.usermail) res.cookie('usermail', req.user.usermail);
-            if (req.user.username) res.cookie('username', req.user.username);
-            if (req.user.role) res.cookie('userrole', req.user.role);
+            setInitialCookies(req, res);
         }
         if (req.query && req.query.redirect) {
             res.redirect('/' + req.query.redirect);
         } else {
             res.sendStatus(200);
         }
+    }
+
+    function postRegister(req, res, next) {
+        if (!req.body.username || !req.body.usermail) {
+            res.sendStatus(400);
+        }
+        console.log('registering.user ' + req.body.username);
+        Account.register(new Account({
+            username: req.body.username,
+            usermail: req.body.usermail
+        }), req.body.password)
+            .then(function (account) {
+                // http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/#.VS7RauQvDVM
+                console.log('user registered');
+                passport.authenticate('local')(req, res, function () {
+                    console.log('authed after registration');
+                    setInitialCookies(req, res);
+                    res.sendStatus(200);
+                    //res.redirect('../admin');
+                });
+            })
+            .catch(function (err) {
+                console.log('error registering user!');
+                res.sendStatus(500);
+                //return res.render('auth/register', {account: account}).;
+            });
     }
 
     function getLogout(req, res, next) {
@@ -115,31 +134,13 @@ module.exports = function (express, passport, Account) {
     }
 
     function postForgot(req, res, next) {
+        //http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
         crypto.randomBytes(20, function (err, buf) {
             var token = buf.toString('hex');
             console.log(token);
         });
     }
 
-    function postRegister(req, res, next) {
-        console.log('registering.user ' + req.body.username);
-        Account.register(new Account({
-            username: req.body.username,
-            usermail: req.body.usermail
-        }), req.body.password, function (err, account) {
-            // http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/#.VS7RauQvDVM
-            if (err) {
-                console.log('error registering user!');
-                return res.render('auth/register', {account: account});
-            }
-            console.log('user registered');
-
-            passport.authenticate('local')(req, res, function () {
-                console.log('authed after registration');
-                res.redirect('../admin');
-            });
-        });
-    }
 
     function getAuthTwitter() {
         return passport.authenticate('twitter');
@@ -155,6 +156,12 @@ module.exports = function (express, passport, Account) {
 
     function getAuthFacebookCallback() {
 
+    }
+
+    function setInitialCookies(req, res) {
+        if (req.user.usermail) res.cookie('usermail', req.user.usermail);
+        if (req.user.username) res.cookie('username', req.user.username);
+        if (req.user.role) res.cookie('userrole', req.user.role);
     }
 
 };
