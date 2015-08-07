@@ -5,8 +5,8 @@
         .module('MainPage')
         .controller('MainPage', MainPage);
 
-    MainPage.$inject = ['sgPreloader', '$timeout', 'auxData', 'Users'];
-    function MainPage(sgPreloader, $timeout, auxData, Users) {
+    MainPage.$inject = ['sgPreloader', '$timeout', 'auxData', 'Users', 'sgINT'];
+    function MainPage(sgPreloader, $timeout, auxData, Users, sgINT) {
         var vm = this;
         vm.settings = auxData.settings;
         vm.loader = {
@@ -16,6 +16,7 @@
         };
 
         vm.currentUser = Users.currentUser;
+        vm.INT = sgINT;
 
         vm.getBkSrc = getBkSrc;
         vm.switchPage = switchPage;

@@ -21,8 +21,8 @@ header(ng-show='main.loader.isSuccessful')
                         a Контакты
                     li
                         a#flag-container
-                            img(src="img/flags/UA.png")
-                            span UA
+                            img(ng-src="{{ 'img/flags/' + main.INT.currentLang + '.png' }}")
+                            span {{ main.INT.currentLang }}
                 sg-lang-switcher
         #wrapper-nav-buttons
             button#login-button.sg-btn(ng-if="!main.currentUser.name"
