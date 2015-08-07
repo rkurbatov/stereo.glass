@@ -28,8 +28,8 @@ header(ng-show='main.loader.isSuccessful')
             button#login-button.sg-btn(ng-if="!main.currentUser.name"
             ng-click="main.signIn()") Войти
                 i.fa.fa-sign-in
-            a(href='/admin' ng-if="main.currentUser.name")
-                button#admin-button.sg-btn
+            button#admin-button.sg-btn(ng-if="main.currentUser.name")
+                a(href='/admin')
                     | {{ main.currentUser.name }}
                     i.fa.fa-user
             form(name="search" action="#" method="get")

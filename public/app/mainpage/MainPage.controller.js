@@ -52,7 +52,6 @@
         }
 
         function getBkSrc(name) {
-            /** @namespace auxData.settings.isWideScreen */
             if (auxData.settings.isWideScreen) {
                 return auxData.bkImgs[name + '-15-8'].src
             } else {
@@ -62,7 +61,7 @@
 
         function switchPage(pageName) {
             if (vm.settings.currentPage === pageName) {
-                return;
+                return
             }
 
             switch (pageName) {
@@ -78,7 +77,7 @@
         }
 
         function signIn() {
-            Users.modalSignInRegister();
+
         }
 
     }
