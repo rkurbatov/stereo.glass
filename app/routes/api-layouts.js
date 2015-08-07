@@ -38,335 +38,317 @@ module.exports = function (express, Layout) {
     // IMPLEMENTATION
 
     function getLayouts(req, res) {
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
+        }
+
         var sel, findObj = {}, tmpArr = [], tmpDateQueryObj = {};
 
-        if (req.isAuthenticated()) {
-            if (req.query.selection) {
-                sel = JSON.parse(req.query.selection);
+        if (req.query.selection) {
+            sel = JSON.parse(req.query.selection);
 
-                if (sel.colors && sel.colors.length > 0) {
-                    tmpArr.push({catColors: {$in: sel.colors}});
-                }
-
-                if (sel.assortment && sel.assortment.length > 0) {
-                    tmpArr.push({catAssortment: {$in: sel.assortment}});
-                }
-
-                if (sel.countries && sel.countries.length > 0) {
-                    tmpArr.push({catCountries: {$in: sel.countries}});
-                }
-
-                if (sel.plots && sel.plots.length > 0) {
-                    tmpArr.push({catPlots: {$in: sel.plots}});
-                }
-
-                if (sel.authors && sel.authors.length > 0) {
-                    tmpArr.push({createdBy: {$in: sel.authors}});
-                }
-
-                if (sel.startDate || sel.endDate) {
-                    if (sel.startDate) {
-                        tmpDateQueryObj.$gte = sel.startDate;
-                    }
-                    if (sel.endDate) {
-                        tmpDateQueryObj.$lt = sel.endDate;
-                    }
-                    tmpArr.push({createdAt: tmpDateQueryObj});
-                }
-
-                if (tmpArr.length > 0) {
-                    findObj = {$and: tmpArr};
-                }
-
+            if (sel.colors && sel.colors.length > 0) {
+                tmpArr.push({catColors: {$in: sel.colors}});
             }
 
-            Layout.find(findObj, '', function (err, layouts) {
-                if (err) {
-                    console.log(err);
-                    res.status(500).end();
+            if (sel.assortment && sel.assortment.length > 0) {
+                tmpArr.push({catAssortment: {$in: sel.assortment}});
+            }
+
+            if (sel.countries && sel.countries.length > 0) {
+                tmpArr.push({catCountries: {$in: sel.countries}});
+            }
+
+            if (sel.plots && sel.plots.length > 0) {
+                tmpArr.push({catPlots: {$in: sel.plots}});
+            }
+
+            if (sel.authors && sel.authors.length > 0) {
+                tmpArr.push({createdBy: {$in: sel.authors}});
+            }
+
+            if (sel.startDate || sel.endDate) {
+                if (sel.startDate) {
+                    tmpDateQueryObj.$gte = sel.startDate;
                 }
-                else {
-                    res.send(JSON.stringify(layouts));
+                if (sel.endDate) {
+                    tmpDateQueryObj.$lt = sel.endDate;
                 }
-            });
-        } else {
-            res.status(403).send('forbidden').end();
+                tmpArr.push({createdAt: tmpDateQueryObj});
+            }
+
+            if (tmpArr.length > 0) {
+                findObj = {$and: tmpArr};
+            }
+
         }
+
+        Layout
+            .find(findObj, '')
+            .then(function (layouts) {
+                return res.json(layouts);
+            })
+            .catch(function (err) {
+                console.log('Cant\'t find layouts: ', err);
+                return res.sendStatus(500);
+            });
 
     }
 
     function deleteLayoutsById(req, res) {
-        if (req.isAuthenticated() && _.contains(['admin', 'designer', 'founder', 'curator'], req.user.role)) {
-            Layout.findOne({'_id': req.params.id}, function (err, layout) {
-                if (err) {
-                    console.log('Error removing layout: ', err);
-                    return res.status(500).send('Error removing layout: ' + err);
-                }
-                if (layout) {
-                    layout.isHidden = true;
-                    layout.save(function (err) {
-                        if (err) {
-                            console.log('Error removing layout: ', err);
-                            return res.status(500).send('Error removing layout: ' + err);
-                        } else {
-                            return res.status(204).send({success: layout.name + ' is marked as deleted'});
-                        }
-                    });
-                } else {
-                    return res.status(404).send({error: 'entry not found'});
-                }
-            });
-        } else {
-            return res.status(403).send('forbidden');
+        if (!req.isAuthenticated()
+            || _.contains(['admin', 'designer', 'founder', 'curator'], req.user.role)) {
+            return res.sendStatus(403);
         }
+
+        Layout
+            .findOne({'_id': req.params.id})
+            .then(function (layout) {
+                if (!layout) {
+                    return res.sendStatus(404);
+                }
+                layout.isHidden = true;
+                layout.save();
+                return res.sendStatus(204);
+            })
+            .catch(function (err) {
+                console.log('Error removing layout: ', err);
+                return res.sendStatus(500);
+            });
     }
 
+
     function getLayoutsByIdCompletely(req, res) {
-        if (req.isAuthenticated() && _.contains(['admin'], req.user.role)) {
-            Layout.findOneAndRemove({'_id': req.params.id}, function (err, data) {
-                if (err) {
-                    console.log('Error removing layout: ', err);
-                    return res.status(500).end();
-                }
-                if (data) {
-                    res.status(204).send({success: data.name + ' is deleted'});
-                } else {
-                    res.status(404).send({error: 'entry not found'});
-                }
-            });
-        } else {
-            res.status(403).send('forbidden');
+        if (!req.isAuthenticated()
+            || !_.contains(['admin'], req.user.role)) {
+            return res.sendStatus(403);
         }
+
+        Layout
+            .findOneAndRemove({'_id': req.params.id})
+            .then(function () {
+                return data
+                    ? res.sendStatus(204)
+                    : res.sendStatus(404);
+            })
+            .catch(function () {
+                console.log('Error removing layout: ', err);
+                return res.sendStatus(500);
+            });
     }
 
     function getLayoutsById(req, res) {
-        if (req.isAuthenticated()) {
-            Layout.findById({_id: req.params.id}, '-_id', function (err, doc) {
-                if (err) {
-                    console.log(err);
-                    res.status(500).end(); // Server error
-                } else if (doc) {
-                    res.json(doc);
-                } else {
-                    res.status(404).end(); // Not found
-                }
-            });
-        } else {
-            res.status(403).send('forbidden').end();
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
         }
+
+        Layout
+            .findById({_id: req.params.id}, '-_id')
+            .then(function (layout) {
+                return layout
+                    ? res.json(layout)
+                    : res.sendStatus(404);
+            })
+            .catch(function (err) {
+                console.log(err);
+                return res.sendStatus(500);
+            });
     }
 
     function postLayouts(req, res) {
-        if (req.isAuthenticated()) {
-
-            var data = JSON.parse(req.body.data);
-            data.createdBy = req.user.username;
-
-            Layout.create(data, function (err) {
-                if (err) {
-                    console.log('Ошибка при создании макета! ' + err);
-                    res.status(400).json({status: 'error', message: err});
-                }
-                else {
-                    res.status(201).json({status: 'success'});
-                }
-            });
-
-        } else {
-            res.status(403).send('forbidden').end();
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
         }
+
+        var layoutData = JSON.parse(req.body.data);
+        layoutData.createdBy = req.user.username;
+
+        Layout
+            .create(layoutData)
+            .then(function () {
+                return res.sendStatus(201);
+            })
+            .catch(function (err) {
+                console.log('Error creating layout: ', err)
+                return res.sendStatus(500);
+            });
     }
 
     function putLayoutsById(req, res) {
-        if (req.isAuthenticated()) {
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
+        }
 
-            var setObject = req.body.params.setObject;
-            var unsetArray = req.body.params.unsetArray;
-            if (!setObject && !unsetArray) {
-                return res.status(400).json({status: 'error', message: 'Bad request'});
-            }
+        var setObject = req.body.params.setObject;
+        var unsetArray = req.body.params.unsetArray;
+        if (!setObject && !unsetArray) {
+            return res.status(400);
+        }
 
-            var layoutQuery = Layout.findById(req.params.id).exec();
+        Layout
+            .findById(req.params.id)
+            .then(function (layout) {
+                if (setObject.status === 'assigned' && !layout.reference) {
+                    console.log("I need to make ref query");
+                    var referenceQuery = Layout
+                        .find({}, "-_id reference")
+                        .exists("reference")
+                        .sort("-reference")
+                        .limit(1)
+                        .exec();
 
-            layoutQuery
-                .then(function (layout) {
-                    if (setObject.status === 'assigned' && !layout.reference) {
-                        console.log("I need to make ref query");
-                        var referenceQuery = Layout
-                            .find({}, "-_id reference")
-                            .exists("reference")
-                            .sort("-reference")
-                            .limit(1)
-                            .exec();
+                    return referenceQuery
+                        .then(function (result) {
+                            if (result.length === 0) {
+                                layout.reference = 1;
+                            } else {
+                                layout.reference = result[0].reference + 1;
+                            }
 
-                        return referenceQuery
-                            .then(function (result) {
-                                if (result.length === 0) {
-                                    layout.reference = 1;
-                                } else {
-                                    layout.reference = result[0].reference + 1;
-                                }
+                            var refDir = _.padLeft(layout.reference, 5, '0');
+                            var fromDir = UploadRoot + 'pictures/' + layout.urlDir + '/';
+                            var toDir = UploadRoot + 'ready/' + refDir + '/';
 
-                                console.log("reference is: ", layout.reference);
+                            return mv(fromDir + layout.urlThumb, toDir + layout.urlThumb, {mkdirp: true})
+                                .then(function () {
+                                    console.log('moved thumb');
+                                    return mv(fromDir + layout.url2d, toDir + layout.url2d, {mkdirp: true});
+                                })
+                                .then(function () {
+                                    console.log('moved url');
+                                    layout.urlDir = refDir;
+                                    return layout;
+                                }).catch(function (err) {
+                                    throw new Error("Cant'move file! " + err)
+                                });
+                        });
 
-                                var refDir = _.padLeft(layout.reference, 5, '0');
-                                var fromDir = UploadRoot + 'pictures/' + layout.urlDir + '/';
-                                var toDir = UploadRoot + 'ready/' + refDir + '/';
-
-                                return mv(fromDir + layout.urlThumb, toDir + layout.urlThumb, {mkdirp: true})
-                                    .then(function () {
-                                        console.log('moved thumb');
-                                        return mv(fromDir + layout.url2d, toDir + layout.url2d, {mkdirp: true});
-                                    })
-                                    .then(function () {
-                                        console.log('moved url');
-                                        layout.urlDir = refDir;
-                                        return layout;
-                                    }).catch(function (err) {
-                                        throw new Error("Cant'move file! " + err)
-                                    });
-                            });
-
-                    } else {
-                        return layout;
+                } else {
+                    return layout;
+                }
+            })
+            .then(function (layout) {
+                _.each(setObject, function (value, key) {
+                    if (key !== 'reference') {
+                        layout[key] = value;
                     }
-                })
-                .then(function (layout) {
-                    _.each(setObject, function (value, key) {
-                        if (key !== 'reference') {
-                            layout[key] = value;
-                        }
-                    });
-
-                    _.each(unsetArray, function (key) {
-                        layout[key] = undefined;
-                    });
-
-                    layout.save();
-                    return res.status(200).json({status: 'success', layout: layout});
-
-                })
-                .then(null, function (err) {
-                    console.log('Макет не найден! ' + err);
-                    res.status(404).json({status: 'error', message: err});
                 });
 
+                _.each(unsetArray, function (key) {
+                    layout[key] = undefined;
+                });
 
-        } else {
-            res.status(403).send('forbidden').end();
-        }
+                layout.save();
+                return res.status(200).json({status: 'success', layout: layout});
+            })
+            .catch(function (err) {
+                console.log('Макет не найден! ' + err);
+                return res.status(404);
+            });
     }
 
     function putLayoutsByIdRatingByValue(req, res) {
-        if (req.isAuthenticated()) {
-
-            console.log(req.params);
-
-            Layout.findById({'_id': req.params.id}, function (err, found) {
-                if (err) {
-                    console.log("Error adding new rating", err);
-                    return res.status(500).send('server error').end();
-                }
-
-                if (!found) return res.status(404).send('rating not found').end();
-
-                var idx = _.findIndex(found.ratings, {assignedBy: req.user.username});
-
-                if (idx > -1) {
-                    found.ratings[idx].value = req.params.value;
-                } else {
-                    found.ratings.push({value: req.params.value, assignedBy: req.user.username});
-                }
-
-                found.save(function (err) {
-                    if (err) {
-                        console.log("Error adding new rating", err);
-                        return res.status(500).send('server error').end();
-                    }
-                    else return res.status(200).json({status: 'ok'}).end();
-                })
-            })
-
-        } else {
-            res.status(403).send('forbidden').end();
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
         }
 
+        Layout
+            .findById({'_id': req.params.id})
+            .then(function (layout) {
+                if (!layout) {
+                    return res.sendStatus(404);
+                }
+
+                var idx = _.findIndex(layout.ratings, {assignedBy: req.user.username});
+
+                if (idx > -1) {
+                    layout.ratings[idx].value = req.params.value;
+                } else {
+                    layout.ratings.push({value: req.params.value, assignedBy: req.user.username});
+                }
+
+                return layout.save();
+            })
+            .then(function () {
+                return res.sendStatus(200);
+            })
+            .catch(function (err) {
+                console.log("Error adding new rating", err);
+                return res.sendStatus(500);
+            });
     }
 
     function deleteLayoutsByIdRating(req, res) {
-        if (req.isAuthenticated()) {
+        if (!req.isAuthenticated()) {
+            res.sendStatus(403);
+        }
 
-            Layout.findById({'_id': req.params.id}, function (err, found) {
-                if (err) {
-                    console.log("Error removing rating", err);
-                    return res.status(500).send('server error').end();
-                }
+        Layout
+            .findById({'_id': req.params.id})
+            .then(function (layout) {
+                if (!layout) return res.sendStatus(404);
 
-                if (!found) return res.status(404).send('rating not found').end();
-
-                var idx = _.findIndex(found.ratings, {assignedBy: req.user.username});
+                var idx = _.findIndex(layout.ratings, {assignedBy: req.user.username});
 
                 if (idx > -1) {
-                    found.ratings.splice(idx, 1);
+                    layout.ratings.splice(idx, 1);
                 }
 
-                found.save(function (err) {
-                    if (err) {
-                        console.log("Error removing rating", err);
-                        return res.status(500).json({status: 'server error'}).end();
-                    }
-                    else return res.status(204).json({status: 'ok'}).end();
-                })
+                return layout.save();
             })
-
-        } else {
-            res.status(403).send('forbidden');
-        }
+            .then(function () {
+                return res.sendStatus(204);
+            })
+            .catch(function (err) {
+                console.log("Error removing rating", err);
+                return res.sendStatus(500);
+            });
     }
 
     function postSearchByName(req, res) {
-        if (req.isAuthenticated()) {
-            Layout.findOne({name: req.params.name}, '-_id', function (err, layout) {
-                if (err) {
-                    console.log(err);
-                    res.status(500).end(); // Server error
-                } else if (layout) {
-                    res.status(200).end();
-                } else {
-                    res.status(204).end(); // No content - 204 to supress errors!!!
-                }
-            });
-        } else {
-            res.status(403).send('forbidden').end();
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
         }
+
+        Layout
+            .findOne({name: req.params.name}, '-_id')
+            .then(function (layout) {
+                return layout
+                    ? res.sendStatus(200)
+                    : res.sendStatus(204);
+            })
+            .catch(function () {
+                return res.sendStatus(500);
+            });
     }
 
     function postCommentById(req, res) {
-        if (req.isAuthenticated()) {
-            var layoutQuery = Layout.findById(req.params.id).exec();
-
-            layoutQuery
-                .then(function (layout) {
-                    var validQuery = req.body.params
-                        && req.body.params.postedBy
-                        && req.body.params.postedAt
-                        && req.body.params.text;
-
-                    if (!validQuery) {
-                        throw Error('Invalid post comment query!')
-                    }
-
-                    layout.comments.push(req.body.params);
-                    layout.save();
-                    return res.status(200).send({status: 'success'});
-                })
-                .then(null, function (err) {
-                    console.log('Error posting comment: ', err);
-                    return res.status(500).send({status: 'server error', message: err});
-                });
-        } else {
-            return res.status(403).send('forbidden');
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
         }
+
+        var validQuery = req.body.params
+            && req.body.params.postedBy
+            && req.body.params.postedAt
+            && req.body.params.text;
+
+        if (!validQuery) {
+            res.sendStatus(400);
+        }
+
+        Layout
+            .findById(req.params.id)
+            .then(function (layout) {
+                layout.comments.push(req.body.params);
+                return layout.save();
+            })
+            .then(function(){
+                return res.sendStatus(200);
+            })
+            .catch(function (err) {
+                console.log('Error posting comment: ', err);
+                return res.sendStatus(500);
+            });
     }
 
 };
