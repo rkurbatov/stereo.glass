@@ -237,13 +237,27 @@
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && (
                             _.any(layout.comments, {postedBy: commenterName})
-                            || (layout.designerComment && layout.createdBy === commenterName)
                             || (
-                                (layout.assignedComment || layout.approvedComment)
+                                (layout.designerComment
+                                && layout.designerComment !== ''
+                                && layout.createdBy === commenterName)
+                            ) || ((
+                                (
+                                    layout.assignedComment
+                                    && layout.assignedComment !== ''
+                                ) || (
+                                    layout.approvedComment
+                                    && layout.approvedComment !== ''
+                                ))
                                 && layout.assignedBy === commenterName
-                            )
-                            || (
-                                (layout.acceptedComment || layout.finishedComment)
+                            ) || ((
+                                (
+                                    layout.acceptedComment
+                                    && layout.acceptedComment !== ''
+                                ) || (
+                                    layout.finishedComment
+                                    && layout.finishedComment !== ''
+                                ))
                                 && layout.assignedTo === commenterName
                             )
                         );
