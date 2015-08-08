@@ -2,7 +2,6 @@ module.exports = function (express, Account, Layout) {
     'use strict';
 
     var Router = express.Router();
-    var _ = require('lodash');
 
     // DECLARATION
 
@@ -19,63 +18,66 @@ module.exports = function (express, Account, Layout) {
 
     function getUsers(req, res) {
 
+        if (!req.isAuthenticated()) {
+            return res.sendStatus(403);
+        }
+
         var findObj = {};
 
-        if (req.isAuthenticated()) {
-
-
-            if (req.query.roles) {
-                findObj.role = {
-                    $in: Array.isArray(req.query.roles) // $in receives only arrays
-                        ? req.query.roles
-                        : [req.query.roles]
-                }
+        if (req.query.roles) {
+            findObj.role = {
+                $in: Array.isArray(req.query.roles) // $in receives only arrays
+                    ? req.query.roles
+                    : [req.query.roles]
             }
-            Account.find(findObj, '-password', function (err, users) {
-                if (err) {
-                    console.log(err);
-                    res.status(500).end();
-                }
-                else {
-                    res.status(200).send(JSON.stringify(users));
-                }
-            });
-
-        } else {
-            res.status(403).send('forbidden').end();
         }
+        Account
+            .find(findObj, '-password')
+            .then(function (users) {
+                return res.json(users);
+            })
+            .catch(function (err) {
+                console.log("Cant't find account: ", err);
+                return res.sendStatus(500);
+            });
     }
 
     // Get all authors of layouts (aggregate using createdBy field)
     function getUsersAuthors(req, res) {
         if (req.isAuthenticated()) {
-            Layout.aggregate({$group: {'_id': '$createdBy'}}, function (err, authors) {
-                if (err) {
-                    console.log('Error aggregating users: ', err);
-                    res.status(500).end();
-                } else {
-                    res.status(200).json(authors);
-                }
-            });
-        } else {
-            res.status(403).send('forbidden');
+            return res.sendStatus(403);
         }
+
+        Layout
+            .aggregate({$group: {'_id': '$createdBy'}})
+            .then(function (authors) {
+                return res.json(authors);
+            })
+            .catch(function (err) {
+                console.log('Error aggregating users: ', err);
+                res.sendStatus(500);
+            });
     }
 
     function putUsersById(req, res) {
 
         // only admin can modify users (or user itself)
-        if (req.isAuthenticated() && (req.user.role === 'admin' || req.user['_id'] === req.params.id)) {
+        if (!req.isAuthenticated()
+            || (req.user.role !== 'admin' && req.user['_id'] !== req.params.id)) {
+            return res.sendStatus(403);
+        }
 
-            var setObject = req.body.params.setObject;
+        var setObject = req.body.params.setObject;
+        var user;
 
-            Account.findById(req.params.id).exec(function (err, user) {
-                
-                if (err) {
-                    console.log('User not found! ', err);
-                    return res.status('404').json({ status: 'User not found' });
+        Account
+            .findById(req.params.id)
+            .then(function (result) {
+                if (!result) {
+                    return res.sendStatus(404);
                 }
 
+                user = result;
                 user.username = setObject.username;
                 user.usermail = setObject.usermail;
                 user.role = setObject.role;
@@ -83,40 +85,47 @@ module.exports = function (express, Account, Layout) {
                     user.borderColor = setObject.borderColor;
                 }
 
-                // !!! Saving needed before password change. 
+                // !!! Saving needed before password change.
                 user.save();
 
                 if (setObject.password) {
                     user.setPassword(setObject.password, function (err) {
                         if (err) {
                             console.log("Can't change user password: ", err);
-                            return res.status(500).json({ status: 'server error', message: err });
+                            return res.sendStatus(500);
                         } else {
                             user.save();
                         }
                     })
-                } 
+                }
 
-                res.status(200).json({ success: 'user is modified' });
+                return res.sendStatus(200);
+            })
+            .catch(function (err) {
+                console.log('Error modifying user: ', err);
+                return res.sendStatus(500);
             });
-        } else {
-            res.status(403).send('forbidden');
-        }
+
     }
 
     function deleteUsersById(req, res) {
-        if (req.isAuthenticated() && req.user.role === 'admin') {
-            Account.findOneAndRemove({'_id': req.params.id}, function (err, data) {
-                if (err) console.log(err);
-                if (data) {
-                    res.status(200).send({success: data.username + ' is deleted'});
-                } else {
-                    res.status(404).send({error: 'entry not found'});
-                }
-            });
-        } else {
-            res.status(403).send('forbidden').end();
+        if (!req.isAuthenticated() || req.user.role !== 'admin') {
+            return res.sendStatus(403);
         }
+
+        Account
+            .findOneAndRemove({'_id': req.params.id})
+            .then(function (user) {
+                if (!user) {
+                    return res.sendStatus(404);
+                }
+                return res.sendStatus(204);
+            })
+            .catch(function (err) {
+                console.log("Cant't remove account: ", err);
+                return res.sendStatus(403);
+            });
+
     }
 
 };
