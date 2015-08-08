@@ -44,12 +44,12 @@ module.exports = function (express, Account, Layout) {
 
     // Get all authors of layouts (aggregate using createdBy field)
     function getUsersAuthors(req, res) {
-        if (req.isAuthenticated()) {
+        if (!req.isAuthenticated()) {
             return res.sendStatus(403);
         }
 
         Layout
-            .aggregate({$group: {'_id': '$createdBy'}})
+            .aggregateAsync({$group: {'_id': '$createdBy'}})
             .then(function (authors) {
                 return res.json(authors);
             })
@@ -74,7 +74,9 @@ module.exports = function (express, Account, Layout) {
             .findById(req.params.id)
             .then(function (result) {
                 if (!result) {
-                    return res.sendStatus(404);
+                    var err = new Error();
+                    err.status = 404;
+                    throw err;
                 }
 
                 user = result;
@@ -92,21 +94,20 @@ module.exports = function (express, Account, Layout) {
                 if (setObject.password) {
                     user.setPassword(setObject.password, function (err) {
                         if (err) {
-                            console.log("Can't change user password: ", err);
-                            return res.sendStatus(500);
+                            throw new Error('Can\'t change user password');
                         } else {
                             return user.save();
                         }
                     })
                 }
-                return res.sendStatus(200);
+                return null;
             })
             .then(function(){
                 return res.sendStatus(200);
             })
             .catch(function (err) {
                 console.log('Error modifying user: ', err);
-                return res.sendStatus(500);
+                return res.sendStatus(err.status || 500);
             });
 
     }
@@ -126,7 +127,7 @@ module.exports = function (express, Account, Layout) {
             })
             .catch(function (err) {
                 console.log("Cant't remove account: ", err);
-                return res.sendStatus(403);
+                return res.sendStatus(500);
             });
 
     }

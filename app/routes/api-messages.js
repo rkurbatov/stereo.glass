@@ -23,7 +23,7 @@ module.exports = function (express, Message) {
         }
 
         Message
-            .create(message)
+            .createAsync(message)
             .then(function () {
                 return res.sendStatus(201);
             })

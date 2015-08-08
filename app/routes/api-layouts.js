@@ -105,7 +105,9 @@ module.exports = function (express, Layout) {
             .findOne({'_id': req.params.id})
             .then(function (layout) {
                 if (!layout) {
-                    return res.sendStatus(404);
+                    var err = new Error();
+                    err.status = 404;
+                    throw err;
                 }
                 layout.isHidden = true;
                 layout.save();
@@ -113,7 +115,7 @@ module.exports = function (express, Layout) {
             })
             .catch(function (err) {
                 console.log('Error removing layout: ', err);
-                return res.sendStatus(500);
+                return res.sendStatus(err.status || 500);
             });
     }
 
@@ -169,7 +171,7 @@ module.exports = function (express, Layout) {
                 return res.sendStatus(201);
             })
             .catch(function (err) {
-                console.log('Error creating layout: ', err)
+                console.log('Error creating layout: ', err);
                 return res.sendStatus(500);
             });
     }
@@ -219,7 +221,8 @@ module.exports = function (express, Layout) {
                                     layout.urlDir = refDir;
                                     return layout;
                                 }).catch(function (err) {
-                                    throw new Error("Cant'move file! " + err)
+                                    err.status = 500;
+                                    throw err;
                                 });
                         });
 
@@ -238,12 +241,14 @@ module.exports = function (express, Layout) {
                     layout[key] = undefined;
                 });
 
-                layout.save();
+                return layout.save();
+            })
+            .then(function(layout){
                 return res.status(200).json({status: 'success', layout: layout});
             })
             .catch(function (err) {
                 console.log('Макет не найден! ' + err);
-                return res.status(404);
+                return res.status(err.status || 404);
             });
     }
 
@@ -256,7 +261,9 @@ module.exports = function (express, Layout) {
             .findById({'_id': req.params.id})
             .then(function (layout) {
                 if (!layout) {
-                    return res.sendStatus(404);
+                    var err = new Error();
+                    err.status = 404;
+                    throw err;
                 }
 
                 var idx = _.findIndex(layout.ratings, {assignedBy: req.user.username});
@@ -274,7 +281,7 @@ module.exports = function (express, Layout) {
             })
             .catch(function (err) {
                 console.log("Error adding new rating", err);
-                return res.sendStatus(500);
+                return res.sendStatus(err.status || 500);
             });
     }
 
@@ -286,7 +293,11 @@ module.exports = function (express, Layout) {
         Layout
             .findById({'_id': req.params.id})
             .then(function (layout) {
-                if (!layout) return res.sendStatus(404);
+                if (!layout) {
+                    var err = new Error();
+                    err.status = 404;
+                    throw err;
+                }
 
                 var idx = _.findIndex(layout.ratings, {assignedBy: req.user.username});
 
@@ -301,7 +312,7 @@ module.exports = function (express, Layout) {
             })
             .catch(function (err) {
                 console.log("Error removing rating", err);
-                return res.sendStatus(500);
+                return res.sendStatus(err.status || 500);
             });
     }
 

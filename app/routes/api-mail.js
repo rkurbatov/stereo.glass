@@ -33,7 +33,7 @@ module.exports = function (express, mailer) {
         mailOptions = _.merge(mailOptions, vars);
 
         // TODO: template file checking
-        mailer.send('mail-templates/' + mail.template, mailOptions, mailerCallback)
+        mailer.send('mail-templates/' + mail.template, mailOptions, mailerCallback);
 
         function mailerCallback(err) {
             if (err) {
