@@ -86,19 +86,22 @@ module.exports = function (express, Account, Layout) {
                 }
 
                 // !!! Saving needed before password change.
-                user.save();
-
+                return user.save();
+            })
+            .then(function(){
                 if (setObject.password) {
                     user.setPassword(setObject.password, function (err) {
                         if (err) {
                             console.log("Can't change user password: ", err);
                             return res.sendStatus(500);
                         } else {
-                            user.save();
+                            return user.save();
                         }
                     })
                 }
-
+                return res.sendStatus(200);
+            })
+            .then(function(){
                 return res.sendStatus(200);
             })
             .catch(function (err) {
