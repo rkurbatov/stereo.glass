@@ -142,8 +142,9 @@ module.exports = function (express, passport, crypto, Account) {
             .then(generateToken)
             .then(findAccount)
             .then(saveToken)
-            .then(function(){
-                return res.status(200).send({token: token});
+            .then(function(account){
+                req.session.emailToken = token;
+                return res.status(200).send({token: token, mail: account.usermail});
             })
             .catch(function (err) {
                 console.log("Can't reset password: ", err);

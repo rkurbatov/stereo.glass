@@ -113,7 +113,28 @@
                     forgotObject.forgotName = vm.forgotName;
                 }
                 console.log('forgot');
-                vm.forgotPromise = $http.post('/auth/forgot', forgotObject);
+                vm.forgotPromise = $http
+                    .post('/auth/forgot', forgotObject)
+                    .then(function (response) {
+                        var token = response.data.token;
+                        var mailBox = response.data.mail;
+
+                        var mail = {
+                            template: 'passwordRecovery',
+                            subject: 'Password recovery',
+                            to: mailBox
+                        };
+                        var vars = {
+                            token: token
+                        };
+                        return $http.post('/api/mail/', {
+                            params: {
+                                mail: mail,
+                                vars: vars
+                            }
+                        });
+                    });
+
             }
 
             function validateAsyncUsername(username) {

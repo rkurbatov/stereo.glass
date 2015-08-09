@@ -11,9 +11,11 @@ module.exports = function (express, mailer) {
 
     function postMail(req, res) {
 
-        if (!req.isAuthenticated()) {
+        if (!req.isAuthenticated() && !req.session.emailToken) {
             return res.sendStatus(403);
         }
+
+        delete req.session.emailToken;
 
         var params = req.body.params;
         var mail = params.mail;
