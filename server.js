@@ -10,8 +10,11 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var mailer = require('express-mailer');
 
-var bluebird = require('bluebird');
-bluebird.promisifyAll(mongoose);
+var Promise = require('bluebird');
+Promise.promisifyAll(mongoose);
+
+var crypto = require('crypto');
+Promise.promisifyAll(crypto);
 
 var app = express();
 
@@ -75,7 +78,7 @@ app.use(helperSession.persistCookies);
 
 // ======== ROUTES ========
 app.use('/', require('./app/routes/base')(express, Account));
-app.use('/auth', require('./app/routes/auth')(express, passport, Account));
+app.use('/auth', require('./app/routes/auth')(express, passport, crypto, Account));
 app.use('/api/users', require('./app/routes/api-users')(express, Account, Layout));
 app.use('/api/categories', require('./app/routes/api-categories')(express, Category));
 app.use('/api/layouts', require('./app/routes/api-layouts')(express, Layout));

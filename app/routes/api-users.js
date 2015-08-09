@@ -68,35 +68,33 @@ module.exports = function (express, Account, Layout) {
         }
 
         var setObject = req.body.params.setObject;
-        var user;
 
         Account
             .findById(req.params.id)
-            .then(function (result) {
-                if (!result) {
+            .then(function (account) {
+                if (!account) {
                     var err = new Error();
                     err.status = 404;
                     throw err;
                 }
 
-                user = result;
-                user.username = setObject.username;
-                user.usermail = setObject.usermail;
-                user.role = setObject.role;
+                account.username = setObject.username;
+                account.usermail = setObject.usermail;
+                account.role = setObject.role;
                 if (setObject.borderColor) {
-                    user.borderColor = setObject.borderColor;
+                    account.borderColor = setObject.borderColor;
                 }
 
                 // !!! Saving needed before password change.
-                return user.save();
+                return account.save();
             })
-            .then(function(){
+            .then(function(account){
                 if (setObject.password) {
-                    user.setPassword(setObject.password, function (err) {
+                    account.setPassword(setObject.password, function (err) {
                         if (err) {
                             throw new Error('Can\'t change user password');
                         } else {
-                            return user.save();
+                            return account.save();
                         }
                     })
                 }

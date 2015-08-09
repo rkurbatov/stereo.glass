@@ -22,8 +22,10 @@ module.exports = function (mongoose) {
 
     AccountSchema.pre('save', function (next) {
 
-        if (!this.createdAt) {
-            this.createdAt = new Date;
+        var account = this;
+
+        if (!account.createdAt) {
+            account.createdAt = new Date;
         }
 
         next();

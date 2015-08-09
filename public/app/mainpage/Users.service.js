@@ -112,8 +112,8 @@
                 if (vm.forgotName) {
                     forgotObject.forgotName = vm.forgotName;
                 }
-
-                vm.loadingForgot = $http.post('/auth/forgot', forgotObject);
+                console.log('forgot');
+                vm.forgotPromise = $http.post('/auth/forgot', forgotObject);
             }
 
             function validateAsyncUsername(username) {

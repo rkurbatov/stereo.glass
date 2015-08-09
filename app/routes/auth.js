@@ -1,8 +1,7 @@
-module.exports = function (express, passport, Account) {
+module.exports = function (express, passport, crypto, Account) {
     'use strict';
 
     var Router = express.Router();
-    var crypto = require('crypto');
 
     //displays our signup page
     Router.get(['/', '/login'], getLogin);
@@ -40,7 +39,7 @@ module.exports = function (express, passport, Account) {
 
     function postCheckUsername(req, res) {
         if (!req.body.username) {
-
+            return res.sendStatus(400);
         }
         Account.findOne({username: req.body.username})
             .then(function (account) {
@@ -136,10 +135,53 @@ module.exports = function (express, passport, Account) {
 
     function postForgot(req, res, next) {
         //http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
-        crypto.randomBytes(20, function (err, buf) {
-            var token = buf.toString('hex');
-            console.log(token);
-        });
+        var token;
+
+        crypto
+            .randomBytesAsync(20)
+            .then(generateToken)
+            .then(findAccount)
+            .then(saveToken)
+            .then(sendEmail)
+            .catch(function (err) {
+                if (err.status !== 200) {
+                    console.log("Can't reset password: ", err);
+                }
+                return res.sendStatus(err.status || 500);
+            });
+
+        function generateToken(buf) {
+            token = buf.toString('hex');
+            return null;
+        }
+
+        function findAccount() {
+            if (req.body.forgotMail) {
+                return Account.findOne({usermail: req.body.forgotMail});
+            } else if (req.body.forgotName) {
+                return Account.findOne({username: req.body.forgotName});
+            } else {
+                var err = new Error();
+                err.status = 400;
+                throw err;
+            }
+        }
+
+        function saveToken(account) {
+            if (!account) {
+                var err = new Error();
+                err.status = 200;
+                throw err;
+            }
+            account.resetPasswordToken = token;
+            account.resetPasswordExpires = Date.now() + 1000 * 3600 * 24; // 24 hours
+            return account.save()
+        }
+
+        function sendEmail(account) {
+            console.log(account);
+            return res.sendStatus(200);
+        }
     }
 
 
@@ -165,4 +207,5 @@ module.exports = function (express, passport, Account) {
         if (req.user.role) res.cookie('userrole', req.user.role);
     }
 
-};
+}
+;

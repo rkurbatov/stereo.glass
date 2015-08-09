@@ -1,4 +1,4 @@
-.row: form(name='ForgotForm' ng-submit='vm.forgotPassword()' novalidate)
+.row: form(name='ForgotForm' ng-submit='vm.forgot()' novalidate)
     .col-xs-12: .controls
         p.small.text-justify Введите имя пользователя
     .col-xs-12: .input-group
@@ -24,5 +24,5 @@
     .col-xs-12
         br
         button.form-control.btn.btn-warning(type='submit'
-        ng-disabled='ForgotForm.forgotName.$invalid || ForgotForm.forgotMail.$invalid')
+        ng-disabled='ForgotForm.forgotName.$invalid || ForgotForm.forgotMail.$invalid || ForgotForm.$pending')
             | Сброс пароля
