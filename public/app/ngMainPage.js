@@ -5,9 +5,9 @@
         .module('MainPage', [
             'ngCookies',
             'ngAnimate',
-            'ui.bootstrap',
             'ui.validate',
             'sg.ui',
+            'sg.AuthSvc',
             '720kb.fx',
             'cgBusy'
         ])

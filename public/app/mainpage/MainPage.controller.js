@@ -5,7 +5,7 @@
         .module('MainPage')
         .controller('MainPage', MainPage);
 
-    MainPage.$inject = ['sgPreloader', '$timeout', 'auxData', 'Users', 'sgINT'];
+    MainPage.$inject = ['sgPreloader', '$timeout', 'auxData', 'AuthSvc', 'sgINT'];
     function MainPage(sgPreloader, $timeout, auxData, Users, sgINT) {
         var vm = this;
         vm.settings = auxData.settings;

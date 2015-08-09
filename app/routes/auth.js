@@ -15,6 +15,8 @@ module.exports = function (express, passport, crypto, Account) {
     Router.post('/register', postRegister);
 
     Router.post('/forgot', postForgot);
+    Router.get('/recover-password/:token', getRecoverPassword);
+    Router.get('/reset-password/:token', postResetPassword);
 
     Router.post('/check-username', postCheckUsername);
     Router.post('/check-usermail', postCheckUsermail);
@@ -142,7 +144,7 @@ module.exports = function (express, passport, crypto, Account) {
             .then(generateToken)
             .then(findAccount)
             .then(saveToken)
-            .then(function(account){
+            .then(function (account) {
                 req.session.emailToken = token;
                 return res.status(200).send({token: token, mail: account.usermail});
             })
@@ -180,6 +182,27 @@ module.exports = function (express, passport, crypto, Account) {
         }
     }
 
+    function getRecoverPassword(req, res) {
+        Account
+            .findOne({
+                resetPasswordToken: req.params.token,
+                resetPasswordExpires: {$gt: Date.now()}
+            })
+            .then(function (account) {
+                if (!account) {
+                    return res.render('auth/tokenExpired');
+                }
+                return res.render('auth/resetPassword');
+            })
+            .catch(function (err) {
+                return res.render('auth/tokenExpired');
+            });
+
+    }
+
+    function postPasswordReset(req, res) {
+
+    }
 
     function getAuthTwitter() {
         return passport.authenticate('twitter');

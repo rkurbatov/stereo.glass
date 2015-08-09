@@ -1,20 +1,22 @@
-(function (window, angular, undefined) {
-    'use strict';
+(function(window, angular, undefined){
 
     angular
-        .module('MainPage')
-        .service('Users', Users);
+        .module('sg.AuthSvc', [
+            'ui.bootstrap',
+            'ngCookies'
+        ])
+        .service('AuthSvc', AuthSvc);
 
-    Users.$inject = ['$cookies', '$modal', '$http', '$q', '$window', '$timeout'];
+    AuthSvc.$inject = ['$cookies', '$modal', '$http', '$q', '$window', '$timeout'];
 
-    function Users($cookies, $modal, $http, $q, $window, $timeout) {
+    function AuthSvc($cookies, $modal, $http, $q, $window, $timeout){
 
         // ==== DECLARATION ====
+
         var svc = this;
+        svc.modalSignInRegister = modalSignInRegister;
         svc.currentUser = {};
         svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'user', 'visitor'];
-
-        svc.modalSignInRegister = modalSignInRegister;
 
         init();
 
@@ -42,7 +44,7 @@
             return $modal.open(modalDO).result;
         }
 
-        signInRegisterCtrl.$inject = ['$modalInstance']
+        signInRegisterCtrl.$inject = ['$modalInstance'];
 
         function signInRegisterCtrl($modalInstance) {
             var vm = this;
@@ -112,7 +114,6 @@
                 if (vm.forgotName) {
                     forgotObject.forgotName = vm.forgotName;
                 }
-                console.log('forgot');
                 vm.forgotPromise = $http
                     .post('/auth/forgot', forgotObject)
                     .then(function (response) {
@@ -133,6 +134,8 @@
                                 vars: vars
                             }
                         });
+                    }).then(function(){
+                        cancel();
                     });
 
             }
