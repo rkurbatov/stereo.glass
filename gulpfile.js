@@ -7,13 +7,13 @@ var gulpif = require('gulp-if');
 
 gulp.task('default', ['buildDevel']);
 
-gulp.task('buildDevel', function(){
+gulp.task('buildDevel', function () {
     require('fs').writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor();
     deployCustom();
 });
 
-gulp.task('buildProduction', function(){
+gulp.task('buildProduction', function () {
     require('fs').writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor(true);
     deployCustom(true);
@@ -85,6 +85,24 @@ function deployVendor(production) {
         'public/libs/angular-busy/dist/angular-busy.css'
     ];
 
+    var vendorLibsAuth = [
+        'public/libs/angular/angular.js',
+        'public/libs/angular-cookies/angular-cookies.js',
+        'public/libs/angular-animate/angular-animate.js',
+        'public/libs/angular-bootstrap/ui-bootstrap.js',
+        'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/libs/angular-busy/dist/angular-busy.js',
+        'public/libs/angular-ui-validate/dist/validate.js'
+    ];
+
+    var vendorStylesAuth = [
+        'public/libs/bootstrap/dist/css/bootstrap.css',
+        'public/libs/font-awesome/css/font-awesome.css',
+        'public/libs/animate.css/animate.css',
+        'public/libs/angular-fx/src/css/angular-fx.css',
+        'public/libs/angular-busy/dist/angular-busy.css'
+    ];
+
     gulp.src(vendorLibsAdmin)
         .pipe(concat('vendor-admin.min.js'))
         .pipe(gulpif(production, uglify()))
@@ -102,6 +120,16 @@ function deployVendor(production) {
 
     gulp.src(vendorStylesMain)
         .pipe(concat('vendor-main.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
+
+    gulp.src(vendorLibsAuth)
+        .pipe(concat('vendor-auth.min.js'))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(vendorStylesAuth)
+        .pipe(concat('vendor-auth.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 }
@@ -127,6 +155,12 @@ function deployCustom(production) {
         'public/css/mainpage/mainpage.css'
     ];
 
+    var customSourceAuth = [
+        'public/app/common/sgAuthSvc.js',
+        'public/app/auth/**/*.js',
+        'public/app/ngAuth.js'
+    ];
+
     gulp.src(customSourceAdmin)
         .pipe(concat('custom-admin.min.js'))
         .pipe(gulpif(production, uglify()))
@@ -146,4 +180,9 @@ function deployCustom(production) {
         .pipe(concat('custom-main.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
+
+    gulp.src(customSourceAuth)
+        .pipe(concat('custom-auth.min.js'))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulp.dest('public/scripts'));
 }

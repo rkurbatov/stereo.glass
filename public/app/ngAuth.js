@@ -4,6 +4,7 @@
     angular
         .module('sgAuth',
         [
+            'sg.AuthSvc',
             'ui.bootstrap',
             'ui.validate',
             'cgBusy'
