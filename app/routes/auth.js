@@ -142,11 +142,11 @@ module.exports = function (express, passport, crypto, Account) {
             .then(generateToken)
             .then(findAccount)
             .then(saveToken)
-            .then(sendEmail)
+            .then(function(){
+                return res.status(200).send({token: token});
+            })
             .catch(function (err) {
-                if (err.status !== 200) {
-                    console.log("Can't reset password: ", err);
-                }
+                console.log("Can't reset password: ", err);
                 return res.sendStatus(err.status || 500);
             });
 
@@ -170,17 +170,12 @@ module.exports = function (express, passport, crypto, Account) {
         function saveToken(account) {
             if (!account) {
                 var err = new Error();
-                err.status = 200;
+                err.status = 404;
                 throw err;
             }
             account.resetPasswordToken = token;
             account.resetPasswordExpires = Date.now() + 1000 * 3600 * 24; // 24 hours
             return account.save()
-        }
-
-        function sendEmail(account) {
-            console.log(account);
-            return res.sendStatus(200);
         }
     }
 
