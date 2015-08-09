@@ -28,10 +28,15 @@ module.exports = function (mongoose) {
             account.createdAt = new Date;
         }
 
-        next();
+        if (!account.isModified('password')) return next();
+
+        account.setPassword(account.password, function(err){
+            next(err);
+        });
+
     });
 
-    AccountSchema.plugin(passportLocalMongoose, {usernameField: 'usermail'});              //TODO: internationalize!
+    AccountSchema.plugin(passportLocalMongoose, {usernameField: 'usermail'});
     var Account = mongoose.model('Account', AccountSchema);
     return Account;
 };

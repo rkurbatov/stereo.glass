@@ -85,20 +85,11 @@ module.exports = function (express, Account, Layout) {
                     account.borderColor = setObject.borderColor;
                 }
 
-                // !!! Saving needed before password change.
-                return account.save();
-            })
-            .then(function(account){
                 if (setObject.password) {
-                    account.setPassword(setObject.password, function (err) {
-                        if (err) {
-                            throw new Error('Can\'t change user password');
-                        } else {
-                            return account.save();
-                        }
-                    })
+                    account.password = setObject.password;
                 }
-                return null;
+
+                return account.save();
             })
             .then(function(){
                 return res.sendStatus(200);
