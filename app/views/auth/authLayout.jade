@@ -4,13 +4,13 @@ html(lang=en)
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        base(href='/admin/')
-        title Starter MEAN Single App
+        title Stereo.Glass auth
 
-        link(rel='stylesheet',href='../libs/bootstrap/dist/css/bootstrap.min.css')
-        link(rel='stylesheet',href='../libs/font-awesome/css/font-awesome.min.css')
-        link(rel='stylesheet', href='../css/font-awesome/font-awesome.css')
-        link(rel='stylesheet', href='../css/admin/admin.css')
+        include ../builddate
+        link(rel='stylesheet', href='../stylesheets/vendor-auth.min.css?#{builddate}')
+        link(rel='stylesheet', href='../stylesheets/custom-auth.min.css?#{builddate}')
+        script(src='../scripts/vendor-auth.min.js?#{builddate}')
+        script(src='../scripts/custom-auth.min.js?#{builddate}')
 
     body
         block content

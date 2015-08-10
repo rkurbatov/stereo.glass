@@ -4,10 +4,9 @@ module.exports = function (express, passport, crypto, Account) {
     var Router = express.Router();
 
     //displays our signup page
-    Router.get(['/', '/login'], getLogin);
+    Router.get(['/'], getLogin);
     //logs user out of site, deleting them from the session, and returns to homepage
     Router.get('/logout', getLogout);
-    Router.get('/register', getRegister);
 
     //sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
     Router.post('/login', passport.authenticate('local'), postLogin);
@@ -15,8 +14,7 @@ module.exports = function (express, passport, crypto, Account) {
     Router.post('/register', postRegister);
 
     Router.post('/forgot', postForgot);
-    Router.get('/recover-password/:token', getRecoverPassword);
-    Router.get('/reset-password/:token', postResetPassword);
+    Router.get('/check-token/:token', getCheckToken);
 
     Router.post('/check-username', postCheckUsername);
     Router.post('/check-usermail', postCheckUsermail);
@@ -127,14 +125,6 @@ module.exports = function (express, passport, crypto, Account) {
         }
     }
 
-    function getRegister(req, res) {
-        if (req.isAuthenticated()) {
-            res.redirect('../admin');
-        } else {
-            res.render('auth/register');
-        }
-    }
-
     function postForgot(req, res, next) {
         //http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
         var token;
@@ -182,7 +172,7 @@ module.exports = function (express, passport, crypto, Account) {
         }
     }
 
-    function getRecoverPassword(req, res) {
+    function getCheckToken(req, res) {
         Account
             .findOne({
                 resetPasswordToken: req.params.token,
@@ -190,12 +180,12 @@ module.exports = function (express, passport, crypto, Account) {
             })
             .then(function (account) {
                 if (!account) {
-                    return res.render('auth/tokenExpired');
+                    return res.sendStatus(404);
                 }
-                return res.render('auth/resetPassword');
+                return res.sendStatus(200)
             })
             .catch(function (err) {
-                return res.render('auth/tokenExpired');
+                return res.sendStatus(500);
             });
 
     }

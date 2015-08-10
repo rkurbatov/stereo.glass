@@ -4,6 +4,7 @@
     angular
         .module('sgAuth',
         [
+            'ngRoute',
             'sg.AuthSvc',
             'ui.bootstrap',
             'ui.validate',

@@ -6,7 +6,7 @@
         .controller('MainPage', MainPage);
 
     MainPage.$inject = ['sgPreloader', '$timeout', 'auxData', 'AuthSvc', 'sgINT'];
-    function MainPage(sgPreloader, $timeout, auxData, Users, sgINT) {
+    function MainPage(sgPreloader, $timeout, auxData, AuthSvc, sgINT) {
         var vm = this;
         vm.settings = auxData.settings;
         vm.loader = {
@@ -15,12 +15,12 @@
             percentLoaded: 0
         };
 
-        vm.currentUser = Users.currentUser;
+        vm.currentUser = AuthSvc.currentUser;
         vm.INT = sgINT;
 
         vm.getBkSrc = getBkSrc;
         vm.switchPage = switchPage;
-        vm.signInRegister = Users.modalSignInRegister;
+        vm.signInRegister = AuthSvc.modalSignInRegister;
 
         initController();
 

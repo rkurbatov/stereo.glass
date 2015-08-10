@@ -1,16 +1,4 @@
 extends authLayout
 block content
-    .container: .row: .col-sm-6.col-md-4.col-md-offset-4
-        h2.text-center Вход
-        form(role='form', action="/auth/login?redirect=../admin", method="post")
-            .form-group
-                input.form-control(name="usermail", type='email', required, autofocus, placeholder='адрес Email')
-            .form-group
-                input.form-control(type='password', name="password", required, placeholder='Пароль')
-            .form-actions.text-center
-                br
-                a(href="/auth/register") Мне нужна регистрация
-                br
-                br
-                button.btn.btn-default.text-center(type='submit') Войти
-
+    div(ng-app='sgAuth')
+        div(ng-view)

@@ -1,4 +1,4 @@
-(function(window, angular, undefined){
+(function (window, angular, undefined) {
 
     angular
         .module('sg.AuthSvc', [
@@ -9,7 +9,7 @@
 
     AuthSvc.$inject = ['$cookies', '$modal', '$http', '$q', '$window', '$timeout'];
 
-    function AuthSvc($cookies, $modal, $http, $q, $window, $timeout){
+    function AuthSvc($cookies, $modal, $http, $q, $window, $timeout) {
 
         // ==== DECLARATION ====
 
@@ -32,11 +32,17 @@
             svc.currentUser.userrole = $cookies.get('userrole');
         }
 
-        function modalSignInRegister() {
+        function modalSignInRegister(staticModal) {
             var modalDO = {
                 templateUrl: '/partials/modal-signInRegister',
                 controller: signInRegisterCtrl,
                 controllerAs: 'vm',
+                backdrop: staticModal
+                    ? 'static'
+                    : true,
+                keyboard: staticModal
+                    ? false
+                    : true,
                 resolve: {},
                 size: 'sm'
             };
@@ -134,7 +140,7 @@
                                 vars: vars
                             }
                         });
-                    }).then(function(){
+                    }).then(function () {
                         cancel();
                     });
 

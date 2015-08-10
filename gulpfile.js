@@ -86,8 +86,10 @@ function deployVendor(production) {
     ];
 
     var vendorLibsAuth = [
+        'public/libs/lodash/lodash.js',
         'public/libs/angular/angular.js',
         'public/libs/angular-cookies/angular-cookies.js',
+        'public/libs/angular-route/angular-route.js',
         'public/libs/angular-animate/angular-animate.js',
         'public/libs/angular-bootstrap/ui-bootstrap.js',
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -157,8 +159,12 @@ function deployCustom(production) {
 
     var customSourceAuth = [
         'public/app/common/sgAuthSvc.js',
-        'public/app/auth/**/*.js',
-        'public/app/ngAuth.js'
+        'public/app/ngAuth.js',
+        'public/app/auth/**/*.js'
+    ];
+
+    var customStylesAuth = [
+        'public/css/auth/auth.css'
     ];
 
     gulp.src(customSourceAdmin)
@@ -185,4 +191,9 @@ function deployCustom(production) {
         .pipe(concat('custom-auth.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(customStylesAuth)
+        .pipe(concat('custom-auth.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
 }

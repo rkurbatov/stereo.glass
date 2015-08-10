@@ -14,7 +14,7 @@
     .col-xs-12: .input-group(ng-class="{ 'has-error' : LoginForm.userMail.$invalid && !LoginForm.userMail.$pristine }")
         span.input-group-addon: i.fa.fa-envelope
         input.form-control(ng-model='vm.signInMail' name='userMail'
-        type='email' required)
+        type='email' required autofocus)
     .col-xs-12
         br
         .controls
@@ -26,5 +26,5 @@
     .col-xs-12
         br
         button.form-control.btn.btn-primary(type='submit'
-        ng-disabled='LoginForm.$invalid || LoginForm.$pending')
+        ng-disabled='LoginForm.$invalid')
             | Войти
