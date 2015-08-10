@@ -93,6 +93,7 @@
                 vm.layouts = pgScope.filteredLayouts;
                 vm.idx = pgScope.currentLayoutIndex;
                 vm.filters = pgScope.filters;
+                vm.viewMode = pgScope.viewMode;
                 vm.imgIsLoading = true;
             }
 
