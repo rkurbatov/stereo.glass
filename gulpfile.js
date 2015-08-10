@@ -138,6 +138,7 @@ function deployVendor(production) {
 
 function deployCustom(production) {
     var customSourceAdmin = [
+        'public/app/common/LoDash.provider.js',
         'public/app/ngAdmin.js',
         'public/app/adminpage/**/*.js'
     ];

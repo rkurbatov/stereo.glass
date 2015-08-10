@@ -12,8 +12,8 @@ ul.sg-layout-list {
 .sg-layout-block-outer {
   display: block;
   box-sizing: content-box;
-  width: 165px;
-  height: 240px;
+  //width: 165px;
+  height: 250px;
   margin: auto;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -24,11 +24,14 @@ ul.sg-layout-list {
   border-color: rgba(0, 0, 0, 0);
 
   img {
-    width: 125px;
-    height: 125px;
-    margin: 10px 20px;
-    border: 1px solid #D4D4D4;
-    border-radius: 2px;
+    width: 150px;
+    height: 150px;
+    margin: 2px auto 5px auto;
+    border-bottom: 1px solid #D4D4D4;
+    border-radius: 3px;
+    display: block;
+    // fit image to square
+    object-fit: cover;
   }
 
   &:hover {
@@ -47,19 +50,17 @@ ul.sg-layout-list {
 }
 
 .sg-layout-block-inner {
-  border-style: solid;
   border-width: 3px;
   border-color: rgba(0, 0, 0, 0);
   border-radius: 3px;
 
-  width: 165px;
-  height: 240px;
+  //width: 165px;
+  height: 250px;
 }
 
 .sg-layout-controls {
-  margin-bottom: -28px;
+  margin-bottom: -18px;
   height: 36px;
-  margin-left: 14px;
 }
 
 .sg-layout-control {
@@ -77,7 +78,7 @@ ul.sg-layout-list {
   z-index: 10;
   cursor: pointer;
   position: absolute;
-  right: -30px;
+  right: -23px;
   bottom: 45px;
   width: 40px;
   height: 40px;
@@ -87,7 +88,7 @@ ul.sg-layout-list {
   @extend .sg-silver-i;
   z-index: 10;
   position: absolute;
-  right: -40px;
+  right: -30px;
   top: 35px;
   width: 50px;
   height: 40px;

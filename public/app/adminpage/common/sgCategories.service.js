@@ -32,7 +32,6 @@
 
             //new realization
             vm.assortmentArr = catToArray(responseArray[0].data);
-            console.log(vm.assortmentArr);
             vm.colorsArr = catToArray(responseArray[1].data);
             vm.countriesArr = catToArray(responseArray[2].data);
             vm.plotsArr = catToArray(responseArray[3].data);

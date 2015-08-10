@@ -14,14 +14,8 @@
             'toastr',
             'ngFileUpload',
             'nsPopover',
-            'color.picker'
-        ])
-        .constant('_', window._)        // use lodash as $rootScope constant
-        .run(LoDashProvider);
-
-    LoDashProvider.$inject = ['$rootScope'];
-    function LoDashProvider($rootScope) {
-        $rootScope._ = window._;
-    }
+            'color.picker',
+            'LoDash'
+        ]);
 
 })(window, window.angular);
