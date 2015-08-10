@@ -4,6 +4,8 @@ var uglifycss = require('gulp-uglifycss');
 var concat = require('gulp-concat');
 var gulpif = require('gulp-if');
 
+var browserSync = require('browser-sync');
+
 
 gulp.task('default', ['buildDevel']);
 
@@ -21,6 +23,8 @@ gulp.task('buildProduction', function () {
 
 gulp.task('deployVendor', deployVendor);
 gulp.task('deployCustom', deployCustom);
+
+gulp.task('serve', serve);
 
 function deployVendor(production) {
     var vendorLibsAdmin = [
@@ -197,4 +201,14 @@ function deployCustom(production) {
         .pipe(concat('custom-auth.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
+}
+
+function serve() {
+    browserSync.init({
+        notify: false,
+        port: 9999,
+        server: {
+
+        }
+    });
 }
