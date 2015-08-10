@@ -20,6 +20,8 @@ module.exports = function (express, mailer) {
         var params = req.body.params;
         var mail = params.mail;
         var vars = params.vars;
+        // set HOSTNAME var
+        vars.HOSTNAME = req.get('host');
 
         if (!mail.to || !mail.subject || !mail.template) {
             console.log('Error in mailing request!');
