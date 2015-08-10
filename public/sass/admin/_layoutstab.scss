@@ -13,7 +13,7 @@ ul.sg-layout-list {
   display: block;
   box-sizing: content-box;
   //width: 165px;
-  height: 240px;
+  height: 245px;
   margin: auto;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -26,10 +26,12 @@ ul.sg-layout-list {
   img {
     width: 150px;
     height: 150px;
-    margin: 2px auto 10px auto;
+    margin: 2px auto 5px auto;
     border-bottom: 1px solid #D4D4D4;
     border-radius: 3px;
     display: block;
+    // fit image to square
+    object-fit: cover;
   }
 
   &:hover {
@@ -53,7 +55,7 @@ ul.sg-layout-list {
   border-radius: 3px;
 
   //width: 165px;
-  height: 240px;
+  height: 245px;
 }
 
 .sg-layout-controls {
@@ -76,7 +78,7 @@ ul.sg-layout-list {
   z-index: 10;
   cursor: pointer;
   position: absolute;
-  right: -30px;
+  right: -23px;
   bottom: 45px;
   width: 40px;
   height: 40px;
@@ -86,7 +88,7 @@ ul.sg-layout-list {
   @extend .sg-silver-i;
   z-index: 10;
   position: absolute;
-  right: -40px;
+  right: -30px;
   top: 35px;
   width: 50px;
   height: 40px;
