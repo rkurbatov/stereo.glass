@@ -1,6 +1,6 @@
 extends adminLayout
 block content
-    .container(ng-app='sgAppAdmin'): #content
+    .container(ng-app='sgAppAdmin'): .tabs-background
         ul#tabs.nav.nav-tabs(data-tabs="tabs" ng-controller="Tabs as tabs")
 
             li: a(href='/')
@@ -89,4 +89,4 @@ block content
                 #tab-profile.tab-pane
                     include ./_profile
 
-    include _version
+        include _version
