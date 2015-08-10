@@ -37,6 +37,9 @@
     "gulp-connect-pm2": "0.0.2",
     "gulp-compass": "~2.1.0",
     "gulp-if": "~1.2.5",
-    "browser-sync": "~2.8.2"
+    "browser-sync": "~2.8.2",
+    "jasmine-core": "~2.3.4",
+    "karma-jasmine": "~0.3.6",
+    "karma": "~0.13.8"
   }
 }
