@@ -9,7 +9,8 @@
             'sg.ui',
             'sg.AuthSvc',
             '720kb.fx',
-            'cgBusy'
+            'cgBusy',
+            'sgINT'
         ])
         .config(MainPagePlate3dConfig)
         .value('cgBusyDefaults', {

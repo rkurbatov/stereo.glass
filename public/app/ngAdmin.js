@@ -15,7 +15,8 @@
             'ngFileUpload',
             'nsPopover',
             'color.picker',
-            'LoDash'
+            'LoDash',
+            'sgINT'
         ]);
 
 })(window, window.angular);

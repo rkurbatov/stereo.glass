@@ -70,7 +70,7 @@
                     applyLabel: "Применить",
                     fromLabel: "С",
                     toLabel: "по",
-                    cancelLabel: 'Отмена',
+                    cancelLabel: _INT('Отмена'),
                     customRangeLabel: 'Другой интервал'
                 },
                 ranges: {

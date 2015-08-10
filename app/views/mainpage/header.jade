@@ -2,14 +2,14 @@ header(ng-show='main.loader.isSuccessful')
     #wrapper-header.container-fluid.clearfix
         #container-logo(ng-click='main.switchPage("main")')
             #logo-blicker
-            img#logo-upper(src='/img/logo-upper.png' alt="Stereo.Glass logo")
+            img#logo-upper(src='img/logo-upper.png' alt="Stereo.Glass logo")
             img#logo-words(src="img/logo-words-glowed.png" alt="design the motion")
         .navwrapper
             nav
                 ul.menu-pages
                     li(ng-class='{"nav-selected": main.settings.currentPage == "about"}'
                     ng-click='main.switchPage("about")')
-                        a Подробно
+                        a {{ _INT("Подробно") }}
                     li(ng-class='{"nav-selected": main.settings.currentPage == "goods"}'
                     ng-click='main.switchPage("goods")')
                         a Наш товар
@@ -33,7 +33,7 @@ header(ng-show='main.loader.isSuccessful')
                     | {{ main.currentUser.name }}
                     i.fa.fa-user
             form(name="search" action="#" method="get")
-                input#search-input(type="text" name="q" placeholder="Поиск...")
+                input#search-input(type="text" name="q" placeholder="{{ _INT('Поиск...') }}")
                 i.fa.fa-search
     #wrapper-menu-product.container-fluid(ng-if='main.settings.currentPage == "goods"')
         ul#menu-product
