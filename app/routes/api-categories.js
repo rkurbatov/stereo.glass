@@ -13,20 +13,19 @@ module.exports = function (express, Category) {
     // IMPLEMENTATION
 
     function getCategoriesByName(req, res) {
-        if (req.isAuthenticated() && req.params.name) {
-            Category.find({catName: req.params.name},
-                '-_id -__v -catName')
-                .populate('leaves', '-_id -__v')
-                .exec(function (err, result) {
-                    if (err) {
-                        console.log(err);
-                        res.status(500).end();
-                    } else {
-                        res.json(result);
-                    }
-                });
-        } else {
-            res.status(403).send('forbidden');
+        if (!req.isAuthenticated() || !req.params.name) {
+            return res.sendStatus(403);
         }
+
+        Category.find({catName: req.params.name},
+            '-_id -__v -catName')
+            .populate('leaves', '-_id -__v')
+            .then(function (result) {
+                return res.json(result);
+            })
+            .catch(function(err){
+                console.log(err);
+                return res.sendStatus(500);
+            });
     }
 };

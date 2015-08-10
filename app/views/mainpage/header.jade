@@ -1,39 +1,41 @@
-header(ng-show='layouter.isSuccessful')
+header(ng-show='main.loader.isSuccessful')
     #wrapper-header.container-fluid.clearfix
-        #container-logo(ng-click='layouter.switchPage("main")')
+        #container-logo(ng-click='main.switchPage("main")')
             #logo-blicker
             img#logo-upper(src='/img/logo-upper.png' alt="Stereo.Glass logo")
             img#logo-words(src="img/logo-words-glowed.png" alt="design the motion")
         .navwrapper
             nav
                 ul.menu-pages
-                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "about"}'
-                    ng-click='layouter.switchPage("about")')
+                    li(ng-class='{"nav-selected": main.settings.currentPage == "about"}'
+                    ng-click='main.switchPage("about")')
                         a Подробно
-                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "goods"}'
-                    ng-click='layouter.switchPage("goods")')
+                    li(ng-class='{"nav-selected": main.settings.currentPage == "goods"}'
+                    ng-click='main.switchPage("goods")')
                         a Наш товар
-                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "dealers"}'
-                    ng-click='layouter.switchPage("dealers")')
+                    li(ng-class='{"nav-selected": main.settings.currentPage == "dealers"}'
+                    ng-click='main.switchPage("dealers")')
                         a Дилерам
-                    li(ng-class='{"nav-selected": layouter.settings.currentPage == "contacts"}'
-                    ng-click='layouter.switchPage("contacts")')
+                    li(ng-class='{"nav-selected": main.settings.currentPage == "contacts"}'
+                    ng-click='main.switchPage("contacts")')
                         a Контакты
                     li
                         a#flag-container
-                            img(src="img/flags/UA.png")
-                            span UA
+                            img(ng-src="{{ 'img/flags/' + main.INT.currentLang + '.png' }}")
+                            span {{ main.INT.currentLang }}
+                sg-lang-switcher
         #wrapper-nav-buttons
-            button#login-button.sg-btn(ng-if="!layouter.currentUser.name"
-            ng-click="layouter.signIn()") Войти
+            button#login-button.sg-btn(ng-if="!main.currentUser.name"
+            ng-click="main.signInRegister()") Войти
                 i.fa.fa-sign-in
-            button#logout-button.sg-btn(ng-if="layouter.currentUser.name")
-                a(href='/auth/logout') {{ layouter.currentUser.name }}
-                i.fa.fa-sign-out
+            button#admin-button.sg-btn(ng-if="main.currentUser.name")
+                a(href='/admin')
+                    | {{ main.currentUser.name }}
+                    i.fa.fa-user
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="Поиск...")
                 i.fa.fa-search
-    #wrapper-menu-product.container-fluid(ng-if='layouter.settings.currentPage == "goods"')
+    #wrapper-menu-product.container-fluid(ng-if='main.settings.currentPage == "goods"')
         ul#menu-product
             li.prod-selected: a Плитка
             li: a Панно

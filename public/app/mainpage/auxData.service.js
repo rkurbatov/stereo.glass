@@ -12,6 +12,7 @@
         // ==== DECLARATION ====
         var svc = this;
 
+        /** @namespace window.isMobile */
         svc.settings = {
             currentPage: 'main',
             isWideScreen: undefined,

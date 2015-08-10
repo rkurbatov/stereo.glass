@@ -9,12 +9,11 @@
 
     // sets variable for widescreen displays
     function sgWideScreen($document, $window, auxData) {
-        var ddo = {
+
+        return {
             restrict: 'E',
             link: link
         };
-
-        return ddo;
 
         function link(scope, elm, attrs) {
 
@@ -24,12 +23,23 @@
 
             function calcRatio() {
                 var ww = $window.innerWidth, wh = $window.innerHeight;
+                /** @namespace attrs.ratio */
                 auxData.settings.isWideScreen = ww / wh > attrs.ratio;
             }
 
             function setScreenIndex(evt) {
                 auxData.settings.screenIndex = evt.index;
             }
+
+            scope.$watch(auxData.settings.isWideScreen,
+                function (newVal) {
+                    if (newVal) {
+                        auxData.settings.coords = auxData.coordsWideScreen;
+                    } else {
+                        auxData.settings.coords = auxData.coordsNarrowScreen;
+                    }
+                });
+
         }
     }
 

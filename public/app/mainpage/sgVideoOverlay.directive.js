@@ -8,13 +8,12 @@
     sgVideoOverlay.$inject = ['$window', 'auxData'];
 
     function sgVideoOverlay($window, auxData) {
-        var ddo = {
+
+        return {
             restrict: 'C',
             template: '<div style="width: 100%; height: 100%;" ng-click="switchVideoState()"></div>',
             link: link
         };
-
-        return ddo;
 
         function link(scope, elm, attrs) {
             scope.main.isPlaying = false;

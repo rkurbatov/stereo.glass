@@ -1,0 +1,53 @@
+.row: form(name='RegisterForm' ng-submit='vm.register()' novalidate)
+    .col-xs-12
+        .controls
+            p.small Имя пользователя
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.userName.$invalid && !RegisterForm.userName.$pristine }")
+        span.input-group-addon: i.fa.fa-user
+        input.form-control(name='userName' type='text'
+        required autofocus
+        ng-model='vm.registerName'
+        ng-model-options='{debounce: 500}'
+        ng-minlength='2' ng-maxlength='48'
+        ui-validate-async=" 'vm.validateAsyncUsername($value)' "
+        popover="{{ (RegisterForm.userName.$invalid) ? vm.getRegisterUsernameError(RegisterForm.userName.$error) : ''}}")
+    .col-xs-12
+        br
+        .controls
+            p.small E-mail
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.regMail.$invalid && !RegisterForm.regMail.$pristine }")
+        span.input-group-addon: i.fa.fa-envelope
+        input.form-control(name='regMail' type='email'
+        required
+        sg-lower-case
+        ui-validate-async=" 'vm.validateAsyncUsermail($value)' "
+        ng-model='vm.registerMail'
+        ng-model-options='{debounce: 500}'
+        popover="{{ (RegisterForm.regMail.$invalid) ? vm.getRegisterUsermailError(RegisterForm.regMail.$error) : ''}}")
+    .col-xs-12
+        br
+        .controls
+            p.small Пароль
+    .col-xs-12: .input-group(ng-class="{ 'has-error' : RegisterForm.regPass.$invalid && !RegisterForm.regPass.$pristine }")
+        span.input-group-addon: i.fa.fa-key
+        input.form-control(ng-model='vm.registerPassword' type='password' name='regPass'
+        required
+        ng-minlength='6' ng-maxlength='32' autocomplete='false'
+        popover="{{(RegisterForm.regPass.$invalid) ? 'Допустимая длина от 6-32 символа' : ''}}")
+    .col-xs-12
+        br
+        .controls
+            p.small Подтверждение пароля
+        .input-group(ng-class="{ 'has-error' : RegisterForm.confirm.$invalid && !RegisterForm.confirm.$pristine }")
+            span.input-group-addon: i.fa.fa-key
+            input#password_fake.hidden(type='password' name='password' autocomplete='off' style='display:hidden')
+            input.form-control(ng-model='vm.registerConfirm' type='password' name='confirm'
+            required
+            ui-validate=" '$value === vm.registerPassword' " ui-validate-watch=" 'vm.registerPassword' "
+            popover="{{(RegisterForm.confirm.$invalid) ? 'Пароли не совпадают!' : ''}}"
+            popover-placement='bottom')
+    .col-xs-12
+        br
+        button.form-control.btn.btn-success(type='submit'
+        ng-disabled='RegisterForm.$invalid || RegisterForm.$pending')
+            | Регистрация

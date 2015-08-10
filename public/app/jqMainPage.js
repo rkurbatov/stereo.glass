@@ -5,7 +5,7 @@
 /*jshint latedef: nofunc*/
 /*global $, _, jQuery*/
 
-(function ($) {
+(function ($, window, undefined) {
     'use strict';
 
     // initialization and redraw reset
@@ -32,19 +32,22 @@
     }
 
     function positionButtons() {
-        //$('#ratiometer').html(($(window).width()/$(window).height()).toFixed(2));
         $('header').width(window.innerWidth);
-        var list = $("header ul")[0],
+        var list = $("ul.menu-pages")[0],
+            items = list.children,
+            menuLen = list
+                ? items.length
+                : 0,
             logoUpper = $("#logo-upper")[0],
             logoBlicker = $("#logo-blicker")[0],
             inpSearchForm = $("form[name='search']"),
             inpSearch = $("#search-input"),
             btnLogin = $("#login-button"),
-            btnLogout = $("#logout-button"),
+            btnAdmin = $("#admin-button"),
             dx;
 
-        if (list && list.children.length > 4 && list.children[list.children.length - 1]) {
-            dx = $(list.children[list.children.length - 1]).innerWidth() / 4;
+        if (list && menuLen > 4 && list.children[menuLen - 1]) {
+            dx = $(list.children[menuLen - 1]).innerWidth() / 4;
 
             if (logoUpper && logoBlicker) {
                 $(logoBlicker).outerWidth($(logoUpper).outerWidth());
@@ -52,19 +55,19 @@
             }
 
             if (btnLogin) {
-                btnLogin.innerWidth($(list.children[list.children.length - 2]).innerWidth() + $(list.children[list.children.length - 1]).innerWidth() - 2 * dx);
-                btnLogin.offset({left: $(list.children[list.children.length - 2]).offset().left + dx});
+                btnLogin.innerWidth($(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
+                btnLogin.offset({left: $(items[menuLen - 2]).offset().left + dx});
             }
 
-            if (btnLogout) {
-                btnLogout.innerWidth($(list.children[list.children.length - 2]).innerWidth() + $(list.children[list.children.length - 1]).innerWidth() - 2 * dx);
-                btnLogout.offset({left: $(list.children[list.children.length - 2]).offset().left + dx});
+            if (btnAdmin) {
+                btnAdmin.innerWidth($(items[menuLen - 2]).innerWidth() + $(items[menuLen - 1]).innerWidth() - 2 * dx);
+                btnAdmin.offset({left: $(items[menuLen - 2]).offset().left + dx});
             }
 
             if (inpSearch) {
-                var inpWidth = $(list.children[0]).innerWidth() + $(list.children[1]).innerWidth() + $(list.children[2]).innerWidth() - 2 * dx
+                var inpWidth = $(items[0]).innerWidth() + $(items[1]).innerWidth() + $(items[2]).innerWidth() - 2 * dx;
                 inpSearch.innerWidth(inpWidth);
-                inpSearchForm.offset({left: $(list.children[0]).offset().left + dx});
+                inpSearchForm.offset({left: $(items[0]).offset().left + dx});
             }
 
 
@@ -117,4 +120,4 @@
         return Math.floor(_.random(min, max, true) * 1000);
     }
 
-}(jQuery));
+}(jQuery, window));

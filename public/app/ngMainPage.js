@@ -4,10 +4,22 @@
     angular
         .module('MainPage', [
             'ngCookies',
-            'sg.ui'
+            'ngAnimate',
+            'ui.validate',
+            'sg.ui',
+            'sg.AuthSvc',
+            '720kb.fx',
+            'cgBusy'
         ])
-        .config(function (sgPlate3dOptionsProvider) {
-            sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
+        .config(MainPagePlate3dConfig)
+        .value('cgBusyDefaults', {
+            message: 'Загрузка...'
         });
+
+    MainPagePlate3dConfig.$inject = ['sgPlate3dOptionsProvider'];
+
+    function MainPagePlate3dConfig(sgPlate3dOptionsProvider) {
+        sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
+    }
 
 })(window, window.angular);

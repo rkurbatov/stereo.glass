@@ -8,12 +8,11 @@
     sgAltSrc.$inject = ['auxData'];
 
     function sgAltSrc(auxData) {
-        var ddo = {
+
+        return {
             restrict: 'A',
             link: link
         };
-
-        return ddo;
 
         function link(scope, elm, attrs) {
             var key = attrs.sgAltSrc;

@@ -5,13 +5,14 @@
         .module('sgAppAdmin')
         .service('sgLayoutModals', sgLayoutModals);
 
-    sgLayoutModals.$inject = ['$modal', '$sce', 'sgUsers', 'sgLayouts'];
+    sgLayoutModals.$inject = ['$modal', '$sce', 'sgUsers', 'sgLayouts', 'sgCategories'];
 
-    function sgLayoutModals($modal, $sce, sgUsers, sgLayouts) {
+    function sgLayoutModals($modal, $sce, sgUsers, sgLayouts, sgCategories) {
 
         // ==== DECLARATION =====
         var svc = this;
 
+        svc.edit = modalEditLayout;
         svc.showInGallery = modalShowInGallery;
         svc.remove = modalYesNoImage;
         svc.restore = modalYesNoImage;
@@ -23,6 +24,41 @@
         svc.addLayoutComment = modalAddLayoutComment;
 
         // === IMPLEMENTATION ===
+
+        function modalEditLayout(layout) {
+            var modalDO = {
+                templateUrl: '/partials/modal-editLayout',
+                controller: EditLayoutCtrl,
+                controllerAs: 'vm',
+                resolve: {
+                    layout: function () {
+                        return layout;
+                    }
+                },
+                size: 'sm'
+            };
+
+            return $modal.open(modalDO).result;
+        }
+
+        EditLayoutCtrl.$inject = ['$modalInstance', 'layout'];
+
+        function EditLayoutCtrl($modalInstance, layout) {
+            var vm = this;
+            vm.layout = layout;
+            vm.categories = {};
+
+            sgCategories.loaded.then(function(){
+                vm.categories.assortment = sgCategories.assortmentArr;
+                vm.categories.colors = sgCategories.colorsArr;
+                vm.categories.countries = sgCategories.countriesArr;
+                vm.categories.plots = sgCategories.plotsArr;
+            });
+
+            vm.cancel = function() {
+                $modalInstance.dismiss('cancel');
+            };
+        }
 
         function modalShowInGallery(pgScope) {
             var modalDO = {

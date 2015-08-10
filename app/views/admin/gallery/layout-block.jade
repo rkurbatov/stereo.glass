@@ -31,7 +31,7 @@ ng-style='paginator.getAuthorBorderColor(layout)')
             i.glyphicon.glyphicon-star.sg-gold-i
             | {{ layout.compareValue }} / {{ layout.ratings.length }}
         .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
-        .sg-layoutname.text-center(ng-if='paginator.viewMode === "Progress" || paginator.viewMode === "Ready"') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
+        .sg-layoutname.text-center(ng-if='_.contains(["Progress", "Ready", "Shop"], paginator.viewMode)') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
 //-
 //- Add comment button
 //-

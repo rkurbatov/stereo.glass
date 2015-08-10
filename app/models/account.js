@@ -1,19 +1,19 @@
 module.exports = function (mongoose) {
     'use strict';
 
-    var async = require('async');
-    var dbAux = require('../helpers/db-aux.js');
     var Schema = mongoose.Schema;
     var passportLocalMongoose = require('passport-local-mongoose');
 
     var AccountSchema = new Schema({
-        username: String,
-        usermail: String,
+        username: {type: String, required: true, unique: true},
+        usermail: {type: String, required: true, unique: true},
         password: String,
+        resetPasswordToken: String,
+        resetPasswordExpires: String,
         avatar: String,
         role: {
             type: String,
-            default: "user"
+            default: "visitor"
         },
         borderColor: String,
         createdAt: Date,
@@ -22,14 +22,22 @@ module.exports = function (mongoose) {
 
     AccountSchema.pre('save', function (next) {
 
-        if (!this.createdAt) {
-            this.createdAt = new Date;
+        var account = this;
+
+        if (!account.createdAt) {
+            account.createdAt = new Date;
         }
 
-        next();
+        if (!account.isModified('password')) return next();
+
+        account.setPassword(account.password, function(err){
+            account.password = undefined;
+            next(err);
+        });
+
     });
 
-    AccountSchema.plugin(passportLocalMongoose, {usernameField: 'usermail'});              //TODO: internationalize!
+    AccountSchema.plugin(passportLocalMongoose, {usernameField: 'usermail'});
     var Account = mongoose.model('Account', AccountSchema);
     return Account;
 };

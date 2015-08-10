@@ -1,0 +1,46 @@
+.modal-header
+    button.close(type="button"
+    data-dismiss="modal"
+    aria-hidden="true"
+    ng-click="vm.cancel();")
+        i.fa.fa-remove
+    h5.modal-title.text-center Редактирование пользователя
+
+.modal-body: form(name='editUser')
+    .form-group
+        label.control-label Имя пользователя
+        .input-group
+            span.input-group-addon: i.fa.fa-user
+            input.form-control(name="username", ng-required="", autofocus, ng-model="vm.user.username")
+    .form-group
+        label.control-label E-mail
+        .input-group
+            span.input-group-addon: i.fa.fa-envelope
+            input.form-control(name="usermail", type="email", ng-required="", ng-model="vm.user.usermail")
+    .form-group
+        label.control-label Права доступа
+        .input-group
+            span.input-group-addon: i.fa.fa-users
+            select.form-control(name="roles", ng-model="vm.user.role", ng-options="r for r in vm.roles")
+    .form-group
+        label.control-label Цвет рамки
+        color-picker(ng-model="vm.borderColor"
+        color-picker-format="'rgb'"
+        color-picker-alpha='false')
+    .form-group
+        label.control-label Пароль
+        .input-group
+            span.input-group-addon: i.fa.fa-key
+            input.form-control(name="password", ng-model="vm.newPassword")
+    .form-group
+        label.control-label Подтверждение
+        .input-group
+            span.input-group-addon: i.fa.fa-key
+            input.form-control(name="confirm", ng-model="vm.confirmPassword")
+
+.modal-footer
+    .center-block
+        .col-xs-2
+        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()"
+        ng-disabled="(vm.newPassword || vm.comfirmPassword) && vm.newPassword !== vm.confirmPassword") Да
+        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет

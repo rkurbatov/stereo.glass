@@ -8,7 +8,8 @@
     sgFileUpload.$inject = ['Upload', 'sgLayouts'];
 
     function sgFileUpload(Upload, sgLayouts) {
-        var ddo = {
+
+        return {
             restrict: 'E',
             scope: {
                 layout: '='
@@ -16,8 +17,6 @@
             templateUrl: '/partials/directive-sgFileUpload',
             link: link
         };
-
-        return ddo;
 
         function link(scope, elm, attrs) {
 
@@ -37,7 +36,9 @@
                     }).progress(function (evt) {
                         scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                     }).then(function (result) {
-                        if (attrs.field && result && result.data && result.data.filenames && result.data.filenames.length > 0) {
+                        /** @namespace attrs.field */
+                        if (attrs.field && result && result.data && result.data.filenames
+                            && result.data.filenames.length > 0) {
                             var setObject = {};
                             setObject[attrs.field] = result.data.filenames[0];
                             sgLayouts.update(scope.layout._id, setObject)

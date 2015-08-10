@@ -7,13 +7,13 @@ var gulpif = require('gulp-if');
 
 gulp.task('default', ['buildDevel']);
 
-gulp.task('buildDevel', function(){
+gulp.task('buildDevel', function () {
     require('fs').writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor();
     deployCustom();
 });
 
-gulp.task('buildProduction', function(){
+gulp.task('buildProduction', function () {
     require('fs').writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor(true);
     deployCustom(true);
@@ -23,7 +23,7 @@ gulp.task('deployVendor', deployVendor);
 gulp.task('deployCustom', deployCustom);
 
 function deployVendor(production) {
-    var vendorLibsArrayAdmin = [
+    var vendorLibsAdmin = [
         'public/libs/jquery/dist/jquery.js',
         'public/libs/jquery-color/jquery.color.js',
         'public/libs/lodash/lodash.js',
@@ -38,6 +38,7 @@ function deployVendor(production) {
         'public/libs/angular-cookies/angular-cookies.js',
         'public/libs/angular-bootstrap/ui-bootstrap.js',
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/libs/angular-bootstrap-select/dist/angular-bootstrap-select-tpls.js',
         'public/libs/angular-daterangepicker/js/angular-daterangepicker.js',
         'public/libs/angular-smart-table/dist/smart-table.js',
         'public/libs/angular-toastr/dist/angular-toastr.tpls.js',
@@ -50,7 +51,7 @@ function deployVendor(production) {
         'public/libs/sg.ui/build/sg.ui.js'
     ];
 
-    var vendorStylesArrayAdmin = [
+    var vendorStylesAdmin = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
         'public/libs/font-awesome/css/font-awesome.css',
         'public/libs/bootstrap-select/dist/css/bootstrap-select.css',
@@ -60,79 +61,139 @@ function deployVendor(production) {
         'public/libs/angularjs-color-picker/angularjs-color-picker.css'
     ];
 
-    var vendorLibsArrayMain = [
+    var vendorLibsMain = [
         'public/libs/jquery/dist/jquery.min.js',
         'public/app/tmp/js/jquery.horizontalscroll.js',
         'public/app/tmp/js/jquery.touchswipe.js',
-        'public/libs/lodash/lodash.min.js',
-        'public/libs/angular/angular.min.js',
+        'public/libs/lodash/lodash.js',
+        'public/libs/angular/angular.js',
         'public/libs/angular-cookies/angular-cookies.js',
-        'public/libs/sg.ui/build/sg.ui.js'
+        'public/libs/angular-animate/angular-animate.js',
+        'public/libs/angular-bootstrap/ui-bootstrap.js',
+        'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/libs/sg.ui/build/sg.ui.js',
+        'public/libs/angular-fx/src/js/angular-fx.js',
+        'public/libs/angular-busy/dist/angular-busy.js',
+        'public/libs/angular-ui-validate/dist/validate.js'
     ];
 
-    var vendorStylesArrayMain = [
+    var vendorStylesMain = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
-        'public/libs/font-awesome/css/font-awesome.css'
+        'public/libs/font-awesome/css/font-awesome.css',
+        'public/libs/animate.css/animate.css',
+        'public/libs/angular-fx/src/css/angular-fx.css',
+        'public/libs/angular-busy/dist/angular-busy.css'
     ];
 
-    gulp.src(vendorLibsArrayAdmin)
+    var vendorLibsAuth = [
+        'public/libs/lodash/lodash.js',
+        'public/libs/angular/angular.js',
+        'public/libs/angular-cookies/angular-cookies.js',
+        'public/libs/angular-route/angular-route.js',
+        'public/libs/angular-animate/angular-animate.js',
+        'public/libs/angular-bootstrap/ui-bootstrap.js',
+        'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/libs/angular-busy/dist/angular-busy.js',
+        'public/libs/angular-ui-validate/dist/validate.js'
+    ];
+
+    var vendorStylesAuth = [
+        'public/libs/bootstrap/dist/css/bootstrap.css',
+        'public/libs/font-awesome/css/font-awesome.css',
+        'public/libs/animate.css/animate.css',
+        'public/libs/angular-fx/src/css/angular-fx.css',
+        'public/libs/angular-busy/dist/angular-busy.css'
+    ];
+
+    gulp.src(vendorLibsAdmin)
         .pipe(concat('vendor-admin.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesArrayAdmin)
+    gulp.src(vendorStylesAdmin)
         .pipe(concat('vendor-admin.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 
-    gulp.src(vendorLibsArrayMain)
+    gulp.src(vendorLibsMain)
         .pipe(concat('vendor-main.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesArrayMain)
+    gulp.src(vendorStylesMain)
         .pipe(concat('vendor-main.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
+
+    gulp.src(vendorLibsAuth)
+        .pipe(concat('vendor-auth.min.js'))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(vendorStylesAuth)
+        .pipe(concat('vendor-auth.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 }
 
 function deployCustom(production) {
-    var customSourceArrayAdmin = [
+    var customSourceAdmin = [
         'public/app/ngAdmin.js',
         'public/app/adminpage/**/*.js'
     ];
 
-    var customStylesArrayAdmin = [
+    var customStylesAdmin = [
         'public/css/admin/admin.css'
     ];
 
-    var customSourceArrayMain = [
+    var customSourceMain = [
+        'public/app/common/**/*.js',
         'public/app/jqMainPage.js',
         'public/app/ngMainPage.js',
         'public/app/mainpage/**/*.js'
     ];
 
-    var customStylesArrayMain = [
-        'public/css/screen.css'
+    var customStylesMain = [
+        'public/css/mainpage/mainpage.css'
     ];
 
-    gulp.src(customSourceArrayAdmin)
+    var customSourceAuth = [
+        'public/app/common/sgAuthSvc.js',
+        'public/app/ngAuth.js',
+        'public/app/auth/**/*.js'
+    ];
+
+    var customStylesAuth = [
+        'public/css/auth/auth.css'
+    ];
+
+    gulp.src(customSourceAdmin)
         .pipe(concat('custom-admin.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(customStylesArrayAdmin)
+    gulp.src(customStylesAdmin)
         .pipe(concat('custom-admin.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 
-    gulp.src(customSourceArrayMain)
+    gulp.src(customSourceMain)
         .pipe(concat('custom-main.min.js'))
         .pipe(gulpif(production, uglify()))
         .pipe(gulp.dest('public/scripts'));
 
-    gulp.src(customStylesArrayMain)
+    gulp.src(customStylesMain)
         .pipe(concat('custom-main.min.css'))
+        .pipe(uglifycss())
+        .pipe(gulp.dest('public/stylesheets'));
+
+    gulp.src(customSourceAuth)
+        .pipe(concat('custom-auth.min.js'))
+        .pipe(gulpif(production, uglify()))
+        .pipe(gulp.dest('public/scripts'));
+
+    gulp.src(customStylesAuth)
+        .pipe(concat('custom-auth.min.css'))
         .pipe(uglifycss())
         .pipe(gulp.dest('public/stylesheets'));
 }
