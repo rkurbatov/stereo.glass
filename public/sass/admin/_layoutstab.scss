@@ -12,7 +12,7 @@ ul.sg-layout-list {
 .sg-layout-block-outer {
   display: block;
   box-sizing: content-box;
-  width: 165px;
+  //width: 165px;
   height: 240px;
   margin: auto;
   overflow: hidden;
@@ -24,11 +24,12 @@ ul.sg-layout-list {
   border-color: rgba(0, 0, 0, 0);
 
   img {
-    width: 125px;
-    height: 125px;
-    margin: 10px 20px;
-    border: 1px solid #D4D4D4;
-    border-radius: 2px;
+    width: 150px;
+    height: 150px;
+    margin: 2px auto 10px auto;
+    border-bottom: 1px solid #D4D4D4;
+    border-radius: 3px;
+    display: block;
   }
 
   &:hover {
@@ -47,19 +48,17 @@ ul.sg-layout-list {
 }
 
 .sg-layout-block-inner {
-  border-style: solid;
   border-width: 3px;
   border-color: rgba(0, 0, 0, 0);
   border-radius: 3px;
 
-  width: 165px;
+  //width: 165px;
   height: 240px;
 }
 
 .sg-layout-controls {
   margin-bottom: -28px;
   height: 36px;
-  margin-left: 14px;
 }
 
 .sg-layout-control {
