@@ -47,7 +47,7 @@
     function modalResetCtrl($modalInstance) {
         var vm = this;
         vm.close = function() {
-
+            $modalInstance.dismiss();
         }
     }
 
