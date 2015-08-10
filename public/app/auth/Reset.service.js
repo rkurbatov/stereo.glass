@@ -46,9 +46,9 @@
 
     }
 
-    modalResetCtrl.$inject = ['$modalInstance', '$http', 'token'];
+    modalResetCtrl.$inject = ['$modalInstance', '$http', '$window', 'token'];
 
-    function modalResetCtrl($modalInstance, $http, token) {
+    function modalResetCtrl($modalInstance, $http, $window, token) {
         var vm = this;
         vm.password = '';
 
