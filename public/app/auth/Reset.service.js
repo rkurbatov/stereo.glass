@@ -12,21 +12,25 @@
         svc.modalResetPassword = modalResetPassword;
         svc.modalBadToken = modalBadToken;
 
-        function modalResetPassword() {
+        function modalResetPassword(token) {
             var modalDO = {
                 templateUrl: '/partials/modal-resetPassword',
                 controller: modalResetCtrl,
                 controllerAs: 'vm',
                 backdrop: 'static',
                 keyboard: false,
-                resolve: {},
+                resolve: {
+                    token: function () {
+                        return token
+                    }
+                },
                 size: 'sm'
             };
 
             return $modal.open(modalDO).result;
         }
 
-        function modalBadToken(){
+        function modalBadToken() {
             var modalDO = {
                 templateUrl: '/partials/modal-badToken',
                 controller: modalBadTokenCtrl,
@@ -42,20 +46,32 @@
 
     }
 
-    modalResetCtrl.$inject = ['$modalInstance'];
+    modalResetCtrl.$inject = ['$modalInstance', '$http', 'token'];
 
-    function modalResetCtrl($modalInstance) {
+    function modalResetCtrl($modalInstance, $http, token) {
         var vm = this;
-        vm.close = function() {
-            $modalInstance.dismiss();
+        vm.password = '';
+
+        vm.resetPassword = function () {
+            $http
+                .post('/auth/reset-password/' + token, {password: vm.password})
+                .then(function (response) {
+                    $modalInstance.close(response);
+                    $window.location = '/auth/';
+                })
+                .catch(function(err){
+                    $modalInstance.dismiss(err);
+                    $window.location = '/auth/';
+                })
+
         }
     }
 
     modalBadTokenCtrl.$inject = ['$modalInstance', '$window'];
 
-    function modalBadTokenCtrl($modalInstance, $window){
+    function modalBadTokenCtrl($modalInstance, $window) {
         var vm = this;
-        vm.close = function(){
+        vm.close = function () {
             $modalInstance.dismiss();
             $window.location = '/auth/';
         }

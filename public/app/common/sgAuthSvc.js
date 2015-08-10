@@ -55,6 +55,8 @@
         function signInRegisterCtrl($modalInstance) {
             var vm = this;
 
+            vm.isLoginOpen = true;
+
             vm.formError = false;
             vm.cancel = cancel;
 
@@ -141,7 +143,7 @@
                             }
                         });
                     }).then(function () {
-                        cancel();
+                        vm.isLoginOpen = true;
                     });
 
             }

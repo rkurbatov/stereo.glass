@@ -16,13 +16,14 @@
     function ResetCtrl(ResetSvc, $http, $routeParams) {
         var token = $routeParams.id;
         $http.get('/auth/check-token/' + token)
-            .then(function(result){
-                console.log('result is: ', result);
-                ResetSvc
-                    .modalResetPassword();
+            .then(function(){
+                return ResetSvc
+                    .modalResetPassword(token)
+                    .then(function(result){
+
+                    });
             })
-            .catch(function(err){
-                console.log('err is: ', err);
+            .catch(function(){
                 ResetSvc
                     .modalBadToken();
             });

@@ -31,6 +31,7 @@ module.exports = function (mongoose) {
         if (!account.isModified('password')) return next();
 
         account.setPassword(account.password, function(err){
+            account.password = undefined;
             next(err);
         });
 

@@ -14,7 +14,8 @@ module.exports = function (express, passport, crypto, Account) {
     Router.post('/register', postRegister);
 
     Router.post('/forgot', postForgot);
-    Router.get('/check-token/:token', getCheckToken);
+    Router.get('/check-token/:token', getCheckTokenByToken);
+    Router.post('/reset-password/:token', postResetPasswordByToken);
 
     Router.post('/check-username', postCheckUsername);
     Router.post('/check-usermail', postCheckUsermail);
@@ -172,7 +173,7 @@ module.exports = function (express, passport, crypto, Account) {
         }
     }
 
-    function getCheckToken(req, res) {
+    function getCheckTokenByToken(req, res) {
         Account
             .findOne({
                 resetPasswordToken: req.params.token,
@@ -187,11 +188,36 @@ module.exports = function (express, passport, crypto, Account) {
             .catch(function (err) {
                 return res.sendStatus(500);
             });
-
     }
 
-    function postPasswordReset(req, res) {
+    function postResetPasswordByToken(req, res) {
+        if (!req.body.password) {
+            return res.sendStatus(400);
+        }
 
+        Account
+            .findOne({
+                resetPasswordToken: req.params.token,
+                resetPasswordExpires: {$gt: Date.now()}
+            })
+            .then(function (account) {
+                if (!account) {
+                    var err = new Error();
+                    err.status = 404;
+                    throw err;
+                }
+                account.password = req.body.password;
+                account.resetPasswordToken = undefined;
+                account.resetPasswordExpires = undefined;
+                return account.save();
+            })
+            .then(function(){
+                return res.sendStatus(200);
+            })
+            .catch(function (err) {
+                console.log('Error resetting password: ', err);
+                return res.sendStatus(err.status || 500);
+            });
     }
 
     function getAuthTwitter() {
@@ -216,5 +242,4 @@ module.exports = function (express, passport, crypto, Account) {
         if (req.user.role) res.cookie('userrole', req.user.role);
     }
 
-}
-;
+};
