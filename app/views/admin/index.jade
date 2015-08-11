@@ -20,7 +20,7 @@ block content
                     |  Загрузка картинок
             if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
                 li: a(href='#tab-layouts', data-toggle='tab')
-                    span.fa.fa-picture-o
+                    span.fa.fa-upload
                     |  Загрузка картинок
 
             //- Ratings tab header
@@ -36,11 +36,15 @@ block content
                     span.badge {{ tabs.layouts.unratedCount }}
                     |  Галерея
 
-            //- Messages tab header
-            li: a(href='#tab-messages', data-toggle='tab')
-                span.glyphicon.glyphicon-envelope
-                span.badge {{ tabs.messages.unreadCount }}
-                |  Сообщения
+            //- Languages tab header
+            if user.role === 'admin'
+                li: a(href='#tab-languages', data-toggle='tab')
+                    span.fa.fa-flag
+                    |  Переводы
+            if user.role === 'interpreter'
+                li.active: a(href='#tab-languages', data-toggle='tab')
+                    span.fa.fa-flag
+                    |  Переводы
 
             //- Profile tab header
             li.dropdown(role='presentation')
@@ -49,41 +53,54 @@ block content
                     |  Аккаунт&nbsp;
                     span.caret
                         ul.dropdown-menu
-                            li: a(href='#tab-profile', data-toggle='tab') Профиль
+                            li: a(href='#tab-profile', data-toggle='tab')
+                                span.glyphicon.glyphicon-user
+                                |  Профиль
+                            li: a(href='#tab-messages', data-toggle='tab')
+                                span.glyphicon.glyphicon-envelope
+                                |  Сообщения
+                                span.badge &nbsp;{{ tabs.messages.unreadCount }}
                             li.divider(role='separator')
-                            li: a(href="/auth/logout") Выход
-
-
+                            li: a(href="/auth/logout")
+                                span.glyphicon.glyphicon-log-out
+                                |  Выход
 
 
         #tabs-content.tab-content
 
             if user.role === 'admin'
                 #tab-users.tab-pane.active
-                    include ./_users
+                    include _users
 
             if user.role === 'admin' || user.role === 'founder' || user.role === 'curator'
                 #tab-layouts.tab-pane
-                    include ./_layouts
+                    include _layouts
             if user.role === 'designer'
                 #tab-layouts.tab-pane.active
-                    include ./_layouts
+                    include _layouts
 
             if user.role === 'admin' || user.role === 'designer'
                 #tab-gallery.tab-pane
-                    include ./_gallery
+                    include _gallery
             if user.role === 'founder' || user.role === 'curator'
                 #tab-gallery.tab-pane.active
-                    include ./_gallery
+                    include _gallery
+
+            if user.role === 'admin'
+                #tab-languages.tab-pane
+                    include _languages
+            if user.role === 'interpreter'
+                #tab-languages.tab-pane.active
+                    include _languages
 
             #tab-messages.tab-pane
-                include ./_messages
+                include _messages
 
             if user.role === 'user'
                 #tab-profile.tab-pane.active
-                    include ./_profile
+                    include _profile
             else
                 #tab-profile.tab-pane
-                    include ./_profile
+                    include _profile
 
         include _version
