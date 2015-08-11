@@ -31,7 +31,7 @@
             var doSendEmail;
 
             sgLayoutModals.assignDoer(layout)
-                .then(function (response) {
+                .then((response) => {
                     if (response.dismissed) {
                         setObject = {
                             dismissedBy: name,
@@ -55,7 +55,7 @@
                     return sgLayouts.update(layout._id, setObject);
 
                 })
-                .then(function (result) {
+                .then((result) => {
                     if (result.data && result.data.layout) {
                         layout.reference = result.data.layout.reference;
                         layout.urlDir = result.data.layout.urlDir;
@@ -71,7 +71,7 @@
                     };
                     return sgMessages.create(message);
                 })
-                .then(function () {
+                .then(() => {
                     if (doSendEmail) {
                         var mail = {
                             to: sgUsers.getMail(setObject.assignedTo),
@@ -93,7 +93,7 @@
             var setObject;
 
             sgLayoutModals.acceptReject(layout)
-                .then(function (response) {
+                .then((response) => {
 
                     setObject = {
                         status: response.rejected
@@ -106,7 +106,7 @@
                     return sgLayouts.update(layout._id, setObject);
 
                 })
-                .then(function () {
+                .then(() => {
                     _.extend(layout, setObject);
                     var designerMessage = {
                         fromUser: "Stereo.Glass",
@@ -135,7 +135,7 @@
             var setObject;
             var doSendEmail;
             sgLayoutModals.approveDecline(layout)
-                .then(function (response) {
+                .then((response) => {
                     doSendEmail = response.sendEmail;
 
                     if (response.declined) {
@@ -156,7 +156,7 @@
                     return sgLayouts.update(layout._id, setObject);
 
                 })
-                .then(function (result) {
+                .then(() => {
 
                     _.extend(layout, setObject);
                     var message;
@@ -189,7 +189,7 @@
 
         function uploadFiles(layout) {
             sgLayoutModals.uploadFiles(layout)
-                .then(function (response) {
+                .then((response) => {
                     var setObject = {
                         status: 'finished',
                         finishedAt: new Date(),

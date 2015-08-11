@@ -3,6 +3,8 @@ var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var concat = require('gulp-concat');
 var gulpif = require('gulp-if');
+var babel = require('gulp-babel');
+var sourcemaps = require('gulp-sourcemaps');
 
 var browserSync = require('browser-sync');
 
@@ -175,8 +177,11 @@ function deployCustom(production) {
     ];
 
     gulp.src(customSourceAdmin)
+        .pipe(sourcemaps.init())
+        .pipe(babel())
         .pipe(concat('custom-admin.min.js'))
         .pipe(gulpif(production, uglify()))
+        .pipe(sourcemaps.write("."))
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesAdmin)

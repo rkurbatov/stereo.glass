@@ -83,7 +83,7 @@
             };
 
             // form selectors data
-            sgCategories.loaded.then(function () {
+            sgCategories.loaded.then(() => {
                 vm.assortment = sgCategories.assortment;
                 vm.colors = sgCategories.colors;
                 vm.countries = sgCategories.countries;
@@ -96,9 +96,7 @@
             };
 
             // Watch over datarange change
-            $scope.$watch(function () {
-                return vm.dateRange;
-            }, function (newVal) {
+            $scope.$watch(() => vm.dateRange, function (newVal) {
                 // convert moment objects to ISO 8601 strings for comparison
                 if (newVal.startDate) {
                     vm.dateRange.startDateString = newVal.startDate.toISOString();
@@ -109,11 +107,10 @@
             });
 
             // Change sort order depending on viewMode
-            $scope.$watch(
-                function () {
-                    return vm.viewMode;
+            $scope.$watch(() => {
+                    return vm.viewMode
                 },
-                function (mode) {
+                (mode) => {
                     vm.sortOrder.current = vm.sortOrder[mode][0];
                     vm.filters.current[mode] = vm.filters[mode][0];
                 }

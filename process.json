@@ -6,6 +6,7 @@
         "NODE_ENV": "production",
         "APP_PORT"    : "4100"
       },
+      "node_args"  : "--harmony",
       "script"    : "server.js",
       "log_file"  : "./logs/test.log",
       "error_file": "./logs/test-err.log",
