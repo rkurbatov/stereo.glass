@@ -16,7 +16,8 @@
             'nsPopover',
             'color.picker',
             'LoDash',
-            'sgINT'
+            'sgINT',
+            'sg.ui'
         ]);
 
 })(window, window.angular);
