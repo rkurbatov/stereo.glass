@@ -23,7 +23,7 @@ block content
                     span.fa.fa-picture-o
                     |  Загрузка картинок
 
-            //- Ratings tab header        
+            //- Ratings tab header
             if user.role === 'admin' || user.role === 'designer'
                 li: a(href='#tab-gallery', data-toggle='tab')
                     span.glyphicon.glyphicon-th-large
@@ -42,20 +42,17 @@ block content
                 span.badge {{ tabs.messages.unreadCount }}
                 |  Сообщения
 
-            //- Profile tab header    
-            if user.role === 'user'
-                li.active: a(href='#tab-profile', data-toggle='tab')
+            //- Profile tab header
+            li.dropdown(role='presentation')
+                a.dropdown-toggle(href='#' data-toggle='dropdown' role='button')
                     span.fa.fa-user
-                    |  Профиль
-            else
-                li: a(href='#tab-profile', data-toggle='tab')
-                    span.fa.fa-user
-                    |  Профиль
+                    |  Аккаунт&nbsp;
+                    span.caret
+                        ul.dropdown-menu
+                            li: a(href='#tab-profile', data-toggle='tab') Профиль
+                            li.divider(role='separator')
+                            li: a(href="/auth/logout") Выход
 
-            //- Logout tab header    
-            li: a(href="/auth/logout")
-                span.glyphicon.glyphicon-off
-                |  Выход
 
 
 
