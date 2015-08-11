@@ -21,7 +21,7 @@ body {
   }
 
   font-family: Tahoma, sans-serif;
-  background-color: $bg-color;
+  background: url('../img/background.gif') repeat;
   margin: 0;
 
   &:before {
