@@ -1,18 +1,28 @@
 .panel(ng-controller='Users as users')
     .row
-        .col-sm-12.col-lg12.col-xs-12
-            table.table.table-striped(st-table='row-collection')
+        .col-sm-12.col-lg-12.col-xs-12
+            table.table(st-table='users.svcUser.list')
                 thead
                     tr
                         th
                             i.refresh-button.fa.fa-refresh.sg-shadowed-text(ng-click='users.svcUsers.reload()')
-                            |  username
+                            |  Имя пользователя
                         th
                         th
                         th Логин
-                        th Роль
+                        th Роль&
                         th Создан
                         th Был активен
+                    tr
+                        th: input.input-sm.form-control(st-search="username"
+                        placeholder="Поиск по имени..." type='search')
+                        th
+                        th
+                        th
+                        th: bootstrap-select(width='10%')
+                        th
+                        th
+                        th
                 tbody(ng-repeat='row in users.svcUsers.list')
                     tr
                         td {{row.username}}
@@ -24,7 +34,7 @@
                         td {{row.role}}
                         td {{row.createdAt | date}}
                         td {{row.activeAt | date: 'short'}}
-                //-tfoot
-                //-    tr
-                //-        td.text-center(colspan='5')
-                //-            div(st-pagination='', st-items-by-page='3', st-displayed-pages='2')
+                tfoot
+                    tr
+                        td.text-center(colspan='5')
+                            div(st-pagination='', st-items-by-page='10', st-displayed-pages='5')

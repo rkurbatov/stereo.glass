@@ -55,15 +55,15 @@ block content
                         ul.dropdown-menu
                             li: a(href='#tab-profile', data-toggle='tab')
                                 span.glyphicon.glyphicon-user
-                                |  Профиль
+                                | &nbsp;Профиль
                             li: a(href='#tab-messages', data-toggle='tab')
                                 span.glyphicon.glyphicon-envelope
-                                |  Сообщения
+                                | &nbsp;Сообщения
                                 span.badge &nbsp;{{ tabs.messages.unreadCount }}
                             li.divider(role='separator')
                             li: a(href="/auth/logout")
                                 span.glyphicon.glyphicon-log-out
-                                |  Выход
+                                | &nbsp;Выход
 
 
         #tabs-content.tab-content
