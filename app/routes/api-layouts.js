@@ -85,10 +85,8 @@ module.exports = function (express, Layout) {
 
         Layout
             .find(findObj, '')
-            .then(function (layouts) {
-                return res.json(layouts);
-            })
-            .catch(function (err) {
+            .then((layouts)=> res.json(layouts))
+            .catch((err)=> {
                 console.log('Cant\'t find layouts: ', err);
                 return res.sendStatus(500);
             });
@@ -103,7 +101,7 @@ module.exports = function (express, Layout) {
 
         Layout
             .findOne({'_id': req.params.id})
-            .then(function (layout) {
+            .then((layout)=> {
                 if (!layout) {
                     var err = new Error();
                     err.status = 404;
@@ -113,7 +111,7 @@ module.exports = function (express, Layout) {
                 layout.save();
                 return res.sendStatus(204);
             })
-            .catch(function (err) {
+            .catch((err)=> {
                 console.log('Error removing layout: ', err);
                 return res.sendStatus(err.status || 500);
             });
@@ -128,12 +126,10 @@ module.exports = function (express, Layout) {
 
         Layout
             .findOneAndRemove({'_id': req.params.id})
-            .then(function () {
-                return data
-                    ? res.sendStatus(204)
-                    : res.sendStatus(404);
-            })
-            .catch(function () {
+            .then(()=> data
+                ? res.sendStatus(204)
+                : res.sendStatus(404))
+            .catch((err)=> {
                 console.log('Error removing layout: ', err);
                 return res.sendStatus(500);
             });
@@ -167,10 +163,8 @@ module.exports = function (express, Layout) {
 
         Layout
             .create(layoutData)
-            .then(function () {
-                return res.sendStatus(201);
-            })
-            .catch(function (err) {
+            .then(()=>res.sendStatus(201))
+            .catch((err)=> {
                 console.log('Error creating layout: ', err);
                 return res.sendStatus(500);
             });
@@ -189,7 +183,7 @@ module.exports = function (express, Layout) {
 
         Layout
             .findById(req.params.id)
-            .then(function (layout) {
+            .then((layout)=> {
                 if (setObject.status === 'assigned' && !layout.reference) {
                     console.log("I need to make ref query");
                     var referenceQuery = Layout
@@ -230,23 +224,19 @@ module.exports = function (express, Layout) {
                     return layout;
                 }
             })
-            .then(function (layout) {
-                _.each(setObject, function (value, key) {
+            .then((layout)=> {
+                _.each(setObject, (value, key)=> {
                     if (key !== 'reference') {
                         layout[key] = value;
                     }
                 });
 
-                _.each(unsetArray, function (key) {
-                    layout[key] = undefined;
-                });
+                _.each(unsetArray, (key)=> layout[key] = undefined);
 
                 return layout.save();
             })
-            .then(function(layout){
-                return res.status(200).json({status: 'success', layout: layout});
-            })
-            .catch(function (err) {
+            .then((layout)=>res.status(200).json({status: 'success', layout: layout}))
+            .catch((err)=> {
                 console.log('Макет не найден! ' + err);
                 return res.status(err.status || 404);
             });
@@ -259,7 +249,7 @@ module.exports = function (express, Layout) {
 
         Layout
             .findById({'_id': req.params.id})
-            .then(function (layout) {
+            .then((layout)=> {
                 if (!layout) {
                     var err = new Error();
                     err.status = 404;
@@ -276,10 +266,8 @@ module.exports = function (express, Layout) {
 
                 return layout.save();
             })
-            .then(function () {
-                return res.sendStatus(200);
-            })
-            .catch(function (err) {
+            .then(()=> res.sendStatus(200))
+            .catch((err)=> {
                 console.log("Error adding new rating", err);
                 return res.sendStatus(err.status || 500);
             });
@@ -292,7 +280,7 @@ module.exports = function (express, Layout) {
 
         Layout
             .findById({'_id': req.params.id})
-            .then(function (layout) {
+            .then((layout)=> {
                 if (!layout) {
                     var err = new Error();
                     err.status = 404;
@@ -307,10 +295,8 @@ module.exports = function (express, Layout) {
 
                 return layout.save();
             })
-            .then(function () {
-                return res.sendStatus(204);
-            })
-            .catch(function (err) {
+            .then(()=> res.sendStatus(204))
+            .catch((err)=> {
                 console.log("Error removing rating", err);
                 return res.sendStatus(err.status || 500);
             });
@@ -323,12 +309,11 @@ module.exports = function (express, Layout) {
 
         Layout
             .findOne({name: req.params.name}, '-_id')
-            .then(function (layout) {
-                return layout
+            .then((layout)=> layout
                     ? res.sendStatus(200)
-                    : res.sendStatus(204);
-            })
-            .catch(function () {
+                    : res.sendStatus(204))
+            .catch((err)=> {
+                console.log("Error searching layout: ", err);
                 return res.sendStatus(500);
             });
     }
@@ -349,14 +334,12 @@ module.exports = function (express, Layout) {
 
         Layout
             .findById(req.params.id)
-            .then(function (layout) {
+            .then((layout)=> {
                 layout.comments.push(req.body.params);
                 return layout.save();
             })
-            .then(function(){
-                return res.sendStatus(200);
-            })
-            .catch(function (err) {
+            .then(()=> res.sendStatus(200))
+            .catch((err)=> {
                 console.log('Error posting comment: ', err);
                 return res.sendStatus(500);
             });
