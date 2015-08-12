@@ -8,7 +8,8 @@
             'sg.AuthSvc',
             'ui.bootstrap',
             'ui.validate',
-            'cgBusy'
+            'cgBusy',
+            'sgINT'
 
         ])
         .value('cgBusyDefaults', {

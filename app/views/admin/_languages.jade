@@ -1,2 +1,13 @@
 .panel(ng-controller='Languages as langs')
     .row
+        br
+        | {{ langs.langs }}
+    .row
+        br
+        .col-xs-1
+            i.fa.fa-2x.fa-plus.sg-shadowed-text.sg-green-i(style="cursor: pointer"
+            ng-click='langs.addLanguage()')
+        .col-xs-2: label.small Код
+        .col-xs-2: input.form-control.input-small(ng-model='langs.code')
+        .col-xs-2: label.small Язык
+        .col-xs-4: input.form-control.input-small(ng-model='langs.name')

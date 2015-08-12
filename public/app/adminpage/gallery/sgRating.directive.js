@@ -40,15 +40,15 @@
             scope.$watch('linkedObject.rating', function (newValue, oldValue) {
                 if (newValue === oldValue || newValue === -1) return;
                 sgLayouts.changeMyRating(scope.linkedObject, newValue)
-                    .then(function () {
-                        newValue
-                            ? toastrMsg = _.repeat('<i class="fa fa-star"></i>', newValue)
-                            : toastrMsg = '<i class="fa fa-thumbs-down"></i>';
+                    .then(()=> {
+                        toastrMsg = newValue
+                            ? _.repeat('<i class="fa fa-star"></i>', newValue)
+                            : '<i class="fa fa-thumbs-down"></i>';
                         if (!attrs.secondInstance) {
                             toastr.info(toastrMsg, toastrInfoConfig);
                         }
                     })
-                    .catch(function (err) {
+                    .catch((err)=> {
                         if (!attrs.secondInstance) {
                             toastr.error(err, toastrErrorConfig);
                         }

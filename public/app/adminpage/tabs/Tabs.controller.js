@@ -6,9 +6,9 @@
         .module('sgAppAdmin')
         .controller('Tabs', Tabs);
 
-    Tabs.$inject = ['sgLayouts', 'sgMessages'];
+    Tabs.$inject = ['sgLayouts', 'sgMessages', 'sgINTSvc'];
 
-    function Tabs(sgLayouts, sgMessages) {
+    function Tabs(sgLayouts, sgMessages, sgINTSvc) {
         var vm = this;
 
         vm.layouts = sgLayouts;

@@ -145,8 +145,7 @@ function deployVendor(production) {
 function deployCustom(production) {
     var customSourceAdmin = [
         'public/app/common/LoDash.provider.js',
-        'public/app/common/_INT.js',
-        'public/app/common/_INT.provider.js',
+        'public/app/common/INT/*.js',
         'public/app/ngAdmin.js',
         'public/app/adminpage/**/*.js'
     ];
@@ -168,6 +167,7 @@ function deployCustom(production) {
 
     var customSourceAuth = [
         'public/app/common/sgAuthSvc.js',
+        'public/app/common/INT/*.js',
         'public/app/ngAuth.js',
         'public/app/auth/**/*.js'
     ];

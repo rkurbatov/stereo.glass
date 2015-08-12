@@ -49,6 +49,7 @@ var Account = require('./app/models/account')(mongoose);
 var Category = require('./app/models/category')(mongoose);
 var Layout = require('./app/models/layout')(mongoose);
 var Message = require('./app/models/message')(mongoose);
+var Language = require('./app/models/language')(mongoose);
 
 // ======== FILES AND VIEWS ========
 app.engine('jade', require('jade').__express);
@@ -85,6 +86,7 @@ app.use('/api/layouts', require('./app/routes/api-layouts')(express, Layout));
 app.use('/api/files', require('./app/routes/api-files')(express));
 app.use('/api/messages', require('./app/routes/api-messages')(express, Message));
 app.use('/api/mail', require('./app/routes/api-mail')(express, app.mailer));
+app.use('/api/lang', require('./app/routes/api-lang')(express, Language, Account));
 
 // ======== START APP ========
 app.listen(APP_PORT, 'localhost', function () {
