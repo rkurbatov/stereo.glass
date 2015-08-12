@@ -9,37 +9,37 @@ header(ng-show='main.loader.isSuccessful')
                 ul.menu-pages
                     li(ng-class='{"nav-selected": main.settings.currentPage == "about"}'
                     ng-click='main.switchPage("about")')
-                        a {{ _INT("Подробно") }}
+                        a(ng-bind='_INT("Подробно");')
                     li(ng-class='{"nav-selected": main.settings.currentPage == "goods"}'
                     ng-click='main.switchPage("goods")')
-                        a Наш товар
+                        a(ng-bind='_INT("Наш товар");')
                     li(ng-class='{"nav-selected": main.settings.currentPage == "dealers"}'
                     ng-click='main.switchPage("dealers")')
-                        a Дилерам
+                        a(ng-bind='_INT("Дилерам");')
                     li(ng-class='{"nav-selected": main.settings.currentPage == "contacts"}'
                     ng-click='main.switchPage("contacts")')
-                        a Контакты
+                        a(ng-bind='_INT("Контакты");')
                     li
                         a#flag-container
                             img(ng-src="{{ 'img/flags/' + main.INT.currentLang + '.png' }}")
-                            span {{ main.INT.currentLang }}
+                            span(ng-bind='main.INT.currentLang')
                 sg-lang-switcher
         #wrapper-nav-buttons
             button#login-button.sg-btn(ng-if="!main.currentUser.name"
-            ng-click="main.signInRegister()") Войти
+            ng-bind='_INT("Войти");' ng-click="main.signInRegister()")
                 i.fa.fa-sign-in
             button#admin-button.sg-btn(ng-if="main.currentUser.name")
                 a(href='/admin')
                     | {{ main.currentUser.name }}
                     i.fa.fa-user
             form(name="search" action="#" method="get")
-                input#search-input(type="text" name="q" placeholder="{{ _INT('Поиск...') }}")
+                input#search-input(type="text" name="q" placeholder="{{ _INT('Поиск...'); }}")
                 i.fa.fa-search
     #wrapper-menu-product.container-fluid(ng-if='main.settings.currentPage == "goods"')
         ul#menu-product
-            li.prod-selected: a Плитка
-            li: a Панно
-            li: a Часы
-            li: a Рекламная продукция
-            li: a Подносы
-            li: a Светильники
+            li.prod-selected: a(ng-bind='_INT("Плитка");')
+            li: a(ng-bind='_INT("Панно");')
+            li: a(ng-bind='_INT("Часы");')
+            li: a(ng-bind='_INT("Рекламная продукция");')
+            li: a(ng-bind='_INT("Подносы");')
+            li: a(ng-bind='_INT("Светильники");')
