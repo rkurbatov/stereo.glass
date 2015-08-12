@@ -10,10 +10,10 @@
                         th
                         th
                         th Логин
-                        th Роль&
+                        th Роль
                         th Создан
                         th Был активен
-                    tr
+                    //-tr
                         th: input.input-sm.form-control(st-search="username"
                         placeholder="Поиск по имени..." type='search')
                         th
@@ -34,7 +34,7 @@
                         td {{row.role}}
                         td {{row.createdAt | date}}
                         td {{row.activeAt | date: 'short'}}
-                tfoot
+                //-tfoot
                     tr
                         td.text-center(colspan='5')
                             div(st-pagination='', st-items-by-page='10', st-displayed-pages='5')

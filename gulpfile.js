@@ -203,8 +203,11 @@ function deployCustom(production) {
         .pipe(gulp.dest('public/stylesheets'));
 
     gulp.src(customSourceAuth)
+        .pipe(gulpif(production, sourcemaps.init()))
+        .pipe(babel())
         .pipe(concat('custom-auth.min.js'))
         .pipe(gulpif(production, uglify()))
+        .pipe(gulpif(production, sourcemaps.write(".")))
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesAuth)

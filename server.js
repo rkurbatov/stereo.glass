@@ -1,6 +1,8 @@
 'use strict';
 
 var APP_PORT = process.env.APP_PORT;
+// Use Babel to handle all es files
+require("babel/register");
 
 var express = require('express');
 var bodyParser = require('body-parser');
