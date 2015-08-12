@@ -1,17 +1,3 @@
-/**
- * HorizonScroll
- * Version: 1.0.3
- * URL: https://github.com/trgraglia/jquery.horizonScroll.js/
- * Description: This is a jQuery plugin which allows for websites to scroll left and right.
- * Requires: jQuery 1.10.2
- * Optional: jQuery TouchSwipe (http://labs.rampinteractive.co.uk/touchSwipe/)
- * Author: Anthony Graglia
- * Copyright: Copyright 2013 Anthony Graglia
- * License: MIT License
- */
-
-// Semicolon to prevent breakage with concatenation.
-;
 (function ($) {
     'use strict';
 
@@ -42,10 +28,6 @@
                 var delta = evt.detail ? evt.detail * (-40) : evt.wheelDelta;
 
                 scrollAction(delta);
-            }).on('click', '.horizon-next', function () {
-                scrollRight();
-            }).on('click', '.horizon-prev', function () {
-                scrollLeft();
             });
 
             if ($.fn.horizon.defaults.swipe) {
@@ -68,6 +50,9 @@
                     e.preventDefault();
                 }
             });
+
+            $(window).on('carousel:scrollLeft', scrollLeft);
+            $(window).on('carousel:scrollRight', scrollRight);
 
             return this;
         }
@@ -182,15 +167,6 @@
 
     var sizeSections = function () {
         //console.log('Sizing sections...');
-
-        //var iInnerWidth = $(window).innerWidth();
-
-        //$.fn.horizon.defaults.docWidth = iInnerWidth;
-        /*$.fn.horizon.defaults.sections.each(function () {
-            $(this).width(iInnerWidth);
-        });*/
-
-        //$('html').width($.fn.horizon.defaults.limit * iInnerWidth);
 
         $(window).trigger('carousel:resize');
 

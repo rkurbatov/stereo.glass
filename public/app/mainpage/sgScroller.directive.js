@@ -31,6 +31,14 @@
                     });
                 });
 
+            scope.main.scrollLeft = function () {
+                angular.element($window).trigger('carousel:scrollLeft');
+            };
+
+            scope.main.scrollRight = function () {
+                angular.element($window).trigger('carousel:scrollRight');
+            };
+
             function sizeBody() {
                 var winWidth = angular.element($window).innerWidth();
                 var sectionsNumber = (angular.element('.sg-carousel-section') || []).length;

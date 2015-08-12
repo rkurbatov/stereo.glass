@@ -19,7 +19,7 @@
 
         vm.getBkSrc = getBkSrc;
         vm.switchPage = switchPage;
-        vm.signInRegister = AuthSvc.modalSignInRegister;
+        vm.signInRegister = signInRegister;
 
         initController();
 
@@ -73,6 +73,18 @@
 
             }
             vm.settings.currentPage = pageName;
+        }
+
+        function signInRegister() {
+            vm.settings.handleScrollEvents = false;
+            AuthSvc
+                .modalSignInRegister()
+                .then(()=> {
+                    vm.settings.handleScrollEvents = true;
+                })
+                .catch(()=> {
+                    vm.settings.handleScrollEvents = true;
+                });
         }
 
     }

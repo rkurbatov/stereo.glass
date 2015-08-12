@@ -16,7 +16,8 @@
         svc.settings = {
             currentPage: 'main',
             isWideScreen: undefined,
-            isMobile: window.isMobile
+            isMobile: window.isMobile,
+            handleScrollEvents: true
         };
 
         var urlBkPrefix = '/img/rooms/', urlBkPostfix = '',

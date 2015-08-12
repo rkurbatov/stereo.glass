@@ -21,7 +21,9 @@
             scope.pauseVideo = pauseVideo;
 
             angular.element($window).on('keypress', function (e) {
-                if ((e.keyCode == 0 || e.keyCode == 32) && auxData.settings.screenIndex === 0) {
+                if ((e.keyCode == 0 || e.keyCode == 32)
+                    && auxData.settings.screenIndex === 0
+                    && auxData.settings.handleScrollEvents) {
                     scope.switchVideoState();
                 }
             });
