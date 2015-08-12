@@ -56,21 +56,6 @@
                             scrolls[direction]();
                         }
                     },
-                    /*click: function (event, target) {
-                     event.preventDefault();
-                     event.stopPropagation();
-                     event.stopImmediatePropagation();
-
-                     //$(target).click();
-                     },
-                     tap: function (event, target) {
-                     event.preventDefault();
-                     event.stopPropagation();
-                     event.stopImmediatePropagation();
-
-                     $(target).click();
-                     },*/
-                    // Default is 75px, set to 0 for demo so any distance triggers swipe
                     threshold: 75
                 });
             }
@@ -198,16 +183,16 @@
     var sizeSections = function () {
         //console.log('Sizing sections...');
 
-        var iInnerWidth = $(window).innerWidth();
+        //var iInnerWidth = $(window).innerWidth();
 
-        $.fn.horizon.defaults.docWidth = iInnerWidth;
-        $.fn.horizon.defaults.sections.each(function () {
+        //$.fn.horizon.defaults.docWidth = iInnerWidth;
+        /*$.fn.horizon.defaults.sections.each(function () {
             $(this).width(iInnerWidth);
-        });
+        });*/
+
+        //$('html').width($.fn.horizon.defaults.limit * iInnerWidth);
 
         $(window).trigger('carousel:resize');
-
-        $('html').width($.fn.horizon.defaults.limit * iInnerWidth);
 
         scrollTo($.fn.horizon.defaults.i, 0);
     };

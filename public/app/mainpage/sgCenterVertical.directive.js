@@ -15,7 +15,7 @@
         };
 
         function link(scope, elm, attrs) {
-            angular.element($window).on('carousel:resize', function (e) {
+            angular.element($window).on('load carousel:resize', function (e) {
                 var delta;
                 if (attrs.sgCenterVertical === '-') {
                     delta = -($window.innerHeight - elm.parent().innerHeight()) / 2;

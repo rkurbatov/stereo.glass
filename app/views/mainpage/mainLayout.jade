@@ -14,5 +14,5 @@ html(lang=en ng-app="MainPage" ng-controller='MainPage as main')
         script(src='../scripts/vendor-main.min.js?#{builddate}')
         script(src='../scripts/custom-main.min.js?#{builddate}')
 
-    body
+    body(sg-scroller)
         block content
