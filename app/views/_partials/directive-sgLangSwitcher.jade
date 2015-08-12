@@ -1,5 +1,5 @@
 div.lang-selector(style='z-index: 1000; position: fixed')
     ul
-        li(ng-repeat='lang in INT.langs' ng-if='lang !== INT.currentLang')
+        li(ng-repeat='lang in INTSvc.langs' ng-if='lang !== INTSvc.currentLang')
             img(ng-src="{{ 'img/flags/' + lang + '.png' }}")
             span {{ lang }}
