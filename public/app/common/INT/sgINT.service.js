@@ -32,8 +32,8 @@
             langs.length = 0;
             $http
                 .get('/api/lang')
-                .then(function (response) {
-                    response.data.forEach((lang)=>langs.push(lang));
+                .then((response) => {
+                    _.forEach(response.data, (lang) => langs.push(lang));
                 });
         }
 

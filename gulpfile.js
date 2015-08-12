@@ -190,8 +190,11 @@ function deployCustom(production) {
         .pipe(gulp.dest('public/stylesheets'));
 
     gulp.src(customSourceMain)
+        .pipe(sourcemaps.init())
+        .pipe(babel())
         .pipe(concat('custom-main.min.js'))
         .pipe(gulpif(production, uglify()))
+        .pipe(sourcemaps.write("."))
         .pipe(gulp.dest('public/scripts'));
 
     gulp.src(customStylesMain)
