@@ -5,7 +5,7 @@
         i.fa.fa-chevron-circle-right.fa-3x
     sg-wide-screen(ratio='1.85')
     section.sg-main-sec0.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
-        .sg-video-overlay(for='videoclip' sg-center-vertical='-')
+        .sg-video-overlay(for='videoclip' sg-center-vertical='-' ng-if='main.settings.currentPage === "main"')
         video#videoclip(preload='metadata' sg-center-vertical='-')
             source(src='/video/clip.mp4')
             source(src='/video/clip.webm' type='video/webm')
