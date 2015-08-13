@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgScroller', sgScroller);
 
-    sgScroller.$inject = ['$window', 'auxData'];
+    sgScroller.$inject = ['$window', '$document', 'auxData'];
 
-    function sgScroller($window, auxData) {
+    function sgScroller($window, $document, auxData) {
 
         return {
             restrict: 'A',
@@ -32,6 +32,18 @@
             angular.element($window)
                 .on('resize', sizeBody)
                 .on('keydown', keyPressHandler);
+
+            angular.element($document).swipe({
+                // Generic swipe handler for all directions.
+                swipe: (evt, direction)=> {
+                    if (scrolls[direction]
+                        && auxData.settings.handleScrollEvents
+                        && auxData.settings.currentPage === 'main') {
+                        scrolls[direction]();
+                    }
+                },
+                threshold: 75
+            });
 
             scope.$watch(
                 ()=>auxData.settings.currentPage,
@@ -66,7 +78,9 @@
             }
 
             function keyPressHandler(evt) {
-                if (scrolls[evt.which] && auxData.settings.handleScrollEvents) {
+                if (scrolls[evt.which]
+                    && auxData.settings.handleScrollEvents
+                    && auxData.settings.currentPage === 'main') {
                     scrolls[evt.which]();
                     evt.preventDefault();
                 }

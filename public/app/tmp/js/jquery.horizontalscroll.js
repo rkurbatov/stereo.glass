@@ -30,26 +30,9 @@
                 scrollAction(delta);
             });
 
-            if ($.fn.horizon.defaults.swipe) {
-                $(document).swipe({
-                    // Generic swipe handler for all directions.
-                    swipe: function (event, direction, distance, duration, fingerCount) {
-                        if (scrolls[direction]) {
-                            scrolls[direction]();
-                        }
-                    },
-                    threshold: 75
-                });
-            }
-
             $(window).on('resize', function () {
                 sizeSections();
-            });/*.on('keydown', function (e) {
-                if (scrolls[e.which]) {
-                    scrolls[e.which]();
-                    e.preventDefault();
-                }
-            });*/
+            });
 
             $(window).on('carousel:scrollLeft', scrollLeft);
             $(window).on('carousel:scrollRight', scrollRight);
@@ -167,16 +150,6 @@
         scrollTo($.fn.horizon.defaults.i, 0);
     };
 
-    var scrolls = {
-        'right': scrollLeft,
-        'down': scrollLeft,
-        'left': scrollRight,
-        'up': scrollRight,
-        37: scrollLeft,
-        38: scrollLeft,
-        39: scrollRight,
-        40: scrollRight
-    };
 })
 (jQuery);
 
