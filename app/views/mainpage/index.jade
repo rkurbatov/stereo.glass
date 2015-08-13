@@ -4,3 +4,11 @@ block content
     include header
     .sg-main-wrapper(ng-show='main.loader.isSuccessful && main.settings.currentPage === "main"')
         include wrapper-mainpage
+    .sg-about-wrapper(ng-show='main.loader.isSuccessful && main.settings.currentPage === "about"')
+        include wrapper-about
+    .sg-shop-wrapper(ng-show='main.loader.isSuccessful && main.settings.currentPage === "goods"')
+        include wrapper-goods
+    .sg-dealers-wrapper(ng-show='main.loader.isSuccessful && main.settings.currentPage === "dealers"')
+        include wrapper-dealers
+    .sg-contacts-wrapper(ng-show='main.loader.isSuccessful && main.settings.currentPage === "contacts"')
+        include wrapper-contacts
