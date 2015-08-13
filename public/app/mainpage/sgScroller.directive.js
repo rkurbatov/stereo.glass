@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgScroller', sgScroller);
 
-    sgScroller.$inject = ['$window', '$document', 'auxData'];
+    sgScroller.$inject = ['$window', '$document', '$timeout', 'auxData'];
 
-    function sgScroller($window, $document, auxData) {
+    function sgScroller($window, $document, $timeout, auxData) {
 
         return {
             restrict: 'A',
@@ -17,6 +17,7 @@
 
         function link(scope, elm, attrs) {
             var calculatedBodyWidth;
+            var scrollTimeout = null;
             var scrolls = {
                 'right': scrollLeft,
                 'down': scrollLeft,
@@ -31,7 +32,8 @@
             sizeBody();
             angular.element($window)
                 .on('resize', sizeBody)
-                .on('keydown', keyPressHandler);
+                .on('keydown', keyPressHandler)
+                .on('mousewheel DOMMouseScroll', mouseScrollHandler);
 
             angular.element($document).swipe({
                 // Generic swipe handler for all directions.
@@ -84,6 +86,37 @@
                     scrolls[evt.which]();
                     evt.preventDefault();
                 }
+            }
+
+            function mouseScrollHandler(e) {
+                console.log('Happy mouse');
+                if (!auxData.settings.handleScrollEvents) return;
+                // Equalize event object.
+                var evt = window.event || e;
+                // Convert to originalEvent if possible.
+                evt = evt.originalEvent ? evt.originalEvent : evt;
+                // Check for detail first, because it is used by Opera and FF.
+                var delta = evt.detail ? evt.detail * (-40) : evt.wheelDelta;
+
+                var scrollEndDelay = 250;
+
+                console.log(scrollTimeout);
+                if (scrollTimeout === null) {
+                    // scroll begin handler
+                    if (delta > 1) {
+                        scrollLeft();
+                    } else if (delta < -1) {
+                        scrollRight();
+                    }
+                } else {
+                    clearTimeout(scrollTimeout);
+                }
+
+                scrollTimeout = setTimeout(()=> {
+                    // scroll end handler
+                    scrollTimeout = null;
+                }, scrollEndDelay);
+
             }
 
         }

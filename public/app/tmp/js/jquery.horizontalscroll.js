@@ -19,17 +19,6 @@
 
             sizeSections();
 
-            $(document).on('mousewheel DOMMouseScroll', function (e) {
-                // Equalize event object.
-                var evt = window.event || e;
-                // Convert to originalEvent if possible.
-                evt = evt.originalEvent ? evt.originalEvent : evt;
-                // Check for detail first, because it is used by Opera and FF.
-                var delta = evt.detail ? evt.detail * (-40) : evt.wheelDelta;
-
-                scrollAction(delta);
-            });
-
             $(window).on('resize', function () {
                 sizeSections();
             });
@@ -117,36 +106,10 @@
         }
     };
 
-    // Executes on 'scrollbegin'.
-    var scrollBeginHandler = function (delta) {
-        // Scroll up, Scroll down.
-        if (delta > 1) {
-            scrollLeft();
-        } else if (delta < -1) {
-            scrollRight();
-        }
-    };
-
-    // Executes on 'scrollend'.
-    var scrollEndHandler = function () {
-        $.fn.horizon.defaults.scrollTimeout = null;
-    };
-
-    var scrollAction = function (delta) {
-        if ($.fn.horizon.defaults.scrollTimeout === null) {
-            scrollBeginHandler(delta);
-        } else {
-            clearTimeout($.fn.horizon.defaults.scrollTimeout);
-        }
-
-        $.fn.horizon.defaults.scrollTimeout = setTimeout(scrollEndHandler, $.fn.horizon.defaults.scrollEndDelay);
-    };
 
     var sizeSections = function () {
         //console.log('Sizing sections...');
-
         $(window).trigger('carousel:resize');
-
         scrollTo($.fn.horizon.defaults.i, 0);
     };
 
