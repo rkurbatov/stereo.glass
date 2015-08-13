@@ -44,12 +44,12 @@
 
             $(window).on('resize', function () {
                 sizeSections();
-            }).on('keydown', function (e) {
+            });/*.on('keydown', function (e) {
                 if (scrolls[e.which]) {
                     scrolls[e.which]();
                     e.preventDefault();
                 }
-            });
+            });*/
 
             $(window).on('carousel:scrollLeft', scrollLeft);
             $(window).on('carousel:scrollRight', scrollRight);
@@ -81,7 +81,7 @@
     $.fn.horizon.defaults = {
         scrollTimeout: null,
         scrollEndDelay: 250,
-        scrollDuration: 400,
+        scrollDuration: 500,
         i: getFromStorage(),
         limit: 0,
         docWidth: 0,
@@ -106,16 +106,6 @@
         var $section = $($.fn.horizon.defaults.sections[index]);
         $('html,body').animate({scrollLeft: $section.offset().left}, speed, 'swing', $.fn.horizon.defaults.fnCallback(index));
 
-        if (index === 0) {
-            $('.horizon-prev').hide();
-            $('.horizon-next').show();
-        } else if (index === $.fn.horizon.defaults.limit - 1) {
-            $('.horizon-prev').show();
-            $('.horizon-next').hide();
-        } else {
-            $('.horizon-next').show();
-            $('.horizon-prev').show();
-        }
 
         $(window).trigger({type: 'carousel:scroll', index: index});
     };
@@ -127,6 +117,8 @@
 
         if (i2 > -1) {
             scrollTo(i2, $.fn.horizon.defaults.scrollDuration);
+        } else {
+            scrollTo($.fn.horizon.defaults.limit-1, 2*$.fn.horizon.defaults.scrollDuration);
         }
     };
 
@@ -137,6 +129,8 @@
 
         if (i2 < $.fn.horizon.defaults.limit) {
             scrollTo(i2, $.fn.horizon.defaults.scrollDuration);
+        } else {
+            scrollTo(0, 2*$.fn.horizon.defaults.scrollDuration);
         }
     };
 

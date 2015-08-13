@@ -28,7 +28,9 @@
             }
 
             function setScreenIndex(evt) {
-                auxData.settings.screenIndex = evt.index;
+                scope.$applyAsync(function () {
+                    auxData.settings.screenIndex = evt.index
+                });
             }
 
             scope.$watch(auxData.settings.isWideScreen,
