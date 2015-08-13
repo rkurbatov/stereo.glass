@@ -14,3 +14,7 @@
     display: none;
   }
 }
+
+.sg-glass-background {
+  @include glass-background;
+}

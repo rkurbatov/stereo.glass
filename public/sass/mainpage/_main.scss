@@ -37,7 +37,9 @@ body {
   }
 }
 
-#wrapper-main, #wrapper-menu-product, #wrapper-header {
+.sg-wrapper {
+  width: 100%;
+
   @media (min-width: 1400px) {
     width: 1400px;
   }
@@ -45,22 +47,30 @@ body {
   padding: 0;
 }
 
-#wrapper-main {
+.sg-l2-wrapper {
+
+  width: 100%;
+
+  @media (min-width: 1400px) {
+    width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   @include on-xs {
-    margin-top: 60px;
+    margin-top: 42px;
   }
 
   @include on-sm {
-    margin-top: 95px;
+    margin-top: 62px;
   }
 
   @include on-md {
-    margin-top: 113px;
+    margin-top: 76px;
   }
 
   @include on-lg {
-    margin-top: 128px;
+    margin-top: 84px;
   }
 }
 

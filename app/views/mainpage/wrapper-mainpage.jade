@@ -1,4 +1,4 @@
-.main-carousel.sg-carousel
+.main-carousel(ng-style="{height: main.settings.currentPage === 'main' ? 'auto' : 0}")
     .horizon-prev(ng-click='main.scrollLeft()')
         i.fa.fa-chevron-circle-left.fa-3x
     .horizon-next(ng-click='main.scrollRight()')

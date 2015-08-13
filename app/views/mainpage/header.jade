@@ -1,5 +1,5 @@
 header(ng-show='main.loader.isSuccessful')
-    #wrapper-header.container-fluid.clearfix
+    .sg-wrapper.container-fluid.clearfix
         #container-logo(ng-click='main.switchPage("main")')
             #logo-blicker(sg-blick random='5' interval='15')
             img#logo-upper(src='img/logo-upper.png' alt="Stereo.Glass logo")
@@ -20,7 +20,7 @@ header(ng-show='main.loader.isSuccessful')
                     ng-click='main.switchPage("contacts")')
                         a(sg-blick ng-bind='_INT("Контакты");')
                     li
-                        a#flag-container(sg-blick random='3')
+                        a.flag-container(sg-blick random='3')
                             img(ng-src="{{ 'img/flags/' + main.INT.currentLang + '.png' }}")
                             span(ng-bind='main.INT.currentLang')
                 sg-lang-switcher
@@ -35,11 +35,3 @@ header(ng-show='main.loader.isSuccessful')
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="{{ _INT('Поиск...'); }}")
                 i.fa.fa-search
-    #wrapper-menu-product.container-fluid(ng-if='main.settings.currentPage == "goods"')
-        ul#menu-product
-            li.prod-selected: a(sg-blick ng-bind='_INT("Плитка");')
-            li: a(sg-blick random='3' ng-bind='_INT("Панно");')
-            li: a(sg-blick random='3' ng-bind='_INT("Часы");')
-            li: a(sg-blick random='3' ng-bind='_INT("Рекламная продукция");')
-            li: a(sg-blick random='3' ng-bind='_INT("Подносы");')
-            li: a(sg-blick random='3' ng-bind='_INT("Светильники");')
