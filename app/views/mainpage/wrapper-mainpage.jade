@@ -24,7 +24,7 @@
         .sg-plate3d(coords='{{main.settings.coords.kitchen3}}' for='main-kitchen')
             img(sg-alt-src="kitchen-wl3")
         .sg-plate3d(style="width: 1200px; height: 1200px;" coords='{{main.settings.coords.kitchenfloor}}' for='main-kitchen')
-            include _floor-kitchen
+            include floor/_kitchen
         img#main-kitchen.bg-room(ng-src="{{main.getBkSrc('kitchen')}}")
     section.sg-main-sec3.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-plate3d(coords='{{main.settings.coords.teddybear}}' for='main-childroom')
@@ -39,7 +39,7 @@
         .sg-plate3d(coords='{{main.settings.coords.mirror}}' for='main-bathroom' style="z-index:9;")
             img(sg-alt-src="pavilion" style="width: 300px; height: 225px;")
         .sg-plate3d(style="width: 500px; height: 500px;", coords='{{main.settings.coords.bathfloor}}' for='main-bathroom')
-            include _floor-bathroom
+            include floor/_bathroom
         img#main-bathroom.bg-room(ng-src="{{main.getBkSrc('bathroom')}}")
     section.sg-main-sec5.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-plate3d(coords='{{main.settings.coords.aqualeft}}' for='main-club')
@@ -47,7 +47,7 @@
         .sg-plate3d(coords='{{main.settings.coords.aquaright}}' for='main-club')
             img(sg-alt-src="aqua")
         .sg-plate3d(style="width: 900px; 600px;", coords='{{main.settings.coords.clubfloor}}' for='main-club')
-            include _floor-club
+            include floor/_club
         img#main-club.bg-room(ng-src="{{main.getBkSrc('club')}}")
     section.sg-main-sec6.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-plate3d(coords='{{main.settings.coords.tray}}' for='main-caffee')
