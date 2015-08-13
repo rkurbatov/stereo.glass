@@ -9,9 +9,9 @@
 
     // initialization and redraw reset
     $(window).on("load", ()=> $('.sg-hor-scroll').horizon({swipe: true}));
-    $(window).on("load resize orientationchange", positionButtons);
+    $(window).on("load resize orientationchange", positionElements);
 
-    function positionButtons() {
+    function positionElements() {
         // make header screen width
         $('header').width(window.innerWidth);
         var list = $("ul.menu-pages")[0],
@@ -52,6 +52,12 @@
             }
 
         }
+
+        _.each($('.sg-l2-wrapper'), (wrapper)=> {
+            var winHeight = $(window).height();
+            var marginTop = parseInt($(wrapper).css('marginTop'), 10);
+            $(wrapper).height(winHeight - marginTop - 5)
+        });
     }
 
 }(jQuery, window));

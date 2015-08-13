@@ -63,17 +63,14 @@ form[name=search] {
 
     @include on-sm {
       line-height: 10px;
-      // margin-left: -48px;
     }
 
     @include on-md {
       line-height: 14px;
-      //margin-left: -64px;
     }
 
     @include on-lg {
       line-height: 16px;
-      // margin-left: -80px;
     }
   }
 }

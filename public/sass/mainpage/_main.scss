@@ -49,7 +49,8 @@ body {
 
 .sg-l2-wrapper {
 
-  width: 100%;
+  position: absolute;
+  overflow: auto;
 
   @media (min-width: 1400px) {
     width: 1400px;
