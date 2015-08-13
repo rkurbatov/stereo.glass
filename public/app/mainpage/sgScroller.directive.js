@@ -89,7 +89,6 @@
             }
 
             function mouseScrollHandler(e) {
-                console.log('Happy mouse');
                 if (!auxData.settings.handleScrollEvents) return;
                 // Equalize event object.
                 var evt = window.event || e;
@@ -100,7 +99,6 @@
 
                 var scrollEndDelay = 250;
 
-                console.log(scrollTimeout);
                 if (scrollTimeout === null) {
                     // scroll begin handler
                     if (delta > 1) {

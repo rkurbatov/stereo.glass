@@ -21,9 +21,7 @@
             scope.pauseVideo = pauseVideo;
 
             angular.element($window).on('keypress', function (e) {
-                if ((e.keyCode == 0 || e.keyCode == 32)
-                    && auxData.settings.screenIndex === 0
-                    && auxData.settings.handleScrollEvents) {
+                if (e.keyCode == 0 || e.keyCode == 32) {
                     scope.switchVideoState();
                 }
             });
@@ -37,14 +35,19 @@
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
 
             function switchVideoState() {
-                if (!scope.main.isPlaying) {
-                    $('#cinema, header').animate({opacity: 0});
-                    video.play();
-                    scope.main.isPlaying = true;
-                } else {
-                    $('#cinema, header').animate({opacity: 1});
-                    video.pause();
-                    scope.main.isPlaying = false;
+                if (auxData.settings.screenIndex === 0
+                    && auxData.settings.currentPage === "main"
+                    && auxData.settings.handleScrollEvents) {
+
+                    if (!scope.main.isPlaying) {
+                        $('#cinema, header').animate({opacity: 0});
+                        video.play();
+                        scope.main.isPlaying = true;
+                    } else {
+                        $('#cinema, header').animate({opacity: 1});
+                        video.pause();
+                        scope.main.isPlaying = false;
+                    }
                 }
             }
 
