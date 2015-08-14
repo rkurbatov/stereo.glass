@@ -50,6 +50,12 @@ body {
 
 .sg-l2-wrapper {
 
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+
   @media (min-width: 1400px) {
     width: 1400px;
     margin-left: auto;
@@ -57,19 +63,19 @@ body {
   }
 
   @include on-xs {
-    margin-top: 42px;
+    top: 42px;
   }
 
   @include on-sm {
-    margin-top: 62px;
+    top: 62px;
   }
 
   @include on-md {
-    margin-top: 76px;
+    top: 76px;
   }
 
   @include on-lg {
-    margin-top: 84px;
+    top: 84px;
   }
 }
 
