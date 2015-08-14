@@ -53,11 +53,11 @@
 
         }
 
-        _.each($('.sg-l2-wrapper'), (wrapper)=> {
+       /* _.each($('.sg-l2-wrapper'), (wrapper)=> {
             var winHeight = $(window).height();
             var marginTop = parseInt($(wrapper).css('marginTop'), 10);
             $(wrapper).height(winHeight - marginTop - 5)
-        });
+        });*/
     }
 
 }(jQuery, window));

@@ -1,4 +1,10 @@
+.sg-about-container {
+  display: table;
+  height: 100%;
+}
+
 .sg-about-side-panel {
+  display: table-cell;
   width: 20%;
   height: 100%;
   float: left;
@@ -8,6 +14,7 @@
 }
 
 .sg-about-main-panel {
+  display: table-cell;
   width: 80%;
   height: 100%;
   float: left;
@@ -18,6 +25,6 @@
   height: 100%;
 
   .content {
-    margin: 5px;
+    margin: 10px 15px;
   }
 }

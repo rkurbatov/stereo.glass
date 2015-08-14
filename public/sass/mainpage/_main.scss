@@ -1,5 +1,6 @@
 html, body {
   overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -49,9 +50,6 @@ body {
 
 .sg-l2-wrapper {
 
-  position: absolute;
-  overflow: auto;
-
   @media (min-width: 1400px) {
     width: 1400px;
     margin-left: auto;
@@ -73,6 +71,11 @@ body {
   @include on-lg {
     margin-top: 84px;
   }
+}
+
+.sg-scrollable {
+  position: absolute;
+  overflow: auto;
 }
 
 #main-container {
