@@ -57,6 +57,12 @@
                     });
                 });
 
+            scope.$watch(
+                ()=>auxData.settings.screenCount,
+                (screenCount)=> {
+                    sizeBody();
+                });
+
             scope.header.scrollLeft = scrollLeft;
             scope.header.scrollRight = scrollRight;
 
@@ -70,7 +76,8 @@
 
             function sizeBody() {
                 var windowWidth = angular.element($window).innerWidth();
-                auxData.settings.screenCount = (angular.element('.sg-carousel-section') || []).length;
+                //auxData.settings.screenCount = (angular.element('.sg-carousel-section') || []).length;
+                //console.log(auxData.settings.screenCount);
                 calculatedBodyWidth = windowWidth * auxData.settings.screenCount;
                 elm.css({
                     width: auxData.settings.currentPage === 'main'

@@ -44,7 +44,7 @@
                 },
                 function handleNotify(event) {
                     vm.loader.percentLoaded = event.percent;
-                    console.info("Percent loaded:", event.percent);
+                    //console.info("Percent loaded:", event.percent);
                 }
             );
         }

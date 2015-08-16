@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgScrollerSection', sgScrollerSection);
 
-    sgScrollerSection.$inject = ['$window'];
+    sgScrollerSection.$inject = ['$window', 'auxData'];
 
-    function sgScrollerSection($window) {
+    function sgScrollerSection($window, auxData) {
 
         return {
             restrict: 'A',
@@ -16,6 +16,11 @@
         };
 
         function link(scope, elm, attrs) {
+            if (!auxData.settings.screenCount) {
+                auxData.settings.screenCount = 1;
+            } else {
+                auxData.settings.screenCount +=1;
+            }
             sizeSection();
 
             angular.element($window).on('resize', sizeSection);
