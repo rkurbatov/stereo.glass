@@ -40,7 +40,7 @@
                 swipe: (evt, direction)=> {
                     if (scrolls[direction]
                         && auxData.settings.handleScrollEvents
-                        && auxData.settings.currentPage === 'main') {
+                        && auxData.settings.currentPage === 'index') {
                         scrolls[direction]();
                     }
                 },
@@ -51,7 +51,7 @@
                 ()=>auxData.settings.currentPage,
                 (page)=> {
                     elm.css({
-                        width: page === 'main'
+                        width: page === 'index'
                             ? calculatedBodyWidth
                             : ''
                     });
@@ -80,7 +80,7 @@
                 //console.log(auxData.settings.screenCount);
                 calculatedBodyWidth = windowWidth * auxData.settings.screenCount;
                 elm.css({
-                    width: auxData.settings.currentPage === 'main'
+                    width: auxData.settings.currentPage === 'index'
                         ? calculatedBodyWidth
                         : ''
                 });
@@ -89,7 +89,7 @@
             function keyPressHandler(evt) {
                 if (scrolls[evt.which]
                     && auxData.settings.handleScrollEvents
-                    && auxData.settings.currentPage === 'main') {
+                    && auxData.settings.currentPage === 'index') {
                     scrolls[evt.which]();
                     evt.preventDefault();
                 }

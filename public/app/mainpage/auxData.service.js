@@ -14,7 +14,7 @@
 
         /** @namespace window.isMobile */
         svc.settings = {
-            currentPage: 'main',
+            currentPage: 'index',
             isWideScreen: undefined,
             screenIndex: undefined,
             screenCount: undefined,

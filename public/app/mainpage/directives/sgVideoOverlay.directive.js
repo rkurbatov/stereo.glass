@@ -36,7 +36,7 @@
 
             function switchVideoState() {
                 if (auxData.settings.screenIndex === 0
-                    && auxData.settings.currentPage === "main"
+                    && auxData.settings.currentPage === "index"
                     && auxData.settings.handleScrollEvents) {
 
                     if (!scope.main.isPlaying) {

@@ -11,14 +11,13 @@
         vm.settings = auxData.settings;
 
         vm.getBkSrc = getBkSrc;
-        vm.switchPage = switchPage;
-
 
         initController();
 
         // IMPLEMENTATION
 
         function initController() {
+            auxData.settings.currentPage = 'index';
         }
 
         function getBkSrc(name) {
@@ -27,23 +26,6 @@
             } else {
                 return auxData.bkImgs[name + '-15-10'].src
             }
-        }
-
-        function switchPage(pageName) {
-            if (vm.settings.currentPage === pageName) {
-                return
-            }
-
-            switch (pageName) {
-                case "main":
-                case "about":
-                case "goods":
-                //TODO: animated menu of goods
-                case "dealers":
-                case "contacts":
-
-            }
-            vm.settings.currentPage = pageName;
         }
 
     }
