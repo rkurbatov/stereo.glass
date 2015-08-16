@@ -19,7 +19,7 @@
         function link(scope, elm, attrs) {
             scope.INTSvc = sgINTSvc;
 
-            var flagElement = angular.element('#flag-container');
+            var flagElement = angular.element('.flag-container');
             angular.element($window).on('load resize', rePosition);
 
             function rePosition() {
