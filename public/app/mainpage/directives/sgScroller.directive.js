@@ -50,6 +50,8 @@
             scope.$watch(
                 ()=>auxData.settings.currentPage,
                 (page)=> {
+                    console.log('page is: ', page);
+                    auxData.settings.handleScrollEvents = (page ==='index');
                     elm.css({
                         width: page === 'index'
                             ? calculatedBodyWidth
@@ -76,8 +78,6 @@
 
             function sizeBody() {
                 var windowWidth = angular.element($window).innerWidth();
-                //auxData.settings.screenCount = (angular.element('.sg-carousel-section') || []).length;
-                //console.log(auxData.settings.screenCount);
                 calculatedBodyWidth = windowWidth * auxData.settings.screenCount;
                 elm.css({
                     width: auxData.settings.currentPage === 'index'
@@ -96,6 +96,7 @@
             }
 
             function mouseScrollHandler(e) {
+                console.log('handleScrollEvents: ', auxData.settings.handleScrollEvents);
                 if (!auxData.settings.handleScrollEvents) return;
                 // Equalize event object.
                 var evt = window.event || e;

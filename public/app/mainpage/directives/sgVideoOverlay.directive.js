@@ -16,7 +16,7 @@
         };
 
         function link(scope, elm, attrs) {
-            scope.main.isPlaying = false;
+            scope.index.isPlaying = false;
             scope.switchVideoState = switchVideoState;
             scope.pauseVideo = pauseVideo;
 
@@ -27,7 +27,7 @@
             });
 
             angular.element($window).on('carousel:scroll', function (e) {
-                if (scope.main.isPlaying && e.index !== 0) {
+                if (scope.index.isPlaying && e.index !== 0) {
                     scope.switchVideoState();
                 }
             });
@@ -39,21 +39,21 @@
                     && auxData.settings.currentPage === "index"
                     && auxData.settings.handleScrollEvents) {
 
-                    if (!scope.main.isPlaying) {
+                    if (!scope.index.isPlaying) {
                         $('#cinema, header').animate({opacity: 0});
                         video.play();
-                        scope.main.isPlaying = true;
+                        scope.index.isPlaying = true;
                     } else {
                         $('#cinema, header').animate({opacity: 1});
                         video.pause();
-                        scope.main.isPlaying = false;
+                        scope.index.isPlaying = false;
                     }
                 }
             }
 
             function pauseVideo() {
                 video.pause();
-                scope.main.isPlaying = false;
+                scope.index.isPlaying = false;
             }
 
         }
