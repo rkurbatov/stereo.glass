@@ -9,5 +9,11 @@ module.exports = function (express) {
         res.render('_partials/' + name);
     });
 
+    Router.get('/pages/:name', function (req, res, next) {
+        var name = req.params.name;
+        res.render('_pages/' + name);
+    });
+
+
     return Router;
 };

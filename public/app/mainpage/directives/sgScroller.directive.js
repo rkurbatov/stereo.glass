@@ -57,8 +57,8 @@
                     });
                 });
 
-            scope.main.scrollLeft = scrollLeft;
-            scope.main.scrollRight = scrollRight;
+            scope.header.scrollLeft = scrollLeft;
+            scope.header.scrollRight = scrollRight;
 
             function scrollLeft() {
                 angular.element($window).trigger('carousel:scrollLeft');

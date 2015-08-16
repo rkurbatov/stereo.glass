@@ -3,23 +3,22 @@
 
     angular
         .module('MainPage')
-        .controller('MainPage', MainPage);
+        .controller('HeaderCtrl', Header);
 
-    MainPage.$inject = ['sgPreloader', '$timeout', 'auxData', 'AuthSvc'];
-    function MainPage(sgPreloader, $timeout, auxData, AuthSvc) {
+    Header.$inject = ['sgPreloader', '$timeout', 'AuthSvc', 'auxData'];
+    function Header(sgPreloader, $timeout, AuthSvc, auxData) {
+
         var vm = this;
-        vm.settings = auxData.settings;
         vm.loader = {
             isLoading: true,
             isSuccessful: false,
             percentLoaded: 0
         };
 
-        vm.currentUser = AuthSvc.currentUser;
-
-        vm.getBkSrc = getBkSrc;
-        vm.switchPage = switchPage;
         vm.signInRegister = signInRegister;
+        vm.currentUser = AuthSvc.currentUser;
+        vm.settings = auxData.settings;
+
 
         initController();
 
@@ -28,7 +27,7 @@
         function initController() {
             // Preload the images; then, update display when returned.
             sgPreloader.preloadImages(auxData.bkImgs).then(
-                function handleResolve(imageLocations) {
+                function handleResolve() {
                     // Loading was successful.
                     vm.loader.isLoading = false;
                     vm.loader.isSuccessful = true;
@@ -45,34 +44,9 @@
                 },
                 function handleNotify(event) {
                     vm.loader.percentLoaded = event.percent;
-                    //console.info("Percent loaded:", event.percent);
+                    console.info("Percent loaded:", event.percent);
                 }
             );
-        }
-
-        function getBkSrc(name) {
-            if (auxData.settings.isWideScreen) {
-                return auxData.bkImgs[name + '-15-8'].src
-            } else {
-                return auxData.bkImgs[name + '-15-10'].src
-            }
-        }
-
-        function switchPage(pageName) {
-            if (vm.settings.currentPage === pageName) {
-                return
-            }
-
-            switch (pageName) {
-                case "main":
-                case "about":
-                case "goods":
-                //TODO: animated menu of goods
-                case "dealers":
-                case "contacts":
-
-            }
-            vm.settings.currentPage = pageName;
         }
 
         function signInRegister() {

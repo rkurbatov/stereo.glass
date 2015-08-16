@@ -1,4 +1,4 @@
-header(ng-show='main.loader.isSuccessful')
+header(ng-show='header.loader.isSuccessful')
     .sg-wrapper.container-fluid.clearfix
         #container-logo(ng-click='main.switchPage("main")')
             #logo-blicker(sg-blick random='5' interval='15')
@@ -7,30 +7,30 @@ header(ng-show='main.loader.isSuccessful')
         .navwrapper
             nav
                 ul.menu-pages
-                    li(ng-class='{"nav-selected": main.settings.currentPage == "about"}'
+                    li(ng-class='{"nav-selected": header.settings.currentPage == "about"}'
                     ng-click='main.switchPage("about")')
                         a(sg-blick random='3' ng-bind='_INT("Подробно");')
-                    li(sg-blick random='3' ng-class='{"nav-selected": main.settings.currentPage == "goods"}'
+                    li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage == "goods"}'
                     ng-click='main.switchPage("goods")')
                         a(ng-bind='_INT("Наш товар");')
-                    li(sg-blick random='3' ng-class='{"nav-selected": main.settings.currentPage == "dealers"}'
+                    li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage == "dealers"}'
                     ng-click='main.switchPage("dealers")')
                         a(ng-bind='_INT("Дилерам");')
-                    li(sg-blick random='3' ng-class='{"nav-selected": main.settings.currentPage == "contacts"}'
+                    li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage == "contacts"}'
                     ng-click='main.switchPage("contacts")')
                         a(sg-blick ng-bind='_INT("Контакты");')
                     li
                         a.flag-container(sg-blick random='3')
-                            img(ng-src="{{ 'img/flags/' + main.INT.currentLang + '.png' }}")
-                            span(ng-bind='main.INT.currentLang')
+                            img(ng-src="{{ 'img/flags/' + header.INT.currentLang + '.png' }}")
+                            span(ng-bind='header.INT.currentLang')
                 sg-lang-switcher
         #wrapper-nav-buttons
-            button#login-button.sg-btn(ng-if="!main.currentUser.name"
-            ng-bind='_INT("Войти");' ng-click="main.signInRegister()")
+            button#login-button.sg-btn(ng-if="!header.currentUser.name"
+            ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
                 i.fa.fa-sign-in
-            button#admin-button.sg-btn(ng-if="main.currentUser.name")
+            button#admin-button.sg-btn(ng-if="header.currentUser.name")
                 a(href='/admin')
-                    | {{ main.currentUser.name }}
+                    | {{ header.currentUser.name }}
                     i.fa.fa-user
             form(name="search" action="#" method="get")
                 input#search-input(type="text" name="q" placeholder="{{ _INT('Поиск...'); }}")

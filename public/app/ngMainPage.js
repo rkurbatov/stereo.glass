@@ -3,6 +3,7 @@
 
     angular
         .module('MainPage', [
+            'ngRoute',
             'ngCookies',
             'ngAnimate',
             'ui.validate',
