@@ -21,6 +21,7 @@
                 (page)=> {
                     if (page === 'index') centerVertical();
                 });
+
             angular.element($window).on('load carousel:resize', centerVertical);
 
             function centerVertical() {
