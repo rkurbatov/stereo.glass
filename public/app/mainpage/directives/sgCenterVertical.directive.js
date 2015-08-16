@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgCenterVertical', sgCenterVertical);
 
-    sgCenterVertical.$inject = ['$window'];
+    sgCenterVertical.$inject = ['$window', 'auxData'];
 
-    function sgCenterVertical($window) {
+    function sgCenterVertical($window, auxData) {
 
         return {
             restrict: 'A',
@@ -15,7 +15,15 @@
         };
 
         function link(scope, elm, attrs) {
-            angular.element($window).on('load carousel:resize', function (e) {
+            scope.$watch(()=> {
+                    return auxData.settings.currentPage;
+                },
+                (page)=> {
+                    if (page === 'index') centerVertical();
+                });
+            angular.element($window).on('load carousel:resize', centerVertical);
+
+            function centerVertical() {
                 var delta;
                 if (attrs.sgCenterVertical === '-') {
                     delta = -($window.innerHeight - elm.parent().innerHeight()) / 2;
@@ -24,7 +32,7 @@
                 }
                 // positve margin for neutralization of negative margin
                 elm.css('marginTop', delta);
-            });
+            }
         }
     }
 
