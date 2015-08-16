@@ -16,6 +16,7 @@
         };
 
         function link(scope, elm, attrs) {
+            // increase section count on each init
             if (!auxData.settings.screenCount) {
                 auxData.settings.screenCount = 1;
             } else {

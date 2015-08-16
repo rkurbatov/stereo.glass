@@ -83,7 +83,7 @@
     };
 
     var scrollLeft = function () {
-        console.log('Scroll left');
+        //console.log('Scroll left');
 
         var i2 = $.fn.horizon.defaults.i - 1;
 
@@ -95,7 +95,8 @@
     };
 
     var scrollRight = function () {
-        console.log('Scroll right');
+        //console.log('Scroll right');
+        console.log($.fn.horizon.defaults);
 
         var i2 = $.fn.horizon.defaults.i + 1;
 

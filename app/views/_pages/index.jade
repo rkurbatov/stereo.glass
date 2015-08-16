@@ -1,4 +1,4 @@
-.main-carousel(ng-style="{height: index.settings.currentPage === 'index' ? 'auto' : 0}")
+.main-carousel
     .horizon-prev(ng-click='header.scrollLeft()')
         i.fa.fa-chevron-circle-left.fa-3x
     .horizon-next(ng-click='header.scrollRight()')
@@ -6,7 +6,7 @@
     sg-wide-screen(ratio='1.85')
     section.sg-main-sec0.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-video-overlay(for='videoclip' sg-center-vertical='-'
-        ng-show='index.settings.currentPage === "main"')
+        ng-show='index.settings.currentPage === "index"')
         video#videoclip(preload='metadata' sg-center-vertical='-')
             source(src='/video/clip.mp4')
             source(src='/video/clip.webm' type='video/webm')

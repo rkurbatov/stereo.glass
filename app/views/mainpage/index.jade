@@ -2,4 +2,4 @@ extends mainLayout
 block content
     include loader
     include header
-    div(ng-view)
+    div(ng-view ng-show='header.loader.isSuccessful')

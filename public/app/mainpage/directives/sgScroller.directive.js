@@ -50,7 +50,6 @@
             scope.$watch(
                 ()=>auxData.settings.currentPage,
                 (page)=> {
-                    console.log('page is: ', page);
                     auxData.settings.handleScrollEvents = (page ==='index');
                     elm.css({
                         width: page === 'index'
@@ -96,7 +95,6 @@
             }
 
             function mouseScrollHandler(e) {
-                console.log('handleScrollEvents: ', auxData.settings.handleScrollEvents);
                 if (!auxData.settings.handleScrollEvents) return;
                 // Equalize event object.
                 var evt = window.event || e;
