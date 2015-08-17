@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgScroller', sgScroller);
 
-    sgScroller.$inject = ['$window', '$document', '$timeout', 'auxData'];
+    sgScroller.$inject = ['$window', '$document', 'auxData'];
 
-    function sgScroller($window, $document, $timeout, auxData) {
+    function sgScroller($window, $document, auxData) {
 
         return {
             restrict: 'A',
@@ -29,9 +29,9 @@
                 40: scrollRight
             };
 
-            sizeBody();
+            scope.$on('carousel:redraw', ()=>scope.$applyAsync(()=>sizeBody()));
+
             angular.element($window)
-                .on('resize', sizeBody)
                 .on('keydown', keyPressHandler)
                 .on('mousewheel DOMMouseScroll', mouseScrollHandler);
 
@@ -39,45 +39,43 @@
                 // Generic swipe handler for all directions.
                 swipe: (evt, direction)=> {
                     if (scrolls[direction]
-                        && auxData.settings.handleScrollEvents
-                        && auxData.settings.currentPage === 'index') {
+                        && auxData.settings.handleScrollEvents) {
                         scrolls[direction]();
                     }
                 },
                 threshold: 75
             });
 
-            scope.$watch(
-                ()=>auxData.settings.currentPage,
-                (page)=> {
-                    auxData.settings.handleScrollEvents = (page ==='index');
-                    elm.css({
-                        width: page === 'index'
-                            ? calculatedBodyWidth
-                            : ''
-                    });
-                });
-
-            scope.$watch(
-                ()=>auxData.settings.screenCount,
-                (screenCount)=> {
-                    sizeBody();
-                });
-
             scope.header.scrollLeft = scrollLeft;
             scope.header.scrollRight = scrollRight;
 
+            function scrollTo(index, speed) {
+                console.log(index, auxData.settings);
+                var sectionOffset = angular.element(auxData.settings.screenSections[index]).offset();
+                auxData.settings.screenIndex = index;
+                $('html,body').animate({scrollLeft: sectionOffset.left}, speed, 'swing');
+            }
+
             function scrollLeft() {
-                angular.element($window).trigger('carousel:scrollLeft');
+                if (auxData.settings.screenIndex === 0) {
+                    scrollTo(auxData.settings.screenSections.length - 1, 1000);
+                } else {
+                    scrollTo(auxData.settings.screenIndex - 1, 500);
+                }
             }
 
             function scrollRight() {
-                angular.element($window).trigger('carousel:scrollRight');
+                if (auxData.settings.screenIndex === auxData.settings.screenSections.length - 1) {
+                    scrollTo(0, 1000);
+                } else {
+                    scrollTo(auxData.settings.screenIndex + 1, 500);
+                }
             }
 
             function sizeBody() {
-                var windowWidth = angular.element($window).innerWidth();
-                calculatedBodyWidth = windowWidth * auxData.settings.screenCount;
+                var windowWidth = $window.innerWidth;
+                calculatedBodyWidth = windowWidth * auxData.settings.screenSections.length;
+                console.log('sizebody: ', calculatedBodyWidth);
                 elm.css({
                     width: auxData.settings.currentPage === 'index'
                         ? calculatedBodyWidth
@@ -87,8 +85,7 @@
 
             function keyPressHandler(evt) {
                 if (scrolls[evt.which]
-                    && auxData.settings.handleScrollEvents
-                    && auxData.settings.currentPage === 'index') {
+                    && auxData.settings.handleScrollEvents) {
                     scrolls[evt.which]();
                     evt.preventDefault();
                 }

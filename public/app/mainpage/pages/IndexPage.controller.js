@@ -18,7 +18,6 @@
 
         function initController() {
             // reInit screens
-            auxData.settings.screenCount = 0;
         }
 
         function getBkSrc(name) {

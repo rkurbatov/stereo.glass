@@ -70,7 +70,6 @@
     function locationConfig($rootScope, $location, auxData) {
         $rootScope.$on('$routeChangeSuccess', (e, current, pre)=> {
             auxData.settings.currentPage = ($location.path().substring(1) || "index");
-            console.log('Current route name: ' + auxData.settings.currentPage);
         });
     }
 

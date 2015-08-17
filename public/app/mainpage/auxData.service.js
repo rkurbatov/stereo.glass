@@ -16,8 +16,8 @@
         svc.settings = {
             currentPage: 'index',
             isWideScreen: undefined,
-            screenIndex: undefined,
-            screenCount: undefined,
+            screenIndex: 0,
+            screenSections: [],
             isMobile: window.isMobile,
             handleScrollEvents: true
         };

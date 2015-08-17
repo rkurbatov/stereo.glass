@@ -17,18 +17,11 @@
 
         function link(scope, elm, attrs) {
             // increase section count on each init
-            if (!auxData.settings.screenCount) {
-                auxData.settings.screenCount = 1;
-            } else {
-                auxData.settings.screenCount +=1;
-            }
-            sizeSection();
+            scope.$applyAsync(()=>auxData.settings.screenSections.push(elm));
 
-            angular.element($window).on('resize', sizeSection);
-
-            function sizeSection() {
-                elm.width(angular.element($window).innerWidth());
-            }
+            scope.$on('carousel:redraw', ()=> {
+                elm.width($window.innerWidth);
+            });
 
         }
 

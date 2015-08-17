@@ -42,6 +42,21 @@
                     }
                 });
 
+            scope.$watch(()=> {
+                    return auxData.settings.currentPage;
+                },
+                (page)=> {
+                    // carousel should be redrawed, all scroll events should be listened to
+                    if (page === 'index') {
+                        auxData.settings.screenSections.length = 0;
+                        auxData.settings.handleScrollEvents = true;
+                        scope.$emit('carousel:redraw');
+                        scope.$broadcast('carousel:redraw');
+                    } else {
+                        auxData.settings.handleScrollEvents = false;
+                    }
+                });
+
         }
     }
 

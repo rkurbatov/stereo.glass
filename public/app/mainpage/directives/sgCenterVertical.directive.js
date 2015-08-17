@@ -15,14 +15,7 @@
         };
 
         function link(scope, elm, attrs) {
-            scope.$watch(()=> {
-                    return auxData.settings.currentPage;
-                },
-                (page)=> {
-                    if (page === 'index') centerVertical();
-                });
-
-            angular.element($window).on('load carousel:resize', centerVertical);
+            scope.$on('carousel:redraw', scope.$applyAsync(()=>centerVertical()));
 
             function centerVertical() {
                 var delta;

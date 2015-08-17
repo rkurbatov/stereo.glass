@@ -20,6 +20,7 @@
             sizeSections();
 
             $(window).on('resize', function () {
+                console.log('window resize');
                 sizeSections();
             });
 
@@ -109,7 +110,7 @@
 
 
     var sizeSections = function () {
-        //console.log('Sizing sections...');
+        console.log('Sizing sections...');
         $(window).trigger('carousel:resize');
         scrollTo($.fn.horizon.defaults.i, 0);
     };
