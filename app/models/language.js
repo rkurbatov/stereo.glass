@@ -12,6 +12,7 @@ module.exports = function (mongoose) {
     var LanguageSchema = new Schema({
         code: String,
         name: String,
+        isActive: Boolean,
         data: [Translation]
     });
 

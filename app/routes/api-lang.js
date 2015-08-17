@@ -5,10 +5,11 @@ module.exports = function (express, Language, Account) {
 
     // DECLARATION
 
-    // returns language list supported by system
+    // returns available language list
     Router.get('/', getLanguages);
     // creates new language set
     Router.post('/', postLanguage);
+    Router.put('/:code', putLanguageByCode);
 
     return Router;
 
@@ -38,7 +39,11 @@ module.exports = function (express, Language, Account) {
         Language
             .findOne({code: req.body.code})
             .then(function (language) {
-                if (language) return res.sendStatus(409);
+                if (language) {
+                    var err = new Error();
+                    err.status = 409;
+                    throw err;
+                }
                 language = {
                     code: req.body.code,
                     name: req.body.name
@@ -50,8 +55,47 @@ module.exports = function (express, Language, Account) {
             })
             .catch(function (err) {
                 console.log("Finding duplicate language error: ", err);
-                return res.sendStatus(500);
+                return res.sendStatus(err.status || 500);
             });
+    }
+
+    function putLanguageByCode(){
+        if (!req.isAuthenticated() || "admin" !== req.user.role) {
+            return res.sendStatus(403);
+        }
+
+        if (!req.body.name || !req.body.isActive) {
+            return res.sendStatus(400);
+        }
+
+        Language
+            .find({code: req.params.code})
+            .then((language)=>{
+                if (!language) {
+                    let err = new Error();
+                    err.status = 404;
+                    throw err;
+                }
+
+                if (req.body.code && req.body.code === language.code) {
+                    let err = new Error();
+                    err.status = 409;
+                    throw err;
+                } else {
+                    language.code = req.body.code;
+                }
+
+                if (req.body.name) language.name = req.body.name;
+                if (req.body.isActive === true || req.body.isActive === false) language.isActive = req.body.active;
+
+                return language.save();
+
+            })
+            .then(()=> res.sendStatus(200))
+            .catch((err)=>{
+                console.log("Can't modify language: ", err);
+                return res.sendStatus(err.status || 500)
+            })
     }
 
 };
