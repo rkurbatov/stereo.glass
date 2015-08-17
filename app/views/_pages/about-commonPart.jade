@@ -1,0 +1,18 @@
+.sg-l2-wrapper: .sg-about-container
+    .sg-about-side-panel.sg-glass-background
+    .sg-about-main-panel
+        ul.sg-l2-menu
+            li: a.sg-glass-background(sg-blick random='3' ng-bind='_INT("Ассортимент");'
+            href='#/about-assortment')
+            li: a.sg-glass-background(sg-blick random='3' ng-bind='_INT("Технология");'
+            href='#/about-technology')
+            li: a.sg-glass-background(sg-blick random='3' ng-bind='_INT("Видео");'
+            href='#/about-video')
+            li: a.sg-glass-background(sg-blick random='3' ng-bind='_INT("Фото");'
+            href='#/about-photo')
+            li: a.sg-glass-background(sg-blick random='3' ng-bind='_INT("Документы");'
+            href='#/about-documents')
+            li: a.sg-glass-background(sg-blick random='3' ng-bind='_INT("Вопросы");'
+            href='#/about-faq')
+        .sg-about-main-body.sg-glass-background: .content
+            block content

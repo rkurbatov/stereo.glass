@@ -14,8 +14,33 @@
                 controller: 'IndexPage',
                 controllerAs: 'index'
             })
-            .when('/about', {
-                templateUrl: '/pages/about',
+            .when('/about-assortment', {
+                templateUrl: '/pages/about-assortment',
+                controller: 'AboutPage',
+                controllerAs: 'about'
+            })
+            .when('/about-technology', {
+                templateUrl: '/pages/about-technology',
+                controller: 'AboutPage',
+                controllerAs: 'about'
+            })
+            .when('/about-documents', {
+                templateUrl: '/pages/about-documents',
+                controller: 'AboutPage',
+                controllerAs: 'about'
+            })
+            .when('/about-video', {
+                templateUrl: '/pages/about-video',
+                controller: 'AboutPage',
+                controllerAs: 'about'
+            })
+            .when('/about-photo', {
+                templateUrl: '/pages/about-photo',
+                controller: 'AboutPage',
+                controllerAs: 'about'
+            })
+            .when('/about-faq', {
+                templateUrl: '/pages/about-faq',
                 controller: 'AboutPage',
                 controllerAs: 'about'
             })
