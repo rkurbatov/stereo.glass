@@ -29,7 +29,11 @@
                 40: scrollRight
             };
 
-            scope.$on('carousel:redraw', ()=>scope.$applyAsync(()=>sizeBody()));
+            scope.$on('carousel:redraw', ()=>scope.$applyAsync(()=>{
+                sizeBody();
+                // move to correct offset after resize and orientation change
+                scrollTo(auxData.settings.screenIndex, 0)
+            }));
 
             angular.element($window)
                 .on('keydown', keyPressHandler)
@@ -50,7 +54,6 @@
             scope.header.scrollRight = scrollRight;
 
             function scrollTo(index, speed) {
-                console.log(index, auxData.settings);
                 var sectionOffset = angular.element(auxData.settings.screenSections[index]).offset();
                 auxData.settings.screenIndex = index;
                 $('html,body').animate({scrollLeft: sectionOffset.left}, speed, 'swing');
@@ -75,7 +78,6 @@
             function sizeBody() {
                 var windowWidth = $window.innerWidth;
                 calculatedBodyWidth = windowWidth * auxData.settings.screenSections.length;
-                console.log('sizebody: ', calculatedBodyWidth);
                 elm.css({
                     width: auxData.settings.currentPage === 'index'
                         ? calculatedBodyWidth

@@ -73,7 +73,6 @@ function deployVendor(production) {
     var vendorLibsMain = [
         babelPolyfill,
         'public/libs/jquery/dist/jquery.min.js',
-        'public/app/tmp/js/jquery.horizontalscroll.js',
         'public/app/tmp/js/jquery.touchswipe.js',
         'public/libs/lodash/lodash.js',
         'public/libs/angular/angular.js',

@@ -15,7 +15,7 @@
         };
 
         function link(scope, elm, attrs) {
-            scope.$on('carousel:redraw', scope.$applyAsync(()=>centerVertical()));
+            scope.$on('carousel:redraw', ()=>scope.$applyAsync(()=>centerVertical()));
 
             function centerVertical() {
                 var delta;
@@ -26,6 +26,7 @@
                 }
                 // positve margin for neutralization of negative margin
                 elm.css('marginTop', delta);
+                console.log('delta is: ', delta);
             }
         }
     }
