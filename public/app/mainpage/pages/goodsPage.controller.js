@@ -14,7 +14,7 @@
         // IMPLEMENTATION
 
         function initController() {
-            auxData.settings.currentPage = 'goods';
+
         }
 
     }

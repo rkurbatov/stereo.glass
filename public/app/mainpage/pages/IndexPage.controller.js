@@ -19,7 +19,6 @@
         function initController() {
             // reInit screens
             auxData.settings.screenCount = 0;
-            auxData.settings.currentPage = 'index';
         }
 
         function getBkSrc(name) {

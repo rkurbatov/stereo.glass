@@ -9,12 +9,18 @@
     function AboutPage(auxData) {
         var vm = this;
 
+        vm.isSelected = isSelected;
+
         initController();
 
         // IMPLEMENTATION
 
         function initController() {
-            auxData.settings.currentPage = 'about';
+
+        }
+
+        function isSelected(str) {
+            return auxData.settings.currentPage === str;
         }
 
     }

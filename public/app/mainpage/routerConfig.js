@@ -3,11 +3,13 @@
 
     angular
         .module('MainPage')
-        .config(routerConfig);
+        .config(routerConfig)
+        .run(locationConfig);
 
     routerConfig.$inject = ['$routeProvider'];
 
-    function routerConfig($routeProvider) {
+    function routerConfig($routeProvider, $location, $rootScope, auxData) {
+
         $routeProvider
             .when('/', {
                 templateUrl: '/pages/index',
@@ -59,7 +61,17 @@
                 controller: 'ContactsPage',
                 controllerAs: 'contacts'
             })
-            .otherwise({ redirectTo: '/' });
+            .otherwise({redirectTo: '/'});
+
+    }
+
+    locationConfig.$inject = ['$rootScope', '$location', 'auxData'];
+
+    function locationConfig($rootScope, $location, auxData) {
+        $rootScope.$on('$routeChangeSuccess', (e, current, pre)=> {
+            auxData.settings.currentPage = ($location.path().substring(1) || "index");
+            console.log('Current route name: ' + auxData.settings.currentPage);
+        });
     }
 
 })(window, window.angular);

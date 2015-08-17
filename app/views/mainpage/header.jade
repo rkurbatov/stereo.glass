@@ -8,7 +8,7 @@ header(ng-show='header.loader.isSuccessful')
         .navwrapper
             nav
                 ul.menu-pages
-                    li(ng-class='{"nav-selected": header.settings.currentPage === "about"}')
+                    li(ng-class='{"nav-selected": header.settings.currentPage.startsWith("about")}')
                         a(sg-blick random='3' ng-bind='_INT("Подробно");' href='#/about-assortment')
                     li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "goods"}')
                         a(ng-bind='_INT("Наш товар");' href='#/goods')
