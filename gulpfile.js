@@ -30,6 +30,7 @@ gulp.task('serve', serve);
 
 function deployVendor(production) {
     var babelPolyfill = './node_modules/gulp-babel/node_modules/babel-core/browser-polyfill.js';
+
     var vendorLibsAdmin = [
         babelPolyfill,
         'public/libs/jquery/dist/jquery.js',
@@ -84,7 +85,8 @@ function deployVendor(production) {
         'public/libs/sg.ui/build/sg.ui.js',
         'public/libs/angular-fx/src/js/angular-fx.js',
         'public/libs/angular-busy/dist/angular-busy.js',
-        'public/libs/angular-ui-validate/dist/validate.js'
+        'public/libs/angular-ui-validate/dist/validate.js',
+        'public/libs/angular-local-storage/dist/angular-local-storage.js'
     ];
 
     var vendorStylesMain = [

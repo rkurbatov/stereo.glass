@@ -6,6 +6,7 @@
             'ngRoute',
             'ngCookies',
             'ngAnimate',
+            'LocalStorageModule',
             'ui.validate',
             'sg.ui',
             'sg.AuthSvc',
@@ -13,15 +14,22 @@
             'cgBusy',
             'sgINT'
         ])
-        .config(MainPagePlate3dConfig)
+        .config(Plate3dConfig)
+        .config(LocalStorageConfig)
         .value('cgBusyDefaults', {
             message: 'Загрузка...'
         });
 
-    MainPagePlate3dConfig.$inject = ['sgPlate3dOptionsProvider'];
+    Plate3dConfig.$inject = ['sgPlate3dOptionsProvider'];
 
-    function MainPagePlate3dConfig(sgPlate3dOptionsProvider) {
+    function Plate3dConfig(sgPlate3dOptionsProvider) {
         sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
+    }
+
+    LocalStorageConfig.$inject = ['localStorageServiceProvider'];
+
+    function LocalStorageConfig(localStorageServiceProvider) {
+        localStorageServiceProvider.setPrefix('stereo.glass.')
     }
 
 })(window, window.angular);

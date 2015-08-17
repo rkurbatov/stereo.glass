@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgVideoOverlay', sgVideoOverlay);
 
-    sgVideoOverlay.$inject = ['$window', 'auxData'];
+    sgVideoOverlay.$inject = ['$window', '$timeout', 'localStorageService', 'auxData'];
 
-    function sgVideoOverlay($window, auxData) {
+    function sgVideoOverlay($window, $timeout, localStorageService, auxData) {
 
         return {
             restrict: 'C',
@@ -16,7 +16,7 @@
         };
 
         function link(scope, elm, attrs) {
-            scope.index.isPlaying = false;
+            auxData.settings.isVideoPlaying = false;
             scope.switchVideoState = switchVideoState;
             scope.pauseVideo = pauseVideo;
 
@@ -27,10 +27,24 @@
             });
 
             angular.element($window).on('carousel:scroll', function (e) {
-                if (scope.index.isPlaying && e.index !== 0) {
+                if (auxData.settings.isVideoPlaying && e.index !== 0) {
                     scope.switchVideoState();
                 }
             });
+
+            scope.$watch(
+                ()=> {
+                    return auxData.settings.isLoaded;
+                },
+                (isLoaded)=> {
+                    if (isLoaded
+                        && !auxData.settings.isVideoPlaying
+                        && !localStorageService.get('videoHasBeenPlayed')) {
+                        $timeout(switchVideoState, 500);
+                        localStorageService.set('videoHasBeenPlayed', true);
+                    }
+                }
+            );
 
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
 
@@ -39,21 +53,21 @@
                     && auxData.settings.currentPage === "index"
                     && auxData.settings.handleScrollEvents) {
 
-                    if (!scope.index.isPlaying) {
+                    if (!auxData.settings.isVideoPlaying) {
                         $('#cinema, header').animate({opacity: 0});
                         video.play();
-                        scope.index.isPlaying = true;
+                        auxData.settings.isVideoPlaying = true;
                     } else {
                         $('#cinema, header').animate({opacity: 1});
                         video.pause();
-                        scope.index.isPlaying = false;
+                        auxData.settings.isVideoPlaying = false;
                     }
                 }
             }
 
             function pauseVideo() {
                 video.pause();
-                scope.index.isPlaying = false;
+                auxData.settings.isVideoPlaying = false;
             }
 
         }

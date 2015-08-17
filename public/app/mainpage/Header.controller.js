@@ -31,6 +31,7 @@
                     // Loading was successful.
                     vm.loader.isLoading = false;
                     vm.loader.isSuccessful = true;
+                    vm.settings.isLoaded = true;
                     $timeout(()=> {
                         sgPreloader.preloadImages(auxData.animImgs);
                     }, 250);
