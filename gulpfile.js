@@ -29,7 +29,9 @@ gulp.task('deployCustom', deployCustom);
 gulp.task('serve', serve);
 
 function deployVendor(production) {
+    var babelPolyfill = './node_modules/gulp-babel/node_modules/babel-core/browser-polyfill.js';
     var vendorLibsAdmin = [
+        babelPolyfill,
         'public/libs/jquery/dist/jquery.js',
         'public/libs/jquery-color/jquery.color.js',
         'public/libs/lodash/lodash.js',
@@ -68,6 +70,7 @@ function deployVendor(production) {
     ];
 
     var vendorLibsMain = [
+        babelPolyfill,
         'public/libs/jquery/dist/jquery.min.js',
         'public/app/tmp/js/jquery.horizontalscroll.js',
         'public/app/tmp/js/jquery.touchswipe.js',
@@ -93,6 +96,7 @@ function deployVendor(production) {
     ];
 
     var vendorLibsAuth = [
+        babelPolyfill,
         'public/libs/lodash/lodash.js',
         'public/libs/angular/angular.js',
         'public/libs/angular-cookies/angular-cookies.js',
