@@ -35,6 +35,17 @@
                 scrollTo(auxData.settings.screenIndex, 0)
             }));
 
+            scope.$watch(
+                ()=>auxData.settings.currentPage,
+                (page)=>{
+                    if (page === 'index') {
+                        sizeBody();
+                    } else {
+                        elm.css({ width: '' });
+                    }
+                }
+            );
+
             angular.element($window)
                 .on('keydown', keyPressHandler)
                 .on('mousewheel DOMMouseScroll', mouseScrollHandler);
@@ -78,11 +89,7 @@
             function sizeBody() {
                 var windowWidth = $window.innerWidth;
                 calculatedBodyWidth = windowWidth * auxData.settings.screenSections.length;
-                elm.css({
-                    width: auxData.settings.currentPage === 'index'
-                        ? calculatedBodyWidth
-                        : ''
-                });
+                elm.css({ width: calculatedBodyWidth });
             }
 
             function keyPressHandler(evt) {
