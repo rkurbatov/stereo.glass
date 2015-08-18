@@ -54,6 +54,9 @@
                         auxData.settings.handleScrollEvents = true;
                         console.log('emitting:');
                         scope.$emit('carousel:redraw');
+                        auxData.loader.staticPromise.then(()=>{
+                           scope.$broadcast('carousel:redraw');
+                        });
                         // A kind of black magic but broadcasting isn't needed here
                     } else {
                         auxData.settings.handleScrollEvents = false;
