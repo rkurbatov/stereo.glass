@@ -3,12 +3,12 @@
 
     angular
         .module('MainPage')
-        .directive('sgWideScreen', sgWideScreen);
+        .directive('sgEventListener', sgEventListener);
 
-    sgWideScreen.$inject = ['$document', '$window', 'auxData'];
+    sgEventListener.$inject = ['$document', '$window', 'auxData'];
 
     // sets variable for widescreen displays
-    function sgWideScreen($document, $window, auxData) {
+    function sgEventListener($document, $window, auxData) {
 
         return {
             restrict: 'E',
@@ -16,6 +16,8 @@
         };
 
         function link(scope, elm, attrs) {
+
+            var borderRatio = 1.85;
 
             angular.element($document).on('load', calcRatio);
             angular.element($window).on('resize orientationchange', ()=>{
@@ -28,7 +30,7 @@
             function calcRatio() {
                 var ww = $window.innerWidth, wh = $window.innerHeight;
                 /** @namespace attrs.ratio */
-                auxData.settings.isWideScreen = ww / wh > attrs.ratio;
+                auxData.settings.isWideScreen = ww / wh > borderRatio;
             }
 
             scope.$watch(auxData.settings.isWideScreen,

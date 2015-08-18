@@ -50,6 +50,8 @@
                 .on('keydown', keyPressHandler)
                 .on('mousewheel DOMMouseScroll', mouseScrollHandler);
 
+
+            // TODO: check if $window swipe working.
             angular.element($document).swipe({
                 // Generic swipe handler for all directions.
                 swipe: (evt, direction)=> {
