@@ -37,6 +37,7 @@
                     function (newVal) {
                         if (newVal) {
                             elm[0].src = altSource.src;
+                            console.log('image replaced: ', altSource.src);
                         }
                     });
             }

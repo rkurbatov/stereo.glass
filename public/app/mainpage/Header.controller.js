@@ -26,15 +26,18 @@
 
         function initController() {
             // Preload the images; then, update display when returned.
-            sgPreloader.preloadImages(auxData.bkImgs).then(
+            sgPreloader
+                .preloadImages(auxData.bkImgs)
+                .then(
                 function handleResolve() {
                     // Loading was successful.
                     vm.loader.isLoading = false;
                     vm.loader.isSuccessful = true;
                     vm.settings.isLoaded = true;
-                    $timeout(()=> {
-                        sgPreloader.preloadImages(auxData.animImgs);
-                    }, 250);
+                    console.log('loaded static');
+                    sgPreloader.
+                        preloadImages(auxData.animImgs)
+                        .then(()=>console.log('loaded animated'));
                 },
                 function handleReject(imageLocation) {
                     // Loading failed on at least one image.
