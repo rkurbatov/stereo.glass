@@ -22,7 +22,7 @@
 
         function initController() {
             // Preload the images; then, update display when returned.
-            sgPreloader
+            vm.loader.staticPromise = sgPreloader
                 .preloadImages(auxData.bkImgs)
                 .then(
                 function handleResolve() {

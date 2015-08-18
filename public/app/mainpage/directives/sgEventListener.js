@@ -22,7 +22,9 @@
             angular.element($document).on('load', calcRatio);
             angular.element($window).on('resize orientationchange', ()=>{
                 if (auxData.settings.currentPage === 'index') {
+                    console.log('resize emitting');
                     scope.$emit('carousel:redraw');
+                    console.log('resize broadcasting');
                     scope.$broadcast('carousel:redraw');
                 }
             });
@@ -50,8 +52,9 @@
                     if (page === 'index') {
                         auxData.settings.screenSections.length = 0;
                         auxData.settings.handleScrollEvents = true;
+                        console.log('emitting:');
                         scope.$emit('carousel:redraw');
-                        scope.$broadcast('carousel:redraw');
+                        // A kind of black magic but broadcasting isn't needed here
                     } else {
                         auxData.settings.handleScrollEvents = false;
                     }
