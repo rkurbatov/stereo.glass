@@ -23,7 +23,7 @@
     Plate3dConfig.$inject = ['sgPlate3dOptionsProvider'];
 
     function Plate3dConfig(sgPlate3dOptionsProvider) {
-        sgPlate3dOptionsProvider.setCustomEvent('carousel:resize');
+        sgPlate3dOptionsProvider.setCustomEvent('carousel:redraw');
     }
 
     LocalStorageConfig.$inject = ['localStorageServiceProvider'];
