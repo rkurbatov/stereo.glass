@@ -9,11 +9,7 @@
     function Header(sgPreloader, $timeout, AuthSvc, auxData) {
 
         var vm = this;
-        vm.loader = {
-            isLoading: true,
-            isSuccessful: false,
-            percentLoaded: 0
-        };
+        vm.loader = auxData.loader;
 
         vm.signInRegister = signInRegister;
         vm.currentUser = AuthSvc.currentUser;

@@ -22,6 +22,12 @@
             handleScrollEvents: true
         };
 
+        svc.loader = {
+            isLoading: true,
+            isSuccessful: false,
+            percentLoaded: 0
+        };
+
         var urlBkPrefix = '/img/rooms/', urlBkPostfix = '',
             url2dPrefix = '/img/2d-rooms/', url2dPostfix = '',
             url3dPrefix = '/img/3d-rooms/', url3dPostfix = '';
