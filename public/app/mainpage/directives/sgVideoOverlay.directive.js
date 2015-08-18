@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgVideoOverlay', sgVideoOverlay);
 
-    sgVideoOverlay.$inject = ['$window', '$timeout', 'localStorageService', 'auxData'];
+    sgVideoOverlay.$inject = ['$window', 'localStorageService', 'auxData'];
 
-    function sgVideoOverlay($window, $timeout, localStorageService, auxData) {
+    function sgVideoOverlay($window, localStorageService, auxData) {
 
         return {
             restrict: 'C',
@@ -16,22 +16,18 @@
         };
 
         function link(scope, elm, attrs) {
-            auxData.settings.isVideoPlaying = false;
             scope.switchVideoState = switchVideoState;
-            scope.pauseVideo = pauseVideo;
 
-            angular.element($window).on('keypress', function (e) {
-                if (e.keyCode == 0 || e.keyCode == 32) {
-                    scope.switchVideoState();
-                }
+            auxData.settings.isVideoPlaying = false;
+
+            // keypress handler
+            angular.element($window).on('keypress', spaceHandler);
+
+            scope.$on('$destroy', function () {
+                angular.element($window).off('keypress', spaceHandler);
             });
 
-            angular.element($window).on('carousel:scroll', function (e) {
-                if (auxData.settings.isVideoPlaying && e.index !== 0) {
-                    scope.switchVideoState();
-                }
-            });
-
+            // First play
             scope.$watch(
                 ()=> {
                     return auxData.settings.isLoaded;
@@ -40,18 +36,25 @@
                     if (isLoaded
                         && !auxData.settings.isVideoPlaying
                         && !localStorageService.get('videoHasBeenPlayed')) {
-                        $timeout(switchVideoState, 500);
+                        switchVideoState();
                         localStorageService.set('videoHasBeenPlayed', true);
                     }
+                }
+            );
+
+            scope.$watch(
+                ()=> {
+                    return auxData.settings.screenIndex;
+                },
+                (index)=> {
+                    if (index && auxData.settings.isVideoPlaying) switchVideoState();
                 }
             );
 
             var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
 
             function switchVideoState() {
-                if (auxData.settings.screenIndex === 0
-                    && auxData.settings.currentPage === "index"
-                    && auxData.settings.handleScrollEvents) {
+                if (auxData.settings.handleScrollEvents) {
 
                     if (!auxData.settings.isVideoPlaying) {
                         $('#cinema, header').animate({opacity: 0});
@@ -65,9 +68,10 @@
                 }
             }
 
-            function pauseVideo() {
-                video.pause();
-                auxData.settings.isVideoPlaying = false;
+            function spaceHandler(e) {
+                if (e.keyCode == 0 || e.keyCode == 32) {
+                    switchVideoState();
+                }
             }
 
         }

@@ -30,10 +30,8 @@
                     vm.loader.isLoading = false;
                     vm.loader.isSuccessful = true;
                     vm.settings.isLoaded = true;
-                    console.log('loaded static');
                     sgPreloader.
-                        preloadImages(auxData.animImgs)
-                        .then(()=>console.log('loaded animated'));
+                        preloadImages(auxData.animImgs);
                 },
                 function handleReject(imageLocation) {
                     // Loading failed on at least one image.

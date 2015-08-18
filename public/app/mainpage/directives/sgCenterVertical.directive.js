@@ -18,7 +18,6 @@
             scope.$on('carousel:redraw', ()=>scope.$applyAsync(()=>centerVertical()));
 
             function centerVertical() {
-                console.log($window.innerHeight, elm.parent().innerHeight());
                 var delta;
                 if (attrs.sgCenterVertical === '-') {
                     delta = -($window.innerHeight - elm.parent().innerHeight()) / 2;
@@ -27,7 +26,6 @@
                 }
                 // positve margin for neutralization of negative margin
                 elm.css('marginTop', delta);
-                console.log('delta is: ', delta);
             }
         }
     }

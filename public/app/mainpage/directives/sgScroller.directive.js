@@ -68,7 +68,7 @@
 
             function scrollTo(index, speed) {
                 var sectionOffset = angular.element(auxData.settings.screenSections[index]).offset();
-                auxData.settings.screenIndex = index;
+                scope.$applyAsync(()=>auxData.settings.screenIndex = index);
                 $('html,body').animate({scrollLeft: sectionOffset.left}, speed, 'swing');
             }
 
