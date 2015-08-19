@@ -1,3 +1,5 @@
-div(ng-if='!header.loader.isSuccessful')
+div(ng-if='!header.loader.isSuccessful && header.loader.initial')
     .sg-loader-container
-        .sg-loader(style="color: white; font-size: 28px; margin: auto; position: absolute; width: 40%; left: 30%; height: 10%; top: 45%;") Loading {{ header.loader.percentLoaded }}%
+        img.bw.bar(src='/img/logo1000.png')
+        .progress.bar(sg-progress='{{header.loader.percentLoaded}}')
+            img(src='/img/logo1000.png')

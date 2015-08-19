@@ -32,6 +32,11 @@
             url2dPrefix = '/img/2d-rooms/', url2dPostfix = '',
             url3dPrefix = '/img/3d-rooms/', url3dPostfix = '';
 
+        svc.initialImgs = {
+            'background': {src: '/img/background.gif'},
+            'logo': {src: '/img/logo1000.png'}
+        };
+
         svc.bkImgs = {
             'cinema-15-8': {src: urlBkPrefix + 'cinema-15-8.jpg' + urlBkPostfix},
             'cinema-15-10': {src: urlBkPrefix + 'cinema-15-10.jpg' + urlBkPostfix},

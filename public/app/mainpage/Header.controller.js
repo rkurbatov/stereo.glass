@@ -23,33 +23,40 @@
         function initController() {
             // Preload the images; then, update display when returned.
             vm.loader.staticPromise = sgPreloader
-                .preloadImages(auxData.bkImgs)
-                .then(
-                function handleResolve() {
+                .preloadImages(auxData.initialImgs)
+                .then(()=> {
+                    vm.loader.initial = true;
+                    return sgPreloader
+                        .preloadImages(auxData.bkImgs)
+                        .then(
+                        function handleResolve() {
 
-                    $timeout(()=>{
-                        // Loading was successful.
-                        vm.loader.isLoading = false;
-                        vm.loader.isSuccessful = true;
-                        vm.settings.isLoaded = true;
-                    }, 2000);
+                            $timeout(()=> {
+                                // Loading was successful.
+                                vm.loader.isLoading = false;
+                                vm.loader.isSuccessful = true;
+                                vm.settings.isLoaded = true;
+                            }, 2000);
 
 
-                    sgPreloader.
-                        preloadImages(auxData.animImgs);
-                },
-                function handleReject(imageLocation) {
-                    // Loading failed on at least one image.
-                    vm.loader.isLoading = false;
-                    vm.loader.isSuccessful = false;
-                    console.error("Image Failed", imageLocation);
-                    console.info("Preload Failure");
-                },
-                function handleNotify(event) {
-                    vm.loader.percentLoaded = event.percent;
-                    //console.info("Percent loaded:", event.percent);
-                }
-            );
+                            sgPreloader.
+                                preloadImages(auxData.animImgs);
+                        },
+                        function handleReject(imageLocation) {
+                            // Loading failed on at least one image.
+                            vm.loader.isLoading = false;
+                            vm.loader.isSuccessful = false;
+                            console.error("Image Failed", imageLocation);
+                            console.info("Preload Failure");
+                        },
+                        function handleNotify(event) {
+                            vm.loader.percentLoaded = event.percent;
+                            //console.info("Percent loaded:", event.percent);
+                        }
+                    );
+                });
+
+
         }
 
         function signInRegister() {
