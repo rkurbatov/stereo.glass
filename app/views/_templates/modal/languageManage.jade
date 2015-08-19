@@ -1,0 +1,21 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.ok()") &times;
+    h5.modal-title.text-center Настройки языков
+
+.modal-body
+    .row
+        {{ vm.langs }}
+    .row
+        .col-xs-4: label.small Код
+        .col-xs-6: label.small Язык
+        .col-xs-2
+    .row
+        .col-xs-4: input.form-control.input-small(ng-model='langs.code')
+        .col-xs-6: input.form-control.input-small(ng-model='langs.name')
+        .col-xs-2
+            i.fa.fa-2x.fa-plus.sg-shadowed-text.sg-green-i(style="cursor: pointer"
+            ng-click='vm.addLanguage()')
+
+.modal-footer
+    .col-xs-4
+    button.btn.btn-primary.col-xs-4(ng-click="vm.ok()") Ok

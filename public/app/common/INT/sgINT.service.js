@@ -30,10 +30,11 @@
 
         function reload() {
             langs.length = 0;
-            $http
+            return $http
                 .get('/api/lang')
                 .then((response) => {
                     _.forEach(response.data, (lang) => langs.push(lang));
+                    return langs;
                 });
         }
 
