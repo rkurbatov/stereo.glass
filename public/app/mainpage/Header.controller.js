@@ -36,7 +36,7 @@
                                 vm.loader.isLoading = false;
                                 vm.loader.isSuccessful = true;
                                 vm.settings.isLoaded = true;
-                            }, 2000);
+                            }, 500);
 
 
                             sgPreloader.
