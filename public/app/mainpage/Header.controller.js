@@ -26,10 +26,15 @@
                 .preloadImages(auxData.bkImgs)
                 .then(
                 function handleResolve() {
-                    // Loading was successful.
-                    vm.loader.isLoading = false;
-                    vm.loader.isSuccessful = true;
-                    vm.settings.isLoaded = true;
+
+                    $timeout(()=>{
+                        // Loading was successful.
+                        vm.loader.isLoading = false;
+                        vm.loader.isSuccessful = true;
+                        vm.settings.isLoaded = true;
+                    }, 2000);
+
+
                     sgPreloader.
                         preloadImages(auxData.animImgs);
                 },
