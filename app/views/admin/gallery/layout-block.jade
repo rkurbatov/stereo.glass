@@ -12,12 +12,12 @@ span.sg-layout-comments(ng-if="paginator.$index !== $index && layout.comments.le
 ns-popover="{{ layout.comments.length > 0 }}"
 ns-popover-trigger="click"
 ns-popover-placement="top|center"
-ns-popover-template="/partials/popover-layoutComments"
+ns-popover-template="/templates/popover/layoutComments"
 ng-style='paginator.getAuthorBorderColor(layout)')
     .sg-layout-block-inner(ns-popover
     ns-popover-trigger="click"
     ns-popover-placement="bottom|center"
-    ns-popover-template="/partials/popover-layoutInfo"
+    ns-popover-template="/templates/popover/layoutInfo"
     ng-style="paginator.getAssigneeBorderColor(layout)")
         img(ng-src='{{ paginator.getThumbUrl(layout, paginator.viewMode, paginator.$index === $index) }}'
         ng-click="paginator.handleLayoutClick($index)"

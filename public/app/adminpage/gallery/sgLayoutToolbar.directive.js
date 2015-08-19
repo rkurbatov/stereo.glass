@@ -10,7 +10,7 @@
     function sgLayoutToolbar(sgUsers, sgLayoutActions) {
         var ddo = {
             restrict: 'E',
-            templateUrl: '/partials/directive-sgLayoutToolbar',
+            templateUrl: '/templates/directive/sgLayoutToolbar',
             scope: {},
             bindToController: {
                 layout: '='

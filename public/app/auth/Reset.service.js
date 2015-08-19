@@ -14,7 +14,7 @@
 
         function modalResetPassword(token) {
             var modalDO = {
-                templateUrl: '/partials/modal-resetPassword',
+                templateUrl: '/templates/modal/resetPassword',
                 controller: modalResetCtrl,
                 controllerAs: 'vm',
                 backdrop: 'static',
@@ -32,7 +32,7 @@
 
         function modalBadToken() {
             var modalDO = {
-                templateUrl: '/partials/modal-badToken',
+                templateUrl: '/templates/modal/badToken',
                 controller: modalBadTokenCtrl,
                 controllerAs: 'vm',
                 backdrop: 'static',

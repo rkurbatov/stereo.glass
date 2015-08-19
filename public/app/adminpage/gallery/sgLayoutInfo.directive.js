@@ -14,7 +14,7 @@
                 layout: '='
             },
             link: link,
-            templateUrl: '/partials/directives-sgLayoutInfo'
+            templateUrl: '/templates/directive/sgLayoutInfo'
         };
 
         return ddo;

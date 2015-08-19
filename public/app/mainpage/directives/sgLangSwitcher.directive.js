@@ -11,7 +11,7 @@
 
         return {
             restrict: 'E',
-            templateUrl: '/partials/directive-sgLangSwitcher',
+            templateUrl: '/templates/directive/sgLangSwitcher',
             replace: true,
             link: link
         };

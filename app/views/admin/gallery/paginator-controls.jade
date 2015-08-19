@@ -3,7 +3,7 @@
     include paginator-sortOrder
 //- Sort filter for multiple pages
 .sg-rate-paginator.text-center(ng-show="paginator.filteredLayouts.length > paginator.currentItemsPerPage")
-    dir-pagination-controls(template-url="../templates/dirPagination.tpl.html"
+    dir-pagination-controls(template-url="/templates/directive/dirPagination"
     on-page-change="paginator.unselectLayout()")
     br.hidden-lg
     span На странице

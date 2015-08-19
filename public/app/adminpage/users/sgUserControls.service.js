@@ -13,7 +13,7 @@
 
         function modalEditUser(user) {
             var modalDO = {
-                templateUrl: '/partials/modal-editUser',
+                templateUrl: '/templates/modal/editUser',
                 controller: editUserCtrl,
                 controllerAs: 'vm',
                 resolve: {

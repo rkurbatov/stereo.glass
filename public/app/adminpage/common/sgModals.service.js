@@ -15,7 +15,7 @@
 
         function modalYesNo(header, message) {
             var modalDO = {
-                templateUrl: '/partials/modal-YesNo',
+                templateUrl: '/templates/modal/YesNo',
                 controller: YesNoCtrl,
                 controllerAs: 'vm',
                 resolve: {

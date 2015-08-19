@@ -27,7 +27,7 @@
 
         function modalEditLayout(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-editLayout',
+                templateUrl: '/templates/modal/editLayout',
                 controller: EditLayoutCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -62,7 +62,7 @@
 
         function modalShowInGallery(pgScope) {
             var modalDO = {
-                templateUrl: '/partials/modal-Gallery',
+                templateUrl: '/templates/modal/Gallery',
                 controller: GalleryCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -149,7 +149,7 @@
 
         function modalYesNoImage(layout, header, message, hasComment) {
             var modalDO = {
-                templateUrl: '/partials/modal-YesNoImage',
+                templateUrl: '/templates/modal/YesNoImage',
                 controller: YesNoImageModalCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -191,7 +191,7 @@
 
         function modalAssignDismissDoer(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-assignDismissDoer',
+                templateUrl: '/templates/modal/assignDismissDoer',
                 controller: AssignDismissDoerModalCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -261,7 +261,7 @@
 
         function modalAcceptReject(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-acceptRejectLayout',
+                templateUrl: '/templates/modal/acceptRejectLayout',
                 controller: modalAcceptRejectCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -312,7 +312,7 @@
 
         function modalApproveDecline(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-approveDeclineLayout.jade',
+                templateUrl: '/templates/modal/approveDeclineLayout.jade',
                 controller: modalApproveDeclineCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -363,7 +363,7 @@
 
         function modalUploadFiles(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-uploadFiles',
+                templateUrl: '/templates/modal/uploadFiles',
                 controller: modalUploadFilesCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -411,7 +411,7 @@
 
         function modalDownloadFiles(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-downloadFiles',
+                templateUrl: '/templates/modal/downloadFiles',
                 controller: modalDownloadFilesCtrl,
                 controllerAs: 'vm',
                 resolve: {
@@ -441,7 +441,7 @@
 
         function modalAddLayoutComment(layout) {
             var modalDO = {
-                templateUrl: '/partials/modal-addLayoutComment',
+                templateUrl: '/templates/modal/addLayoutComment',
                 controller: modalAddLayoutCommentCtrl,
                 controllerAs: 'vm',
                 resolve: {

@@ -34,7 +34,7 @@
 
         function modalSignInRegister(staticModal) {
             var modalDO = {
-                templateUrl: '/partials/modal-signInRegister',
+                templateUrl: '/templates/modal/signInRegister',
                 controller: signInRegisterCtrl,
                 controllerAs: 'vm',
                 backdrop: staticModal

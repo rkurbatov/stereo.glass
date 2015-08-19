@@ -14,7 +14,7 @@
             scope: {
                 layout: '='
             },
-            templateUrl: '/partials/directive-sgFileUpload',
+            templateUrl: '/templates/directive/sgFileUpload',
             link: link
         };
 
