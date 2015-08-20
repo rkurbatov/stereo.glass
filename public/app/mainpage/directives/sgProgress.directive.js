@@ -20,7 +20,8 @@
                     return attrs.sgProgress || 0;
                 },
                 (value)=> {
-                    elm.css({'width': value + '%'});
+                    elm.stop();
+                    elm.animate({'width': value + '%'}, 500);
                 }
             );
         }
