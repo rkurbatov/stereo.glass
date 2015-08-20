@@ -9,7 +9,7 @@
             'ui.bootstrap',
             'ui.validate',
             'cgBusy',
-            'sgINT'
+            'sg.i18n'
 
         ])
         .value('cgBusyDefaults', {

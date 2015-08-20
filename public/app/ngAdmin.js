@@ -8,6 +8,7 @@
             'angularUtils.directives.dirPagination',
             'daterangepicker',
             'ui.bootstrap',
+            'ui.mask',
             'angular-bootstrap-select',
             'ngCookies',
             'hmTouchEvents',
@@ -16,7 +17,7 @@
             'nsPopover',
             'color.picker',
             'LoDash',
-            'sgINT',
+            'sg.i18n',
             'sg.ui'
         ]);
 

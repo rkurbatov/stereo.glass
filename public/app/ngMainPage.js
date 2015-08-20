@@ -9,10 +9,10 @@
             'LocalStorageModule',
             'ui.validate',
             'sg.ui',
+            'sg.i18n',
             'sg.AuthSvc',
             '720kb.fx',
-            'cgBusy',
-            'sgINT'
+            'cgBusy'
         ])
         .config(Plate3dConfig)
         .config(LocalStorageConfig)

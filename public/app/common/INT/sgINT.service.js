@@ -2,22 +2,23 @@
     'use strict';
 
     angular
-        .module('sgINT')
-        .factory('sgINTSvc', sgINTSvc);
+        .module('sg.i18n')
+        .factory('sgIntSvc', sgIntSvc);
 
-    sgINTSvc.$inject = ['$cookies', '$http'];
+    sgIntSvc.$inject = ['$http'];
 
-    function sgINTSvc($cookies, $http) {
+    function sgIntSvc($http) {
 
         var langs = [];
 
         init();
 
         return {
-            langs: langs,
-            reload: reload,
-            currentLang: 'EN',
-            switchLang: switchLang
+            langs,
+            add,
+            reload,
+            switchLang,
+            currentLang: 'EN'
         };
 
         function init() {
@@ -36,6 +37,11 @@
                     _.forEach(response.data, (lang) => langs.push(lang));
                     return langs;
                 });
+        }
+
+        function add(code, name) {
+            return $http
+                .post('/api/lang', {code, name});
         }
 
     }

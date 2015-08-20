@@ -48,6 +48,7 @@ function deployVendor(production) {
         'public/libs/angular-bootstrap/ui-bootstrap.js',
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/angular-bootstrap-select/dist/angular-bootstrap-select-tpls.js',
+        'public/libs/angular-ui-mask/dist/mask.js',
         'public/libs/angular-daterangepicker/js/angular-daterangepicker.js',
         'public/libs/angular-smart-table/dist/smart-table.js',
         'public/libs/angular-toastr/dist/angular-toastr.tpls.js',

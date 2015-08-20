@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgLangSwitcher', sgLangSwitcher);
 
-    sgLangSwitcher.$inject = ['sgINTSvc', '$window'];
+    sgLangSwitcher.$inject = ['sgIntSvc', '$window'];
 
-    function sgLangSwitcher(sgINTSvc, $window) {
+    function sgLangSwitcher(sgIntSvc, $window) {
 
         return {
             restrict: 'E',
@@ -17,7 +17,7 @@
         };
 
         function link(scope, elm, attrs) {
-            scope.INTSvc = sgINTSvc;
+            scope.INTSvc = sgIntSvc;
 
             var flagElement = angular.element('.flag-container');
             angular.element($window).on('load resize', rePosition);

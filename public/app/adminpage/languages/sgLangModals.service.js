@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .service('sgLangModals', sgLangModals);
 
-    sgLangModals.$inject = ['$modal', '$http', 'sgINTSvc', 'toastr'];
+    sgLangModals.$inject = ['$modal', 'sgIntSvc', 'toastr'];
 
-    function sgLangModals($modal, $http, sgINTSvc, toastr) {
+    function sgLangModals($modal, sgIntSvc, toastr) {
 
         var svc = this;
 
@@ -30,32 +30,45 @@
         function manageCtrl($modalInstance) {
             var vm = this;
 
+            vm.ok = ok;
+            vm.addLanguage = addLanguage;
+            vm.updateLanguage = updateLanguage;
+
             initController();
 
-            function initController(){
-                sgINTSvc.reload()
-                .then((langs)=>{
-                        vm.langs = langs;
-                    })
+            // ==== IMPLEMENTATION ====
+
+            function initController() {
+                sgIntSvc.reload().then((langs)=>vm.langs = langs);
             }
 
-            vm.ok = function () {
+            function ok() {
                 $modalInstance.close('ok');
-            };
-        }
+            }
 
-        function addLanguage() {
-            if (vm.code && vm.name) {
-                $http
-                    .post('/api/lang', {code: vm.code, name: vm.name})
+            function addLanguage() {
+                sgIntSvc
+                    .add(vm.code, vm.name)
                     .then(() => {
-                        sgINTSvc.reload();
+                        sgIntSvc.reload();
                         toastr.success("Язык успешно добавлен.");
                     })
                     .catch((err)=> {
                         err.status === 409
                             ? toastr.warning("Язык уже существует")
                             : toastr.error("Невозможно добавить язык", "Ошибка");
+                    });
+            }
+
+            function updateLanguage() {
+                sgIntSvc
+                    .update(vm.selected)
+                    .then(()=> {
+                        sgIntSvc.reload();
+                        toastr.success("Настройки языка обновлены");
+                    })
+                    .catch((err)=> {
+                        toastr.error("Невозможно обновить настройки языка", "Ошибка");
                     });
             }
         }

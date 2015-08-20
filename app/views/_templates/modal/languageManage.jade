@@ -3,18 +3,44 @@
     h5.modal-title.text-center Настройки языков
 
 .modal-body
+    form(name='updateLang')
+        .row
+            .col-xs-4
+                select.form-control(ng-options='lang.code for lang in vm.langs'
+                ng-model='vm.selected')
+            .col-xs-8
+                input.form-control(ng-model='vm.selected.name'
+                ng-disabled='!vm.selected' name='name'
+                type='text')
+        br
+        .row
+            .col-xs-10
+                .checkbox: label
+                    input(type='checkbox' name='isActive'
+                    ng-model='vm.selected.isActive'
+                    ng-disabled='!vm.selected')
+                    | Используется
+            .col-xs-2(style='padding-left: 0')
+                button.btn.btn-success.form-control(ng-click='vm.updateLanguage()')
+                    i.fa.fa-check
     .row
-        {{ vm.langs }}
+        hr
     .row
-        .col-xs-4: label.small Код
-        .col-xs-6: label.small Язык
+        .col-xs-3: label.small Код
+        .col-xs-7: label.small Язык
         .col-xs-2
-    .row
-        .col-xs-4: input.form-control.input-small(ng-model='langs.code')
-        .col-xs-6: input.form-control.input-small(ng-model='langs.name')
-        .col-xs-2
-            i.fa.fa-2x.fa-plus.sg-shadowed-text.sg-green-i(style="cursor: pointer"
-            ng-click='vm.addLanguage()')
+    .row: form(name='AddLang')
+        .col-xs-3: input.form-control.input-small(ng-model='vm.code'
+        sg-upper-case ui-mask='AA'
+        type='text' name='code' ng-required
+        ng-minwidth='2' ng-maxwidth='2')
+        .col-xs-7: input.form-control.input-small(ng-model='vm.name'
+        type='text' name='name' ng-required
+        ng-minwidth='2')
+        .col-xs-2(style='padding-left: 0')
+            button.btn.btn-success.form-control(ng-click='vm.addLanguage()'
+            ng-disabled='!vm.code || !vm.name')
+                i.fa.fa-plus
 
 .modal-footer
     .col-xs-4

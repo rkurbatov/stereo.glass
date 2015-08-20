@@ -5,12 +5,12 @@
         .module('sgAppAdmin')
         .controller('Languages', Languages);
 
-    Languages.$inject = ['sgINTSvc', 'sgLangModals'];
-    function Languages(sgINTSvc, sgLangModals) {
+    Languages.$inject = ['sgIntSvc', 'sgLangModals'];
+    function Languages(sgIntSvc, sgLangModals) {
 
         //===== DECLARATION =====
         var vm = this;
-        vm.langs = sgINTSvc.langs;
+        vm.langs = sgIntSvc.langs;
 
         vm.manage = sgLangModals.manage;
 

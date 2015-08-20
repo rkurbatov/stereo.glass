@@ -86,7 +86,7 @@ module.exports = function (express, Language, Account) {
                 }
 
                 if (req.body.name) language.name = req.body.name;
-                if (req.body.isActive === true || req.body.isActive === false) language.isActive = req.body.active;
+                if (req.body.isActive === true || req.body.isActive === false) language.isActive = req.body.isActive;
 
                 return language.save();
 

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('sgINT', [])
+        .module('sg.i18n', [])
         .constant('_INT', window._INT)          // use _INT as $rootScope constant
         .constant('_LANG_', window._LANG_)      // use _LANG_ as $rootScope constant
         .run(_INTProvider);
