@@ -21,9 +21,23 @@
 }
 
 .sg-about-main-body {
-  width: 100%;
-  height: auto;
-  margin-bottom: 2px;
+  min-width: 100%;
+
+  @include on-lg {
+    min-height: calc(100% - 44px);
+  }
+
+  @include on-md {
+    min-height: calc(100% - 39px);
+  }
+
+  @include on-sm {
+    min-height: calc(100% - 33px);
+  }
+
+  @include on-xs {
+    min-height: calc(100% - 22px);
+  }
 
   .content {
     margin: 10px 15px;

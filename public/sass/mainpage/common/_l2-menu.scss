@@ -51,9 +51,14 @@
         @include blicker-hover;
       }
 
+      &:focus {
+        text-decoration: none;
+      }
+
       &.hovered {
         @include blicker-hover;
       }
+
     }
   }
 }
