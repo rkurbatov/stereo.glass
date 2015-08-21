@@ -28,9 +28,15 @@
             percentLoaded: 0
         };
 
-        var urlBkPrefix = '/img/rooms/', urlBkPostfix = '',
-            url2dPrefix = '/img/2d-rooms/', url2dPostfix = '',
-            url3dPrefix = '/img/3d-rooms/', url3dPostfix = '';
+        var urlBkPrefix = svc.settings.isMobile.any
+            ? '/img/m-rooms/'
+            : '/img/rooms/';
+
+        var urlBkPostfix = '',
+            url2dPostfix = '',
+            url3dPostfix = '';
+        var url2dPrefix = '/img/2d-rooms/',
+            url3dPrefix = '/img/3d-rooms/';
 
         svc.initialImgs = {
             'background': {src: '/img/background.gif'},
