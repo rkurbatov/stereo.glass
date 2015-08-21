@@ -25,7 +25,7 @@ sg-event-listener
         .sg-plate3d(coords='{{index.settings.coords.kitchen3}}' for='main-kitchen')
             img(sg-alt-src="kitchen-wl3")
         .sg-plate3d(style="width: 1200px; height: 1200px;" coords='{{index.settings.coords.kitchenfloor}}' for='main-kitchen')
-            include floor/_kitchen
+            include index-floor/_kitchen
         img#main-kitchen.bg-room(ng-src="{{index.getBkSrc('kitchen')}}")
     section.sg-main-sec3.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-plate3d(coords='{{index.settings.coords.teddybear}}' for='main-childroom')
@@ -40,7 +40,7 @@ sg-event-listener
         .sg-plate3d(coords='{{index.settings.coords.mirror}}' for='main-bathroom' style="z-index:9;")
             img(sg-alt-src="pavilion" style="width: 300px; height: 225px;")
         .sg-plate3d(style="width: 500px; height: 500px;", coords='{{index.settings.coords.bathfloor}}' for='main-bathroom')
-            include floor/_bathroom
+            include index-floor/_bathroom
         img#main-bathroom.bg-room(ng-src="{{index.getBkSrc('bathroom')}}")
     section.sg-main-sec5.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-plate3d(coords='{{index.settings.coords.aqualeft}}' for='main-club')
@@ -48,7 +48,7 @@ sg-event-listener
         .sg-plate3d(coords='{{index.settings.coords.aquaright}}' for='main-club')
             img(sg-alt-src="aqua")
         .sg-plate3d(style="width: 900px; 600px;", coords='{{index.settings.coords.clubfloor}}' for='main-club')
-            include floor/_club
+            include index-floor/_club
         img#main-club.bg-room(ng-src="{{index.getBkSrc('club')}}")
     section.sg-main-sec6.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
         .sg-plate3d(coords='{{index.settings.coords.tray}}' for='main-caffee')
