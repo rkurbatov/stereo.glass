@@ -60,6 +60,7 @@
                     });
             }
 
+            // TODO: checks for pristine state, make selected just saved object
             function updateLanguage() {
                 sgIntSvc
                     .update(vm.selected)

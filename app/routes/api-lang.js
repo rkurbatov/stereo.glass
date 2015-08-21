@@ -59,7 +59,7 @@ module.exports = function (express, Language, Account) {
             });
     }
 
-    function putLanguageByCode(){
+    function putLanguageByCode(req, res){
         if (!req.isAuthenticated() || "admin" !== req.user.role) {
             return res.sendStatus(403);
         }
@@ -69,20 +69,12 @@ module.exports = function (express, Language, Account) {
         }
 
         Language
-            .find({code: req.params.code})
+            .findOne({code: req.params.code})
             .then((language)=>{
                 if (!language) {
                     let err = new Error();
                     err.status = 404;
                     throw err;
-                }
-
-                if (req.body.code && req.body.code === language.code) {
-                    let err = new Error();
-                    err.status = 409;
-                    throw err;
-                } else {
-                    language.code = req.body.code;
                 }
 
                 if (req.body.name) language.name = req.body.name;

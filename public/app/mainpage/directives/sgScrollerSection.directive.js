@@ -12,7 +12,7 @@
         return {
             restrict: 'A',
             replace: true,
-            link: link
+            link
         };
 
         function link(scope, elm, attrs) {

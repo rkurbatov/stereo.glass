@@ -12,7 +12,7 @@
         return {
             restrict: 'C',
             template: '<div style="width: 100%; height: 100%;" ng-click="switchVideoState()"></div>',
-            link: link
+            link
         };
 
         function link(scope, elm, attrs) {
@@ -23,9 +23,7 @@
             // keypress handler
             angular.element($window).on('keypress', spaceHandler);
 
-            scope.$on('$destroy', function () {
-                angular.element($window).off('keypress', spaceHandler);
-            });
+            scope.$on('$destroy', ()=> angular.element($window).off('keypress', spaceHandler));
 
             // First play
             scope.$watch(
@@ -68,8 +66,8 @@
                 }
             }
 
-            function spaceHandler(e) {
-                if (e.keyCode == 0 || e.keyCode == 32) {
+            function spaceHandler(event) {
+                if (event.keyCode === 0 || event.keyCode === 32) {
                     switchVideoState();
                 }
             }

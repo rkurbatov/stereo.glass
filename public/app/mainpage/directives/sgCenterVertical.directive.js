@@ -5,13 +5,13 @@
         .module('MainPage')
         .directive('sgCenterVertical', sgCenterVertical);
 
-    sgCenterVertical.$inject = ['$window', 'auxData'];
+    sgCenterVertical.$inject = ['$window'];
 
-    function sgCenterVertical($window, auxData) {
+    function sgCenterVertical($window) {
 
         return {
             restrict: 'A',
-            link: link
+            link
         };
 
         function link(scope, elm, attrs) {

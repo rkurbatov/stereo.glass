@@ -5,13 +5,13 @@
         .module('MainPage')
         .directive('sgBlick', sgBlick);
 
-    sgBlick.$inject = [];
+    sgBlick.$inject = ['$timeout', '$interval'];
 
-    function sgBlick() {
+    function sgBlick($timeout, $interval) {
 
         return {
             restrict: 'A',
-            link: link
+            link
         };
 
         function link(scope, elm, attrs) {
@@ -30,14 +30,14 @@
             // set blick time depending on speed param and element length
             scope.$watch(
                 ()=> elm.width(),
-                (newVal, oldVal)=> {
-                    if (newVal && newVal !== oldVal) {
-                        duration = newVal / speed;
+                (newWidth, oldWidth)=> {
+                    if (newWidth && newWidth !== oldWidth) {
+                        duration = newWidth / speed;
                         elm.css('transition-duration', duration + "s");
                     }
                 });
 
-            setTimeout(setInterval(cbBlick, rndInterval), delay);
+            $timeout($interval(cbBlick, rndInterval), delay);
 
             function cbBlick() {
                 // set style to 'hovered' for

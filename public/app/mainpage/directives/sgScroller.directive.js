@@ -102,6 +102,7 @@
                 }
             }
 
+            // TODO: rewrite with $timeout
             function mouseScrollHandler(e) {
                 if (!auxData.settings.handleScrollEvents) return;
                 // Equalize event object.

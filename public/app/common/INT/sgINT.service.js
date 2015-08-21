@@ -16,6 +16,7 @@
         return {
             langs,
             add,
+            update,
             reload,
             switchLang,
             currentLang: 'EN'
@@ -42,6 +43,14 @@
         function add(code, name) {
             return $http
                 .post('/api/lang', {code, name});
+        }
+
+        function update(lang) {
+            var updateObject = {
+                name: lang.name,
+                isActive: lang.isActive
+            };
+            return $http.put('/api/lang/' + lang.code, updateObject);
         }
 
     }
