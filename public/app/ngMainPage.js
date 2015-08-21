@@ -6,6 +6,7 @@
             'ngRoute',
             'ngCookies',
             'ngAnimate',
+            'angularUtils.directives.dirPagination',
             'LocalStorageModule',
             'ui.validate',
             'sg.ui',

@@ -85,6 +85,7 @@ app.use('/auth', require('./app/routes/auth')(express, passport, crypto, Account
 app.use('/api/users', require('./app/routes/api-users')(express, Account, Layout));
 app.use('/api/categories', require('./app/routes/api-categories')(express, Category));
 app.use('/api/layouts', require('./app/routes/api-layouts')(express, Layout));
+app.use('/api/goods', require('./app/routes/api-goods')(express, Layout));
 app.use('/api/files', require('./app/routes/api-files')(express));
 app.use('/api/messages', require('./app/routes/api-messages')(express, Message));
 app.use('/api/mail', require('./app/routes/api-mail')(express, app.mailer));
