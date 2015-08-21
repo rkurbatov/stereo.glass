@@ -1,0 +1,16 @@
+.sg-goods-paginator {
+  text-align: center;
+
+  ul {
+    font: 16px/24px "Airbone";
+
+    li a {
+      color: white;
+      @include black-glossy-background;
+    }
+
+    li.active a {
+      @include red-glossy-background;
+    }
+  }
+}
