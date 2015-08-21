@@ -11,6 +11,8 @@ module.exports = function (express, Language, Account) {
     Router.post('/', postLanguage);
     Router.put('/:code', putLanguageByCode);
 
+    Router.get('/parse', parseLanguages);
+
     return Router;
 
     // IMPLEMENTATION
@@ -59,7 +61,7 @@ module.exports = function (express, Language, Account) {
             });
     }
 
-    function putLanguageByCode(req, res){
+    function putLanguageByCode(req, res) {
         if (!req.isAuthenticated() || "admin" !== req.user.role) {
             return res.sendStatus(403);
         }
@@ -70,7 +72,7 @@ module.exports = function (express, Language, Account) {
 
         Language
             .findOne({code: req.params.code})
-            .then((language)=>{
+            .then((language)=> {
                 if (!language) {
                     let err = new Error();
                     err.status = 404;
@@ -84,10 +86,16 @@ module.exports = function (express, Language, Account) {
 
             })
             .then(()=> res.sendStatus(200))
-            .catch((err)=>{
+            .catch((err)=> {
                 console.log("Can't modify language: ", err);
                 return res.sendStatus(err.status || 500)
             })
+    }
+
+    function parseLanguages(req, res) {
+        if (!req.isAuthenticated() || "admin" !== req.user.role) {
+            return res.sendStatus(403);
+        }
     }
 
 };

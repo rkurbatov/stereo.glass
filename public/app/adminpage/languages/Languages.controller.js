@@ -10,7 +10,8 @@
 
         //===== DECLARATION =====
         var vm = this;
-        vm.langs = sgIntSvc.langs;
+        vm.list = sgIntSvc.langs;
+        vm.selected = '';
 
         vm.manage = sgLangModals.manage;
 
@@ -19,7 +20,7 @@
         //=== IMPLEMENTATION ====
 
         function initController() {
-
+            //sgIntSvc.reload().then((langs)=>vm.list = langs);
         }
 
     }
