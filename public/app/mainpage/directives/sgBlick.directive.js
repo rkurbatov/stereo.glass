@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgBlick', sgBlick);
 
-    sgBlick.$inject = ['$timeout', '$interval'];
+    sgBlick.$inject = ['$window', '$timeout', '$interval'];
 
-    function sgBlick($timeout, $interval) {
+    function sgBlick($window, $timeout, $interval) {
 
         return {
             restrict: 'A',
@@ -23,13 +23,21 @@
                 : 0;
             var duration;
 
+            var elmWidth = 0;
+
+            angular.element($window).on('load resize', ()=> {
+                elmWidth = elm.width();
+            });
+
             // random interval = interval (in s) +/- random value < random attr (in s)
             // converted to ms
             var rndInterval = (interval + random * (Math.random() * 2 - 1)) * 1000;
 
             // set blick time depending on speed param and element length
             scope.$watch(
-                ()=> elm.width(),
+                ()=> {
+                    return elmWidth;
+                },
                 (newWidth, oldWidth)=> {
                     if (newWidth && newWidth !== oldWidth) {
                         duration = newWidth / speed;
