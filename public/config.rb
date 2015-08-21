@@ -1,7 +1,7 @@
 require 'compass/import-once/activate'
 require 'compass-normalize'
-require 'bootstrap-sass'
-require 'font-awesome-sass'
+#require 'bootstrap-sass'
+#require 'font-awesome-sass'
 # Require any additional compass plugins here.
 
 # Set this to the root of your project when deployed:
@@ -29,6 +29,6 @@ javascripts_dir = "js"
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
 
-sourcemap = true
+sourcemap = false
 
-output_style = :compressed
+output_style = :expanded
