@@ -27,7 +27,7 @@
         }
 
         function getImgUrl(good) {
-            return '/uploads/ready/' + good.urlDir + '/' + good.urlGifLoRes;
+            return '/uploads/ready/' + good.urlDir + '/' + good.urlThumb;
         }
 
     }
