@@ -19,7 +19,7 @@
             screenIndex: 0,
             screenSections: [],
             isMobile: window.isMobile,
-            handleScrollEvents: true
+            handleScrollEvents: false
         };
 
         svc.loader = {
