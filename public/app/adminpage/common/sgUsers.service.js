@@ -44,16 +44,15 @@
         }
 
         function reload() {
-            var usersPromise = $http.get('/api/users', {
-                params: {roles: svc.allRoles}
-            }).then(function (response) {
-                createFilteredList(svc.list = response.data);
-            });
+            var usersPromise = $http
+                .get('/api/users', {
+                    params: {roles: svc.allRoles}
+                })
+                .then((response)=> createFilteredList(svc.list = response.data));
 
-            var authorsPromise = $http.get('/api/users/authors')
-                .then(function (response) {
-                    svc.authors = _.pluck(response.data, '_id');
-                });
+            var authorsPromise = $http
+                .get('/api/users/authors')
+                .then((response)=> svc.authors = _.map(response.data, '_id'));
 
             svc.loaded = $q.all([usersPromise, authorsPromise]);
         }
@@ -80,17 +79,19 @@
 
         function createFilteredList(users) {
 
-            svc.commenters = svc.raters = _.pluck(_.filter(users, function (user) {
+            svc.commenters = svc.raters = _.map(_.filter(users, function (user) {
                 return _.contains(['admin', 'curator', 'founder', 'designer'], user.role)
                     && user.username !== 'Roman Kurbatov';
             }), 'username');
 
-            svc.assignees = _.pluck(_.filter(users, function (user) {
-                return user.role === 'designer';
-            }), 'username');
+            svc.assignees = _.map(
+                _.filter(users, (user)=> {
+                        return user.role === 'designer'
+                    },
+                    'username'));
 
             // Fill border colors hash
-            _.each(svc.list, function (user) {
+            _.each(svc.list, (user)=> {
                 if (_.contains(['admin', 'curator', 'founder', 'designer'], user.role)) {
                     svc.borderColors[user.username] = user.borderColor;
                 }

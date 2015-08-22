@@ -39,33 +39,32 @@
                 params: {
                     selection: JSON.stringify(selection)
                 }
-            }).then(function (response) {
-                svc.unratedCount = 0;
-                var transformedData = response.data.map(function (layout) {
-                    // get rating, set by current user or -1
-                    var rating = _.pluck(_.where(layout.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
-                    if (rating >= 0) {
-                        layout.rating = rating;
-                    } else {
-                        layout.rating = -1;
-                        // Hack to prevent early filtering (hiding rated layouts)
-                        layout.notRatedByMe = true;
-                        if (!layout.isHidden) {
-                            svc.unratedCount += 1;
+            })
+                .then((response)=> {
+                    svc.unratedCount = 0;
+                    var transformedData = _.map(response.data, (layout)=> {
+                        // get rating, set by current user or -1
+                        var rating = _.map(_.filter(layout.ratings, {'assignedBy': sgUsers.currentUser.name}), 'value')[0];
+                        if (rating >= 0) {
+                            layout.rating = rating;
+                        } else {
+                            layout.rating = -1;
+                            // Hack to prevent early filtering (hiding rated layouts)
+                            layout.notRatedByMe = true;
+                            if (!layout.isHidden) {
+                                svc.unratedCount += 1;
+                            }
                         }
-                    }
-                    // needed for correct order
-                    layout.average = calcAverageRating(layout.ratings);
+                        // needed for correct order
+                        layout.average = calcAverageRating(layout.ratings);
 
-                    return layout;
-                });
+                        return layout;
+                    });
 
-                // replace old value to store reference
-                svc.rawLayouts.length = 0;
-                transformedData.forEach(function (v) {
-                    svc.rawLayouts.push(v);
+                    // replace old value to store reference
+                    svc.rawLayouts.length = 0;
+                    _.forEach(transformedData, (v)=> svc.rawLayouts.push(v));
                 });
-            });
         }
 
         function removeMyRating(layout) {
@@ -149,7 +148,7 @@
                 return 0
             } else {
                 // mean of ratings, taken from coefficient table.
-                avg = _.sum(_.map(_.pluck(rateArr, 'value'), function (e) {
+                avg = _.sum(_.map(_.map(rateArr, 'value'), (e)=> {
                         return coef[e]
                     })) / _.size(rateArr);
                 return Number(avg.toFixed(2));

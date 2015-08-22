@@ -19,28 +19,32 @@
 
             var borderRatio = 1.85;
 
-            angular.element($document).on('load', calcRatio);
-            angular.element($window).on('resize orientationchange', ()=>{
+            //angular.element($document).on('load', calcRatio);
+            angular.element($window).on('resize orientationchange', ()=> {
                 if (auxData.settings.currentPage === 'index') {
+                    calcRatio();
+                    console.log('emitting on resize');
                     scope.$emit('carousel:redraw');
+                    console.log('broadcasting on resize');
                     scope.$broadcast('carousel:redraw');
                 }
             });
 
             function calcRatio() {
-                var ww = $window.innerWidth, wh = $window.innerHeight;
-                /** @namespace attrs.ratio */
-                auxData.settings.isWideScreen = ww / wh > borderRatio;
-            }
-
-            scope.$watch(auxData.settings.isWideScreen,
-                function (newVal) {
-                    if (newVal) {
+                scope.$applyAsync(()=>{
+                    var ww = $window.innerWidth, wh = $window.innerHeight;
+                    /** @namespace attrs.ratio */
+                    var isWS = ww / wh > borderRatio;
+                    if (isWS) {
                         auxData.settings.coords = auxData.coordsWideScreen;
                     } else {
                         auxData.settings.coords = auxData.coordsNarrowScreen;
                     }
+                    auxData.settings.isWideScreen = isWS;
+                    console.log('setting isWS');
                 });
+
+            }
 
             scope.$watch(()=> {
                     return auxData.settings.currentPage;
@@ -50,10 +54,13 @@
                     if (page === 'index') {
                         auxData.settings.screenSections.length = 0;
                         auxData.settings.handleScrollEvents = true;
-                        scope.$emit('carousel:redraw');
+                        calcRatio();
                         // Init only after preloading some images
-                        auxData.loader.staticPromise.then(()=>{
-                           scope.$broadcast('carousel:redraw');
+                        auxData.loader.staticPromise.then(()=> {
+                            console.log('emitting on page');
+                            scope.$emit('carousel:redraw');
+                            console.log('broadcasting on page');
+                            scope.$broadcast('carousel:redraw');
                         });
                         // A kind of black magic but broadcasting isn't needed here
                     } else {

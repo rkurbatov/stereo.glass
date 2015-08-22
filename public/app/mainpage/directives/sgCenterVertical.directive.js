@@ -15,9 +15,10 @@
         };
 
         function link(scope, elm, attrs) {
-            scope.$on('carousel:redraw', ()=>scope.$applyAsync(()=>centerVertical()));
+            scope.$on('carousel:redraw', ()=>scope.$evalAsync(()=>centerVertical()));
 
             function centerVertical() {
+                console.log('centering');
                 var delta;
                 if (attrs.sgCenterVertical === '-') {
                     delta = -($window.innerHeight - elm.parent().innerHeight()) / 2;
