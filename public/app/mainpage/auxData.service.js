@@ -40,7 +40,11 @@
 
         svc.initialImgs = {
             'background': {src: '/img/background.gif'},
-            'logo': {src: '/img/logo1000.png'}
+            'logo': {
+                src: svc.settings.isMobile.any
+                ? '/img/logo600.png'
+                : '/img/logo1000.png'
+            }
         };
 
         svc.bkImgs = {
