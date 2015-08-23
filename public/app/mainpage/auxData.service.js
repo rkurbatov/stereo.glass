@@ -40,8 +40,8 @@
             ? '/img/m-static/'
             : '/img/d-static/';
         var url3dPrefix = svc.settings.isMobile.any
-            ? '/img/d-anim/'
-            : '/img/m-anim/';
+            ? '/img/m-anim/'
+            : '/img/d-anim/';
 
         svc.initialImgs = {
             'background': {src: '/img/background.jpg'},
