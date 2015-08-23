@@ -16,7 +16,7 @@
         var svc = this;
         svc.modalSignInRegister = modalSignInRegister;
         svc.currentUser = {};
-        svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'user', 'visitor'];
+        svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'visitor'];
 
         init();
 
