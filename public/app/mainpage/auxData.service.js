@@ -30,20 +30,25 @@
 
         var urlBkPrefix = svc.settings.isMobile.any
             ? '/img/m-rooms/'
-            : '/img/rooms/';
+            : '/img/d-rooms/';
 
         var urlBkPostfix = '',
             url2dPostfix = '',
             url3dPostfix = '';
-        var url2dPrefix = '/img/2d-rooms/',
-            url3dPrefix = '/img/3d-rooms/';
+
+        var url2dPrefix = svc.settings.isMobile.any
+            ? '/img/m-static/'
+            : '/img/d-static/';
+        var url3dPrefix = svc.settings.isMobile.any
+            ? '/img/d-anim/'
+            : '/img/m-anim/';
 
         svc.initialImgs = {
-            'background': {src: '/img/background.gif'},
+            'background': {src: '/img/background.jpg'},
             'logo': {
                 src: svc.settings.isMobile.any
-                ? '/img/logo600.png'
-                : '/img/logo1000.png'
+                    ? '/img/logo600.png'
+                    : '/img/logo1000.png'
             }
         };
 
@@ -62,21 +67,20 @@
             'bathroom-15-10': {src: urlBkPrefix + 'bathroom-15-10.png' + urlBkPostfix},
             'caffee-15-8': {src: urlBkPrefix + 'caffee-15-8.png' + urlBkPostfix},
             'caffee-15-10': {src: urlBkPrefix + 'caffee-15-10.png' + urlBkPostfix},
-            'buddha': {src: url2dPrefix + 'buddha-2d.gif' + url2dPostfix},
-            'clock': {src: url2dPrefix + 'clock-2d.gif' + url2dPostfix},
-            'grass': {src: url2dPrefix + 'grass-2d.gif' + url2dPostfix},
-            'grass-fl1': {src: url2dPrefix + 'grass-flowers1-2d.gif' + url2dPostfix},
-            'grass-fl2': {src: url2dPrefix + 'grass-flowers2-2d.gif' + url2dPostfix},
+            'buddha': {src: url2dPrefix + 'buddha-2d.jpg' + url2dPostfix},
+            'clock': {src: url2dPrefix + 'clock-2d.jpg' + url2dPostfix},
+            'grass': {src: url2dPrefix + 'grass-2d.jpg' + url2dPostfix},
+            'grass-flowers': {src: url2dPrefix + 'grass-flowers-2d.jpg' + url2dPostfix},
             'kitchen-wl1': {src: url2dPrefix + 'kitchen-wall1-2d.gif' + url2dPostfix},
             'kitchen-wl2': {src: url2dPrefix + 'kitchen-wall2-2d.gif' + url2dPostfix},
             'kitchen-wl3': {src: url2dPrefix + 'kitchen-wall3-2d.gif' + url2dPostfix},
             'teddybear': {src: url2dPrefix + 'teddybear-2d.gif' + url2dPostfix},
             'teddycat': {src: url2dPrefix + 'teddycat-2d.gif' + url2dPostfix},
             'teddyhare': {src: url2dPrefix + 'teddyhare-2d.gif' + url2dPostfix},
-            'pavilion': {src: url2dPrefix + 'pavilion-v2-2d.gif' + url2dPostfix},
-            'water': {src: url2dPrefix + 'water-2d.gif' + url2dPostfix},
-            'aqua': {src: url2dPrefix + 'aqua-2d.gif' + url2dPostfix},
-            'smoke': {src: url2dPrefix + 'smoke-2d.gif' + url2dPostfix},
+            'pavilion': {src: url2dPrefix + 'pavilion-2d.jpg' + url2dPostfix},
+            'water': {src: url2dPrefix + 'water-2d.jpg' + url2dPostfix},
+            'aqua': {src: url2dPrefix + 'aqua-2d.jpg' + url2dPostfix},
+            'smoke': {src: url2dPrefix + 'smoke-2d.jpg' + url2dPostfix},
             'tray': {src: url2dPrefix + 'agat-2d.gif' + url2dPostfix},
             'tableft': {src: url2dPrefix + 'coffee-2d.gif' + url2dPostfix},
             'tabmid': {src: url2dPrefix + 'citrus-2d.gif' + url2dPostfix},
@@ -87,16 +91,15 @@
         svc.animImgs = {
             'buddha': {src: url3dPrefix + 'buddha-3d.gif' + url3dPostfix},
             'clock': {src: url3dPrefix + 'clock-3d.gif' + url3dPostfix},
-            'grass': {src: url2dPrefix + 'grass-2d.gif' + url3dPostfix},
-            'grass-fl1': {src: url3dPrefix + 'grass-flowers1-3d.gif' + url3dPostfix},
-            'grass-fl2': {src: url3dPrefix + 'grass-flowers2-3d.gif' + url3dPostfix},
+            'grass': {src: url2dPrefix + 'grass-2d.jpg' + url3dPostfix},
+            'grass-flowers': {src: url3dPrefix + 'grass-flowers-3d.gif' + url3dPostfix},
             'kitchen-wl1': {src: url3dPrefix + 'kitchen-wall1-3d.gif' + url3dPostfix},
             'kitchen-wl2': {src: url3dPrefix + 'kitchen-wall2-3d.gif' + url3dPostfix},
             'kitchen-wl3': {src: url3dPrefix + 'kitchen-wall3-3d.gif' + url3dPostfix},
             'teddybear': {src: url3dPrefix + 'teddybear-3d.gif' + url3dPostfix},
             'teddycat': {src: url3dPrefix + 'teddycat-3d.gif' + url3dPostfix},
             'teddyhare': {src: url3dPrefix + 'teddyhare-3d.gif' + url3dPostfix},
-            'pavilion': {src: url3dPrefix + 'pavilion-v2-3d.gif' + url3dPostfix},
+            'pavilion': {src: url3dPrefix + 'pavilion-3d.gif' + url3dPostfix},
             'water': {src: url3dPrefix + 'water-3d.gif' + url3dPostfix},
             'aqua': {src: url3dPrefix + 'aqua-3d.gif' + url3dPostfix},
             'smoke': {src: url3dPrefix + 'smoke-3d.gif' + url3dPostfix},
