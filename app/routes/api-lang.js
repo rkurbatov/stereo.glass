@@ -6,7 +6,7 @@ module.exports = function (express, Language, Account) {
     // DECLARATION
 
     // returns available language list
-    Router.get('/', getLanguages);
+    Router.get('/list', getLanguages);
     // creates new language set
     Router.post('/', postLanguage);
     Router.put('/:code', putLanguageByCode);
