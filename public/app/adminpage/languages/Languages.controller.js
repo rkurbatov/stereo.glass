@@ -14,13 +14,14 @@
         vm.selected = '';
 
         vm.manage = sgLangModals.manage;
+        vm.parseTemplates = sgIntSvc.parseTemplates;
 
         initController();
 
         //=== IMPLEMENTATION ====
 
         function initController() {
-            //sgIntSvc.reload().then((langs)=>vm.list = langs);
+
         }
 
     }

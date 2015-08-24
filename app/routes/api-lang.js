@@ -1,4 +1,4 @@
-module.exports = function (express, Language, Account) {
+module.exports = function (express, Language, helperLang) {
     'use strict';
 
     var Router = express.Router();
@@ -96,6 +96,10 @@ module.exports = function (express, Language, Account) {
         if (!req.isAuthenticated() || "admin" !== req.user.role) {
             return res.sendStatus(403);
         }
+
+        console.log('Parsing language files');
+        helperLang.parse();
+        return res.sendStatus(200);
     }
 
 };

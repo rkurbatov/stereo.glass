@@ -88,7 +88,8 @@ app.use('/api/goods', require('./app/routes/api-goods')(express, Layout));
 app.use('/api/files', require('./app/routes/api-files')(express));
 app.use('/api/messages', require('./app/routes/api-messages')(express, Message));
 app.use('/api/mail', require('./app/routes/api-mail')(express, app.mailer));
-app.use('/api/lang', require('./app/routes/api-lang')(express, Language, Account));
+var helperLang = require('./app/helpers/lang');
+app.use('/api/lang', require('./app/routes/api-lang')(express, Language, helperLang));
 
 // ======== START APP ========
 app.listen(APP_PORT, 'localhost', function () {

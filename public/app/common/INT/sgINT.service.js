@@ -19,6 +19,7 @@
             update,
             reload,
             switchLang,
+            parseTemplates,
             currentLang: 'EN'
         };
 
@@ -51,6 +52,10 @@
                 isActive: lang.isActive
             };
             return $http.put('/api/lang/' + lang.code, updateObject);
+        }
+
+        function parseTemplates() {
+            return $http.get('/api/lang/parse');
         }
 
     }
