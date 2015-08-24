@@ -10,7 +10,7 @@ header(ng-show='header.loader.isSuccessful')
             nav
                 ul.menu-pages
                     li(ng-class='{"nav-selected": header.settings.currentPage.startsWith("about")}')
-                        a(sg-blick random='3' ng-bind='_INT("Подробно");' href='#/about-assortment')
+                        a(sg-blick random='3' ng-bind='_INT("Подробно");' href='#/about')
                     li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "goods"}')
                         a(ng-bind='_INT("Наш товар");' href='#/goods')
                     li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "dealers"}')

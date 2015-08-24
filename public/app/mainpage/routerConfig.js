@@ -16,6 +16,11 @@
                 controller: 'IndexPage',
                 controllerAs: 'index'
             })
+            .when('/about', {
+                templateUrl: '/pages/about',
+                controller: 'AboutPage',
+                controllerAs: 'about'
+            })
             .when('/about-assortment', {
                 templateUrl: '/pages/about-assortment',
                 controller: 'AboutPage',
