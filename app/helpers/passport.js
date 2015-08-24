@@ -5,25 +5,21 @@ module.exports = function helperPassport(app, APP_PORT, passport, Account) {
     var configAuth = require('../config/auth')(APP_PORT);
 
     return {
-        init: init
+        init
     };
 
     function init() {
         passport.use(Account.createStrategy());
 
         passport.use(new TwitterStrategy(configAuth.twitter,
-            function (token, tokenSecret, profile, done) {
-                process.nextTick(function () {
-                    return done(null, profile);
-                });
+            (token, tokenSecret, profile, done)=> {
+                process.nextTick(()=> done(null, profile));
             }));
 
         passport.use(new FacebookStrategy(configAuth.facebook,
-            function (accessToken, refreshToken, profile, done) {
+            (accessToken, refreshToken, profile, done)=> {
                 // asynchronous verification, for effect...
-                process.nextTick(function () {
-                    return done(null, profile);
-                });
+                process.nextTick(()=> done(null, profile));
             }
         ));
 
