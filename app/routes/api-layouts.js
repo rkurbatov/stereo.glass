@@ -1,9 +1,8 @@
-module.exports = function (express, Layout) {
+module.exports = function (express, Layout, Promise) {
     'use strict';
 
     var Router = express.Router();
     var _ = require('lodash');
-    var Promise = require('bluebird');
     var mv = Promise.promisify(require('mv'));
     var UploadRoot = __dirname + '/../../uploads/';
 

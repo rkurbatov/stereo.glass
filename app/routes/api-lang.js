@@ -98,8 +98,15 @@ module.exports = function (express, Language, helperLang) {
         }
 
         console.log('Parsing language files');
-        helperLang.parse();
-        return res.sendStatus(200);
+        helperLang.parse()
+            .then((parsedStrings)=> {
+                helperLang.updateDB(parsedStrings);
+                return res.sendStatus(200);
+            })
+            .catch((err)=> {
+                console.log("Can't parse files: ", err);
+                return res.sendStatus(500);
+            });
     }
 
 };
