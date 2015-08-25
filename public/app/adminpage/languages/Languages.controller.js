@@ -15,6 +15,7 @@
         vm.parseTemplates = parseTemplates;
         vm.changed = changed;
         vm.revert = revert;
+        vm.updateTr = updateTr;
         vm.trFilter = trFilter;
         vm.getTrClass = getTrClass;
 
@@ -42,7 +43,7 @@
                 });
         }
 
-        function revert(){
+        function revert() {
             changed();
         }
 
@@ -68,6 +69,18 @@
             return 'tr-ready';
         }
 
+        function updateTr(trString, formCtrl) {
+            sgIntSvc
+                .putTranslation(vm.selected, trString)
+                .then(()=> {
+                    trString.status = trString.tr ? '!' : '+';
+                    toastr.success('Перевод сохранён');
+                    formCtrl.$setPristine();
+                })
+                .catch(()=> {
+                    toastr.error('Ошибка при сохранении перевода');
+                })
+        }
     }
 
 })(window, window.angular);

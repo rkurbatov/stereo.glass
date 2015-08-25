@@ -133,7 +133,41 @@ module.exports = function (express, Language, helperLang) {
     }
 
     function putLanguageTranslateByCodeAndHash(req, res) {
+        if (!req.isAuthenticated()
+            || !_.contains(["admin", "interpreter"], req.user.role)) {
+            return res.sendStatus(403);
+        }
 
+        if (_.isUndefined(req.body.translation)) return res.sendStatus(400);
+
+        Language
+            .findOne({code: req.params.code})
+            .then((language)=> {
+                if (!language) {
+                    let err = new Error();
+                    err.status = 404;
+                    throw err;
+                }
+
+                // !!! Hash is NUMBER value !!!
+                var idx = _.findIndex(language.data, 'hash', Number(req.params.hash));
+                if (idx === -1) {
+                    let err = new Error();
+                    err.status = 404;
+                    throw err;
+                }
+
+                language.data[idx].tr = req.body.translation;
+                language.data[idx].status = req.body.translation ? '!' : '+';
+
+                return language.save();
+
+            })
+            .then(()=> res.sendStatus(200))
+            .catch((err)=> {
+                console.log("Can't modify translation: ", err);
+                return res.sendStatus(err.status || 500)
+            })
     }
 
 };

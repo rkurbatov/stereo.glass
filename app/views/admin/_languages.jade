@@ -19,7 +19,8 @@
             | Сомнительных: &nbsp;{{ _.filter(langs.currentTranslation, {status: "~"}).length }}&nbsp;
     .row
         .text-center
-            dir-pagination-controls(template-url="/templates/directive/dirPagination" ng-show='langs.selected')
+            dir-pagination-controls(template-url="/templates/directive/dirPagination"
+            ng-show='langs.selected')
     .row
         ul.sg-translations-list
             li: form.col-xs-12(name='editTr' dir-paginate='trString in langs.currentTranslation | \
@@ -37,5 +38,10 @@
                         i.fa.fa-reply
                     | &nbsp;
                     button.btn.btn-success(ng-disabled='editTr.$pristine'
-                    ng-click='langs.updateTr(trString)')
+                    ng-click='langs.updateTr(trString, editTr)')
                         i.fa.fa-pencil
+
+    .row
+        .text-center
+            dir-pagination-controls(template-url="/templates/directive/dirPagination"
+            ng-show='langs.selected')

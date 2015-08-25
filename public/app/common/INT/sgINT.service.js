@@ -21,6 +21,7 @@
             switchLang,
             parse,
             getTranslation,
+            putTranslation,
             currentLang: 'EN'
         };
 
@@ -61,6 +62,11 @@
 
         function getTranslation(langCode) {
             return $http.get('/api/lang/translation/' + langCode);
+        }
+
+        function putTranslation(langCode, trString) {
+            var queryString = '/api/lang/translation/' + langCode + '/' + trString.hash;
+            return $http.put(queryString, {translation: trString.tr});
         }
 
     }
