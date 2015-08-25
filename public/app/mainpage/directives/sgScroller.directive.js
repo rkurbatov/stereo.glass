@@ -52,7 +52,7 @@
 
 
             // TODO: check if $window swipe working.
-            angular.element($document).swipe({
+            /*angular.element($document).swipe({
                 // Generic swipe handler for all directions.
                 swipe: (evt, direction)=> {
                     if (scrolls[direction]
@@ -61,7 +61,7 @@
                     }
                 },
                 threshold: 75
-            });
+            });*/
 
             scope.header.scrollLeft = scrollLeft;
             scope.header.scrollRight = scrollRight;
