@@ -22,9 +22,20 @@
             dir-pagination-controls(template-url="/templates/directive/dirPagination" ng-show='langs.selected')
     .row
         ul.sg-translations-list
-            li.col-xs-12(dir-paginate='trString in langs.currentTranslation | filter: langs.trFilter |\
-            itemsPerPage: 20')
-                textarea.form-control.source(sg-elastic ng-model='trString.sr' readonly)
-                textarea.form-control(sg-elastic ng-model='trString.tr'
-                ng-class='langs.getTrClass(trString)')
-                br
+            li: form.col-xs-12(name='editTr' dir-paginate='trString in langs.currentTranslation | \
+            filter: langs.trFilter | itemsPerPage: 20')
+                .col-xs-10
+                    textarea.form-control.source(sg-elastic ng-model='trString.sr' readonly)
+                    textarea.form-control(sg-elastic ng-model='trString.tr'
+                    name='translation'
+                    ng-class='langs.getTrClass(trString)')
+                    br
+                .col-xs-2
+                    br
+                    button.btn.btn-warning(ng-disabled='editTr.$pristine'
+                    ng-click='langs.revert()')
+                        i.fa.fa-reply
+                    | &nbsp;
+                    button.btn.btn-success(ng-disabled='editTr.$pristine'
+                    ng-click='langs.updateTr(trString)')
+                        i.fa.fa-pencil

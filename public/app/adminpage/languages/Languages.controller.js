@@ -14,6 +14,7 @@
         vm.manage = sgLangModals.manage;
         vm.parseTemplates = parseTemplates;
         vm.changed = changed;
+        vm.revert = revert;
         vm.trFilter = trFilter;
         vm.getTrClass = getTrClass;
 
@@ -39,6 +40,10 @@
                         toastr.error("Невозможно обновить языковые файлы");
                     }
                 });
+        }
+
+        function revert(){
+            changed();
         }
 
         function changed() {

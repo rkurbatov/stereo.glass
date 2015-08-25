@@ -1,4 +1,5 @@
 .sg-translations-list {
+  list-style-type: none;
   padding: 0;
 
   .source {
@@ -18,7 +19,7 @@
   }
 
   .tr-ready {
-    background-color: palegreen;
+    background-color: #d7ffc1;
   }
 
 }
