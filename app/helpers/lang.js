@@ -104,11 +104,14 @@ module.exports = function (Promise, Language) {
 
             // add new translations (empty and only for russian just values)
             _.each(addedHashes, (hash)=> {
-                var newTranslation = {hash, status: '+'};
+                var newTranslation = {hash};
                 var idx = newHashes.indexOf(hash);
                 newTranslation.sr = parsedStrings[idx];
                 if (language.code === 'RU') {
                     newTranslation.tr = newTranslation.sr;
+                    newTranslation.status = '!';
+                } else {
+                    newTranslation.status = '+';
                 }
                 language.data.push(newTranslation);
             });

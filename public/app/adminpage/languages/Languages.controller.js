@@ -15,6 +15,7 @@
         vm.parseTemplates = parseTemplates;
         vm.changed = changed;
         vm.trFilter = trFilter;
+        vm.getTrClass = getTrClass;
 
         initController();
 
@@ -53,6 +54,13 @@
 
         function trFilter(trString) {
             return trString.status !== 'x';
+        }
+
+        function getTrClass(trString) {
+            if (trString.status === '~') return 'tr-doubt';
+            if (!trString.tr && trString.status !== '!') return 'tr-absent';
+            if (trString.tr && trString.status !== '!') return 'tr-editing';
+            return 'tr-ready';
         }
 
     }

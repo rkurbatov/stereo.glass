@@ -10,6 +10,13 @@
             ng-options='lang.code as (lang.code + " - " +  lang.name) for lang in langs.list'
             ng-change='langs.changed()')
 
+    .row: .text-center
+        br
+        label(ng-show='langs.selected')
+            | Единиц перевода: &nbsp;{{ langs.currentTranslation.length }}&nbsp;
+            | Переведено: &nbsp;{{ _.filter(langs.currentTranslation, {status: "!"}).length }}&nbsp;
+            | Осталось: &nbsp;{{ langs.currentTranslation.length - _.filter(langs.currentTranslation, {status: "!"}).length }}&nbsp;
+            | Сомнительных: &nbsp;{{ _.filter(langs.currentTranslation, {status: "~"}).length }}&nbsp;
     .row
         .text-center
             dir-pagination-controls(template-url="/templates/directive/dirPagination" ng-show='langs.selected')
@@ -17,6 +24,7 @@
         ul.sg-translations-list
             li.col-xs-12(dir-paginate='trString in langs.currentTranslation | filter: langs.trFilter |\
             itemsPerPage: 20')
-                textarea.form-control(sg-elastic ng-model='trString.sr' readonly)
-                textarea.form-control(sg-elastic ng-model='trString.tr')
+                textarea.form-control.source(sg-elastic ng-model='trString.sr' readonly)
+                textarea.form-control(sg-elastic ng-model='trString.tr'
+                ng-class='langs.getTrClass(trString)')
                 br
