@@ -23,6 +23,7 @@ module.exports = function (express, Language, helperLang) {
         Language
             .find({}, '-_id -__v -data')
             .then(function (languages) {
+                console.log(languages);
                 return res.json(languages);
             })
             .catch(function (err) {
@@ -89,7 +90,7 @@ module.exports = function (express, Language, helperLang) {
             return res.sendStatus(403);
         }
 
-        if (!req.body.name || !req.body.isActive) {
+        if (!req.body.name && !req.body.isActive) {
             return res.sendStatus(400);
         }
 

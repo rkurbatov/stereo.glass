@@ -19,7 +19,7 @@ header(ng-show='header.loader.isSuccessful')
                         a(sg-blick ng-bind='_INT("Контакты");' href='#/contacts')
                     li
                         a.flag-container(sg-blick random='3')
-                            img(ng-src="{{ 'img/flags/' + header.INT.currentLang + '.png' }}")
+                            img(ng-src="{{ 'img/flags/' + header.IntSvc.currentLang + '.png' }}")
                             span(ng-bind='header.INT.currentLang')
                 sg-lang-switcher
         #wrapper-nav-buttons

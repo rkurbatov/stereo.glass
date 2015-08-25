@@ -5,8 +5,8 @@
         .module('MainPage')
         .controller('HeaderCtrl', Header);
 
-    Header.$inject = ['sgPreloader', '$timeout', 'AuthSvc', 'auxData'];
-    function Header(sgPreloader, $timeout, AuthSvc, auxData) {
+    Header.$inject = ['sgPreloader', '$timeout', 'AuthSvc', 'auxData', 'sgIntSvc'];
+    function Header(sgPreloader, $timeout, AuthSvc, auxData, sgIntSvc) {
 
         var vm = this;
         vm.loader = auxData.loader;
@@ -14,6 +14,7 @@
         vm.signInRegister = signInRegister;
         vm.currentUser = AuthSvc.currentUser;
         vm.settings = auxData.settings;
+        vm.IntSvc = sgIntSvc;
 
 
         initController();

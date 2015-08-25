@@ -22,7 +22,7 @@
             parse,
             getTranslation,
             putTranslation,
-            currentLang: 'EN'
+            currentLang: 'RU'
         };
 
         function init() {
@@ -30,7 +30,7 @@
         }
 
         function switchLang(code) {
-
+            console.log('change lang to: ', code);
         }
 
         function reload() {
@@ -53,7 +53,7 @@
                 name: lang.name,
                 isActive: lang.isActive
             };
-            return $http.put('/api/lang/edit' + lang.code, updateObject);
+            return $http.put('/api/lang/edit/' + lang.code, updateObject);
         }
 
         function parse() {
