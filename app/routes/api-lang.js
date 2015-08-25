@@ -10,6 +10,7 @@ module.exports = function (express, Language, helperLang) {
     Router.get('/list', getLanguages);
     Router.get('/parse', parseLanguages);
     Router.get('/translation/:code', getTranslateByCode);
+    Router.get('/switch/:code', switchLanguageByCode);
     // creates new language set
     Router.post('/', postLanguage);
     Router.put('/edit/:code', putLanguageByCode);
@@ -30,6 +31,27 @@ module.exports = function (express, Language, helperLang) {
                 console.log("Can't get language list: ", err);
                 return res.sendStatus(500);
             })
+    }
+
+    function switchLanguageByCode(req, res) {
+        Language
+            .findOne({code: req.params.code})
+            .then((language)=> {
+                if (!language) return res.sendStatus(404);
+
+                var dictionary = {};
+                _.each(language.data, (element)=> {
+                    if (element.tr) {
+                        dictionary[element.hash] = element.tr;
+                    }
+                });
+
+                return res.json(dictionary);
+            })
+            .catch((err)=> {
+                console.log("Can't send dictionary: ", err);
+                res.sendStatus(err.status || 500);
+            });
     }
 
     function postLanguage(req, res) {

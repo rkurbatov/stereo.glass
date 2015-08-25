@@ -5,9 +5,9 @@
         .module('sg.i18n')
         .factory('sgIntSvc', sgIntSvc);
 
-    sgIntSvc.$inject = ['$http'];
+    sgIntSvc.$inject = ['$http', '$rootScope'];
 
-    function sgIntSvc($http) {
+    function sgIntSvc($http, $rootScope) {
 
         var langs = [];
 
@@ -31,6 +31,14 @@
 
         function switchLang(code) {
             console.log('change lang to: ', code);
+            $http
+                .get('/api/lang/switch/' + code)
+                .then((response)=> {
+                    for (var key in window._LANG_) {
+                        delete window._LANG_[key];
+                    }
+                    $rootScope.$applyAsync(()=> _.extend(window._LANG_, response.data));
+                })
         }
 
         function reload() {
