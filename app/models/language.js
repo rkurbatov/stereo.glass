@@ -5,6 +5,7 @@ module.exports = function (mongoose) {
 
     var Translation = new Schema({
         hash: Number,
+        sr: String,
         tr: String,
         status: String
     });

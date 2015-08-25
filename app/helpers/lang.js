@@ -1,6 +1,7 @@
 module.exports = function (Promise, Language) {
     var fs = require('fs');
     var wrench = require('wrench');
+    var _ = require('lodash');
 
     Promise.promisifyAll(fs);
 
@@ -65,9 +66,56 @@ module.exports = function (Promise, Language) {
     }
 
     function updateDB(parsedStrings) {
-        var hashes = parsedStrings.map(hashFnv32a);
-        console.log(parsedStrings);
-        console.log(hashes);
+        var newHashes = parsedStrings.map(hashFnv32a);
+        return Language.find({})
+            .then((languages)=> {
+                if (!languages.length) {
+                    var err = new Error('Language list is empty');
+                    err.status = 404;
+                    throw err;
+                }
+
+                return Promise.all(languages.map(updateLanguage));
+            });
+
+        function updateLanguage(language) {
+            var existingHashes = _.map(language.data, 'hash');
+            var addedHashes = _.difference(newHashes, existingHashes);
+            var removedHashes = _.difference(existingHashes, newHashes);
+            var unchangedHashes = _.intersection(newHashes, existingHashes);
+
+            // mark all returned strings
+            _.each(unchangedHashes, (hash)=> {
+                var idx = existingHashes.indexOf(hash);
+                if (language.data[idx].status === 'x') {
+                    // returned translation
+                    var idx2 = newHashes.indexOf(hash);
+                    // set original text for new original text (for case of dup. hash)
+                    language.data[idx].sr = parsedStrings[idx2].sr;
+                    language.data[idx].status = '~';
+                }
+            });
+
+            // mark all removed strings
+            _.each(removedHashes, (hash)=> {
+                var idx = existingHashes.indexOf(hash);
+                language.data[idx].status = 'x';
+            });
+
+            // add new translations (empty and only for russian just values)
+            _.each(addedHashes, (hash)=> {
+                var newTranslation = {hash, status: '+'};
+                var idx = newHashes.indexOf(hash);
+                newTranslation.sr = parsedStrings[idx];
+                if (language.code === 'RU') {
+                    newTranslation.tr = newTranslation.sr;
+                }
+                language.data.push(newTranslation);
+            });
+
+            return language.save();
+
+        }
     }
 
     // function to calculate 32bit hash of string

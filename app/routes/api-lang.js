@@ -100,12 +100,12 @@ module.exports = function (express, Language, helperLang) {
         console.log('Parsing language files');
         helperLang.parse()
             .then((parsedStrings)=> {
-                helperLang.updateDB(parsedStrings);
-                return res.sendStatus(200);
+                return helperLang.updateDB(parsedStrings);
             })
+            .then(()=>res.sendStatus(200))
             .catch((err)=> {
                 console.log("Can't parse files: ", err);
-                return res.sendStatus(500);
+                return res.sendStatus(err.status || 500);
             });
     }
 
