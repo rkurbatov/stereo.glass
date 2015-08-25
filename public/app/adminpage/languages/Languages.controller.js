@@ -5,8 +5,8 @@
         .module('sgAppAdmin')
         .controller('Languages', Languages);
 
-    Languages.$inject = ['sgIntSvc', 'sgLangModals'];
-    function Languages(sgIntSvc, sgLangModals) {
+    Languages.$inject = ['sgIntSvc', 'sgLangModals', 'toastr'];
+    function Languages(sgIntSvc, sgLangModals, toastr) {
 
         //===== DECLARATION =====
         var vm = this;
@@ -14,6 +14,7 @@
         vm.manage = sgLangModals.manage;
         vm.parseTemplates = parseTemplates;
         vm.changed = changed;
+        vm.trFilter = trFilter;
 
         initController();
 
@@ -24,11 +25,34 @@
         }
 
         function parseTemplates() {
-            sgLangModals.parseTemplates();
+            sgIntSvc
+                .parse()
+                .then(()=> {
+                    toastr.success("Языковые файлы обновлены");
+                    vm.selected = ''
+                })
+                .catch((err)=> {
+                    if (err.status === 404) {
+                        toastr.error('Добавьте хотя бы один язык');
+                    } else {
+                        toastr.error("Невозможно обновить языковые файлы");
+                    }
+                });
         }
 
-        function changed(){
-            console.log('selected lang: ', vm.selected);
+        function changed() {
+            sgIntSvc
+                .getTranslation(vm.selected)
+                .then((response)=> {
+                    vm.currentTranslation = response.data;
+                })
+                .catch((err)=> {
+                    toastr.error("Невозможно загрузить файл перевода");
+                });
+        }
+
+        function trFilter(trString) {
+            return trString.status !== 'x';
         }
 
     }

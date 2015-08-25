@@ -9,11 +9,11 @@ module.exports = function (express, Language, helperLang) {
     // returns available language list
     Router.get('/list', getLanguages);
     Router.get('/parse', parseLanguages);
-    Router.get('/translate/:code', getTranslateByCode);
+    Router.get('/translation/:code', getTranslateByCode);
     // creates new language set
     Router.post('/', postLanguage);
     Router.put('/edit/:code', putLanguageByCode);
-    Router.put('/translate/:code/:hash', putLanguageTranslateByCodeAndHash);
+    Router.put('/translation/:code/:hash', putLanguageTranslateByCodeAndHash);
 
     return Router;
 

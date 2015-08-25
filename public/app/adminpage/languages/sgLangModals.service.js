@@ -12,7 +12,6 @@
         var svc = this;
 
         svc.manage = manage;
-        svc.parseTemplates = parseTemplates;
 
         function manage() {
             var modalDO = {
@@ -34,7 +33,6 @@
             vm.ok = ok;
             vm.addLanguage = addLanguage;
             vm.updateLanguage = updateLanguage;
-            vm.parseTemplates = parseTemplates;
 
             initController();
 
@@ -77,19 +75,6 @@
 
         }
 
-        function parseTemplates() {
-            return sgIntSvc.parse()
-                .then(()=> {
-                    toastr.success("Языковые файлы обновлены");
-                })
-                .catch((err)=> {
-                    if (err.status === 404) {
-                        toastr.error('Добавьте хотя бы один язык');
-                    } else {
-                        toastr.error("Невозможно обновить языковые файлы");
-                    }
-                });
-        }
     }
 
 })();

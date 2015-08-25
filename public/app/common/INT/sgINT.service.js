@@ -20,6 +20,7 @@
             reload,
             switchLang,
             parse,
+            getTranslation,
             currentLang: 'EN'
         };
 
@@ -56,6 +57,10 @@
 
         function parse() {
             return $http.get('/api/lang/parse');
+        }
+
+        function getTranslation(langCode) {
+            return $http.get('/api/lang/translation/' + langCode);
         }
 
     }
