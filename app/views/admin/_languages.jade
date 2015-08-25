@@ -6,6 +6,8 @@
         .col-xs-4
             button.form-control.btn.btn-success(ng-click='langs.parseTemplates()') Обновить языковые файлы
         .col-xs-4
-            select.form-control(ng-model='langs.selected' ng-options='label as (lang.code + " - " +  lang.name) for lang in langs.list')
+            select.form-control(ng-model='langs.selected'
+            ng-options='label as (lang.code + " - " +  lang.name) for lang in langs.list'
+            ng-change='langs.changed()')
 
     .row

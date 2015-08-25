@@ -2,16 +2,18 @@ module.exports = function (express, Language, helperLang) {
     'use strict';
 
     var Router = express.Router();
+    var _ = require('lodash');
 
     // DECLARATION
 
     // returns available language list
     Router.get('/list', getLanguages);
+    Router.get('/parse', parseLanguages);
+    Router.get('/translate/:code', getTranslateByCode);
     // creates new language set
     Router.post('/', postLanguage);
-    Router.put('/:code', putLanguageByCode);
-
-    Router.get('/parse', parseLanguages);
+    Router.put('/edit/:code', putLanguageByCode);
+    Router.put('/translate/:code/:hash', putLanguageTranslateByCodeAndHash);
 
     return Router;
 
@@ -61,6 +63,27 @@ module.exports = function (express, Language, helperLang) {
             });
     }
 
+    function getTranslateByCode(req, res) {
+        if (!req.isAuthenticated() || !_.contains(["admin", "interpreter"], req.user.role)) {
+            return res.sendStatus(403);
+        }
+
+        Language.findOne({code: req.params.code})
+            .then((language)=> {
+                if (!language) {
+                    var err = new Error("Languages not found");
+                    err.status = 404;
+                    throw err;
+                }
+
+                return res.json(language.data);
+            })
+            .catch((err)=> {
+                console.log("Can't get language: ", err);
+                return res.sendStatus(err.status || 500);
+            })
+    }
+
     function putLanguageByCode(req, res) {
         if (!req.isAuthenticated() || "admin" !== req.user.role) {
             return res.sendStatus(403);
@@ -107,6 +130,10 @@ module.exports = function (express, Language, helperLang) {
                 console.log("Can't parse files: ", err);
                 return res.sendStatus(err.status || 500);
             });
+    }
+
+    function putLanguageTranslateByCodeAndHash(req, res) {
+
     }
 
 };

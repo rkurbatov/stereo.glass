@@ -51,7 +51,7 @@
                 name: lang.name,
                 isActive: lang.isActive
             };
-            return $http.put('/api/lang/' + lang.code, updateObject);
+            return $http.put('/api/lang/edit' + lang.code, updateObject);
         }
 
         function parse() {

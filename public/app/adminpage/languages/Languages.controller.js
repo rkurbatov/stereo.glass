@@ -10,10 +10,10 @@
 
         //===== DECLARATION =====
         var vm = this;
-        vm.selected = '';
 
         vm.manage = sgLangModals.manage;
         vm.parseTemplates = parseTemplates;
+        vm.changed = changed;
 
         initController();
 
@@ -24,9 +24,12 @@
         }
 
         function parseTemplates() {
-            sgLangModals.parseTemplates().then(()=> vm.selected = '');
+            sgLangModals.parseTemplates();
         }
 
+        function changed(){
+            console.log('selected lang: ', vm.selected);
+        }
 
     }
 
