@@ -10,19 +10,23 @@
 
         //===== DECLARATION =====
         var vm = this;
-        vm.list = sgIntSvc.langs;
         vm.selected = '';
 
         vm.manage = sgLangModals.manage;
-        vm.parseTemplates = sgIntSvc.parseTemplates;
+        vm.parseTemplates = parseTemplates;
 
         initController();
 
         //=== IMPLEMENTATION ====
 
         function initController() {
-
+            vm.list = sgIntSvc.langs;
         }
+
+        function parseTemplates() {
+            sgLangModals.parseTemplates().then(()=> vm.selected = '');
+        }
+
 
     }
 

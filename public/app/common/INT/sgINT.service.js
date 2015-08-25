@@ -19,7 +19,7 @@
             update,
             reload,
             switchLang,
-            parseTemplates,
+            parse,
             currentLang: 'EN'
         };
 
@@ -54,7 +54,7 @@
             return $http.put('/api/lang/' + lang.code, updateObject);
         }
 
-        function parseTemplates() {
+        function parse() {
             return $http.get('/api/lang/parse');
         }
 
