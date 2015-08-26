@@ -14,7 +14,7 @@
 
         /** @namespace window.isMobile */
         svc.settings = {
-            currentPage: 'index',
+            currentPage: 'carousel',
             isWideScreen: undefined,
             screenIndex: 0,
             screenSections: [],

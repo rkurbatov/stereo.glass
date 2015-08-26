@@ -20,7 +20,9 @@
         }
 
         function isSelected(str) {
-            return auxData.settings.currentPage === str;
+            return auxData.settings.currentSection === str
+                ? "selected"
+                : "";
         }
 
     }

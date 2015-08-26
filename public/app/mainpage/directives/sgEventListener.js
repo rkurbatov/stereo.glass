@@ -21,7 +21,7 @@
 
             //angular.element($document).on('load', calcRatio);
             angular.element($window).on('resize orientationchange', ()=> {
-                if (auxData.settings.currentPage === 'index') {
+                if (auxData.settings.currentPage === 'carousel') {
                     calcRatio();
                     console.log('emitting on resize');
                     scope.$emit('carousel:redraw');
@@ -51,7 +51,7 @@
                 },
                 (page)=> {
                     // carousel should be redrawed, all scroll events should be listened to
-                    if (page === 'index') {
+                    if (page === 'carousel') {
                         auxData.settings.screenSections.length = 0;
                         auxData.settings.handleScrollEvents = true;
                         calcRatio();

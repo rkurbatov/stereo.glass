@@ -12,59 +12,48 @@
 
         $routeProvider
             .when('/', {
-                templateUrl: '/pages/index',
-                controller: 'IndexPage',
-                controllerAs: 'index'
+                templateUrl: '/pages/carousel/index',
+                controller: 'CarouselPage',
+                controllerAs: 'carousel'
             })
-            .when('/about', {
-                templateUrl: '/pages/about',
+            .when('/about/:section?/:subsection?', {
+                templateUrl: (params)=> {
+                    // f.e. /contacts => /pages/contacts/index
+                    if (!params.section) return '/pages/about/index';
+                    // f.e. /about/assortment => /pages/about/assortment
+                    if (!params.subsection) return '/pages/about/' + params.section;
+                    // f.e. /about/technology/info => /pages/about/technology-info;
+                    return '/pages/about/' + params.section + '-' + params.subsection;
+                },
                 controller: 'AboutPage',
                 controllerAs: 'about'
             })
-            .when('/about-assortment', {
-                templateUrl: '/pages/about-assortment',
-                controller: 'AboutPage',
-                controllerAs: 'about'
-            })
-            .when('/about-technology', {
-                templateUrl: '/pages/about-technology',
-                controller: 'AboutPage',
-                controllerAs: 'about'
-            })
-            .when('/about-documents', {
-                templateUrl: '/pages/about-documents',
-                controller: 'AboutPage',
-                controllerAs: 'about'
-            })
-            .when('/about-video', {
-                templateUrl: '/pages/about-video',
-                controller: 'AboutPage',
-                controllerAs: 'about'
-            })
-            .when('/about-photo', {
-                templateUrl: '/pages/about-photo',
-                controller: 'AboutPage',
-                controllerAs: 'about'
-            })
-            .when('/about-faq', {
-                templateUrl: '/pages/about-faq',
-                controller: 'AboutPage',
-                controllerAs: 'about'
-            })
-            .when('/goods', {
-                templateUrl: '/pages/goods',
+            .when('/goods/:section?/:subsection?', {
+                templateUrl: (params)=> {
+                    if (!params.section) return '/pages/goods/index';
+                    if (!params.subsection) return '/pages/goods/' + params.section;
+                    return '/pages/goods/' + params.section + '-' + params.subsection;
+                },
                 controller: 'GoodsPage',
                 controllerAs: 'goods'
             })
-            .when('/dealers', {
-                templateUrl: '/pages/dealers',
-                controller: 'DealersPage',
-                controllerAs: 'dealers'
-            })
-            .when('/contacts', {
-                templateUrl: '/pages/contacts',
+            .when('/contacts/:section?/:subsection?', {
+                templateUrl: (params)=> {
+                    if (!params.section) return '/pages/contacts/index';
+                    if (!params.subsection) return '/pages/contacts/' + params.section;
+                    return '/pages/contacts/' + params.section + '-' + params.subsection;
+                },
                 controller: 'ContactsPage',
                 controllerAs: 'contacts'
+            })
+            .when('/dealers/:section?/:subsection?', {
+                templateUrl: (params)=> {
+                    if (!params.section) return '/pages/dealers/index';
+                    if (!params.subsection) return '/pages/dealers/' + params.section;
+                    return '/pages/dealers/' + params.section + '-' + params.subsection;
+                },
+                controller: 'DealersPage',
+                controllerAs: 'dealers'
             })
             .otherwise({redirectTo: '/'});
 
@@ -74,7 +63,9 @@
 
     function locationConfig($rootScope, $location, auxData) {
         $rootScope.$on('$routeChangeSuccess', (e, current, pre)=> {
-            auxData.settings.currentPage = ($location.path().substring(1) || "index");
+            var path = $location.path().split('/');
+            auxData.settings.currentPage = path[1] || "carousel";
+            auxData.settings.currentSection = path[2] || "";
         });
     }
 

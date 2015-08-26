@@ -3,10 +3,10 @@
 
     angular
         .module('MainPage')
-        .controller('IndexPage', IndexPage);
+        .controller('CarouselPage', CarouselPage);
 
-    IndexPage.$inject = ['auxData'];
-    function IndexPage(auxData) {
+    CarouselPage.$inject = ['auxData'];
+    function CarouselPage(auxData) {
         var vm = this;
         vm.settings = auxData.settings;
 

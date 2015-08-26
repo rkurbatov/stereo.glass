@@ -38,7 +38,7 @@
             scope.$watch(
                 ()=>auxData.settings.currentPage,
                 (page)=>{
-                    if (page === 'index') {
+                    if (page === 'carousel') {
                         sizeBody();
                     } else {
                         elm.css({ width: '' });
