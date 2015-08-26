@@ -22,7 +22,7 @@
         .input-group
             span.input-group-addon: i.fa.fa-users
             select.form-control(name="roles", ng-model="vm.user.role", ng-options="r for r in vm.roles")
-    .form-group
+    .form-group(ng-if="_.contains(['admin', 'curator', 'designer', 'founder'], vm.user.role)")
         label.control-label Цвет рамки
         color-picker(ng-model="vm.borderColor"
         color-picker-format="'rgb'"
