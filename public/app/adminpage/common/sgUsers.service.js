@@ -17,7 +17,8 @@
             mail: $cookies.get('usermail'),
             role: $cookies.get('userrole')
         };
-        svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'visitor'];
+
+        svc.allRoles = ['admin', 'curator', 'founder', 'designer', 'interpreter', 'visitor'];
         svc.getMail = getMail;
 
         svc.remove = remove;

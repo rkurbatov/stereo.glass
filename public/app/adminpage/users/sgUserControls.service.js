@@ -27,13 +27,14 @@
             return $modal.open(modalDO).result;
         }
 
-        editUserCtrl.$inject = ['$modalInstance', 'sgUsers', 'user'];
+        editUserCtrl.$inject = ['$modalInstance', 'sgUsers', 'sgIntSvc', 'user'];
 
-        function editUserCtrl($modalInstance, sgUsers, user) {
+        function editUserCtrl($modalInstance, sgUsers, sgIntSvc, user) {
             var vm = this;
             vm.user = user;
             vm.newPassword = '';
             vm.roles = sgUsers.allRoles;
+            vm.langs = sgIntSvc.langs;
             vm.borderColor = vm.user.borderColor || "rgb(255, 255, 255)";
 
             vm.ok = function () {

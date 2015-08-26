@@ -11,22 +11,36 @@
         label.control-label Имя пользователя
         .input-group
             span.input-group-addon: i.fa.fa-user
-            input.form-control(name="username", ng-required="", autofocus, ng-model="vm.user.username")
+            input.form-control(name="username"
+            ng-required=""
+            autofocus=""
+            ng-model="vm.user.username")
     .form-group
         label.control-label E-mail
         .input-group
             span.input-group-addon: i.fa.fa-envelope
-            input.form-control(name="usermail", type="email", ng-required="", ng-model="vm.user.usermail")
+            input.form-control(name="usermail"
+            type="email"
+            ng-required=""
+            ng-model="vm.user.usermail")
     .form-group
         label.control-label Права доступа
         .input-group
             span.input-group-addon: i.fa.fa-users
-            select.form-control(name="roles", ng-model="vm.user.role", ng-options="r for r in vm.roles")
+            select.form-control(name="roles"
+            ng-model="vm.user.role"
+            ng-options="r for r in vm.roles")
     .form-group(ng-if="_.contains(['admin', 'curator', 'designer', 'founder'], vm.user.role)")
         label.control-label Цвет рамки
         color-picker(ng-model="vm.borderColor"
         color-picker-format="'rgb'"
         color-picker-alpha='false')
+    .form-group(ng-if="_.contains(['interpreter'], vm.user.role)")
+        .input-group
+            span.input-group-addon: i.fa.fa-flag
+            select.form-control(name="languages"
+            ng-model='vm.user.assignedLanguage'
+            ng-options="lang.code as (lang.code + ' - ' +  lang.name) for lang in vm.langs")
     .form-group
         label.control-label Пароль
         .input-group

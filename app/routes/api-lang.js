@@ -21,10 +21,16 @@ module.exports = function (express, Language, helperLang) {
     // IMPLEMENTATION
 
     function getLanguages(req, res) {
+        var findObj = {};
+
+        // Interpreters can use only assigned language (for translation)
+        if (req.isAuthenticated() && req.user.role === 'interpreter') {
+            findObj.code = req.user.assignedLanguage;
+        }
+
         Language
-            .find({}, '-_id -__v -data')
+            .find(findObj, '-_id -__v -data')
             .then(function (languages) {
-                console.log(languages);
                 return res.json(languages);
             })
             .catch(function (err) {
@@ -87,7 +93,8 @@ module.exports = function (express, Language, helperLang) {
     }
 
     function getTranslateByCode(req, res) {
-        if (!req.isAuthenticated() || !_.contains(["admin", "interpreter"], req.user.role)) {
+        if (!req.isAuthenticated()
+            || !_.contains(["admin", "interpreter"], req.user.role)) {
             return res.sendStatus(403);
         }
 

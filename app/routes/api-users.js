@@ -61,17 +61,24 @@ module.exports = function (express, Account, Layout) {
 
     function putUsersById(req, res) {
 
-        // only admin can modify users (or user itself)
+        var setObject = req.body.params.setObject;
+
+        if (!setObject) {
+            return res.sendStatus(400);
+        }
+
         if (!req.isAuthenticated()
-            || (req.user.role !== 'admin' && req.user['_id'] !== req.params.id)) {
+            || (
+                req.user.role !== 'admin'
+                && req.user['_id'] !== req.params.id        // only admin can modify users (or user itself)
+                && setObject.role                           // only admin can assign roles
+            )) {
             return res.sendStatus(403);
         }
 
-        var setObject = req.body.params.setObject;
-
         Account
             .findById(req.params.id)
-            .then(function (account) {
+            .then((account)=> {
                 if (!account) {
                     var err = new Error();
                     err.status = 404;
@@ -85,13 +92,17 @@ module.exports = function (express, Account, Layout) {
                     account.borderColor = setObject.borderColor;
                 }
 
+                if (setObject.assignedLanguage) {
+                    account.assignedLanguage = setObject.assignedLanguage;
+                }
+
                 if (setObject.password) {
                     account.password = setObject.password;
                 }
 
                 return account.save();
             })
-            .then(function(){
+            .then(function () {
                 return res.sendStatus(200);
             })
             .catch(function (err) {

@@ -15,7 +15,8 @@ module.exports = function (mongoose) {
             type: String,
             default: "visitor"
         },
-        borderColor: String,
+        borderColor: String,        // layouts borders for picture authors
+        assignedLanguage: String,   // for interpreters
         createdAt: Date,
         activeAt: Date
     });
