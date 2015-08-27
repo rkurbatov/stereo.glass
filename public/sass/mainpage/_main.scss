@@ -51,22 +51,6 @@ body {
 }
 
 .sg-l2-wrapper {
-  bottom: 0;
-  left: 0;
-  overflow-y: scroll;
-  position: absolute;
-  right: 0;
-
-  a:hover {
-    text-decoration: none;
-  }
-
-  @media (min-width: 1400px) {
-    margin-left: auto;
-    margin-right: auto;
-    width: 1400px;
-  }
-
   @include on-xs {
     top: 42px;
   }
@@ -81,6 +65,22 @@ body {
 
   @include on-lg {
     top: 84px;
+  }
+
+  @media (min-width: 1400px) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1400px;
+  }
+
+  bottom: 0;
+  left: 0;
+  overflow-y: scroll;
+  position: absolute;
+  right: 0;
+
+  a:hover {
+    text-decoration: none;
   }
 }
 

@@ -10,6 +10,7 @@
         var vm = this;
 
         vm.isSelected = isSelected;
+        vm.isSideSelected = isSideSelected;
 
         initController();
 
@@ -21,6 +22,12 @@
 
         function isSelected(str) {
             return auxData.settings.currentSection === str
+                ? "selected"
+                : "";
+        }
+
+        function isSideSelected(str) {
+            return auxData.settings.currentSubsection === str
                 ? "selected"
                 : "";
         }
