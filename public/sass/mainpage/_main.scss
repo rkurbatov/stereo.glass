@@ -5,6 +5,10 @@ body {
 }
 
 body {
+  background: url('../img/background.jpg') repeat;
+  font-family: Tahoma, sans-serif;
+  margin: 0;
+
   @include on-xs-minus {
     font-size: 10px;
   }
@@ -24,10 +28,6 @@ body {
   @include on-lg {
     font-size: 16px;
   }
-
-  background: url('../img/background.jpg') repeat;
-  font-family: Tahoma, sans-serif;
-  margin: 0;
 
   &:before {
     @include box-shadow(rgba(black, 0.25) 0 0 10px);

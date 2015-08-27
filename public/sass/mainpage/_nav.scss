@@ -1,15 +1,13 @@
 $nbfcolor: #F2F2F2;
 
 .nav-button {
-  height: 42px;
+  @include border-radius(3px, 3px);
+  @include black-glossy-background;
+
   color: $nbfcolor;
   font-family: "Airbone", helvetica, arial, sans-serif;
   font-size: 24px;
-
-  @include border-radius(3px, 3px);
-
-  @include black-glossy-background;
-
+  height: 42px;
 }
 
 .nav-selected, .nav-button:hover {

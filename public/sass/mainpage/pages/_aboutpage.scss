@@ -8,9 +8,30 @@
   position: fixed;
   width: 20%;
 
-  .content {
-    margin: 5px;
+  .menu-content {
+    margin: 10px;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      border-bottom: rgba(black, .15) 2px ridge;
+      cursor: pointer;
+      font: 15px/30px "Airbone";
+      margin-top: 5px;
+    }
+
+    li.selected {
+      color: $wine-red;
+    }
+
+    a {
+      color: black;
+    }
   }
+
 }
 
 .sg-about-main-panel {
