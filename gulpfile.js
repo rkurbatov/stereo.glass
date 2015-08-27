@@ -159,7 +159,7 @@ function deployCustom(production) {
     ];
 
     var customStylesAdmin = [
-        'public/css/admin/admin.css'
+        'public/css/admin.css'
     ];
 
     var customSourceMain = [
@@ -170,7 +170,7 @@ function deployCustom(production) {
     ];
 
     var customStylesMain = [
-        'public/css/mainpage/mainpage.css'
+        'public/css/mainpage.css'
     ];
 
     var customSourceAuth = [
@@ -181,7 +181,7 @@ function deployCustom(production) {
     ];
 
     var customStylesAuth = [
-        'public/css/auth/auth.css'
+        'public/css/auth.css'
     ];
 
     gulp.src(customSourceAdmin)
