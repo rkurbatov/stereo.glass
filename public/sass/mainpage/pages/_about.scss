@@ -24,11 +24,11 @@
     }
 
     .selected a {
-      color: $wine-red;
+      color: $sg-winered;
     }
 
     a {
-      color: black;
+      color: $sg-black;
       display: block;
     }
 
@@ -69,19 +69,19 @@
     margin: 20px;
 
     a {
-      color: saturate($wine-red, 20%);
+      color: saturate($sg-winered, 20%);
       cursor: pointer;
     }
 
     .panel-heading a {
-      color: black;
+      color: $sg-black;
       outline: none;
       text-decoration: none;
     }
 
     .panel-open {
-      background-color: rgba(antiquewhite, .5);
-      color: desaturate($wine-red, 20%);
+      background-color: rgba($sg-silver, .5);
+      color: desaturate($sg-winered, 20%);
     }
   }
 }

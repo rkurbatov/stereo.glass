@@ -12,7 +12,7 @@
     border: 0;
 
     &.selected a {
-      color: $wine_red;
+      color: $sg-winered;
     }
 
     a {
@@ -47,7 +47,7 @@
       }
 
       &:hover {
-        color: $wine_red;
+        color: $sg-winered;
         @include blicker-hover;
       }
 

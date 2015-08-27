@@ -1,3 +1,7 @@
+// Main SG Color
+$sg-winered: #9c1122;
+
+// Goods colors
 $sg-red: #f00;
 $sg-orange: #ffa500;
 $sg-brown: #8b4513;
@@ -10,10 +14,13 @@ $sg-black: #000;
 $sg-lightgray: #d3d3d3;
 $sg-white: #fff;
 
+// Rating colors
 $sg-gold: #d9a441;
 $sg-silver: #c0c0c0;
 $sg-bronze: #51412d;
 
+
+// corresponding color styles
 .sg-red-i {
   color: $sg-red;
 }
