@@ -4,9 +4,10 @@
 
 .sg-about-side-panel {
   display: inline-block;
-  width: 20%;
   height: 100%;
-  float: left;
+  position: fixed;
+  width: 20%;
+
   .content {
     margin: 5px;
   }
@@ -14,9 +15,9 @@
 
 .sg-about-main-panel {
   display: inline-block;
-  width: 80%;
+  float: right;
   height: 100%;
-  float: left;
+  width: 80%;
 }
 
 .sg-about-main-body {
