@@ -67,8 +67,21 @@
 
   .content {
     margin: 20px;
+
     a {
-      color: $wine-red;
+      color: saturate($wine-red, 20%);
+      cursor: pointer;
+    }
+
+    .panel-heading a {
+      color: black;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .panel-open {
+      background-color: rgba(antiquewhite, .5);
+      color: desaturate($wine-red, 20%);
     }
   }
 }
