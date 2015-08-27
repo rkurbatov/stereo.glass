@@ -3,14 +3,16 @@
 @import 'normalize';
 
 @import 'shared/colors';
-@import 'mainpage/fonts';
+@import 'shared/fonts';
+
 @import 'mainpage/utilities/utilities';
 @import 'mainpage/components/components';
 @import 'mainpage/main';
 @import 'mainpage/loader';
 @import 'mainpage/common/header';
-@import 'mainpage/pages/mainpage';
-@import 'mainpage/pages/goodspage';
-@import 'mainpage/pages/aboutpage';
-@import 'mainpage/pages/contactspage';
-@import 'mainpage/pages/dealerspage';
+
+@import 'mainpage/pages/carousel';
+@import 'mainpage/pages/goods';
+@import 'mainpage/pages/about';
+@import 'mainpage/pages/contacts';
+@import 'mainpage/pages/dealers';

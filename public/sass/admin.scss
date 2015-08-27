@@ -3,9 +3,10 @@
 @import 'normalize';
 
 @import 'shared/colors';
-@import 'admin/helperclasses';
-@import 'admin/layoutstab';
-@import 'admin/languagestab';
-@import 'admin/gallerytab';
+@import 'shared/helperclasses';
+
+@import 'admin/tabs/layouts';
+@import 'admin/tabs/languages';
+@import 'admin/tabs/gallery';
 @import 'admin/popover-comments';
-@import 'admin/tabs';
+@import 'admin/styles';

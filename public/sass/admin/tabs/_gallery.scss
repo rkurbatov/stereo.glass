@@ -25,13 +25,14 @@
 }
 
 /* Img crop container */
-img.sg-cropped {
+.sg-cropped {
+  border: 1px solid $sg-lightgray;
+  height: 100px;
   object-fit: cover;
   width: 100px;
-  height: 100px;
-  border: 1px solid lightgray;
 }
 
-.sg-rating-block i.glyphicon-star, .sg-rating-block i.glyphicon-star-empty {
-  text-indent: 0.3em;
+.sg-rating-block .glyphicon-star,
+.sg-rating-block .glyphicon-star-empty {
+  text-indent: .3em;
 }
