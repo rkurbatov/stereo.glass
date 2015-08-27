@@ -146,7 +146,8 @@ module.exports = function (express, Language, helperLang) {
     }
 
     function parseLanguages(req, res) {
-        if (!req.isAuthenticated() || "admin" !== req.user.role) {
+        if (!req.isAuthenticated()
+            || !_.contains(["admin", "interpreter"], req.user.role)) {
             return res.sendStatus(403);
         }
 
