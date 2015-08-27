@@ -18,7 +18,7 @@ nav {
       border-left: 1px solid rgba(white, 0.35);
 
       @include on-sm-plus {
-        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
+        -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
       }
 
       @include black-glossy-background;
@@ -27,7 +27,7 @@ nav {
         @include red-glossy-background;
       }
 
-      a:focus {
+      a:focus, a:hover {
         text-decoration: none;
       }
 

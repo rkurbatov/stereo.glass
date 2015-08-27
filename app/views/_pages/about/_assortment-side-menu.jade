@@ -1,19 +1,27 @@
 ul
-    li(ng-class='about.isSideSelected("tiles")')
-        a(href='#/about/assortment/tiles'
-    ng-bind='_INT("Плитка напольная, плитка настенная");')
-    li(ng-class='about.isSideSelected("pannos")')
-        a(href='#/about/assortment/pannos'
-    ng-bind='_INT("Панно, скинали");')
-    li(ng-class='about.isSideSelected("panels")')
-        a(href='#/about/assortment/panels'
-    ng-bind='_INT("Панели для мебельных фасадов, Вставки для шкафов купе, Стекло в межкомнатные двери");')
-    li(ng-class='about.isSideSelected("ceiling")')
-        a(href='#/about/assortment/ceiling'
-    ng-bind='_INT("Вставки для потолков, Светильники");')
-    li(ng-class='about.isSideSelected("clocks")')
-        a(href='#/about/assortment/clocks'
-    ng-bind='_INT("Подносы, Столешницы, Часы");')
-    li(ng-class='about.isSideSelected("adverts")')
-        a(href='#/about/assortment/adverts'
-    ng-bind='_INT("Рекламная продукция");')
+    li(ng-class='about.isSideSelected("tiles")'): a(href='#/about/assortment/tiles')
+        | {{ _INT("плитка напольная"); }},
+        br
+        | {{ _INT("плитка настенная"); }}
+    li(ng-class='about.isSideSelected("pannos")'): a(href='#/about/assortment/pannos')
+        | {{ _INT("панно"); }},
+        br
+        | {{ _INT("скинали"); }}
+    li(ng-class='about.isSideSelected("panels")'): a(href='#/about/assortment/panels')
+        | {{ _INT("панели для мебельных фасадов"); }},
+        br
+        | {{ _INT("вставки для шкафов купе"); }},
+        br
+        | {{ _INT("стекло в межкомнатные двери"); }}
+    li(ng-class='about.isSideSelected("ceiling")'): a(href='#/about/assortment/ceiling')
+        | {{ _INT("вставки для потолков"); }},
+        br
+        | {{ _INT("светильники"); }}
+    li(ng-class='about.isSideSelected("clocks")'): a(href='#/about/assortment/clocks')
+        | {{ _INT("подносы"); }},
+        br
+        | {{ _INT("столешницы"); }},
+        br
+        | {{ _INT("часы"); }}
+    li(ng-class='about.isSideSelected("adverts")'): a(href='#/about/assortment/adverts')
+        | {{ _INT("Рекламная продукция"); }}

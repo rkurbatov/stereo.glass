@@ -3,32 +3,37 @@ form[name=search] {
   position: relative;
 }
 
-#search-input {
-  background-color: rgba($form-bg-color, 0.75);
+#admin-button a {
+  display: block;
+  color: $wine-red;
+  text-decoration: none;
+}
 
-  margin-top: 4px;
+#search-input {
+  background-color: rgba($form-bg-color, .75);
   height: 16px;
+  margin-top: 4px;
 
   @include on-sm {
-    margin-top: 6px;
     height: 20px;
+    margin-top: 6px;
   }
 
   @include on-md {
-    margin-top: 6px;
     height: 24px;
+    margin-top: 6px;
   }
 
   @include on-lg {
-    margin-top: 6px;
     height: 26px;
+    margin-top: 6px;
   }
 
   padding: {
+    bottom: 0;
     left: 10px;
     right: 30px;
     top: 0;
-    bottom: 0
   }
 
   border: 0;
@@ -45,17 +50,8 @@ form[name=search] {
     outline: 0;
   }
 
-  & + i.fa {
-    text-shadow: rgba(black, 0.35) 1px 1px 1px;
-    position: relative;
-    z-index: 1;
-
-    margin-right: 0;
-    padding-left: 10px;
-
+  & + .fa {
     line-height: 7px;
-
-    margin-left: -34px;
 
     @include on-xs {
       line-height: 8px;
@@ -72,6 +68,14 @@ form[name=search] {
     @include on-lg {
       line-height: 16px;
     }
+
+    margin-left: -34px;
+    margin-right: 0;
+    padding-left: 10px;
+    position: relative;
+    text-shadow: rgba(black, 0.35) 1px 1px 1px;
+    z-index: 1;
+
   }
 }
 

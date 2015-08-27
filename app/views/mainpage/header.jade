@@ -22,7 +22,7 @@ header(ng-show='header.loader.isSuccessful')
                             img(ng-src="{{ 'img/flags/' + header.IntSvc.currentLang + '.png' }}")
                             span(ng-bind='header.INT.currentLang')
                 sg-lang-switcher
-        #wrapper-nav-buttons
+        .wrapper-nav-buttons
             button#login-button.sg-btn(ng-if="!header.currentUser.name"
             ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
                 i.fa.fa-sign-in
@@ -31,5 +31,5 @@ header(ng-show='header.loader.isSuccessful')
                     | {{ header.currentUser.name }}
                     i.fa.fa-user
             form(name="search" action="#" method="get")
-                input#search-input(type="text" name="q" placeholder="{{ _INT('Поиск...'); }}")
+                input#search-input(type="text" name="q" placeholder='{{ _INT("Поиск..."); }}')
                 i.fa.fa-search
