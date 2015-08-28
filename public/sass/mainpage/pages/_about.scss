@@ -4,8 +4,8 @@
 
 .sg-about-side-panel {
   display: inline-block;
-  height: 100%;
-  position: fixed;
+  min-height: 100%;
+  position: absolute;
   width: 22%;
 
   .menu-content {
@@ -17,7 +17,7 @@
     }
 
     li {
-      border-bottom: rgba(black, .15) 2px ridge;
+      border-bottom: rgba($sg-black, .15) 2px ridge;
       cursor: pointer;
       font: 15px/30px "Airbone";
       margin-top: 5px;
