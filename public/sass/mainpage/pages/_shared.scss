@@ -13,14 +13,23 @@
     margin: 10px;
     max-width: 50%;
     padding: 5px;
+  }
 
-    .left {
-      float: left;
-    }
+  h4 {
+    @include box-shadow(0 0 2px 1px rgba($sg-black, .1));
+    background-color: rgba($sg-white, .25);
+    margin: 5px 0;
+    padding: 10px;
+  }
 
-    .right {
-      float: right;
-    }
+  .left {
+    float: left;
+    margin-right: 35px;
+  }
+
+  .right {
+    float: right;
+    margin-left: 35px;
   }
 
   .panel-heading a {
