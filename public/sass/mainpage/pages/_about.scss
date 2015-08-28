@@ -65,23 +65,4 @@
     min-height: calc(100% - 22px);
   }
 
-  .content {
-    margin: 20px;
-
-    a {
-      color: saturate($sg-winered, 20%);
-      cursor: pointer;
-    }
-
-    .panel-heading a {
-      color: $sg-black;
-      outline: none;
-      text-decoration: none;
-    }
-
-    .panel-open {
-      background-color: rgba($sg-silver, .5);
-      color: desaturate($sg-winered, 20%);
-    }
-  }
 }

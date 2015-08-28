@@ -1,0 +1,21 @@
+.content {
+  margin: 20px;
+
+  a {
+    border-bottom: 1px dotted;
+    color: $sg-blue;
+    cursor: pointer;
+  }
+
+  .panel-heading a {
+    border-bottom: 0;
+    color: $sg-black;
+    outline: none;
+    text-decoration: none;
+  }
+
+  .panel-open {
+    background-color: rgba($sg-silver, .5);
+    color: desaturate($sg-winered, 20%);
+  }
+}
