@@ -12,6 +12,7 @@
     background-color: rgba($sg-white, .5);
     margin: 10px;
     max-width: 50%;
+    min-width: 50%;
     padding: 5px;
   }
 
@@ -20,6 +21,15 @@
     background-color: rgba($sg-white, .25);
     margin: 5px 0;
     padding: 10px;
+  }
+
+  .half {
+    box-sizing: border-box;
+  }
+
+  .full {
+    max-width: 100%;
+    min-width: 100%;
   }
 
   .left {
