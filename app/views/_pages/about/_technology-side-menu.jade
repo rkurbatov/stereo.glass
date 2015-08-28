@@ -1,0 +1,11 @@
+ul
+    li(ng-class='about.isSideSelected("optical")'): a(href='#/about/technology/optical')
+        | {{ _INT("оптические характеристики"); }}
+    li(ng-class='about.isSideSelected("physical")'): a(href='#/about/technology/physical')
+        | {{ _INT("физические характеристики"); }}
+    li(ng-class='about.isSideSelected("benefits")'): a(href='#/about/technology/benefits')
+            | {{ _INT("преимущества"); }}
+    li(ng-class='about.isSideSelected("stereo")'): a(href='#/about/technology/stereo')
+            | {{ _INT("стерео-эффект"); }}
+    li(ng-class='about.isSideSelected("vario")'): a(href='#/about/technology/vario')
+            | {{ _INT("варио-эффект"); }}

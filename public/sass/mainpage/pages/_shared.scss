@@ -7,6 +7,22 @@
     cursor: pointer;
   }
 
+  .sg-photo {
+    @include box-shadow(0 0 2px 1px rgba($sg-black, .15));
+    background-color: rgba($sg-white, .5);
+    margin: 10px;
+    max-width: 50%;
+    padding: 5px;
+
+    .left {
+      float: left;
+    }
+
+    .right {
+      float: right;
+    }
+  }
+
   .panel-heading a {
     border-bottom: 0;
     color: $sg-black;
@@ -17,5 +33,11 @@
   .panel-open {
     background-color: rgba($sg-silver, .5);
     color: desaturate($sg-winered, 20%);
+  }
+
+  th,
+  td {
+    border: 1px rgba($sg-black, .5) solid;
+    padding: 10px;
   }
 }
