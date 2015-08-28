@@ -4,8 +4,8 @@
 
 .sg-about-side-panel {
   display: inline-block;
-  min-height: 100%;
-  position: absolute;
+  height: 100%;
+  position: fixed;
   width: 22%;
 
   .menu-content {
