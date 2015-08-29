@@ -3,14 +3,14 @@
 
     angular
         .module('MainPage')
-        .directive('sgScrollerSection', sgScrollerSection);
+        .directive('sgCarouselSection', sgCarouselSection);
 
-    sgScrollerSection.$inject = ['$window', 'auxData'];
+    sgCarouselSection.$inject = ['$window', 'auxData'];
 
-    function sgScrollerSection($window, auxData) {
+    function sgCarouselSection($window, auxData) {
 
         return {
-            restrict: 'A',
+            restrict: 'C',
             replace: true,
             link
         };
@@ -21,6 +21,7 @@
 
             scope.$on('carousel:redraw', ()=> {
                 elm.width($window.innerWidth);
+                elm.height($window.innerHeight);
             });
 
         }

@@ -4,14 +4,14 @@ sg-event-listener
         i.fa.fa-chevron-circle-left.fa-3x
     .horizon-next(ng-click='header.scrollRight()')
         i.fa.fa-chevron-circle-right.fa-3x
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
-        .sg-video-overlay(for='videoclip' sg-center-vertical='-'
+    .sg-carousel-section: .centered-content
+        .sg-video-overlay(for='videoclip'
         ng-show='carousel.settings.currentPage === "index"')
-        video.videoclip(preload='metadata' sg-center-vertical='-')
+        video.videoclip(preload='metadata')
             source(src='/video/clip.mp4')
             source(src='/video/clip.webm' type='video/webm')
         img#cinema.bg-room(ng-src="{{carousel.getBkSrc('cinema')}}")
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
+    .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.clock}}'
         style='width: 300px; height: 300px;'
         for='main-living-room')
@@ -21,7 +21,7 @@ sg-event-listener
         for='main-living-room')
             img(sg-alt-src="buddha" style='width: 100%; height: 100%;')
         img#main-living-room.bg-room(ng-src="{{carousel.getBkSrc('livingroom')}}")
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
+    .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.kitchen1}}' for='main-kitchen')
             img(sg-alt-src="kitchen-wl1")
         .sg-plate3d(coords='{{carousel.settings.coords.kitchen2}}' for='main-kitchen')
@@ -31,7 +31,7 @@ sg-event-listener
         .sg-plate3d(style="width: 1200px; height: 1200px;" coords='{{carousel.settings.coords.kitchenfloor}}' for='main-kitchen')
             include floor/_kitchen
         img#main-kitchen.bg-room(ng-src="{{carousel.getBkSrc('kitchen')}}")
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
+    .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.teddybear}}'
         style='width: 723px; height: 600px;'
         for='main-childroom')
@@ -40,7 +40,7 @@ sg-event-listener
             img(sg-alt-src="teddyhare")
         img.sg-plate3d(coords='{{carousel.settings.coords.teddycat}}' for='main-childroom' sg-alt-src="teddycat")
         img#main-childroom.bg-room(ng-src="{{carousel.getBkSrc('childroom')}}")
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
+    .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.pavilion}}'
         style='width: 600px; height: 437px'
         for='main-bathroom')
@@ -54,7 +54,7 @@ sg-event-listener
         .sg-plate3d(style="width: 500px; height: 500px;", coords='{{carousel.settings.coords.bathfloor}}' for='main-bathroom')
             include floor/_bathroom
         img#main-bathroom.bg-room(ng-src="{{carousel.getBkSrc('bathroom')}}")
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
+    .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.aqualeft}}'
         style='width: 400px; height: 250px'
         for='main-club')
@@ -66,7 +66,7 @@ sg-event-listener
         .sg-plate3d(style="width: 900px; 600px;", coords='{{carousel.settings.coords.clubfloor}}' for='main-club')
             include floor/_club
         img#main-club.bg-room(ng-src="{{carousel.getBkSrc('club')}}")
-    section.sg-hor-scroll.sg-carousel-section(sg-center-vertical sg-scroller-section)
+    .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.tray}}' for='main-caffee')
             img(sg-alt-src="tray")
         .sg-plate3d(coords='{{carousel.settings.coords.tableft}}' for='main-caffee')
