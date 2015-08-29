@@ -1,7 +1,8 @@
-.horizon-prev, .horizon-next {
+.horizon-prev,
+.horizon-next {
+  margin-top: -24px;
   position: fixed;
   top: 50%;
-  margin-top: -24px;
   z-index: 9999;
 }
 
@@ -17,75 +18,63 @@
   width: 100%;
 }
 
-section.sg-hor-scroll {
-  overflow: hidden;
-  position: relative;
+.sg-hor-scroll {
   display: block;
   float: left;
   height: 100%;
-  padding: 0;
   margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
 
-  & img.bg-room {
-    position: relative;
-    z-index: 30;
+  .bg-room {
     display: block;
+    position: relative;
     width: 100%;
+    z-index: 30;
   }
 
   .sg-plate3d {
-    position: absolute;
-    z-index: 10;
     left: 0;
+    position: absolute;
     top: 0;
+    z-index: 10;
   }
 
-  img.sg-fliph {
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    -ms-transform: scaleX(-1);
-    transform: scaleX(-1);
+  .sg-fliph {
+    @include scaleX(-1);
   }
 
-  img.sg-flipv {
-    -moz-transform: scaleY(-1);
-    -o-transform: scaleY(-1);
-    -webkit-transform: scaleY(-1);
-    -ms-transform: scaleY(-1);
-    transform: scaleY(-1);
+  .sg-flipv {
+    @include scaleY(-1);
   }
 
-  img.sg-flipb {
-    -moz-transform: scale(-1, -1);
-    -webkit-transform: scale(-1, -1);
-    -o-transform: scale(-1, -1);
-    -ms-transform: scale(-1, -1);
-    transform: scale(-1, -1);
+  .sg-flipb {
+    @include scale(-1, -1);
   }
 
 }
 
 .ng-hide:not(.ng-hide-animate) {
-  /* this is just another form of hiding an element */
+  // this is just another form of hiding an element
   display: block !important;
   opacity: 0;
 }
 
 // Videoclip with overlay div - videoplayer
 
-#videoclip {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
+.videoclip {
   height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .sg-video-overlay {
-  width: 70%;
   height: 70%;
   left: 15%;
-  top: 15%;
-  z-index: 100;
   position: absolute;
+  top: 15%;
+  width: 70%;
+  z-index: 100;
 }
