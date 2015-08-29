@@ -49,7 +49,7 @@
                 }
             );
 
-            var video = angular.element('#' + attrs.for)[0] || angular.element(attrs.for)[0];
+            var video = angular.element(attrs.for)[0];
 
             function switchVideoState() {
                 if (auxData.settings.handleScrollEvents) {
