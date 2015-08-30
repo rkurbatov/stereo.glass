@@ -1,0 +1,8 @@
+extends  _shared-part
+block side-menu
+    include _video-side-menu
+block content
+    video.video-js.vjs-default-skin(controls
+    preload='auto'
+    width='100%')
+        source(src='/video/video3.mp4' type='video/mp4')
