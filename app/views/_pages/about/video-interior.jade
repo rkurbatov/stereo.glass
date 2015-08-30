@@ -2,8 +2,6 @@ extends  _shared-part
 block side-menu
     include _video-side-menu
 block content
-    video.video-js.vjs-default-skin(controls
-    preload='auto'
-    data-setup='{"customControlsOnMobile": true, "plugins" : { "resolutionSelector" : { "default_res" : "720" } } }')
+    video#interior.video-js.vjs-default-skin(width='80%')
         source(src='/video/video1.mp4' type='video/mp4' data-res='720')
         source(src='/video/video1.mp4' type='video/mp4' data-res='480')

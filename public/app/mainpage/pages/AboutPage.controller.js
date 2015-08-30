@@ -1,4 +1,4 @@
-(function (window, angular, undefined) {
+(function (window, angular, videojs, undefined) {
     'use strict';
 
     angular
@@ -18,6 +18,22 @@
 
         function initController() {
 
+            // Initializing video.js for every video
+            if (auxData.settings.currentSection === 'video') {
+                let initObject = {
+                    controls: true,
+                    preload: 'auto',
+                    customControlsOnMobile: true,
+                    plugins: {
+                        resolutionSelector: {
+                            default_res: 720
+                        }
+                    }
+                };
+                var videoElm = angular.element('#' + auxData.settings.currentSubsection)[0];
+
+                videojs(videoElm, initObject);
+            }
         }
 
         function isSelected(str) {
@@ -34,4 +50,4 @@
 
     }
 
-})(window, window.angular);
+})(window, window.angular, window.videojs);
