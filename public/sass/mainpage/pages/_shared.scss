@@ -1,6 +1,11 @@
 .content {
   margin: 20px;
 
+  p {
+    text-align: justify;
+    text-indent: 3em;
+  }
+
   a {
     border-bottom: 1px dotted;
     color: $sg-blue;
