@@ -20,6 +20,8 @@
 
             // Initializing video.js for every video
             if (auxData.settings.currentSection === 'video') {
+                if (!auxData.settings.currentSubsection) return;
+
                 let initObject = {
                     controls: true,
                     preload: 'auto',
