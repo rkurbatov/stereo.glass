@@ -8,8 +8,7 @@ sg-event-listener
         .sg-video-overlay(for='.videoclip'
         ng-show='carousel.settings.currentPage === "index"')
         video.videoclip(preload='metadata')
-            source(src='/video/clip.mp4')
-            source(src='/video/clip.webm' type='video/webm')
+            source(src='/video/clip.mp4' type='video/mp4')
         img#cinema.bg-room(ng-src="{{carousel.getBkSrc('cinema')}}")
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.clock}}'
