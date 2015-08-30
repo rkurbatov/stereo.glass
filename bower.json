@@ -7,7 +7,6 @@
     "hammerjs": "~2.0.4",
     "jquery": "~2.1.4",
     "jquery-color": "~2.1.2",
-    "jquery-touchswipe": "~1.6.9",
     "bootstrap": "~3.3",
     "font-awesome": "4.x",
     "bootstrap-select": "~1.7.3",

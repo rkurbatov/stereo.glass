@@ -74,9 +74,9 @@ function deployVendor(production) {
     var vendorLibsMain = [
         babelPolyfill,
         'public/libs/jquery/dist/jquery.js',
-        'public/app/tmp/js/jquery.touchswipe.js',
         'public/libs/lodash/lodash.js',
-        'public/libs/videojs/dist/video-js/video.js',
+        'public/app/tmp/js/video.js',
+        'public/app/tmp/js/video-quality-selector.js',
         'public/libs/angular/angular.js',
         'public/libs/angular-route/angular-route.js',
         'public/libs/angular-cookies/angular-cookies.js',
@@ -94,7 +94,8 @@ function deployVendor(production) {
     var vendorStylesMain = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
         'public/libs/font-awesome/css/font-awesome.css',
-        'public/libs/videojs/dist/video-js/video-js.css',
+        'public/app/tmp/video-js.css',
+        'public/app/tmp/video-quality-selector.css',
         'public/libs/animate.css/animate.css',
         'public/libs/angular-fx/src/css/angular-fx.css',
         'public/libs/angular-busy/dist/angular-busy.css'

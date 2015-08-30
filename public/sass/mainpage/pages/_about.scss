@@ -66,3 +66,20 @@
   }
 
 }
+
+.video-js {
+  @include on-lg {
+    width: auto !important;
+    height: 480px !important;
+  }
+
+  @include on-md {
+    width: auto !important;
+    height: 400px !important;
+  }
+
+  @include on-sm {
+    width: auto !important;
+    height: 320px !important;
+  }
+}
