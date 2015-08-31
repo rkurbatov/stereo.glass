@@ -10,6 +10,8 @@ sg-event-listener
         video.videoclip(preload='metadata')
             source(src='/video/clip.mp4' type='video/mp4')
         img#cinema.bg-room(ng-src="{{carousel.getBkSrc('cinema')}}")
+        .text.text-cinema
+            | {{ _INT("Посмотрите наш промо-ролик"); }}
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.clock}}'
         style='width: 300px; height: 300px;'
@@ -20,6 +22,8 @@ sg-event-listener
         for='main-living-room')
             img(sg-alt-src="buddha" style='width: 100%; height: 100%;')
         img#main-living-room.bg-room(ng-src="{{carousel.getBkSrc('livingroom')}}")
+        .text.text-livingroom
+            | {{ _INT("Наша продукция с легкостью украсит любой интерьер, как в виде панно, так и настенных часов..."); }}
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.kitchen1}}' for='main-kitchen')
             img(sg-alt-src="kitchen-wl1")
@@ -30,6 +34,8 @@ sg-event-listener
         .sg-plate3d(style="width: 1200px; height: 1200px;" coords='{{carousel.settings.coords.kitchenfloor}}' for='main-kitchen')
             include floor/_kitchen
         img#main-kitchen.bg-room(ng-src="{{carousel.getBkSrc('kitchen')}}")
+        .text.text-kitchen
+            | {{ _INT("Напольная и настенная плитка гармонично дополнят друг друга и создадут на вашей кухне индивидуальную атмосферу уюта..."); }}
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.teddybear}}'
         style='width: 723px; height: 600px;'
@@ -53,6 +59,8 @@ sg-event-listener
         .sg-plate3d(style="width: 500px; height: 500px;", coords='{{carousel.settings.coords.bathfloor}}' for='main-bathroom')
             include floor/_bathroom
         img#main-bathroom.bg-room(ng-src="{{carousel.getBkSrc('bathroom')}}")
+        .text.text-bathroom
+            | {{ _INT("Полноразмерное скинали и авторское напольное покрытие сделают вашу ванную комнату поистине шедевром топ-дизайна..."); }}
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.aqualeft}}'
         style='width: 400px; height: 250px'
