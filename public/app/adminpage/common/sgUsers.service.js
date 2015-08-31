@@ -87,9 +87,11 @@
 
             svc.assignees = _.map(
                 _.filter(users, (user)=> {
-                        return user.role === 'designer'
-                    },
-                    'username'));
+                    return user.role === 'designer'
+                }),
+                'username');
+
+            console.log(svc.assignees);
 
             // Fill border colors hash
             _.each(svc.list, (user)=> {

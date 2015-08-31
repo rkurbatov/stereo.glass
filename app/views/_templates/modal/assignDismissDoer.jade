@@ -21,7 +21,7 @@
             .form-group
                 label.control-label.col-xs-4 Исполнитель
                 .col-xs-5.sg-nopadding
-                    select.form-control(ng-options='designer.username for designer in vm.designers'
+                    select.form-control(ng-options='designer for designer in vm.designers'
                     ng-model='vm.assignee')
             .form-group
                 textarea.col-xs-12.sg-noresize(rows="6" ng-model='vm.comment')
