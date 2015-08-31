@@ -213,7 +213,6 @@
         function AssignDismissDoerModalCtrl($modalInstance, layout, assignees) {
             var vm = this;
             vm.layout = layout;
-
             // viewmode flags
             vm.newAssign = !vm.layout.status;
             vm.reAssign = vm.layout.status === 'assigned' || vm.layout.status === 'accepted';
