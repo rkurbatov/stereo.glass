@@ -45,6 +45,8 @@ sg-event-listener
             img(sg-alt-src="teddyhare")
         img.sg-plate3d(coords='{{carousel.settings.coords.teddycat}}' for='main-childroom' sg-alt-src="teddycat")
         img#main-childroom.bg-room(ng-src="{{carousel.getBkSrc('childroom')}}")
+        .text.text-childroom
+            | {{ _INT("Ваш ребенок сможет воплотить в плоской оболочке светильника либо дверцы шкафа любую свою трёхмерную фантазию..."); }}
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.pavilion}}'
         style='width: 600px; height: 437px'
@@ -73,6 +75,8 @@ sg-event-listener
         .sg-plate3d(style="width: 900px; 600px;", coords='{{carousel.settings.coords.clubfloor}}' for='main-club')
             include floor/_club
         img#main-club.bg-room(ng-src="{{carousel.getBkSrc('club')}}")
+        .text.text-club
+            | {{ _INT("Особо устойчивые показатели износостойкости нашей продукции делают её незаменимым элементом интерьера любого танцпола и ночного клуба..."); }}
     .sg-carousel-section: .centered-content
         .sg-plate3d(coords='{{carousel.settings.coords.tray}}' for='main-caffee')
             img(sg-alt-src="tray")
@@ -85,3 +89,7 @@ sg-event-listener
         .sg-plate3d(coords='{{carousel.settings.coords.advert}}' for='main-caffee')
             img(sg-alt-src="advert")
         img#main-caffee.bg-room(ng-src="{{carousel.getBkSrc('caffee')}}")
+        .text.text-caffee
+            | {{ _INT("Глубина отображения добавит еще одну грань привлекательности вашему кафе или ресторану, а сфера применения ограничена только пространством."); }}
+            | &nbsp;
+            | {{ _INT("Мы поможем изменить привычный образ разносов, штендеров, светильников, рекламы, барных поверхностей, столешниц, подвесного и напольного декорирования и многого другого, что не менялось десятилетия..."); }}
