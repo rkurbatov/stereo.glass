@@ -55,11 +55,11 @@
                 if (auxData.settings.handleScrollEvents) {
 
                     if (!auxData.settings.isVideoPlaying) {
-                        $('#cinema, header').animate({opacity: 0});
+                        $('#cinema, header, .text-cinema').animate({opacity: 0});
                         video.play();
                         auxData.settings.isVideoPlaying = true;
                     } else {
-                        $('#cinema, header').animate({opacity: 1});
+                        $('#cinema, header, .text-cinema').animate({opacity: 1});
                         video.pause();
                         auxData.settings.isVideoPlaying = false;
                     }

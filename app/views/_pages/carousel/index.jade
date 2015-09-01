@@ -8,7 +8,10 @@ sg-event-listener
         .sg-video-overlay(for='.videoclip'
         ng-show='carousel.settings.currentPage === "index"')
         video.videoclip(preload='metadata')
-            source(src='/video/clip.mp4' type='video/mp4')
+            source(src='/video/clip-720.mp4' type='video/mp4' ng-if='!carousel.settings.isMobile.any')
+            source(src='/video/clip-720.webm' type='video/webm' ng-if='!carousel.settings.isMobile.any')
+            source(src='/video/clip-480.mp4' type='video/mp4' ng-if='carousel.settings.isMobile.any')
+            source(src='/video/clip-480.webm' type='video/webm' ng-if='carousel.settings.isMobile.any')
         img#cinema.bg-room(ng-src="{{carousel.getBkSrc('cinema')}}")
         .text.text-cinema
             | {{ _INT("Посмотрите наш промо-ролик"); }}

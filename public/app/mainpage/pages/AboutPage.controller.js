@@ -28,7 +28,9 @@
                     customControlsOnMobile: true,
                     plugins: {
                         resolutionSelector: {
-                            default_res: 720
+                            default_res: auxData.settings.isMobile.any
+                                ? 480
+                                : 720
                         }
                     }
                 };
