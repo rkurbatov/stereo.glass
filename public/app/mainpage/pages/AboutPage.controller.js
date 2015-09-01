@@ -28,9 +28,10 @@
                     customControlsOnMobile: true,
                     plugins: {
                         resolutionSelector: {
+                            force_types : [ 'video/mp4', 'video/webm' ],
                             default_res: auxData.settings.isMobile.any
-                                ? 480
-                                : 720
+                                ? "480"
+                                : "720"
                         }
                     }
                 };
