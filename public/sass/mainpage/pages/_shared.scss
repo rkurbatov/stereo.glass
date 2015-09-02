@@ -28,6 +28,11 @@
     padding: 10px;
   }
 
+  .short {
+    display: inline-block;
+    min-width: 45%;
+  }
+
   .half {
     box-sizing: border-box;
     float: left;
