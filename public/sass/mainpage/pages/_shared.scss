@@ -79,4 +79,40 @@
     border: 1px rgba($sg-black, .5) solid;
     padding: 10px;
   }
+
+  .centered {
+    text-align: center;
+  }
+
+  .miniature {
+    @include box-shadow(0 0 2px 1px rgba($sg-black, .1));
+    background-color: rgba($sg-white, .7);
+    cursor: pointer;
+    display: inline-block;
+    height: 220px;
+    margin: 10px;
+    padding: 10px;
+    width: 220px;
+
+    img {
+      height: 200px;
+      object-fit: cover;
+      width: 200px;
+    }
+
+    &:after {
+      color: rgba($sg-black, .5);
+      content: '\F055';
+      display: inline-block;
+      font: 28px/32 'FontAwesome';
+      height: 28px;
+      margin-left: -35px;
+      margin-top: -420px;
+      position: absolute;
+    }
+
+    &:hover:after {
+      color: $sg-black;
+    }
+  }
 }
