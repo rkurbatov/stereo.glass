@@ -1,5 +1,24 @@
-.content {
-  margin: 20px;
+.sg-about-main-body {
+  // to equal columns
+  margin-bottom: -99999px;
+  padding: 20px 20px 99999px;
+
+  @include on-lg {
+    min-height: calc(100% - 44px);
+  }
+
+  @include on-md {
+    min-height: calc(100% - 39px);
+  }
+
+  @include on-sm {
+    min-height: calc(100% - 33px);
+  }
+
+  @include on-xs {
+    min-height: calc(100% - 22px);
+  }
+
 
   p {
     text-align: justify;

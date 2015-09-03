@@ -51,6 +51,7 @@ body {
 }
 
 .sg-l2-wrapper {
+
   @include on-xs {
     top: 42px;
   }
@@ -84,6 +85,3 @@ body {
   }
 }
 
-.sg-scrollable {
-  position: absolute;
-}

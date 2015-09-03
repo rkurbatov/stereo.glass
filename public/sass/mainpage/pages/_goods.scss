@@ -5,8 +5,8 @@
     font: 16px/24px "Airbone";
 
     li a {
-      color: white;
       @include black-glossy-background;
+      color: white;
     }
 
     li.active a {

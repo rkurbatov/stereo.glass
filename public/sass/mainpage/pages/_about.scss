@@ -1,85 +1,64 @@
 .sg-about-container {
-  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 .sg-about-side-panel {
   display: inline-block;
+  float: left;
   height: 100%;
-  position: fixed;
+  // to equal columns
+  margin-bottom: -99999px;
+  padding: 10px 10px 99999px;
   width: 22%;
 
-  .menu-content {
-    margin: 10px;
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-    li {
-      border-bottom: rgba($sg-black, .15) 2px ridge;
-      cursor: pointer;
-      font: 15px/30px "Airbone";
-      margin-top: 5px;
-    }
+  li {
+    border-bottom: rgba($sg-black, .15) 2px ridge;
+    cursor: pointer;
+    font: 15px/30px "Airbone";
+    margin-top: 5px;
+  }
 
-    .selected a {
-      color: $sg-winered;
-    }
+  .selected a {
+    color: $sg-winered;
+  }
 
-    a {
-      color: $sg-black;
-      display: block;
-    }
+  a {
+    color: $sg-black;
+    display: block;
+  }
 
-    a:focus {
-      text-decoration: none;
-    }
+  a:focus {
+    text-decoration: none;
   }
 
 }
 
 .sg-about-main-panel {
-  display: inline-block;
-  float: right;
-  height: 100%;
+  float: left;
   width: 78%;
 }
 
-.sg-about-main-body {
-  min-width: 100%;
-
-  @include on-lg {
-    min-height: calc(100% - 44px);
-  }
-
-  @include on-md {
-    min-height: calc(100% - 39px);
-  }
-
-  @include on-sm {
-    min-height: calc(100% - 33px);
-  }
-
-  @include on-xs {
-    min-height: calc(100% - 22px);
-  }
-
-}
 
 .video-js {
   @include on-lg {
-    width: auto !important;
     height: 480px !important;
+    width: auto !important;
   }
 
   @include on-md {
-    width: auto !important;
     height: 400px !important;
+    width: auto !important;
   }
 
   @include on-sm {
-    width: auto !important;
     height: 320px !important;
+    width: auto !important;
   }
 }
