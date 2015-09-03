@@ -1,6 +1,7 @@
-div.lang-selector(style='z-index: 1000; position: fixed')
-    ul
-        li(ng-repeat='lang in IntSvc.langs'
+.lang-selector(style='width: 7vw;')
+    ul.lang-selector(style='position: absolute')
+        li.one-lang(style='display: block;'
+        ng-repeat='lang in IntSvc.langs'
         ng-if='lang.code !== IntSvc.currentLang && lang.isActive'
         ng-click='IntSvc.switchLang(lang.code)')
             img(ng-src="{{ 'img/flags/' + lang.code + '.png' }}")
