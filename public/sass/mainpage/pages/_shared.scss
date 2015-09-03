@@ -102,7 +102,7 @@
 
     &:after {
       color: rgba($sg-black, .5);
-      content: '\F055';
+      content: '\F065';
       display: inline-block;
       font: 28px/32 'FontAwesome';
       height: 28px;
@@ -112,7 +112,8 @@
     }
 
     &:hover:after {
-      color: $sg-black;
+      @include text-shadow(0 0 5px $sg-silver);
+      color: rgba($sg-black, .9);
     }
   }
 }
