@@ -18,6 +18,8 @@
 
         function link(scope, elm, attrs) {
             scope.src = attrs.src || '';
+            scope.miniSrc = attrs.miniSrc || '';
+            if (!scope.miniSrc) scope.miniSrc = scope.src;
 
             scope.expand = expand;
 
