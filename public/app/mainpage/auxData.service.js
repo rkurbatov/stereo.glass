@@ -18,8 +18,7 @@
             isWideScreen: undefined,
             screenIndex: 0,
             screenSections: [],
-            isMobile: {any: true},
-            //isMobile: window.isMobile,
+            isMobile: window.isMobile,
             handleScrollEvents: false
         };
 

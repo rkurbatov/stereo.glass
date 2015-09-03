@@ -8,7 +8,6 @@
     'use strict';
 
     // initialization and redraw reset
-    //$(window).on("load", ()=> $('.sg-hor-scroll').horizon({swipe: true}));
     $(window).on("load resize orientationchange", positionElements);
 
     function positionElements() {

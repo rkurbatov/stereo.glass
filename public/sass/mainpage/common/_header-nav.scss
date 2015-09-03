@@ -5,90 +5,95 @@ nav {
     width: 1040px;
   }
 
-  ul.menu-pages {
-    display: table;
-    text-align: center;
-    width: 100%;
+}
 
-    margin: 0; // prevent bootstrap rearrangement;
-    padding: 0;
+.menu-pages {
+  display: table;
+  margin: 0; // prevent bootstrap rearrangement;
+  padding: 0;
+  text-align: center;
+  width: 100%;
 
-    li {
-      display: table-cell;
-      border-left: 1px solid rgba(white, 0.35);
+  li {
+    @include black-glossy-background;
 
-      @include on-sm-plus {
-        -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
-      }
+    border-left: 1px solid rgba($sg-white, .35);
+    display: table-cell;
 
-      @include black-glossy-background;
+    @include on-sm-plus {
+      -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
+    }
 
-      &.nav-selected {
-        @include red-glossy-background;
-      }
+    &.nav-selected {
+      @include red-glossy-background;
+    }
+  }
 
-      a:focus, a:hover {
-        text-decoration: none;
-      }
+  // flag button width
+  li:last-of-type {
+    width: 7vw;
+  }
 
-      a {
-        display: block;
-        cursor: pointer;
+  a:focus,
+  a:hover {
+    text-decoration: none;
+  }
 
-        text-shadow: 0 0 0;
+  a {
+    @include blicker;
 
-        color: $top-menu-text-color;
+    color: $top-menu-text-color;
+    cursor: pointer;
+    display: block;
+    font: 11px/16px "Arial", sans;
+    text-shadow: 0 0 0;
 
-        font: 11px/16px "Arial", sans;
+    @include on-xs {
+      font: 11px/14px "Airbone";
+      padding-top: 2px;
+    }
 
-        @include on-xs {
-          padding-top: 2px;
-          font: 11px/14px "Airbone";
-        }
+    @include on-sm {
+      font: 18px/25px "Airbone";
+      padding-top: 3px;
+    }
 
-        @include on-sm {
-          padding-top: 3px;
-          font: 18px/25px "Airbone";
-        }
+    @include on-md {
+      font: 21px/33px "Airbone";
+      padding-top: 4px;
+    }
 
-        @include on-md {
-          padding-top: 4px;
-          font: 21px/33px "Airbone";
-        }
+    @include on-lg {
+      font: 24px/34px "Airbone";
+      padding-top: 8px;
+      text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px, rgba(100, 100, 110, .5) 0 5px 4px;
+    }
 
-        @include on-lg {
-          padding-top: 8px;
-          font: 24px/34px "Airbone";
-          text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px, rgba(100, 100, 110, .5) 0 5px 4px;
-        }
+    &:hover {
+      background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+      color: $top-menu-text-color;
+      transition: background-position 1s linear;
+    }
 
-        @include blicker;
-
-        &:hover {
-          color: $top-menu-text-color;
-          transition: background-position 1s linear;
-          background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
-        }
-
-        &.hovered {
-          transition: background-position 1s linear;
-          background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
-        }
-      }
+    &.hovered {
+      background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+      transition: background-position 1s linear;
     }
   }
 }
 
 .lang-selector ul {
-  opacity: 0.75;
+  @include black-glossy-background;
+
   margin: 0;
+  opacity: .75;
   padding: 0;
   text-align: center;
 
   li {
     cursor: pointer;
-    list-style: none;
     height: 43px;
+    list-style: none;
 
     @include on-xs {
       padding-top: 2px;
@@ -105,55 +110,50 @@ nav {
     @include on-lg {
       padding-top: 8px;
     }
-
-    @include black-glossy-background
   }
 }
 
-.flag-container, .lang-selector {
+.flag-container,
+.lang-selector {
   img {
     @include on-xs-minus {
       display: none;
     }
 
     @include on-xs {
-      vertical-align: -4px;
-      width: 25px;
       height: 14px;
-
       margin-left: -2px;
       margin-right: -1px;
       padding-bottom: 1px;
+      vertical-align: -4px;
+      width: 25px;
     }
 
     @include on-sm {
-      vertical-align: -6px;
-      width: 38px;
       height: 22px;
-
       margin-left: -5px;
       margin-right: -4px;
       padding-bottom: 1px;
+      vertical-align: -6px;
+      width: 38px;
     }
 
     @include on-md {
-      vertical-align: -8px;
-      width: 49px;
       height: 28px;
-
       margin-left: -5px;
       margin-right: -4px;
       padding-bottom: 1px;
+      vertical-align: -8px;
+      width: 49px;
     }
 
     @include on-lg {
-      vertical-align: -8px;
-      width: 56px;
       height: 32px;
-
       margin-left: -5px;
       margin-right: -4px;
       padding-bottom: 2px;
+      vertical-align: -8px;
+      width: 56px;
     }
   }
 
