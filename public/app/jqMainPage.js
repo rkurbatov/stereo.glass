@@ -18,8 +18,8 @@
             menuLen = list
                 ? items.length
                 : 0,
-            logoUpper = $("#logo-upper")[0],
-            logoBlicker = $("#logo-blicker")[0],
+            logoUpper = $(".logo-upper")[0],
+            logoBlicker = $(".logo-blicker")[0],
             inpSearchForm = $("form[name='search']"),
             inpSearch = $("#search-input"),
             btnLogin = $("#login-button"),

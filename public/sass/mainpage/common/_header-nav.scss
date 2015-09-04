@@ -31,7 +31,9 @@ nav {
 
   // flag button width
   li:last-of-type {
+    position: relative;
     width: 7vw;
+    z-index: 1000;
   }
 
   a:focus,

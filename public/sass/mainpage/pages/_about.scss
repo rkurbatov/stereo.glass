@@ -21,8 +21,19 @@
   li {
     border-bottom: rgba($sg-black, .15) 2px ridge;
     cursor: pointer;
-    font: 15px/30px "Airbone";
     margin-top: 5px;
+
+    @include on-xs {
+      font: 10px/20px "Airbone";
+    }
+
+    @include on-md {
+      font: 12px/24px "Airbone";
+    }
+
+    @include on-lg {
+      font: 15px/30px "Airbone";
+    }
   }
 
   .selected a {

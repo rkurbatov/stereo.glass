@@ -1,6 +1,6 @@
-@import "l2-menu";
-@import "header-nav";
-@import "header-search";
+@import 'l2-menu';
+@import 'header-nav';
+@import 'header-search';
 
 header {
   .navwrapper {
@@ -13,26 +13,33 @@ header {
   }
 
   //background-color: $header-bg-color;
-  margin-bottom: 0.25em;
+  margin-bottom: .25em;
 
   //@include box-shadow(rgba(0, 0, 0, .5) 0 0 8px 0);
 
   @include on-xs-plus {
-    position: fixed;
-    z-index: 100;
     left: 0;
+    position: fixed;
     top: 0;
     width: 100%;
+    z-index: 100;
   }
 
-  div.container {
+  .container {
     padding: 0;
   }
 }
 
-#container-logo {
-  float: left;
+.logo-container {
   cursor: pointer;
+
+  @include on-xs-minus {
+    text-align: center;
+  }
+
+  @include on-xs-plus {
+    float: left;
+  }
 
   @include on-xs {
     width: 140px;
@@ -52,24 +59,27 @@ header {
 
 }
 
-#logo-upper {
+.logo-upper {
+  @include box-shadow(rgba(0, 0, 0, .5) 3px 10px 10px -10px);
   max-width: 100%;
 
   @include on-sm-plus {
     -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(60%, rgba(250, 250, 250, 0.03)), to(rgba(250, 250, 250, 0.2)));
   }
-  @include box-shadow(rgba(0, 0, 0, .5) 3px 10px 10px -10px);
 }
 
-#logo-words {
+.logo-words {
   max-width: 100%;
+
+  @include on-xs-minus {
+    display: none;
+  }
 }
 
-#logo-blicker {
+.logo-blicker {
+  @include blicker;
   position: absolute;
   z-index: 100;
-
-  @include blicker;
 
   &:hover {
     @include blicker-hover;
