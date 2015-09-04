@@ -1,16 +1,25 @@
 .sg-about-container {
-  min-height: 100%;
-  overflow: hidden;
+  @include on-xs-plus {
+    min-height: 100%;
+    overflow: hidden;
+  }
 }
 
 .sg-about-side-panel {
-  display: inline-block;
-  float: left;
-  height: 100%;
-  // to equal columns
-  margin-bottom: -99999px;
-  padding: 10px 10px 99999px;
-  width: 22%;
+
+  @include on-xs-minus {
+    width: 100%;
+  }
+
+  @include on-xs-plus {
+    display: inline-block;
+    float: left;
+    height: 100%;
+    // to equal columns
+    margin-bottom: -99999px;
+    padding: 10px 10px 99999px;
+    width: 22%;
+  }
 
 
   ul {
@@ -52,8 +61,10 @@
 }
 
 .sg-about-main-panel {
-  float: left;
-  width: 78%;
+  @include on-xs-plus {
+    float: left;
+    width: 78%;
+  }
 }
 
 

@@ -49,10 +49,10 @@
 @mixin vh-center {
   text-align: center;
   &:before {
-    content: "";
+    content: '';
     display: inline-block;
-    vertical-align: middle;
     height: 100%;
+    vertical-align: middle;
   }
   & > * {
     display: inline-block;
@@ -70,7 +70,7 @@
 }
 
 @mixin blicker-hover {
-  transition-propert: background-position;
-  transition-timing-function: ease-in-out;
   background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+  transition-property: background-position;
+  transition-timing-function: ease-in-out;
 }
