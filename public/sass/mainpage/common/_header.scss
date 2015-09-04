@@ -3,6 +3,8 @@
 @import 'header-search';
 
 header {
+  margin-bottom: .25em;
+
   .navwrapper {
     display: table;
   }
@@ -11,11 +13,6 @@ header {
     display: table-cell;
     width: 1%;
   }
-
-  //background-color: $header-bg-color;
-  margin-bottom: .25em;
-
-  //@include box-shadow(rgba(0, 0, 0, .5) 0 0 8px 0);
 
   @include on-xs-plus {
     left: 0;

@@ -1,7 +1,9 @@
 .sg-about-main-body {
   // to equal columns
-  margin-bottom: -99999px;
-  padding: 20px 20px 99999px;
+ @include on-xs-plus {
+   margin-bottom: -99999px;
+   padding: 20px 20px 99999px;
+ }
 
   @include on-lg {
     min-height: calc(100% - 44px);
