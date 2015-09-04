@@ -1,9 +1,9 @@
 .sg-about-main-body {
   // to equal columns
- @include on-xs-plus {
-   margin-bottom: -99999px;
-   padding: 20px 20px 99999px;
- }
+  @include on-xs-plus {
+    margin-bottom: -99999px;
+    padding: 20px 20px 99999px;
+  }
 
   @include on-lg {
     min-height: calc(100% - 44px);
@@ -21,10 +21,12 @@
     min-height: calc(100% - 22px);
   }
 
-
   p {
     text-align: justify;
-    text-indent: 3em;
+
+    @include on-sm-plus {
+      text-indent: 3em;
+    }
   }
 
   a {
@@ -36,17 +38,37 @@
   .sg-photo {
     @include box-shadow(0 0 2px 1px rgba($sg-black, .15));
     background-color: rgba($sg-white, .5);
-    margin: 10px;
     max-width: 50%;
     min-width: 50%;
-    padding: 5px;
+
+    @include on-sm-minus {
+      margin: 5px;
+      padding: 2px;
+    }
+
+    @include on-sm-plus {
+      margin: 10px;
+      padding: 5px;
+    }
+  }
+
+  h3 {
+    font-size: 16px;
   }
 
   h4 {
     @include box-shadow(0 0 2px 1px rgba($sg-black, .1));
     background-color: rgba($sg-white, .25);
     margin: 5px 0;
-    padding: 10px;
+
+    @include on-xs-minus {
+      font-size: 14px;
+      padding: 5px;
+    }
+
+    @include on-xs-plus {
+      padding: 10px;
+    }
   }
 
   .short {
@@ -57,30 +79,72 @@
   .half {
     box-sizing: border-box;
     float: left;
-    max-width: calc(50% - 20px);
-    min-width: calc(50% - 20px);
+
+    @include on-sm-minus {
+      max-width: calc(50% - 10px);
+      min-width: calc(50% - 10px);
+    }
+
+    @include on-sm-plus {
+      max-width: calc(50% - 20px);
+      min-width: calc(50% - 20px);
+    }
   }
 
   .half45 {
     box-sizing: border-box;
     float: left;
-    max-width: calc(45% - 35px);
-    min-width: calc(45% - 35px);
+
+    @include on-sm-minus {
+      max-width: calc(45% - 10px);
+      min-width: calc(45% - 10px);
+    }
+
+    @include on-sm-plus {
+      max-width: calc(45% - 35px);
+      min-width: calc(45% - 35px);
+    }
   }
 
   .full {
-    max-width: 100%;
-    min-width: 100%;
+    max-width: calc(100% - 10px);
+    min-width: calc(100% - 10px);
   }
 
   .left {
     float: left;
-    margin-right: 35px;
+
+    @include on-sm-minus {
+      margin-right: 10px;
+    }
+
+    @include on-sm-plus {
+      margin-right: 35px;
+    }
   }
 
   .right {
     float: right;
-    margin-left: 35px;
+
+    @include on-sm-minus {
+      margin-left: 10px;
+    }
+
+    @include on-sm-plus {
+      margin-left: 35px;
+    }
+  }
+
+  .panel-heading {
+    @include on-sm-minus {
+      padding: 5px;
+    }
+  }
+
+  .panel-title {
+    @include on-sm-minus {
+      font-size: 12px;
+    }
   }
 
   .panel-heading a {
@@ -98,7 +162,14 @@
   th,
   td {
     border: 1px rgba($sg-black, .5) solid;
-    padding: 10px;
+
+    @include on-sm-minus {
+      padding: 5px;
+    }
+
+    @include on-sm-plus {
+      padding: 10px;
+    }
   }
 
   .centered {
@@ -110,15 +181,33 @@
     background-color: rgba($sg-white, .7);
     cursor: pointer;
     display: inline-block;
-    height: 220px;
-    margin: 10px;
-    padding: 10px;
-    width: 220px;
+
+    @include on-sm-minus {
+      height: 146px;
+      margin: 4px;
+      padding: 3px;
+      width: 146px;
+    }
+
+    @include on-sm-plus {
+      height: 220px;
+      margin: 10px;
+      padding: 10px;
+      width: 220px;
+    }
 
     img {
-      height: 200px;
       object-fit: cover;
-      width: 200px;
+
+      @include on-sm-minus {
+        height: 140px;
+        width: 140px;
+      }
+
+      @include on-sm-plus {
+        height: 200px;
+        width: 200px;
+      }
     }
 
     &:after {

@@ -1,7 +1,9 @@
 .sg-l2-wrapper: .sg-about-container
-    .sg-about-side-panel.sg-glass-background
+    .sg-about-side-panel.sg-glass-background.sg-no-xxs
         block side-menu
     .sg-about-main-panel
         include _l2-menu
+        .sg-about-side-panel.sg-glass-background.sg-on-xxs
+            block side-menu
         .sg-about-main-body.sg-glass-background
             block content

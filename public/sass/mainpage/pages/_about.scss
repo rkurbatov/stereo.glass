@@ -56,6 +56,10 @@
   a {
     color: $sg-black;
     display: block;
+
+    @include on-xs-minus {
+      text-align: center;
+    }
   }
 
   a:focus {
@@ -87,4 +91,7 @@
     height: 320px !important;
     width: auto !important;
   }
+
+  height: 250px !important;
+  width: auto !important;
 }

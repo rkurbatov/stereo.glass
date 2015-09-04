@@ -72,7 +72,6 @@ function deployVendor(production) {
     ];
 
     var vendorLibsMain = [
-        'public/libs/es5-shim/es5-shim.js',
         babelPolyfill,
         'public/libs/jquery/dist/jquery.js',
         'public/libs/lodash/lodash.js',

@@ -15,6 +15,18 @@
   }
 }
 
+.sg-on-xxs {
+  @include on-xs-plus {
+    display: none !important;
+  }
+}
+
+.sg-no-xxs {
+  @include on-xs-minus {
+    display: none !important;
+  }
+}
+
 .sg-glass-background {
   @include glass-background;
 }

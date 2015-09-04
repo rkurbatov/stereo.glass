@@ -73,6 +73,8 @@
     //text-shadow: 2px 2px 5px rgba($sg-black, .65);
 
     @include on-sm-minus {
+      font-size: 9px;
+      line-height: 11px;
       text-shadow: $sg-black 1px 0, $sg-black 1px 1px,
       $sg-black 0 1px, $sg-black -1px 1px,
       $sg-black -1px 0, $sg-black -1px -1px,
@@ -96,6 +98,10 @@
 
     @include on-sm {
       font-size: 18px;
+    }
+
+    @include on-xs {
+      font-size: 14px;
     }
   }
 
@@ -143,11 +149,21 @@
 
   .text-caffee {
     background-color: rgba($sg-black, .35);
-    bottom: 10%;
-    padding: 10px;
-    right: 5%;
     text-align: justify;
-    width: 65%;
+
+    @include on-xs-plus {
+      bottom: 10%;
+      padding: 10px;
+      right: 5%;
+      width: 65%;
+    }
+
+    @include on-xs-minus {
+      bottom: 5%;
+      padding: 5px;
+      right: 1%;
+      width: 75%;
+    }
   }
 
 }
