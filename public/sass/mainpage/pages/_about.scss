@@ -36,6 +36,10 @@
       font: 10px/20px "Airbone";
     }
 
+    @include on-sm {
+      font: 11px/22px "Airbone";
+    }
+
     @include on-md {
       font: 12px/24px "Airbone";
     }

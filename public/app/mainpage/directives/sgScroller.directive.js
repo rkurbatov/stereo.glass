@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgScroller', sgScroller);
 
-    sgScroller.$inject = ['$window', '$document', 'auxData'];
+    sgScroller.$inject = ['$window', 'auxData'];
 
-    function sgScroller($window, $document, auxData) {
+    function sgScroller($window, auxData) {
 
         return {
             restrict: 'A',
@@ -90,8 +90,12 @@
 
             function sizeBody() {
                 var windowWidth = $window.innerWidth;
-                calculatedBodyWidth = windowWidth * auxData.settings.screenSections.length;
-                elm.css({ width: calculatedBodyWidth });
+                if (windowWidth > 480) {
+                    calculatedBodyWidth = windowWidth * auxData.settings.screenSections.length;
+                    elm.css({ width: calculatedBodyWidth });
+                } else {
+                    elm.css({width: ''});
+                }
             }
 
             function keyPressHandler(evt) {

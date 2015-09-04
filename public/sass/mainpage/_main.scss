@@ -1,5 +1,9 @@
 html,
 body {
+  @include on-xs-minus {
+    overflow-x: hidden;
+  }
+
   @include on-xs-plus {
     height: 100%;
     overflow: hidden;

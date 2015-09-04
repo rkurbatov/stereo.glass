@@ -12,7 +12,11 @@
 
     function positionElements() {
         // make header screen width
-        $('header').width(window.innerWidth);
+        if (window.innerWidth > 480) {
+            $('header').width(window.innerWidth);
+        } else {
+            $('header').width('');
+        }
         var list = $("ul.menu-pages")[0],
             items = list.children,
             menuLen = list

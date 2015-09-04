@@ -20,8 +20,13 @@
             scope.$applyAsync(()=>auxData.settings.screenSections.push(elm));
 
             scope.$on('carousel:redraw', ()=> {
-                elm.width($window.innerWidth);
-                elm.height($window.innerHeight);
+                if ($window.innerWidth > 480) {
+                    elm.height($window.innerHeight);
+                    elm.width($window.innerWidth);
+                } else {
+                    elm.height('');
+                    elm.width('');
+                }
             });
 
         }

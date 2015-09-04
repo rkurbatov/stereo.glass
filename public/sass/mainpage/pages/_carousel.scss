@@ -4,6 +4,10 @@
   position: fixed;
   top: 50%;
   z-index: 9999;
+
+  @include on-xs-minus {
+    display: none;
+  }
 }
 
 .horizon-prev {
@@ -27,10 +31,12 @@
   position: relative;
 
   .centered-content {
-    @include translateY(-50%);
-    overflow: hidden;
-    position: relative;
-    top: 50%;
+    @include on-xs-plus {
+      @include translateY(-50%);
+      overflow: hidden;
+      position: relative;
+      top: 50%;
+    }
   }
 
   .bg-room {
@@ -63,12 +69,22 @@
     color: $sg-white;
     font-family: 'Scada', sans-serif;
     position: absolute;
-    //text-shadow: 2px 2px 5px rgba($sg-black, .65);
-    text-shadow: $sg-black 2px 0, $sg-black 2px 2px,
-    $sg-black 0 2px, $sg-black -2px 2px,
-    $sg-black -2px 0, $sg-black -2px -2px,
-    $sg-black 0 -2px, $sg-black 2px -2px;
     z-index: 1000;
+    //text-shadow: 2px 2px 5px rgba($sg-black, .65);
+
+    @include on-sm-minus {
+      text-shadow: $sg-black 1px 0, $sg-black 1px 1px,
+      $sg-black 0 1px, $sg-black -1px 1px,
+      $sg-black -1px 0, $sg-black -1px -1px,
+      $sg-black 0 -1px, $sg-black 1px -1px;
+    }
+
+    @include on-sm-plus {
+      text-shadow: $sg-black 2px 0, $sg-black 2px 2px,
+      $sg-black 0 2px, $sg-black -2px 2px,
+      $sg-black -2px 0, $sg-black -2px -2px,
+      $sg-black 0 -2px, $sg-black 2px -2px;
+    }
 
     @include on-lg {
       font-size: 24px;
@@ -145,10 +161,18 @@
 // Videoclip with overlay div - videoplayer
 
 .videoclip {
-  height: 100%;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
+
+  @include on-xs-minus {
+    max-width: 100%;
+    position: absolute;
+  }
+
+  @include on-xs-plus {
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+  }
 }
 
 .sg-video-overlay {
