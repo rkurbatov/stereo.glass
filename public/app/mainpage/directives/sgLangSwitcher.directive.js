@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgLangSwitcher', sgLangSwitcher);
 
-    sgLangSwitcher.$inject = ['sgIntSvc', '$document', '$window'];
+    sgLangSwitcher.$inject = ['sgIntSvc'];
 
-    function sgLangSwitcher(sgIntSvc, $document, $window) {
+    function sgLangSwitcher(sgIntSvc) {
 
         return {
             restrict: 'E',
@@ -18,17 +18,11 @@
 
         function link(scope, elm, attrs) {
             scope.IntSvc = sgIntSvc;
+            scope.switchLang = switchLang;
 
-            var flagElement = angular.element('.flag-container');
-            angular.element($document).on('ready', rePosition);
-            angular.element($window).on('resize', rePosition);
-
-            function rePosition() {
-                var newTop = flagElement.offset().top + flagElement.outerHeight();
-                var newLeft = flagElement.offset().left;
-                elm.offset({top: newTop, left: newLeft});
+            function switchLang(code) {
+                sgIntSvc.switchLang(code);
             }
-
         }
     }
 

@@ -32,7 +32,6 @@ nav {
   // flag button width
   li:last-of-type {
     position: relative;
-    width: 7vw;
     z-index: 1000;
   }
 
@@ -80,37 +79,6 @@ nav {
     &.hovered {
       background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
       transition: background-position 1s linear;
-    }
-  }
-}
-
-.lang-selector ul {
-  @include black-glossy-background;
-
-  margin: 0;
-  opacity: .75;
-  padding: 0;
-  text-align: center;
-
-  li {
-    cursor: pointer;
-    height: 43px;
-    list-style: none;
-
-    @include on-xs {
-      padding-top: 2px;
-    }
-
-    @include on-sm {
-      padding-top: 3px;
-    }
-
-    @include on-md {
-      padding-top: 4px;
-    }
-
-    @include on-lg {
-      padding-top: 8px;
     }
   }
 }

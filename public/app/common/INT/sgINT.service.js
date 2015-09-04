@@ -9,28 +9,28 @@
 
     function sgIntSvc($http, $rootScope) {
 
-        var langs = [];
-
-        init();
-
-        return {
-            langs,
+        var svc = {
+            langs: [],
+            currentLang: 'RU',
             add,
             update,
             reload,
             switchLang,
             parse,
             getTranslation,
-            putTranslation,
-            currentLang: 'RU'
+            putTranslation
         };
 
+        init();
+
+        return svc;
+
         function init() {
+            // TODO get language from localStorage
             reload();
         }
 
         function switchLang(code) {
-            console.log('change lang to: ', code);
             $http
                 .get('/api/lang/switch/' + code)
                 .then((response)=> {
@@ -38,16 +38,17 @@
                         delete window._LANG_[key];
                     }
                     $rootScope.$applyAsync(()=> _.extend(window._LANG_, response.data));
+                    svc.currentLang = code;
                 })
         }
 
         function reload() {
-            langs.length = 0;
+            svc.langs.length = 0;
             return $http
                 .get('/api/lang/list')
                 .then((response) => {
-                    _.forEach(response.data, (lang) => langs.push(lang));
-                    return langs;
+                    _.forEach(response.data, (lang) => svc.langs.push(lang));
+                    return svc.langs;
                 });
         }
 
