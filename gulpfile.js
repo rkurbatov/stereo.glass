@@ -84,6 +84,7 @@ function deployVendor(production) {
         'public/libs/angular-bootstrap/ui-bootstrap.js',
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
+        'public/libs/angular-click-outside/clickoutside.directive.js',
         'public/libs/sg.ui/build/sg.ui.js',
         'public/libs/angular-fx/src/js/angular-fx.js',
         'public/libs/angular-busy/dist/angular-busy.js',

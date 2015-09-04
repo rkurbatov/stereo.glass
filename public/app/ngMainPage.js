@@ -7,6 +7,7 @@
             'ngCookies',
             'ngAnimate',
             'angularUtils.directives.dirPagination',
+            'angular-click-outside',
             'LocalStorageModule',
             'ui.validate',
             'sg.ui',

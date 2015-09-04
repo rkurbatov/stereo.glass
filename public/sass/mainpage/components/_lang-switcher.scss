@@ -1,4 +1,12 @@
 .lang-switcher {
+  @include scaleY(0);
+
+  -webkit-transform-origin: top;
+  -moz-transform-origin: top;
+  -ms-transform-origin: top;
+  -o-transform-origin: top;
+  transform-origin: top;
+
   border: 0;
   left: 0;
   margin-left: -1px;
@@ -6,6 +14,12 @@
   padding: 0;
   position: absolute;
   right: 0;
+  transition: .5s linear;
+
+  &.visible {
+    @include scaleY(1);
+    transition: .5s linear;
+  }
 
   .lang-selector {
     // override usual settings

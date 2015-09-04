@@ -17,11 +17,7 @@ header(ng-show='header.loader.isSuccessful')
                         a(ng-bind='_INT("Дилерам");' href='#/dealers')
                     li(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "contacts"}')
                         a(sg-blick ng-bind='_INT("Контакты");' href='#/contacts')
-                    li
-                        a.flag-container(sg-blick random='3')
-                            img(ng-src="{{ 'img/flags/' + header.IntSvc.currentLang + '.png' }}")
-                            span(ng-bind='header.INT.currentLang')
-                        sg-lang-switcher
+                    sg-lang-switcher
         .wrapper-nav-buttons
             button#login-button.sg-btn(ng-if="!header.currentUser.name"
             ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
