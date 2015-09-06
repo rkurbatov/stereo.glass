@@ -14,11 +14,11 @@
   padding: 0;
   position: absolute;
   right: 0;
-  transition: .5s linear;
+  transition: .25s linear;
 
   &.visible {
     @include scaleY(1);
-    transition: .5s linear;
+    transition: .25s linear;
   }
 
   .lang-selector {
