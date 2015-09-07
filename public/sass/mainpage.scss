@@ -7,13 +7,9 @@
 
 @import 'mainpage/utilities/utilities';
 @import 'mainpage/components/components';
+
 @import 'mainpage/main';
 @import 'mainpage/loader';
-@import 'mainpage/common/header';
+@import 'mainpage/bootstrap';
 
-@import 'mainpage/pages/shared';
-@import 'mainpage/pages/carousel';
-@import 'mainpage/pages/goods';
-@import 'mainpage/pages/about';
-@import 'mainpage/pages/contacts';
-@import 'mainpage/pages/dealers';
+@import 'mainpage/pages/pages';

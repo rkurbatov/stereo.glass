@@ -1,0 +1,53 @@
+// Display sizes
+$display-lg-width: 1200px;
+$display-md-width: 992px;
+$display-sm-width: 768px;
+$display-xs-width: 480px;
+
+@mixin on-lg {
+  @media (min-width: #{$display-lg-width}) {
+    @content;
+  }
+}
+
+@mixin on-md {
+  @media (min-width: #{$display-md-width}) and (max-width: #{$display-lg-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin on-sm {
+  @media (min-width: #{$display-sm-width}) and (max-width: #{$display-md-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin on-sm-minus {
+  @media (max-width: #{$display-sm-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin on-sm-plus {
+  @media (min-width: #{$display-sm-width}) {
+    @content;
+  }
+}
+
+@mixin on-xs {
+  @media (min-width: #{$display-xs-width}) and (max-width: #{$display-sm-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin on-xs-minus {
+  @media (max-width: #{$display-xs-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin on-xs-plus {
+  @media (min-width: #{$display-xs-width}) {
+    @content;
+  }
+}

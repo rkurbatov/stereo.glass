@@ -1,0 +1,15 @@
+.modal-content {
+  background-color: rgba($sg-white, .5);
+
+  .panel-group {
+    margin-bottom: 0;
+  }
+
+  .panel {
+    background-color: rgba($sg-white, .5);
+  }
+
+  a:focus {
+    text-decoration: none;
+  }
+}
