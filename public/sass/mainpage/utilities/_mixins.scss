@@ -1,12 +1,14 @@
 @mixin vh-center {
   text-align: center;
+
   &:before {
     content: '';
     display: inline-block;
     height: 100%;
     vertical-align: middle;
   }
-  & > * {
+
+  > * {
     display: inline-block;
     vertical-align: middle;
   }
@@ -25,4 +27,12 @@
   background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
   transition-property: background-position;
   transition-timing-function: ease-in-out;
+}
+
+@mixin transform-origin-position($position) {
+  -moz-transform-origin: $position;
+  -ms-transform-origin: $position;
+  -o-transform-origin: $position;
+  -webkit-transform-origin: $position;
+  transform-origin: $position;
 }
