@@ -9,7 +9,7 @@
             .sg-goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
                 dir-pagination-controls(template-url="/templates/directive/dirPagination")
 
-            ul.sg-goods-list
+            ul.sg-goods-list.clearfix
                 li.sg-layout.col-lg-4.col-md-6.col-xs-12(current-page="goods.currentPage"
                 dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
