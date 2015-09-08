@@ -32,9 +32,9 @@
 
   .centered-content {
     @include on-xs-plus {
-      transform: translateY(-50%);
       overflow: hidden;
       position: relative;
+      transform: translateY(-50%);
       top: 50%;
     }
   }

@@ -35,16 +35,6 @@ body {
     font-size: 16px;
   }
 
-  &:before {
-    box-shadow: rgba($sg-black, .25) 0 0 10px;
-    content: '';
-    height: 10px;
-    left: 0;
-    position: fixed;
-    top: -10px;
-    width: 100%;
-    z-index: 100;
-  }
 }
 
 .sg-wrapper {
