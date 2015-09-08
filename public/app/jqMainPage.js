@@ -11,7 +11,7 @@
     $(window).on("load resize orientationchange", positionElements);
 
     function setViewport() {
-        if (window.isMobile.any) {
+        if (window.isMobile.apple.phone) {
             var windowWidth = ( $(window).width() < window.screen.width )
                 ? $(window).width()
                 : window.screen.width; //get proper width
