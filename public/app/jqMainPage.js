@@ -9,7 +9,6 @@
 
     // initialization and redraw reset
     $(window).on("load resize orientationchange", positionElements);
-    $(setViewport);
 
     function setViewport() {
         if (window.isMobile.any) {
@@ -17,7 +16,6 @@
                 ? $(window).width()
                 : window.screen.width; //get proper width
             var minimalWidth = 480; // min width of site
-            var ratio = windowWidth / minimalWidth;
             if (windowWidth > minimalWidth) {
                 $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, minimal-ui, width=' + windowWidth);
             }
@@ -25,6 +23,7 @@
     }
 
     function positionElements() {
+        setViewport();
         // make header screen width
         if (window.innerWidth > 480) {
             $('header').width(window.innerWidth);
