@@ -1,10 +1,20 @@
-.sg-l2-wrapper
-    .sg-goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
-        dir-pagination-controls(template-url="/templates/directive/dirPagination")
+.sg-l2-wrapper.row
+        .col-lg-3.col-md-4.col-sm-5
+            accordion
+                accordion-group.sg-glass-background(heading='{{_INT("Товар");}}')
+                accordion-group.sg-glass-background(heading='{{_INT("Цвета");}}')
+                accordion-group.sg-glass-background(heading='{{_INT("Сюжеты");}}')
+                accordion-group.sg-glass-background(heading='{{_INT("Страны");}}')
+        .col-lg-9.col-md-8.col-sm-7
+            .sg-goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
+                dir-pagination-controls(template-url="/templates/directive/dirPagination")
 
-    ul.sg-goods-list
-        li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="goods.currentPage"
-        dir-paginate="good in goods.filtered = (goods.list) |\
-                itemsPerPage: goods.currentItemsPerPage")
-            .sg-glass-background
-                img(ng-src='{{ goods.getImgUrl(good) }}')
+            ul.sg-goods-list
+                li.sg-layout.col-lg-4.col-md-6.col-xs-12(current-page="goods.currentPage"
+                dir-paginate="good in goods.filtered = (goods.list) |\
+                        itemsPerPage: goods.currentItemsPerPage")
+                    .sg-good-block.sg-glass-background
+                        img(ng-src='{{ goods.getImgUrl(good) }}')
+
+            .sg-goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
+                dir-pagination-controls(template-url="/templates/directive/dirPagination")

@@ -3,14 +3,23 @@
 
   ul {
     font: 16px/24px "Airbone";
+  }
 
-    li a {
-      @include black-glossy-background;
-      color: white;
-    }
+  li a {
+    @include black-glossy-background;
+    color: $sg-white;
+  }
 
-    li.active a {
-      @include red-glossy-background;
-    }
+  .active a {
+    @include red-glossy-background;
+  }
+}
+
+.sg-goods-list {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    margin-top: 10px;
   }
 }

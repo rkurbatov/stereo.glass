@@ -23,9 +23,7 @@
             angular.element($window).on('resize orientationchange', ()=> {
                 if (auxData.settings.currentPage === 'carousel') {
                     calcRatio();
-                    console.log('emitting on resize');
                     scope.$emit('carousel:redraw');
-                    console.log('broadcasting on resize');
                     scope.$broadcast('carousel:redraw');
                 }
             });
@@ -41,7 +39,6 @@
                         auxData.settings.coords = auxData.coordsNarrowScreen;
                     }
                     auxData.settings.isWideScreen = isWS;
-                    console.log('setting isWS');
                 });
 
             }
@@ -57,9 +54,7 @@
                         calcRatio();
                         // Init only after preloading some images
                         auxData.loader.staticPromise.then(()=> {
-                            console.log('emitting on page');
                             scope.$emit('carousel:redraw');
-                            console.log('broadcasting on page');
                             scope.$broadcast('carousel:redraw');
                         });
                         // A kind of black magic but broadcasting isn't needed here
