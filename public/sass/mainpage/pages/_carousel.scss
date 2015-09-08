@@ -32,7 +32,7 @@
 
   .centered-content {
     @include on-xs-plus {
-      @include translateY(-50%);
+      transform: translateY(-50%);
       overflow: hidden;
       position: relative;
       top: 50%;
@@ -54,15 +54,15 @@
   }
 
   .sg-fliph {
-    @include scaleX(-1);
+    transform: scaleX(-1);
   }
 
   .sg-flipv {
-    @include scaleY(-1);
+    transform: scaleY(-1);
   }
 
   .sg-flipb {
-    @include scale(-1, -1);
+    transform: scale(-1, -1);
   }
 
   .text {

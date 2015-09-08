@@ -36,7 +36,7 @@ body {
   }
 
   &:before {
-    @include box-shadow(rgba($sg-black, .25) 0 0 10px);
+    box-shadow: rgba($sg-black, .25) 0 0 10px;
     content: '';
     height: 10px;
     left: 0;

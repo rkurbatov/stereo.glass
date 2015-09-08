@@ -53,7 +53,7 @@ header {
 }
 
 .logo-upper {
-  @include box-shadow(rgba(0, 0, 0, .5) 3px 10px 10px -10px);
+  box-shadow: rgba(0, 0, 0, .5) 3px 10px 10px -10px;
   max-width: 100%;
 
   @include on-sm-plus {

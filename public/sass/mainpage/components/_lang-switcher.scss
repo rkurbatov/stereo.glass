@@ -1,6 +1,6 @@
 .lang-switcher {
-  @include scaleY(0);
-  @include transform-origin-position(top);
+  transform: scaleY(0);
+  transform-origin: top;
 
   border: 0;
   left: 0;
@@ -12,7 +12,7 @@
   transition: .25s linear;
 
   &.visible {
-    @include scaleY(1);
+    transform: scaleY(1);
     transition: .25s linear;
   }
 

@@ -16,7 +16,7 @@
   }
 
   a {
-    @include border-radius(2px, 2px);
+    border-radius: 2px 2px;
 
     color: $sg-black;
     cursor: pointer;
@@ -27,19 +27,19 @@
     rgba(100, 100, 110, .5) 0 5px 4px;
 
     @include on-xs {
-      font: 11px/18px "Airbone";
+      font: 11px/18px "Airborne";
     }
 
     @include on-sm {
-      font: 18px/29px "Airbone";
+      font: 18px/29px "Airborne";
     }
 
     @include on-md {
-      font: 21px/35px "Airbone";
+      font: 21px/35px "Airborne";
     }
 
     @include on-lg {
-      font: 24px/40px "Airbone";
+      font: 24px/40px "Airborne";
     }
 
     &:hover {

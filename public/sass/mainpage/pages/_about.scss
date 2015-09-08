@@ -33,19 +33,19 @@
     margin-top: 5px;
 
     @include on-xs {
-      font: 10px/20px "Airbone";
+      font: 10px/20px "Airborne";
     }
 
     @include on-sm {
-      font: 11px/22px "Airbone";
+      font: 11px/22px "Airborne";
     }
 
     @include on-md {
-      font: 12px/24px "Airbone";
+      font: 12px/24px "Airborne";
     }
 
     @include on-lg {
-      font: 15px/30px "Airbone";
+      font: 15px/30px "Airborne";
     }
   }
 

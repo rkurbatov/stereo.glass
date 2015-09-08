@@ -1,2 +1,9 @@
-@include font-face("Airbone", font-files("airbone/arbn2plt.svg#arbn2plt", "airbone/arbn2plt.woff",
-        "airbone/arbn2plt.ttf"), "airbone/arbn2plt.eot");
+@font-face {
+  font-family: 'Airborne';
+  src: url('../fonts/airborne/arbn2plt.eot'); // IE9 Compat Modes
+  src: url('../fonts/airborne/arbn2plt.eot?#iefix') format('embedded-opentype'), // IE6-IE8
+  url('../fonts/airborne/arbn2plt.woff2') format('woff2'), // Super Modern Browsers
+  url('../fonts/airborne/arbn2plt.woff') format('woff'), // Pretty Modern Browsers
+  url('../fonts/airborne/arbn2plt.ttf')  format('truetype'), // Safari, Android, iOS
+  url('../fonts/airborne/arbn2plt.svg#arbn2plt') format('svg'); // Legacy iOS
+}

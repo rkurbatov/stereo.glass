@@ -1,8 +1,8 @@
 @mixin glass-background {
   padding: 1px;
-  background-color: rgba(240, 240, 240, 0.6);
+  background-color: rgba(240, 240, 240, .6);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, .0) 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, .0) 70%),
-  linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, .3)),
+  linear-gradient(to right, rgba(255, 255, 255, .7), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, .3)),
   linear-gradient(to right, rgba(125, 125, 125, 1), rgba(230, 230, 230, .9) 45%, rgba(125, 125, 125, .5)),
   linear-gradient(to right, rgba(125, 125, 125, 1), rgba(255, 255, 255, .9) 45%, rgba(125, 125, 125, .5)),
   linear-gradient(to right, rgba(223, 190, 170, 1), rgba(255, 255, 255, .9) 45%, rgba(223, 190, 170, .5)),
@@ -11,19 +11,31 @@
   background-size: 200% 100%, auto, 100% 2px, 100% 2px, 100% 1px, 100% 1px;
   transition-timing-function: step-start; // prevent animation effect on mouseleave
   background-position: 200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
-  @include box-shadow(rgba(0, 0, 0, .5) 3px 10px 10px -10px, rgba(0, 0, 0, .5) 3px -10px 10px -10px);
+  box-shadow: rgba($sg-black, .5) 3px 10px 10px -10px, rgba($sg-black, .5) 3px -10px 10px -10px;
 }
 
 @mixin black-glossy-background {
-  background-color: rgb(62, 62, 62);
-  @include filter-gradient(#3e3e3e, #181818, vertical);
-  $experimental-support-for-svg: true;
-  @include background-image(linear-gradient(top, rgba(62, 62, 62, 1) 0%, rgba(57, 57, 57, 1) 6%, rgba(100, 100, 100, 1) 18%, rgba(47, 47, 47, 1) 54%, rgba(44, 44, 44, 1) 77%, rgba(24, 24, 24, 1) 99%));
+  // Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3e3e3e+0,393939+6,646464+18,2f2f2f+54,2c2c2c+77,181818+100,752201+100,181818+100
+  background: linear-gradient(to bottom,
+          #3e3e3e 0%,
+          #393939 6%,
+          #646464 18%,
+          #2f2f2f 54%,
+          #2c2c2c 77%,
+          #181818 100%,
+          #752201 100%,
+          #181818 100%);
 }
 
 @mixin red-glossy-background {
-  background-color: rgb(155, 73, 82);
-  @include filter-gradient(#9b4952, #560103, vertical);
-  $experimental-support-for-svg: true;
-  @include background-image(linear-gradient(top, rgba(155, 73, 82, 1) 0%, rgba(155, 54, 66, 1) 6%, rgba(232, 139, 139, 1) 18%, rgba(156, 17, 34, 1) 54%, rgba(155, 9, 26, 1) 77%, rgba(86, 1, 3, 1) 99%));
+  // Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9b4952+0,9b3642+6,e88b8b+18,9c1122+54,9b091a+77,752201+100,9b3642+100,560103+100
+  background: linear-gradient(to bottom,
+          #9b4952 0%,
+          #9b3642 6%,
+          #e88b8b 18%,
+          #9c1122 54%,
+          #9b091a 77%,
+          #752201 100%,
+          #9b3642 100%,
+          #560103 100%);
 }

@@ -36,8 +36,8 @@
   }
 
   .sg-photo {
-    @include box-shadow(0 0 2px 1px rgba($sg-black, .15));
     background-color: rgba($sg-white, .5);
+    box-shadow: 0 0 2px 1px rgba($sg-black, .15);
     max-width: 50%;
     min-width: 50%;
 
@@ -61,8 +61,8 @@
   }
 
   h4 {
-    @include box-shadow(0 0 2px 1px rgba($sg-black, .1));
     background-color: rgba($sg-white, .25);
+    box-shadow: 0 0 2px 1px rgba($sg-black, .1);
     margin: 5px 0;
 
     @include on-xs-minus {
@@ -181,7 +181,7 @@
   }
 
   .miniature {
-    @include box-shadow(0 0 2px 1px rgba($sg-black, .1));
+    box-shadow: 0 0 2px 1px rgba($sg-black, .1);
     background-color: rgba($sg-white, .7);
     cursor: pointer;
     display: inline-block;
@@ -226,7 +226,7 @@
     }
 
     &:hover:after {
-      @include text-shadow(0 0 5px $sg-silver);
+      text-shadow: 0 0 5px $sg-silver;
       color: rgba($sg-black, .9);
     }
   }

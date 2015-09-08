@@ -3,28 +3,27 @@
 }
 
 .sg-rating-block i {
-  @include user-select(none);
-
   color: $sg-blue;
   font-size: 20px;
-  text-shadow: 1px 1px 2px rgba(150, 150, 150, 0.75);
+  text-shadow: 1px 1px 2px rgba($sg-silver, .75);
+  user-select: none;
 }
 
 .sg-rate-paginator select {
-  width: auto;
   display: inline-block;
-  vertical-align: top;
   margin: 20px 5px;
+  vertical-align: top;
+  width: auto;
 }
 
 .sg-rate-paginator span {
   display: inline-block;
-  vertical-align: top;
   line-height: 32px;
   margin: 20px 15px 5px;
+  vertical-align: top;
 }
 
-/* Img crop container */
+// Img crop container
 .sg-cropped {
   border: 1px solid $sg-lightgray;
   height: 100px;
