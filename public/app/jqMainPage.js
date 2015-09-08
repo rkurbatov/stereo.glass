@@ -9,6 +9,22 @@
 
     // initialization and redraw reset
     $(window).on("load resize orientationchange", positionElements);
+    $(setViewport);
+
+    function setViewport() {
+        if (window.isMobile.any) {
+            var windowWidth = ( $(window).width() < window.screen.width )
+                ? $(window).width()
+                : window.screen.width; //get proper width
+            var minimalWidth = 480; // min width of site
+            var ratio = windowWidth / minimalWidth;
+            if (windowWidth < minimalWidth) {
+                $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + windowWidth);
+            } else {
+                $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, minimal-ui, width=' + windowWidth);
+            }
+        }
+    }
 
     function positionElements() {
         // make header screen width
