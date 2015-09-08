@@ -1,7 +1,5 @@
 .lang-switcher {
-  transform: scaleY(0);
-  transform-origin: top;
-
+  backface-visibility: hidden;
   border: 0;
   left: 0;
   margin-left: -1px;
@@ -9,6 +7,8 @@
   padding: 0;
   position: absolute;
   right: 0;
+  transform: scaleY(0);
+  transform-origin: top;
   transition: .25s linear;
 
   &.visible {

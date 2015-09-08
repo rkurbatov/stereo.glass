@@ -2,9 +2,9 @@ header {
   margin-bottom: .25em;
 
   @include on-xs-plus {
+    backface-visibility: hidden;
     left: 0;
     position: fixed;
-    -webkit-backface-visibility: hidden;
     top: 0;
     width: 100%;
     z-index: 100;
