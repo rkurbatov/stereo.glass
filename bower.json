@@ -40,5 +40,8 @@
     "angular": "~1.4.3",
     "angular-animate": "~1.4.3",
     "moment": "~2.10.3"
+  },
+  "devDependencies": {
+    "calc-polyfill": "*"
   }
 }

@@ -76,6 +76,7 @@ function deployVendor(production) {
 
     var vendorLibsMain = [
         babelPolyfill,
+        'public/libs/calc-polyfill/calc.js',
         'public/libs/jquery/dist/jquery.js',
         'public/libs/lodash/lodash.js',
         'public/app/tmp/js/video.js',
