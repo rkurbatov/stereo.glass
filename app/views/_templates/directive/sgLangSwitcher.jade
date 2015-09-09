@@ -3,4 +3,4 @@ ul.lang-switcher(click-outside='closeSwitcher()' outside-if-not='flag-container'
     ng-if='lang.code !== IntSvc.currentLang && lang.isActive'
     ng-click='switchLang(lang.code)')
         img(ng-src="{{ 'img/flags/' + lang.code + '.png' }}")
-    //    span(ng-bind='lang.code')
+        span(ng-bind='lang.code')

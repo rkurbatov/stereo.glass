@@ -1,31 +1,34 @@
 include ../_version
-.sg-header-container.sg-viewport-size(vw='100' vh='0'): table.header(ng-show='header.loader.isSuccessful')
-    tr.top-row
-        td.upper-logo: a(href='#/')
-            .logo-blicker(sg-blick random='5' interval='15')
-            img(src='img/logo-upper.png' alt="Stereo.Glass logo")
-        td.nav-button(ng-class='{"nav-selected": header.settings.currentPage === "about"}')
-            a(sg-blick random='3' ng-bind='_INT("Подробно");' href='#/about')
-        td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "goods"}')
-            a(ng-bind='_INT("Наш товар");' href='#/goods')
-        td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "dealers"}')
-            a(ng-bind='_INT("Дилерам");' href='#/dealers')
-        td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "contacts"}')
-            a(sg-blick ng-bind='_INT("Контакты");' href='#/contacts')
-        td#flag-container.nav-button(sg-blick random='3' ng-click='toggleSwitcher()')
-            //img(ng-src="{{ 'img/flags/' + IntSvc.currentLang + '.png' }}")
-            a: span(ng-bind='IntSvc.currentLang')
-            sg-lang-switcher
-    tr.bottom-row
-        td.lower-logo: a(href='#/')
-            img(src="img/logo-words-glowed.png" alt="design the motion")
-        td(colspan='3').input-container
-            input.search(type="text" name="q" placeholder='{{ _INT("Поиск..."); }}')
-            i.fa.fa-search
-        td(colspan='2').button-container
-            .login(ng-if="!header.currentUser.name"
-            ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
-                i.fa.fa-sign-in
-            .admin(ng-if="header.currentUser.name")
-                a(href='/admin' ng-bind='header.currentUser.name')
-                i.fa.fa-user
+.sg-header-container.sg-viewport-size(vw='100' vh='0' ng-show='header.loader.isSuccessful')
+    .mobile-logo
+        img(src='img/logo-upper.png' alt="Stereo.Glass logo")
+    table.header
+        tr.top-row
+            td.upper-logo: a(href='#/')
+                .logo-blicker(sg-blick random='5' interval='15')
+                img(src='img/logo-upper.png' alt="Stereo.Glass logo")
+            td.nav-button(ng-class='{"nav-selected": header.settings.currentPage === "about"}')
+                a(sg-blick random='3' ng-bind='_INT("Подробно");' href='#/about')
+            td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "goods"}')
+                a(ng-bind='_INT("Наш товар");' href='#/goods')
+            td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "dealers"}')
+                a(ng-bind='_INT("Дилерам");' href='#/dealers')
+            td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "contacts"}')
+                a(sg-blick ng-bind='_INT("Контакты");' href='#/contacts')
+            td#flag-container.nav-button(sg-blick random='3' ng-click='toggleSwitcher()')
+                img(ng-src="{{ 'img/flags/' + IntSvc.currentLang + '.png' }}")
+                a: span(ng-bind='IntSvc.currentLang')
+                sg-lang-switcher
+        tr.bottom-row
+            td.lower-logo: a(href='#/')
+                img(src="img/logo-words-glowed.png" alt="design the motion")
+            td(colspan='3').input-container
+                input.search(type="text" name="q" placeholder='{{ _INT("Поиск..."); }}')
+                i.fa.fa-search
+            td(colspan='2').button-container
+                .login(ng-if="!header.currentUser.name"
+                ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
+                    i.fa.fa-sign-in
+                .admin(ng-if="header.currentUser.name")
+                    a(href='/admin' ng-bind='header.currentUser.name')
+                    i.fa.fa-user

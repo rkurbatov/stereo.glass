@@ -9,53 +9,73 @@
 .header {
   width: 100%;
 
-  @include on-xs {
-    #flag-container,
-    .lang-selector {
-      width: 56px;
-    }
-
-    .input-container,
-    .button-container {
-      padding: 0 28px;
-    }
-  }
-
-  @include on-sm {
-    #flag-container,
-    .lang-selector {
-      width: 64px;
-    }
-
-    .input-container,
-    .button-container {
-      padding: 0 32px;
-    }
-  }
-
-  @include on-md {
-    #flag-container,
-    .lang-selector {
-      width: 72px;
-    }
-
-    .input-container,
-    .button-container {
-      padding: 0 36px;
-    }
-  }
-
   @include on-lg {
     margin: 0 auto;
     width: 1200px;
+  }
 
-    #flag-container,
-    .lang-selector {
+  #flag-container,
+  .lang-selector {
+
+    @include on-xs-minus {
+      height: 16px;
+      width: 40px;
+    }
+
+    @include on-xs {
+      height: 16px;
+      width: 48px;
+    }
+
+    @include on-sm {
+      height: 28px;
+      width: 64px;
+    }
+
+    @include on-md {
+      height: 37px;
+      width: 72px;
+    }
+
+    @include on-lg {
+      height: 42px;
       width: 80px;
     }
 
-    .input-container,
-    .button-container {
+    img {
+      max-height: 100%;
+      @include on-xs-minus {
+        display: none;
+      }
+    }
+
+    a,
+    span {
+      @include on-xs-plus {
+        display: none;
+      }
+    }
+  }
+
+  .input-container,
+  .button-container {
+    @include on-xs-minus {
+      padding: 0 20px;
+    }
+
+    @include on-xs {
+      padding: 0 24px;
+    }
+
+    @include on-sm {
+      padding: 0 32px;
+    }
+
+    @include on-md {
+      padding: 0 36px;
+    }
+
+    @include on-lg {
       padding: 0 40px;
     }
   }

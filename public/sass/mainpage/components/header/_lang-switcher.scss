@@ -1,5 +1,5 @@
 .lang-switcher {
-  backface-visibility: hidden;  // needed for Android browser
+  backface-visibility: hidden; // needed for Android browser
   border: 0;
   margin-left: -1px;
   opacity: .75;
@@ -15,14 +15,15 @@
   }
 
   .lang-selector {
+    @include black-glossy-background;
     // override usual settings
     cursor: pointer;
     display: block;
 
-    @include black-glossy-background;
-
-    img {
-      max-height: 100%;
+    span {
+      @include on-xs-plus {
+        display: none;
+      }
     }
   }
 }

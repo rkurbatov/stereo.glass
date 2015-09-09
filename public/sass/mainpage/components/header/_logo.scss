@@ -1,3 +1,11 @@
+.mobile-logo {
+  text-align: center;
+
+  @include on-xs-plus {
+    display: none;
+  }
+}
+
 .upper-logo,
 .lower-logo {
   display: table-cell;
@@ -8,6 +16,9 @@
 .lower-logo,
 .lower-logo img,
 .logo-blicker {
+  @include on-xs-minus {
+    display: none;
+  }
 
   @include on-xs {
     width: 140px;
