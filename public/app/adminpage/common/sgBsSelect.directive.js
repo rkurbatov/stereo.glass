@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('sgAppAdmin')
+        .module('sg.bsSelect', [])
         .directive('bsSelect', bsSelect);
 
     bsSelect.$inject = [];

@@ -1,20 +1,30 @@
 .sg-l2-wrapper.row
-        .col-lg-3.col-md-4.col-sm-5
-            accordion
-                accordion-group.sg-glass-background(heading='{{_INT("Товар");}}')
-                accordion-group.sg-glass-background(heading='{{_INT("Цвета");}}')
-                accordion-group.sg-glass-background(heading='{{_INT("Сюжеты");}}')
-                accordion-group.sg-glass-background(heading='{{_INT("Страны");}}')
-        .col-lg-9.col-md-8.col-sm-7
-            .sg-goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
-                dir-pagination-controls(template-url="/templates/directive/dirPagination")
+    br
+    .col-xs-1.reset-button
+        i.fa.fa-3x.fa-remove(ng-click='goods.resetFilters()')
+    .col-xs-11.goods-filters
+        .bss-container: bootstrap-select(multiple
+        data='goods.categories.assortment'
+        selection="goods.selection.assortment")
+        .bss-container: bootstrap-select(simple multiple
+        data='goods.categories.colors'
+        selection="goods.selection.colors")
+        .bss-container: bootstrap-select(simple multiple
+        data='goods.categories.plots'
+        selection="goods.selection.plots")
+        .bss-container: bootstrap-select(simple multiple
+        data='goods.categories.countries'
+        selection="goods.selection.countries")
+    .col-xs-12
+        .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
+            dir-pagination-controls(template-url="/templates/directive/dirPagination")
 
-            ul.sg-goods-list.clearfix
-                li.sg-layout.col-lg-4.col-md-6.col-xs-12(current-page="goods.currentPage"
-                dir-paginate="good in goods.filtered = (goods.list) |\
+        ul.goods-list.clearfix
+            li.sg-layout.col-lg-4.col-md-6.col-xs-12(current-page="goods.currentPage"
+            dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
-                    .sg-good-block.sg-glass-background
-                        img(ng-src='{{ goods.getImgUrl(good) }}')
+                .sg-good-block.sg-glass-background
+                    img(ng-src='{{ goods.getImgUrl(good) }}')
 
-            .sg-goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
-                dir-pagination-controls(template-url="/templates/directive/dirPagination")
+        .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
+            dir-pagination-controls(template-url="/templates/directive/dirPagination")

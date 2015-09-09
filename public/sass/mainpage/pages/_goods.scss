@@ -1,4 +1,42 @@
-.sg-goods-paginator {
+.reset-button {
+  padding-right: 0;
+  text-align: center;
+
+  i {
+    color: $sg-winered;
+    cursor: pointer;
+    text-shadow: 0 0 2px rgba($sg-black, .5);
+  }
+}
+
+.goods-filters {
+  .bss-container {
+    display: inline-block;
+    width: 25%;
+
+    @include on-lg {
+      padding: 0 15px;
+    }
+
+    @include on-md {
+      padding: 0 12px;
+    }
+
+    @include on-md {
+      padding: 0 10px;
+    }
+
+    @include on-xs {
+      padding: 0 5px;
+    }
+  }
+
+  .btn-group.bootstrap-select {
+    width: 100% !important;
+  }
+}
+
+.goods-paginator {
   text-align: center;
 
   ul {
@@ -15,7 +53,7 @@
   }
 }
 
-.sg-goods-list {
+.goods-list {
   list-style-type: none;
   padding: 0;
 

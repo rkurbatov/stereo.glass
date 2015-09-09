@@ -80,7 +80,10 @@ function deployVendor(production) {
         'public/libs/lodash/lodash.js',
         'public/app/tmp/js/video.js',
         'public/app/tmp/js/video-quality-selector.js',
+        'public/libs/bootstrap/dist/js/bootstrap.js',
+        'public/libs/bootstrap-select/js/bootstrap-select.js',
         'public/libs/angular/angular.js',
+        'public/libs/angular-bootstrap-select/dist/angular-bootstrap-select-tpls.js',
         'public/libs/angular-route/angular-route.js',
         'public/libs/angular-cookies/angular-cookies.js',
         'public/libs/angular-animate/angular-animate.js',
@@ -97,6 +100,7 @@ function deployVendor(production) {
 
     var vendorStylesMain = [
         'public/libs/bootstrap/dist/css/bootstrap.css',
+        'public/libs/bootstrap-select/dist/css/bootstrap-select.css',
         'public/libs/font-awesome/css/font-awesome.css',
         'public/app/tmp/video-js.css',
         'public/app/tmp/video-quality-selector.css',

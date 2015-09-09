@@ -8,6 +8,7 @@
             'ngAnimate',
             'angularUtils.directives.dirPagination',
             'angular-click-outside',
+            'angular-bootstrap-select',
             'LocalStorageModule',
             'ui.validate',
             'sg.ui',
