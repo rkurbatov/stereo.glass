@@ -76,7 +76,7 @@ function deployVendor(production) {
 
     var vendorLibsMain = [
         babelPolyfill,
-        'public/libs/calc-polyfill/calc.js',
+        'public/libs/calc-polyfill/calc.min.js', // neede to be minified!
         'public/libs/jquery/dist/jquery.js',
         'public/libs/lodash/lodash.js',
         'public/app/tmp/js/video.js',
