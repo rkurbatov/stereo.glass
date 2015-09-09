@@ -1,9 +1,18 @@
-.header {
+.header-container {
+  left: 0;
   position: fixed;
-  width: 100%;
+  top: 0;
+  width: 100vw;
   z-index: 100;
+}
+
+.header {
+  width: 100%;
 
   @include on-lg {
+    margin: 0 auto;
+    width: 1200px;
+
     #flag-container {
       width: 80px;
     }
