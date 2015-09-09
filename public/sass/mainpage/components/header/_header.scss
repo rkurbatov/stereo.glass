@@ -11,8 +11,12 @@
     .search,
     .admin,
     .login {
-      margin: 0 40px;
-      width: calc(100% - 80px);
+      width: 100%;
+    }
+
+    .input-container,
+    .button-container {
+      padding: 0 40px;
     }
   }
 

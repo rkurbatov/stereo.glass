@@ -19,10 +19,10 @@ table.header(ng-show='header.loader.isSuccessful')
     tr.bottom-row
         td.lower-logo: a(href='#/')
             img(src="img/logo-words-glowed.png" alt="design the motion")
-        td(colspan='3')
+        td(colspan='3').input-container
             input.search(type="text" name="q" placeholder='{{ _INT("Поиск..."); }}')
             i.fa.fa-search
-        td(colspan='2')
+        td(colspan='2').button-container
             .login(ng-if="!header.currentUser.name"
             ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
                 i.fa.fa-sign-in
