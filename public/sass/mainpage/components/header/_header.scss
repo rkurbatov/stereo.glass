@@ -9,24 +9,61 @@
 .header {
   width: 100%;
 
+  @include on-xs {
+    #flag-container,
+    .lang-selector {
+      width: 56px;
+    }
+
+    .input-container,
+    .button-container {
+      padding: 0 28px;
+    }
+  }
+
+  @include on-sm {
+    #flag-container,
+    .lang-selector {
+      width: 64px;
+    }
+
+    .input-container,
+    .button-container {
+      padding: 0 32px;
+    }
+  }
+
+  @include on-md {
+    #flag-container,
+    .lang-selector {
+      width: 72px;
+    }
+
+    .input-container,
+    .button-container {
+      padding: 0 36px;
+    }
+  }
+
   @include on-lg {
     margin: 0 auto;
     width: 1200px;
 
-    #flag-container {
+    #flag-container,
+    .lang-selector {
       width: 80px;
-    }
-
-    .search,
-    .admin,
-    .login {
-      width: 100%;
     }
 
     .input-container,
     .button-container {
       padding: 0 40px;
     }
+  }
+
+  .search,
+  .admin,
+  .login {
+    width: 100%;
   }
 
   .login,

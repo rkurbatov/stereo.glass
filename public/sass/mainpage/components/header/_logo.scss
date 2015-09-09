@@ -31,6 +31,17 @@
   position: absolute;
   z-index: 100;
 
+  &:hover {
+    @include blicker-hover;
+  }
+
+  &.hovered {
+    @include blicker-hover;
+  }
+}
+
+.logo-blicker,
+.lang-selector {
   @include on-xs {
     height: 16px;
   }
@@ -39,19 +50,11 @@
     height: 28px;
   }
 
-  @include on-lg {
+  @include on-md {
     height: 37px;
   }
 
   @include on-lg {
     height: 42px;
-  }
-
-  &:hover {
-    @include blicker-hover;
-  }
-
-  &.hovered {
-    @include blicker-hover;
   }
 }
