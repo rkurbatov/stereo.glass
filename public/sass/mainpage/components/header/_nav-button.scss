@@ -1,0 +1,54 @@
+.nav-button {
+  @include black-glossy-background;
+  border-left: 1px solid rgba($sg-white, .35);
+  display: table-cell;
+  text-align: center;
+  vertical-align: bottom;
+
+  &.nav-selected {
+    @include red-glossy-background;
+  }
+
+  a {
+    @include blicker;
+
+    color: $top-menu-text-color;
+    cursor: pointer;
+    display: block;
+    font: 11px/16px "Arial", sans;
+    text-shadow: 0 0 0;
+
+    @include on-xs {
+      font: 11px/14px "Airborne";
+    }
+
+    @include on-sm {
+      font: 18px/25px "Airborne";
+    }
+
+    @include on-md {
+      font: 21px/33px "Airborne";
+    }
+
+    @include on-lg {
+      font: 24px/34px "Airborne";
+      text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px, rgba(100, 100, 110, .5) 0 5px 4px;
+    }
+
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:hover {
+      background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+      color: $top-menu-text-color;
+      transition: background-position 1s linear;
+    }
+
+    &.hovered {
+      background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+      transition: background-position 1s linear;
+    }
+  }
+}

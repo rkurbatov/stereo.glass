@@ -1,0 +1,57 @@
+.upper-logo,
+.lower-logo {
+  display: table-cell;
+}
+
+.upper-logo,
+.upper-logo img,
+.lower-logo,
+.lower-logo img,
+.logo-blicker {
+
+  @include on-xs {
+    width: 140px;
+  }
+
+  @include on-sm {
+    width: 240px;
+  }
+
+  @include on-md {
+    width: 320px;
+  }
+
+  @include on-lg {
+    width: 360px;
+  }
+}
+
+.logo-blicker {
+  @include blicker;
+  position: absolute;
+  z-index: 100;
+
+  @include on-xs {
+    height: 16px;
+  }
+
+  @include on-sm {
+    height: 28px;
+  }
+
+  @include on-lg {
+    height: 37px;
+  }
+
+  @include on-lg {
+    height: 42px;
+  }
+
+  &:hover {
+    @include blicker-hover;
+  }
+
+  &.hovered {
+    @include blicker-hover;
+  }
+}

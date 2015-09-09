@@ -1,10 +1,6 @@
-li(sg-blick random='3')
-    a#flag-container(ng-click='toggleSwitcher()')
-        img(ng-src="{{ 'img/flags/' + IntSvc.currentLang + '.png' }}")
-        span(ng-bind='IntSvc.currentLang')
-    ul.lang-switcher(click-outside='closeSwitcher()' outside-if-not='flag-container')
-        li.lang-selector(ng-repeat='lang in IntSvc.langs'
-        ng-if='lang.code !== IntSvc.currentLang && lang.isActive'
-        ng-click='switchLang(lang.code)')
-            img(ng-src="{{ 'img/flags/' + lang.code + '.png' }}")
-            span(ng-bind='lang.code')
+ul.lang-switcher(click-outside='closeSwitcher()' outside-if-not='flag-container')
+    li.lang-selector(ng-repeat='lang in IntSvc.langs'
+    ng-if='lang.code !== IntSvc.currentLang && lang.isActive'
+    ng-click='switchLang(lang.code)')
+        img(ng-src="{{ 'img/flags/' + lang.code + '.png' }}")
+    //    span(ng-bind='lang.code')

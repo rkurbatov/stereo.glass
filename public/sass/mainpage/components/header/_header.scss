@@ -1,0 +1,24 @@
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+
+  @include on-lg {
+    #flag-container {
+      width: 80px;
+    }
+
+    .search,
+    .admin,
+    .login {
+      margin: 0 40px;
+      width: calc(100% - 80px);
+    }
+  }
+
+  .login,
+  .admin {
+    background-color: $sg-white;
+  }
+}
+

@@ -1,7 +1,6 @@
 .lang-switcher {
-  backface-visibility: hidden;
+  backface-visibility: hidden;  // needed for Android browser
   border: 0;
-  left: 0;
   margin-left: -1px;
   opacity: .75;
   padding: 0;
@@ -20,6 +19,8 @@
     // override usual settings
     cursor: pointer;
     display: block;
+
+    @include black-glossy-background;
 
     @include on-xs {
       height: 16px;

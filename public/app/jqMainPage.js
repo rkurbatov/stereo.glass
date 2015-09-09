@@ -8,7 +8,7 @@
     'use strict';
 
     // initialization and redraw reset
-    $(window).on("load resize orientationchange", positionElements);
+    //$(window).on("load resize orientationchange", positionElements);
 
     function setViewport() {
         if (window.isMobile.apple.phone) {
