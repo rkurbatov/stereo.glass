@@ -1,7 +1,6 @@
 .header {
   .input-container,
   .button-container {
-    vertical-align: bottom;
 
     @include on-xs-minus {
       font-size: 10px;
