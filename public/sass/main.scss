@@ -1,11 +1,9 @@
 @import 'shared/colors';
 @import 'shared/fonts';
 
-@import 'mainpage/utilities/utilities';
-@import 'mainpage/components/components';
-
+@import 'mainpage/utilities';
 @import 'mainpage/main';
 @import 'mainpage/loader';
-@import 'mainpage/bootstrap';
-
-@import 'mainpage/pages/pages';
+@import 'mainpage/header';
+@import 'mainpage/l2-menu';
+@import 'mainpage/pages';

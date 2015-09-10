@@ -2,12 +2,13 @@
   backface-visibility: hidden; // needed for Android browser
   border: 0;
   margin-left: -1px;
-  opacity: .75;
+  opacity: .85;
   padding: 0;
   position: absolute;
   transform: scaleY(0);
   transform-origin: top;
   transition: .25s linear;
+  z-index: 100;
 
   &.visible {
     transform: scaleY(1);
@@ -21,6 +22,8 @@
     display: block;
 
     span {
+      color: $sg-white;
+
       @include on-xs-plus {
         display: none;
       }

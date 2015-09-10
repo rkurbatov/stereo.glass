@@ -4,12 +4,12 @@
 
     @include on-xs-minus {
       font-size: 10px;
-      line-height: 16px;
+      line-height: 11px;
       padding: 0 10px;
     }
 
     @include on-xs {
-      font-size: 10px;
+      font-size: 11px;
       line-height: 16px;
       padding: 0 12px;
     }
@@ -85,11 +85,21 @@
 
     + .fa {
       color: rgba($sg-winered, .6);
-      line-height: 16px;
       margin-left: -1.5em;
       position: absolute;
       text-shadow: rgba($sg-black, .35) 1px 1px 1px;
 
+      @include on-xs-minus {
+        line-height: 11px;
+      }
+
+      @include on-xs {
+        line-height: 16px
+      }
+
+      @include on-sm {
+        line-height: 18px;
+      }
 
       @include on-md {
         line-height: 20px;
