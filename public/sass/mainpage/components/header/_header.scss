@@ -56,39 +56,5 @@
       }
     }
   }
-
-  .input-container,
-  .button-container {
-    @include on-xs-minus {
-      padding: 0 20px;
-    }
-
-    @include on-xs {
-      padding: 0 24px;
-    }
-
-    @include on-sm {
-      padding: 0 32px;
-    }
-
-    @include on-md {
-      padding: 0 36px;
-    }
-
-    @include on-lg {
-      padding: 0 40px;
-    }
-  }
-
-  .search,
-  .admin,
-  .login {
-    width: 100%;
-  }
-
-  .login,
-  .admin {
-    background-color: $sg-white;
-  }
 }
 

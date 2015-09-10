@@ -1,0 +1,88 @@
+.header {
+  .input-container,
+  .button-container {
+    vertical-align: bottom;
+
+    @include on-xs-minus {
+      font-size: 10px;
+      line-height: 16px;
+      padding: 0 20px;
+    }
+
+    @include on-xs {
+      font-size: 10px;
+      line-height: 16px;
+      padding: 0 24px;
+    }
+
+    @include on-sm {
+      font-size: 11px;
+      line-height: 18px;
+      padding: 0 32px;
+    }
+
+    @include on-md {
+      font-size: 12px;
+      line-height: 20px;
+      padding: 0 36px;
+    }
+
+    @include on-lg {
+      font-size: 13px;
+      line-height: 22px;
+      padding: 0 40px;
+    }
+
+    a,
+    a:hover {
+      color: $sg-black;
+    }
+  }
+
+  .search {
+    border: 0;
+    box-shadow: inset rgba($sg-black, .5) 0 12px 10px -10px,
+    inset 10px 0 10px -10px rgba($sg-black, .35),
+    inset -10px 0 10px -10px rgba($sg-black, .35);
+    padding: 0;
+
+    &::placeholder {
+      color: rgba($sg-black, .6);
+      font-style: italic;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .admin,
+  .login {
+    box-shadow: 1px 1px 1px 2px rgba($sg-black, .3),
+    inset -1px -3px 4px -1px rgba($sg-black, .1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .search,
+  .admin,
+  .login {
+    background-color: rgba($sg-silver, .8);
+    border-radius: 5px;
+    display: inline-block;
+    //font-size: 13px;
+    //line-height: 22px;
+    padding-left: .5em;
+    padding-right: 2.5em;
+    width: 100%;
+
+    + .fa {
+      color: rgba($sg-winered, .6);
+      line-height: 24px;
+      margin-left: -1.5em;
+      position: absolute;
+      text-shadow: rgba(black, 0.35) 1px 1px 1px;
+    }
+  }
+}
