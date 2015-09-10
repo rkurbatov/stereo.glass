@@ -1,15 +1,39 @@
-.reset-button {
+.reset-column {
   padding-right: 0;
   text-align: center;
+
+  @include on-sm-plus {
+    padding-left: 30px;
+  }
+
+  .reset-button {
+    @include on-sm-plus {
+      border: $sg-silver 1px solid;
+      border-radius: 5px;
+      @include red-glossy-background;
+    }
+  }
 
   i {
     color: $sg-winered;
     cursor: pointer;
-    text-shadow: 0 0 2px rgba($sg-black, .5);
+    font-size: 32px;
+    line-height: 32px;
+    text-shadow: 0 0 2px rgba($sg-black, .2);
+
+    @include on-sm-plus {
+      color: $sg-silver;
+    }
+
   }
 }
 
 .goods-filters {
+  .btn.dropdown-toggle {
+    color: $sg-white !important;
+    @include white-glossy-background;
+  }
+
   .bss-container {
     display: inline-block;
     width: 25%;
@@ -46,10 +70,17 @@
   li a {
     @include black-glossy-background;
     color: $sg-white;
+
+    &:hover {
+      color: $sg-winered;
+    }
   }
 
-  .active a {
-    @include red-glossy-background;
+  .active a,
+  .active a:focus,
+  .active a:hover {
+    @include white-glossy-background;
+    border-color: $sg-silver;
   }
 }
 
@@ -64,9 +95,11 @@
 
 .good-block {
   text-align: center;
+  height: 320px;
 
   img {
-    border: $sg-silver 1px;
+    border: $sg-silver 1px solid;
+    box-shadow: 0 0 5px $sg-black;
     height: 250px;
     object-fit: cover;
   }

@@ -39,3 +39,7 @@
           #9b3642 100%,
           #560103 100%);
 }
+
+@mixin white-glossy-background {
+  background: linear-gradient(to bottom, #848484 0%,#999999 6%,#c9c9c9 18%,#a0a0a0 54%,#777777 75%,#727272 100%); /* W3C */
+}

@@ -1,7 +1,7 @@
 .sg-l2-wrapper.row
     br
-    .col-xs-1.reset-button
-        i.fa.fa-3x.fa-remove(ng-click='goods.resetFilters()')
+    .col-xs-1.reset-column
+        .reset-button: i.fa.fa-remove(ng-click='goods.resetFilters()')
     .col-xs-11.goods-filters
         .bss-container: bootstrap-select(multiple
         title='{{_INT("Товар");}}'
