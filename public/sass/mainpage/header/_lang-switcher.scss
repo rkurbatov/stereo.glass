@@ -1,3 +1,11 @@
+.lang-code {
+  color: $sg-white;
+
+  @include on-xs-plus {
+    display: none;
+  }
+}
+
 .lang-switcher {
   backface-visibility: hidden; // needed for Android browser
   border: 0;
@@ -20,13 +28,5 @@
     // override usual settings
     cursor: pointer;
     display: block;
-
-    span {
-      color: $sg-white;
-
-      @include on-xs-plus {
-        display: none;
-      }
-    }
   }
 }

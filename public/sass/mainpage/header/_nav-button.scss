@@ -1,6 +1,7 @@
 .nav-button {
   @include black-glossy-background;
   border-left: 1px solid rgba($sg-white, .35);
+  cursor: pointer;
   display: table-cell;
   text-align: center;
   vertical-align: bottom;
@@ -19,7 +20,6 @@
     @include blicker;
 
     color: $top-menu-text-color;
-    cursor: pointer;
     display: block;
     font: 11px/16px "Arial", sans;
     text-shadow: 0 0 0;

@@ -61,3 +61,13 @@
     margin-top: 10px;
   }
 }
+
+.good-block {
+  text-align: center;
+
+  img {
+    border: $sg-silver 1px;
+    height: 250px;
+    object-fit: cover;
+  }
+}

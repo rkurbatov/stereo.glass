@@ -86,7 +86,6 @@
     + .fa {
       color: rgba($sg-winered, .6);
       margin-left: -1.5em;
-      position: absolute;
       text-shadow: rgba($sg-black, .35) 1px 1px 1px;
 
       @include on-xs-minus {

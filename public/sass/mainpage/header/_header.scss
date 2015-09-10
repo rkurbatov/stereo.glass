@@ -14,7 +14,7 @@
 
   @include on-lg {
     margin: 0 auto;
-    width: 1200px;
+    max-width: 1400px;
   }
 
   #flag-container,
@@ -61,3 +61,24 @@
   }
 }
 
+.bottom-row {
+  @include on-xs-minus {
+    height: 24px;
+  }
+
+  @include on-xs {
+    height: 26px;
+  }
+
+  @include on-sm {
+    height: 34px;
+  }
+
+  @include on-md {
+    height: 38px
+  }
+
+  @include on-lg {
+    height: 40px;
+  }
+}

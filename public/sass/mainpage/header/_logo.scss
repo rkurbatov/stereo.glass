@@ -58,7 +58,8 @@
 }
 
 .logo-blicker,
-.lang-selector {
+.lang-selector,
+#flag-container img {
   @include on-xs {
     height: 16px;
   }

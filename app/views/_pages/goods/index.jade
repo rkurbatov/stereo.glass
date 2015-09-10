@@ -4,15 +4,19 @@
         i.fa.fa-3x.fa-remove(ng-click='goods.resetFilters()')
     .col-xs-11.goods-filters
         .bss-container: bootstrap-select(multiple
+        title='{{_INT("Товар");}}'
         data='goods.categories.assortment'
         selection="goods.selection.assortment")
         .bss-container: bootstrap-select(simple multiple
+        title='{{_INT("Цвета")}}'
         data='goods.categories.colors'
         selection="goods.selection.colors")
         .bss-container: bootstrap-select(simple multiple
+        title='{{_INT("Сюжеты");}}'
         data='goods.categories.plots'
         selection="goods.selection.plots")
         .bss-container: bootstrap-select(simple multiple
+        title='{{_INT("Страны");}}'
         data='goods.categories.countries'
         selection="goods.selection.countries")
     .col-xs-12
@@ -23,7 +27,7 @@
             li.sg-layout.col-lg-4.col-md-6.col-xs-12(current-page="goods.currentPage"
             dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
-                .sg-good-block.sg-glass-background
+                .good-block
                     img(ng-src='{{ goods.getImgUrl(good) }}')
 
         .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")

@@ -15,9 +15,7 @@ include ../_version
                 a(ng-bind='_INT("Дилерам");' href='#/dealers')
             td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "contacts"}')
                 a(sg-blick ng-bind='_INT("Контакты");' href='#/contacts')
-            td#flag-container.nav-button(sg-blick random='3' ng-click='toggleSwitcher()')
-                img(ng-src="{{ 'img/flags/' + IntSvc.currentLang + '.png' }}")
-                a: span(ng-bind='IntSvc.currentLang')
+            td#flag-container.nav-button(sg-blick random='3')
                 sg-lang-switcher
         tr.bottom-row
             td.lower-logo: a(href='#/')

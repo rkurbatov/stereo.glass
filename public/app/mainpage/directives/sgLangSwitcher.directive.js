@@ -9,12 +9,11 @@
 
     function sgLangSwitcher(sgIntSvc) {
 
-        var isVisible = false;
-
         return {
             restrict: 'E',
             templateUrl: '/templates/directive/sgLangSwitcher',
             replace: true,
+            scope: {},
             link
         };
 
@@ -23,15 +22,17 @@
             scope.switchLang = switchLang;
             scope.toggleSwitcher = toggleSwitcher;
             scope.closeSwitcher = closeSwitcher;
+            scope.isVisible = false;
 
             function toggleSwitcher() {
-                var switcher = angular.element('.lang-switcher')[0];
-                angular.element(switcher).toggleClass('visible');
-                isVisible = !isVisible;
+                /*var switcher = angular.element('.lang-switcher')[0];
+                angular.element(switcher).toggleClass('visible');*/
+                scope.isVisible = !scope.isVisible;
             }
 
             function closeSwitcher() {
-                if (isVisible) toggleSwitcher();
+                console.log('isVisible: ', isVisible);
+                if (scope.isVisible) toggleSwitcher();
             }
 
             function switchLang(code) {
