@@ -5,36 +5,43 @@
     @include on-xs-minus {
       font-size: 10px;
       line-height: 16px;
-      padding: 0 20px;
+      padding: 0 10px;
     }
 
     @include on-xs {
       font-size: 10px;
       line-height: 16px;
-      padding: 0 24px;
+      padding: 0 12px;
     }
 
     @include on-sm {
       font-size: 11px;
       line-height: 18px;
-      padding: 0 32px;
+      padding: 0 16px;
     }
 
     @include on-md {
       font-size: 12px;
       line-height: 20px;
-      padding: 0 36px;
+      padding: 0 18px;
     }
 
     @include on-lg {
       font-size: 13px;
       line-height: 22px;
-      padding: 0 40px;
+      padding: 0 20px;
     }
 
     a,
+    a:focus,
     a:hover {
       color: $sg-black;
+      font-style: italic;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: $sg-winered;
     }
   }
 
@@ -50,9 +57,6 @@
       font-style: italic;
     }
 
-    &:focus {
-      outline: 0;
-    }
   }
 
   .admin,
@@ -71,18 +75,29 @@
     background-color: rgba($sg-silver, .8);
     border-radius: 5px;
     display: inline-block;
-    //font-size: 13px;
-    //line-height: 22px;
     padding-left: .5em;
     padding-right: 2.5em;
     width: 100%;
 
+    &:focus {
+      outline: 0;
+    }
+
     + .fa {
       color: rgba($sg-winered, .6);
-      line-height: 24px;
+      line-height: 16px;
       margin-left: -1.5em;
       position: absolute;
-      text-shadow: rgba(black, 0.35) 1px 1px 1px;
+      text-shadow: rgba($sg-black, .35) 1px 1px 1px;
+
+
+      @include on-md {
+        line-height: 20px;
+      }
+
+      @include on-lg {
+        line-height: 24px;
+      }
     }
   }
 }
