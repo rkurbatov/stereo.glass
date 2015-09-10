@@ -27,7 +27,7 @@
             li.sg-layout.col-lg-4.col-md-6.col-xs-12(current-page="goods.currentPage"
             dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
-                .good-block
+                .good-block.sg-glass-background
                     img(ng-src='{{ goods.getImgUrl(good) }}')
 
         .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
