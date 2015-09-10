@@ -1,21 +1,60 @@
 .horizon-prev,
 .horizon-next {
-  margin-top: -24px;
+  cursor: pointer;
+  height: 100%;
   position: fixed;
-  top: 50%;
-  z-index: 9999;
+  width: 10%;
+  z-index: 99;
 
   @include on-xs-minus {
     display: none;
   }
+
+  .fa {
+    color: rgba($sg-winered, .25);
+    position: absolute;
+    top: 50%;
+
+    &:hover {
+      color: rgba($sg-winered, .45);
+    }
+  }
 }
 
 .horizon-prev {
-  left: 20px;
+  background-image: linear-gradient(to right,
+  rgba($sg-black, .35) 0%,
+  rgba($sg-black, 0) 50%);
+  background-position: 100% 0;
+  background-size: 200% auto;
+  left: 0;
+  transition: background-position linear .15s;
+
+  &:hover {
+    background-position: 0 0;
+  }
+
+  .fa {
+    left: 20px;
+  }
 }
 
 .horizon-next {
-  right: 20px;
+  background-image: linear-gradient(to left,
+          rgba($sg-black, .35) 0%,
+          rgba($sg-black, 0) 50%);
+  background-position: 0 0;
+  background-size: 200% auto;
+  right: 0;
+  transition: background-position linear .15s;
+
+  &:hover {
+    background-position: 100% 0;
+  }
+
+  .fa {
+    right: 20px;
+  }
 }
 
 .main-carousel {
@@ -34,8 +73,8 @@
     @include on-xs-plus {
       overflow: hidden;
       position: relative;
-      transform: translateY(-50%);
       top: 50%;
+      transform: translateY(-50%);
     }
   }
 
