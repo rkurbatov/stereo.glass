@@ -24,7 +24,7 @@ include ../_version
                 input.search(type="text" name="q" placeholder='{{ _INT("Поиск..."); }}')
                 i.fa.fa-search
             td(colspan='2').button-container
-                a.login(href='#' ng-if="!header.currentUser.name"
+                a.login(ng-if="!header.currentUser.name"
                 ng-bind='_INT("Войти");' ng-click="header.signInRegister()")
                 i.fa.fa-sign-in(ng-if="!header.currentUser.name")
                 a.admin(href='/admin' ng-if="header.currentUser.name"
