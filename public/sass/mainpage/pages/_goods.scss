@@ -94,12 +94,12 @@
 }
 
 .good-block {
-  text-align: center;
   height: 320px;
+  text-align: center;
 
   img {
-    /*border: $sg-silver 1px solid;
-    box-shadow: 0 0 5px $sg-black;*/
+    border: $sg-silver 1px solid;
+    box-shadow: 0 0 5px $sg-black;
     height: 250px;
     object-fit: cover;
   }
