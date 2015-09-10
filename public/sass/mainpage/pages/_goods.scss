@@ -98,9 +98,19 @@
   height: 320px;
 
   img {
-    border: $sg-silver 1px solid;
-    box-shadow: 0 0 5px $sg-black;
+    /*border: $sg-silver 1px solid;
+    box-shadow: 0 0 5px $sg-black;*/
     height: 250px;
     object-fit: cover;
+  }
+
+  .glass-block {
+    @include glass-background;
+
+    background-color: none;
+    height: 250px;
+    margin: -250px auto 0;
+    position: relative;
+    width: 250px;
   }
 }
