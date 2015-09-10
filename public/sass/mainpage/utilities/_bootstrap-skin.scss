@@ -11,7 +11,9 @@
     background-color: rgba($sg-white, .5);
   }
 
-  a:focus {
+  a:focus,
+  a:hover {
+    outline: 0;
     text-decoration: none;
   }
 }
