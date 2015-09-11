@@ -16,6 +16,6 @@
 .modal-body.modal-gallery(ng-keypress="keyHandler($event)" tabindex="0")
     a.carousel-control.left(href="" ng-click='vm.prevImg()' ng-show="vm.idx !== 0")
         span.glyphicon.glyphicon-chevron-left
-    img.img-responsive.center-block(ng-src='vm.url' sg-on-img-load='vm.setLoadedState();')
+    img.img-responsive.center-block(ng-src='{{vm.url}}' sg-on-img-load='vm.setLoadedState();')
     a.carousel-control.right(href="" ng-click='vm.nextImg()' ng-show="vm.idx !== (vm.layouts.length - 1)")
         span.glyphicon.glyphicon-chevron-right
