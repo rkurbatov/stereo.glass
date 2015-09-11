@@ -70,12 +70,12 @@
   }
 
   .fa {
+    @include modal-control;
     font-size: 2.5em;
     line-height: 2.5em;
     margin-top: -1.25em;
     position: absolute;
     top: 50%;
-    @include modal-control;
   }
 }
 
@@ -113,4 +113,15 @@
   .fa {
     right: .5em;
   }
+}
+
+.sg-miniature-loader-indicator {
+  color: rgba($sg-blue, .5);
+  font-size: 8em;
+  left: 50%;
+  margin-left: -.5em;
+  margin-top: -1em;
+  position: absolute;
+  text-shadow: 0 0 5px rgba($sg-black, .25);
+  top: 50%;
 }
