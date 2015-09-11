@@ -81,7 +81,6 @@
         function GalleryCtrl($modalInstance, pgScope) {
             var vm = this;
             vm.cancel = cancel;
-            vm.getLayoutUrl = getLayoutUrl;
             vm.prevImg = prevImg;
             vm.nextImg = nextImg;
             vm.keyHandler = keyHandler;
@@ -95,6 +94,7 @@
                 vm.filters = pgScope.filters;
                 vm.viewMode = pgScope.viewMode;
                 vm.imgLoaded = false;
+                vm.url = getLayoutUrl();
             }
 
             function setLoadedState() {
@@ -124,6 +124,7 @@
                     vm.idx -= 1;
                 }
                 vm.imgLoaded = false;
+                vm.url = getLayoutUrl();
             }
 
             function nextImg() {
@@ -136,6 +137,7 @@
                     vm.idx += 1;
                 }
                 vm.imgLoaded = false;
+                vm.url = getLayoutUrl();
             }
 
             function cancel() {
