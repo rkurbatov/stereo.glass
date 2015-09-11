@@ -32,6 +32,10 @@
   .btn.dropdown-toggle {
     color: $sg-white !important;
     @include white-glossy-background;
+
+    &:focus {
+      outline-color: $sg-winered !important;
+    }
   }
 
   .bss-container {
