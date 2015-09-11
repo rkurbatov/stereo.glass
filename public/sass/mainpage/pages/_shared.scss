@@ -216,17 +216,18 @@
 
     &:after {
       color: rgba($sg-black, .5);
+      // fa-expand
       content: '\F065';
       display: inline-block;
-      font: 28px/32 'FontAwesome';
+      font: 28px/32px 'FontAwesome';
       height: 28px;
-      margin-left: -35px;
-      margin-top: -420px;
+      margin-left: -24px;
       position: absolute;
+      text-shadow: 0 0 5px $sg-silver;
+      transform: rotate(90deg);
     }
 
     &:hover:after {
-      text-shadow: 0 0 5px $sg-silver;
       color: rgba($sg-black, .9);
     }
   }

@@ -77,8 +77,12 @@
 
 
 .video-js {
-  @include on-lg {
-    height: 480px !important;
+  // scss-lint:disable ImportantRule
+  height: 250px !important;
+  width: auto !important;
+
+  @include on-sm {
+    height: 320px !important;
     width: auto !important;
   }
 
@@ -87,11 +91,9 @@
     width: auto !important;
   }
 
-  @include on-sm {
-    height: 320px !important;
+  @include on-lg {
+    height: 480px !important;
     width: auto !important;
   }
-
-  height: 250px !important;
-  width: auto !important;
+  // scss-lint:enable ImportantRule
 }
