@@ -49,11 +49,13 @@
 
                 function ExpandImgCtrl($modalInstance, gallery) {
                     var vm = this;
+                    vm.imgLoaded = false;
                     vm.close = $modalInstance.close;
                     vm.imgSrc = scope.src;
 
                     vm.nextImg = nextImg;
                     vm.prevImg = prevImg;
+                    vm.setLoadedState = setLoadedState;
 
                     initController();
 
@@ -75,6 +77,7 @@
                             } else {
                                 gallery.curIdx += 1;
                             }
+                            vm.imgLoaded = false;
                             vm.imgSrc = gallery.imgSrcArray[gallery.curIdx];
                         }
                     }
@@ -86,8 +89,13 @@
                             } else {
                                 gallery.curIdx -= 1;
                             }
+                            vm.imgLoaded = false;
                             vm.imgSrc = gallery.imgSrcArray[gallery.curIdx];
                         }
+                    }
+
+                    function setLoadedState() {
+                        vm.imgLoaded = true;
                     }
                 }
 
