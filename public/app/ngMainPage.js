@@ -10,6 +10,7 @@
             'angular-click-outside',
             'angular-bootstrap-select',
             'LocalStorageModule',
+            'LoDash',
             'ui.validate',
             'sg.ui',
             'sg.i18n',

@@ -121,4 +121,12 @@
     position: relative;
     width: 250px;
   }
+
+  .good-reference {
+    color: lighten($sg-silver, 15%);
+    font-size: 1.6em;
+    font-style: italic;
+    margin-top: .7em;
+    text-shadow: 0 0 4px $sg-black;
+  }
 }

@@ -20,8 +20,7 @@
         data='goods.categories.countries'
         selection="goods.selection.countries")
     .col-xs-12
-        .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
-            dir-pagination-controls(template-url="/templates/directive/dirPagination")
+        include _goods-paginator
 
         ul.goods-list.clearfix
             li.sg-layout.col-lg-3.col-md-4.col-sm-4.col-xs-6.col-xxs-12(current-page="goods.currentPage"
@@ -30,6 +29,6 @@
                 .good-block
                     img(ng-src='{{ goods.getImgUrl(good) }}')
                     .glass-block
+                    .good-reference {{_INT("Арт."); }} {{ _.padLeft(good.reference, 5, "0") }}
 
-        .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
-            dir-pagination-controls(template-url="/templates/directive/dirPagination")
+        include _goods-paginator
