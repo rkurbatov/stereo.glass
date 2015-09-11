@@ -26,19 +26,28 @@
 
     @include on-xs {
       font: 11px/14px "Airborne";
+      padding-top: 2px;
     }
 
     @include on-sm {
       font: 18px/25px "Airborne";
+      padding-top: 3px;
     }
 
     @include on-md {
       font: 21px/33px "Airborne";
+      padding-top: 4px;
     }
 
     @include on-lg {
       font: 24px/34px "Airborne";
+      padding-top: 8px;
       text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px, rgba(100, 100, 110, .5) 0 5px 4px;
+    }
+
+    &:active {
+      @include halfred-glossy-background;
+      transform: scaleY(.95);
     }
 
     &:focus,

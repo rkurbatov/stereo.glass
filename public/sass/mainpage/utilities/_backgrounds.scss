@@ -22,9 +22,17 @@
           #646464 18%,
           #2f2f2f 54%,
           #2c2c2c 77%,
-          #181818 100%,
-          #752201 100%,
           #181818 100%);
+}
+
+@mixin halfred-glossy-background {
+  background: linear-gradient(to bottom,
+          rgba(135,93,98,1) 0%,
+          rgba(131,79,85,1) 6%,
+          rgba(209,163,163,1) 18%,
+          rgba(122,52,60,1) 54%,
+          rgba(119,45,54,1) 77%,
+          rgba(88,46,30,1) 100%);
 }
 
 @mixin red-glossy-background {
@@ -35,11 +43,15 @@
           #e88b8b 18%,
           #9c1122 54%,
           #9b091a 77%,
-          #752201 100%,
-          #9b3642 100%,
           #560103 100%);
 }
 
 @mixin white-glossy-background {
-  background: linear-gradient(to bottom, #848484 0%,#999999 6%,#c9c9c9 18%,#a0a0a0 54%,#777777 75%,#727272 100%); /* W3C */
+  background: linear-gradient(to bottom,
+          #848484 0%,
+          #999999 6%,
+          #c9c9c9 18%,
+          #a0a0a0 54%,
+          #777777 77%,
+          #727272 100%);
 }
