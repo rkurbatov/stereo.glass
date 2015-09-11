@@ -13,8 +13,8 @@ module.exports = function (express, Category) {
     // IMPLEMENTATION
 
     function getCategoriesByName(req, res) {
-        if (!req.isAuthenticated() || !req.params.name) {
-            return res.sendStatus(403);
+        if (!req.params.name) {
+            return res.sendStatus(400);
         }
 
         Category.find({catName: req.params.name},
