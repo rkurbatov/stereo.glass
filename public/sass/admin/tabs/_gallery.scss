@@ -35,3 +35,18 @@
 .sg-rating-block .glyphicon-star-empty {
   text-indent: .3em;
 }
+
+.modal-gallery {
+  min-height: 10em;
+}
+
+.sg-gallery-loader-indicator {
+  color: rgba($sg-blue, .5);
+  font-size: 8em;
+  left: 50%;
+  margin-left: -.5em;
+  margin-top: -.5em;
+  position: absolute;
+  text-shadow: 0 0 5px rgba($sg-black, .25);
+  top: 50%;
+}

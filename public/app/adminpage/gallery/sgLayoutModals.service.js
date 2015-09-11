@@ -85,7 +85,7 @@
             vm.prevImg = prevImg;
             vm.nextImg = nextImg;
             vm.keyHandler = keyHandler;
-            vm.imgIsLoaded = imgIsLoaded;
+            vm.setLoadedState = setLoadedState;
 
             initController();
 
@@ -94,11 +94,11 @@
                 vm.idx = pgScope.currentLayoutIndex;
                 vm.filters = pgScope.filters;
                 vm.viewMode = pgScope.viewMode;
-                vm.imgIsLoading = true;
+                vm.imgLoaded = false;
             }
 
-            function imgIsLoaded() {
-                vm.imgIsLoading = false;
+            function setLoadedState() {
+                vm.imgLoaded = true;
             }
 
             // TODO: Rewrite as directive for left-right detection
@@ -123,7 +123,7 @@
                     }
                     vm.idx -= 1;
                 }
-                vm.imgIsLoading = true;
+                vm.imgLoaded = false;
             }
 
             function nextImg() {
@@ -135,7 +135,7 @@
                     }
                     vm.idx += 1;
                 }
-                vm.imgIsLoading = true;
+                vm.imgLoaded = false;
             }
 
             function cancel() {
