@@ -8,7 +8,7 @@ include ../_version
                 .logo-blicker(sg-blick random='5' interval='15')
                 img(src='img/logo-upper.png' alt="Stereo.Glass logo")
             td.nav-button(ng-class='{"nav-selected": header.settings.currentPage === "about"}')
-                a(sg-blick random='3' ng-bind='_INT("Подробно");' href='#/about')
+                a(sg-blick random='3' ng-bind='_INT("О нас");' href='#/about')
             td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "goods"}')
                 a(ng-bind='_INT("Наш товар");' href='#/goods')
             td.nav-button(sg-blick random='3' ng-class='{"nav-selected": header.settings.currentPage === "dealers"}')
