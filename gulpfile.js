@@ -217,7 +217,7 @@ function buildSass() {
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
-            browsers: ['last 2 versions', 'android > 4.3'],
+            browsers: ['last 2 versions', 'android > 4.0']
         }))
         .pipe(rename(function(path){
             path.basename = 'custom-' + path.basename;
