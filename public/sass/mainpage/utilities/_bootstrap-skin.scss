@@ -3,6 +3,14 @@
 .modal-content {
   background-color: rgba($sg-white, .5);
 
+  // modal close button
+  .close {
+    font-size: 28px;
+    position: absolute;
+    right: 20px;
+  }
+
+  // accordion
   .panel-group {
     margin-bottom: 0;
   }
