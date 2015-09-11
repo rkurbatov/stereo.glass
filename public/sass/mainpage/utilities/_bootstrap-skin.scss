@@ -1,13 +1,26 @@
 // Redefine some bootstrap styles
 
+@mixin modal-control {
+  color: rgba($sg-white, .75);
+  opacity: 1;
+  text-shadow: 0 0 5px $sg-black;
+  transition: color .15s;
+
+  &:hover {
+    color: $sg-white;
+  }
+}
+
 .modal-content {
   background-color: rgba($sg-white, .5);
 
   // modal close button
   .close {
+    @include modal-control;
     font-size: 28px;
     position: absolute;
     right: 20px;
+    z-index: 100;
   }
 
   // accordion
@@ -25,3 +38,4 @@
     text-decoration: none;
   }
 }
+

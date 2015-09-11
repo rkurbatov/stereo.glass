@@ -10,40 +10,89 @@
     function sgMiniature($modal) {
 
         return {
-            restrict: 'E',
+            restrict: 'ACE',
             templateUrl: '/templates/directive/sgMiniature',
-            link,
-            scope: {}
+            require: '?^sgMiniatureGallery',
+            scope: {},
+            link
         };
 
-        function link(scope, elm, attrs) {
+        function link(scope, elm, attrs, ctrl) {
             scope.src = attrs.src || '';
-            scope.miniSrc = attrs.miniSrc || '';
-            if (!scope.miniSrc) scope.miniSrc = scope.src;
+            scope.miniSrc = attrs.miniSrc || scope.src || '';
 
-            scope.expand = expand;
+            if (scope.src) {
+                scope.expand = expand;
+                if (ctrl && ctrl.imgSrcArray) {
+                    ctrl.imgSrcArray.push(scope.src);
+                }
+            } else {
+                console.error('Error: there is no image source!')
+            }
 
             function expand() {
                 var modalDO = {
                     templateUrl: '/templates/modal/expandImg',
                     controller: ExpandImgCtrl,
                     controllerAs: 'vm',
+                    resolve: {
+                        gallery: ()=> {
+                            return ctrl;
+                        }
+                    },
                     size: 'lg'
                 };
 
                 $modal.open(modalDO);
 
-                ExpandImgCtrl.$inject = ['$modalInstance'];
+                ExpandImgCtrl.$inject = ['$modalInstance', 'gallery'];
 
-                function ExpandImgCtrl($modalInstance) {
+                function ExpandImgCtrl($modalInstance, gallery) {
                     var vm = this;
                     vm.close = $modalInstance.close;
                     vm.imgSrc = scope.src;
+
+                    vm.nextImg = nextImg;
+                    vm.prevImg = prevImg;
+
+                    initController();
+
+                    //==== IMPLEMENTATION ====
+
+                    function initController() {
+                        if (gallery && gallery.imgSrcArray
+                            && gallery.imgSrcArray.length
+                            && gallery.imgSrcArray.length > 1) {
+                            vm.galleryMode = true;
+                            gallery.curIdx = gallery.imgSrcArray.indexOf(vm.imgSrc);
+                        }
+                    }
+
+                    function nextImg() {
+                        if (vm.galleryMode) {
+                            if (gallery.curIdx === gallery.imgSrcArray.length - 1) {
+                                gallery.curIdx = 0;
+                            } else {
+                                gallery.curIdx += 1;
+                            }
+                            vm.imgSrc = gallery.imgSrcArray[gallery.curIdx];
+                        }
+                    }
+
+                    function prevImg() {
+                        if (vm.galleryMode) {
+                            if (gallery.curIdx === 0) {
+                                gallery.curIdx = gallery.imgSrcArray.length - 1;
+                            } else {
+                                gallery.curIdx -= 1;
+                            }
+                            vm.imgSrc = gallery.imgSrcArray[gallery.curIdx];
+                        }
+                    }
                 }
 
             }
         }
-
 
     }
 

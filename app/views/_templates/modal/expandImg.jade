@@ -2,3 +2,7 @@
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.close()")
         i.fa.fa-times
     img.img-responsive.center-block(ng-src="{{ vm.imgSrc }}")
+    .sg-miniature-gallery-prev(ng-if='vm.galleryMode' ng-click='vm.prevImg();')
+        i.fa.fa-chevron-circle-left
+    .sg-miniature-gallery-next(ng-if='vm.galleryMode' ng-click='vm.nextImg();')
+        i.fa.fa-chevron-circle-right

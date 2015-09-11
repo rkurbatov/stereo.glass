@@ -1,0 +1,116 @@
+.sg-miniature {
+  display: inline-block;
+}
+
+.sg-miniature-container {
+  background-color: rgba($sg-white, .7);
+  box-shadow: 0 0 2px 1px rgba($sg-black, .1);
+  cursor: pointer;
+  display: inline-block;
+
+  @include on-sm-minus {
+    height: 146px;
+    margin: 4px;
+    padding: 3px;
+    width: 146px;
+  }
+
+  @include on-sm-plus {
+    height: 220px;
+    margin: 10px;
+    padding: 10px;
+    width: 220px;
+  }
+
+  img {
+    object-fit: cover;
+
+    @include on-sm-minus {
+      height: 140px;
+      width: 140px;
+    }
+
+    @include on-sm-plus {
+      height: 200px;
+      width: 200px;
+    }
+  }
+
+  &:after {
+    color: rgba($sg-black, .5);
+    // fa-expand
+    content: '\F065';
+    display: inline-block;
+    font: 28px/32px 'FontAwesome';
+    height: 28px;
+    margin-left: -24px;
+    position: absolute;
+    text-shadow: 0 0 5px $sg-silver;
+    transform: rotate(90deg);
+  }
+
+  &:hover:after {
+    color: rgba($sg-black, .9);
+  }
+}
+
+.sg-miniature-gallery-next,
+.sg-miniature-gallery-prev {
+  cursor: pointer;
+  height: 100%;
+  min-width: 32px;
+  position: absolute;
+  top: 0;
+  width: 10%;
+
+  &:hover {
+    .fa {
+      color: $sg-white;
+    }
+  }
+
+  .fa {
+    font-size: 2.5em;
+    line-height: 2.5em;
+    margin-top: -1.25em;
+    position: absolute;
+    top: 50%;
+    @include modal-control;
+  }
+}
+
+.sg-miniature-gallery-prev {
+  background-image: linear-gradient(to right,
+          rgba($sg-black, .35) 0%,
+          rgba($sg-black, 0) 50%);
+  background-position: 100% 0;
+  background-size: 200% auto;
+  left: 0;
+  transition: background-position linear .15s;
+
+  &:hover {
+    background-position: 0 0;
+  }
+
+  .fa {
+    left: .5em;
+  }
+}
+
+.sg-miniature-gallery-next {
+  background-image: linear-gradient(to left,
+          rgba($sg-black, .35) 0%,
+          rgba($sg-black, 0) 50%);
+  background-position: 0 0;
+  background-size: 200% auto;
+  right: 0;
+  transition: background-position linear .15s;
+
+  &:hover {
+    background-position: 100% 0;
+  }
+
+  .fa {
+    right: .5em;
+  }
+}

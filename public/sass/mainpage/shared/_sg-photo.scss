@@ -1,0 +1,16 @@
+.sg-photo {
+  background-color: rgba($sg-white, .5);
+  box-shadow: 0 0 2px 1px rgba($sg-black, .15);
+  max-width: 50%;
+  min-width: 50%;
+
+  @include on-sm-minus {
+    margin: 5px;
+    padding: 2px;
+  }
+
+  @include on-sm-plus {
+    margin: 10px;
+    padding: 5px;
+  }
+}
