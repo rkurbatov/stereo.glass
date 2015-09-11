@@ -29,6 +29,10 @@
 }
 
 .goods-filters {
+  .fa-photo:not(.sg-multicolor) {
+    color: $sg-black !important;
+  }
+
   .btn.dropdown-toggle {
     color: $sg-white !important;
     @include white-glossy-background;

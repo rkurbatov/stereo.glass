@@ -77,6 +77,7 @@ function deployVendor(production) {
     var vendorLibsMain = [
         babelPolyfill,
         'public/libs/jquery/dist/jquery.js',
+        'public/libs/jquery-color/jquery.color.js',
         'public/libs/lodash/lodash.js',
         'public/app/tmp/js/video.js',
         'public/app/tmp/js/video-quality-selector.js',
@@ -165,6 +166,7 @@ function deployCustom(production) {
     var customSourceAdmin = [
         'public/app/common/LoDash.provider.js',
         'public/app/common/INT/*.js',
+        'public/app/common/jqCommon.js',
         'public/app/ngAdmin.js',
         'public/app/adminpage/**/*.js'
     ];
