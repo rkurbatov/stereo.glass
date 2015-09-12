@@ -110,6 +110,7 @@
     box-shadow: 0 0 5px $sg-black;
     height: 250px;
     object-fit: cover;
+    width: 250px;
   }
 
   .glass-block {
@@ -126,7 +127,7 @@
     color: lighten($sg-silver, 15%);
     font-size: 1.6em;
     font-style: italic;
-    margin-top: .7em;
+    margin-top: .3em;
     text-shadow: 0 0 4px $sg-black;
   }
 }
