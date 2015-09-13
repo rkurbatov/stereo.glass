@@ -36,22 +36,3 @@
   -webkit-transform-origin: $position;
   transform-origin: $position;
 }
-
-// Isn't present in compass-mixins
-@mixin input-placeholder {
-  &:-ms-input-placeholder {
-    @content;
-  }
-
-  &:-moz-placeholder {
-    @content;
-  }
-
-  &::-moz-placeholder {
-    @content;
-  }
-
-  &::-webkit-input-placeholder {
-    @content;
-  }
-}

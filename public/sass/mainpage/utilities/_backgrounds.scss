@@ -1,15 +1,27 @@
 @mixin glass-background {
   padding: 1px;
   background-color: rgba(240, 240, 240, .6);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, .0) 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, .0) 70%),
-  linear-gradient(to right, rgba(255, 255, 255, .7), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, .3)),
+  background-image: linear-gradient(45deg, rgba($sg-white, .0) 30%, rgba($sg-white, .8), rgba($sg-white, .0) 70%),
+  linear-gradient(to right, rgba($sg-white, .7), rgba($sg-white, 0) 20%, rgba($sg-white, 0) 90%, rgba($sg-white, .3)),
   linear-gradient(to right, rgba(125, 125, 125, 1), rgba(230, 230, 230, .9) 45%, rgba(125, 125, 125, .5)),
-  linear-gradient(to right, rgba(125, 125, 125, 1), rgba(255, 255, 255, .9) 45%, rgba(125, 125, 125, .5)),
-  linear-gradient(to right, rgba(223, 190, 170, 1), rgba(255, 255, 255, .9) 45%, rgba(223, 190, 170, .5)),
-  linear-gradient(to right, rgba(223, 190, 170, 1), rgba(255, 255, 255, .9) 45%, rgba(223, 190, 170, .5));
+  linear-gradient(to right, rgba(125, 125, 125, 1), rgba($sg-white, .9) 45%, rgba(125, 125, 125, .5)),
+  linear-gradient(to right, rgba(223, 190, 170, 1), rgba($sg-white, .9) 45%, rgba(223, 190, 170, .5)),
+  linear-gradient(to right, rgba(223, 190, 170, 1), rgba($sg-white, .9) 45%, rgba(223, 190, 170, .5));
   background-repeat: no-repeat;
   background-size: 200% 100%, auto, 100% 2px, 100% 2px, 100% 1px, 100% 1px;
-  transition-timing-function: step-start; // prevent animation effect on mouseleave
+  background-position: 200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+  box-shadow: rgba($sg-black, .5) 3px 10px 10px -10px, rgba($sg-black, .5) 3px -10px 10px -10px;
+}
+
+@mixin glass-background-alt {
+  background-image: linear-gradient(45deg, rgba($sg-white, .0) 30%, rgba($sg-white, .8), rgba($sg-white, .0) 70%),
+  linear-gradient(to right, rgba($sg-white, .5), rgba($sg-white, 0) 20%, rgba($sg-white, 0) 80%, rgba($sg-white, .45)),
+  linear-gradient(to right, rgba(125, 125, 125, 1), rgba(230, 230, 230, .9) 45%, rgba(125, 125, 125, .5)),
+  linear-gradient(to right, rgba(125, 125, 125, 1), rgba($sg-white, .9) 45%, rgba(125, 125, 125, .5)),
+  linear-gradient(to right, rgba(223, 190, 170, 1), rgba($sg-white, .9) 45%, rgba(223, 190, 170, .5)),
+  linear-gradient(to right, rgba(223, 190, 170, 1), rgba($sg-white, .9) 45%, rgba(223, 190, 170, .5));
+  background-repeat: no-repeat;
+  background-size: 200% 100%, auto, 100% 2px, 100% 2px, 100% 1px, 100% 1px;
   background-position: 200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
   box-shadow: rgba($sg-black, .5) 3px 10px 10px -10px, rgba($sg-black, .5) 3px -10px 10px -10px;
 }

@@ -61,7 +61,7 @@
       transition: background-position 1s linear;
     }
 
-    &.hovered {
+    &.sg-is-blicking {
       background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
       transition: background-position 1s linear;
     }

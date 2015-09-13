@@ -61,7 +61,7 @@ function deployVendor(production) {
         'public/libs/ryanmullins-angular-hammer/angular.hammer.js',
         'public/libs/tinycolor/tinycolor.js',
         'public/libs/angularjs-color-picker/angularjs-color-picker.js',
-        'public/libs/sg.ui/build/sg.ui.js'
+        'public/libs/sg.ui/dist/sg.ui.js'
     ];
 
     var vendorStylesAdmin = [
@@ -92,7 +92,7 @@ function deployVendor(production) {
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
         'public/libs/angular-click-outside/clickoutside.directive.js',
-        'public/libs/sg.ui/build/sg.ui.js',
+        'public/libs/sg.ui/dist/sg.ui.js',
         'public/libs/angular-fx/src/js/angular-fx.js',
         'public/libs/angular-busy/dist/angular-busy.js',
         'public/libs/angular-ui-validate/dist/validate.js',

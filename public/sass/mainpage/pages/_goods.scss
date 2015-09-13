@@ -113,10 +113,20 @@
     width: 250px;
   }
 
-  .glass-block {
-    @include glass-background;
+  .sg-blick {
+    @include blicker;
+    display: inline-block;
+    height: 250px;
+    width: 250px;
 
-    background-color: none;
+    &.sg-is-blicking {
+      @include blicker-hover;
+    }
+  }
+
+  .glass-block {
+    @include glass-background-alt;
+
     height: 250px;
     margin: -250px auto 0;
     position: relative;

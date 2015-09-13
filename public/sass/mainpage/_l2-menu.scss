@@ -6,6 +6,7 @@
   width: 100%;
 
   li {
+    @include blicker;
     border: 0;
     display: table-cell;
     padding: 0 0 0 1px;
@@ -17,7 +18,6 @@
 
   a {
     border-radius: 2px;
-
     color: $sg-black;
     cursor: pointer;
     display: block;
@@ -25,6 +25,7 @@
     padding: 4px 0 0;
     text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px,
     rgba(100, 100, 110, .5) 0 5px 4px;
+    transition-timing-function: step-start; // prevent animation effect on mouseleave
 
     @include on-xs {
       font: 11px/18px "Airborne";
@@ -47,7 +48,7 @@
       color: $sg-winered;
     }
 
-    &.hovered {
+    &.sg-is-blicking {
       @include blicker-hover;
     }
 
