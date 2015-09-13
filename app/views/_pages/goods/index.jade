@@ -27,9 +27,8 @@
             dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
                 .good-block
-                    .sg-blick(random='5')
-                        img(ng-src='{{ goods.getImgUrl(good) }}')
-                    .glass-block
+                    img(ng-src='{{ goods.getImgUrl(good) }}')
+                    .glass-block: .sg-blick(random='5')
                     .good-reference {{_INT("Арт."); }} {{ _.padLeft(good.reference, 5, "0") }}
 
         include _goods-paginator
