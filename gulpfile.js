@@ -224,7 +224,7 @@ function buildSass() {
 
 function bumpVersion(bumpType) {
     return function () {
-        Gulp.src(['./package.json', './bower.json'])
+        Gulp.src(['./package.json', './bower.json', './app.json'])
             .pipe(gulp.bump({type: bumpType}))
             .pipe(Gulp.dest('./'))
             .pipe(gulp.git.commit("Bump package version"));
