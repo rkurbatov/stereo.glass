@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var fileName = './app.json';
+var fileName = '../../app.json';
 require('child_process').exec('git rev-list HEAD --count < /dev/tty', function(err, stdout, stderr) {
     var numberOfCommits = parseInt(stdout, 10) + 1;
     try {
