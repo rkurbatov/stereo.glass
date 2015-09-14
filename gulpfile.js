@@ -1,21 +1,15 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
-var gulpif = require('gulp-if');
-var sourcemaps = require('gulp-sourcemaps');
-var babel = require('gulp-babel');
-var uglify = require('gulp-uglify');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var minifyCss = require('gulp-minify-css');
+var Gulp = require('gulp');
+var gulp = require('gulp-load-plugins')();
+
 var fs = require('fs');
 
-gulp.task('default', ['buildDevel']);
-
-gulp.task('buildSass', buildSass);
-
-gulp.task('buildDevel', buildDevel);
-gulp.task('buildProduction', buildProduction);
+Gulp.task('default', ['buildDevel']);
+Gulp.task('buildDevel', buildDevel);
+Gulp.task('buildProduction', buildProduction);
+Gulp.task('buildSass', buildSass);
+Gulp.task('bumpMajor', bumpVersion('major'));
+Gulp.task('bumpMinor', bumpVersion('minor'));
+Gulp.task('bumpPatch', bumpVersion('patch'));
 
 //=== IMPLEMENTATION ===
 
@@ -131,35 +125,35 @@ function deployVendor(production) {
         'public/libs/angular-busy/dist/angular-busy.css'
     ];
 
-    gulp.src(vendorLibsAdmin)
-        .pipe(concat('vendor-admin.min.js'))
-        .pipe(gulpif(production, uglify()))
-        .pipe(gulp.dest('public/scripts'));
+    Gulp.src(vendorLibsAdmin)
+        .pipe(gulp.concat('vendor-admin.min.js'))
+        .pipe(gulp.if(production, gulp.uglify()))
+        .pipe(Gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesAdmin)
-        .pipe(concat('vendor-admin.min.css'))
-        .pipe(minifyCss())
-        .pipe(gulp.dest('public/stylesheets'));
+    Gulp.src(vendorStylesAdmin)
+        .pipe(gulp.concat('vendor-admin.min.css'))
+        .pipe(gulp.minifyCss())
+        .pipe(Gulp.dest('public/stylesheets'));
 
-    gulp.src(vendorLibsMain)
-        .pipe(concat('vendor-main.min.js'))
-        .pipe(gulpif(production, uglify()))
-        .pipe(gulp.dest('public/scripts'));
+    Gulp.src(vendorLibsMain)
+        .pipe(gulp.concat('vendor-main.min.js'))
+        .pipe(gulp.if(production, gulp.uglify()))
+        .pipe(Gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesMain)
-        .pipe(concat('vendor-main.min.css'))
-        .pipe(minifyCss())
-        .pipe(gulp.dest('public/stylesheets'));
+    Gulp.src(vendorStylesMain)
+        .pipe(gulp.concat('vendor-main.min.css'))
+        .pipe(gulp.minifyCss())
+        .pipe(Gulp.dest('public/stylesheets'));
 
-    gulp.src(vendorLibsAuth)
-        .pipe(concat('vendor-auth.min.js'))
-        .pipe(gulpif(production, uglify()))
-        .pipe(gulp.dest('public/scripts'));
+    Gulp.src(vendorLibsAuth)
+        .pipe(gulp.concat('vendor-auth.min.js'))
+        .pipe(gulp.if(production, gulp.uglify()))
+        .pipe(Gulp.dest('public/scripts'));
 
-    gulp.src(vendorStylesAuth)
-        .pipe(concat('vendor-auth.min.css'))
-        .pipe(minifyCss())
-        .pipe(gulp.dest('public/stylesheets'));
+    Gulp.src(vendorStylesAuth)
+        .pipe(gulp.concat('vendor-auth.min.css'))
+        .pipe(gulp.minifyCss())
+        .pipe(Gulp.dest('public/stylesheets'));
 }
 
 function deployCustom(production) {
@@ -185,45 +179,54 @@ function deployCustom(production) {
         'public/app/auth/**/*.js'
     ];
 
-    gulp.src(customSourceAdmin)
-        .pipe(sourcemaps.init())
-        .pipe(babel())
-        .pipe(concat('custom-admin.min.js'))
-        .pipe(gulpif(production, uglify()))
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest('public/scripts'));
+    Gulp.src(customSourceAdmin)
+        .pipe(gulp.sourcemaps.init())
+        .pipe(gulp.babel())
+        .pipe(gulp.concat('custom-admin.min.js'))
+        .pipe(gulp.if(production, gulp.uglify()))
+        .pipe(gulp.sourcemaps.write("."))
+        .pipe(Gulp.dest('public/scripts'));
 
-    gulp.src(customSourceMain)
-        .pipe(sourcemaps.init())
-        .pipe(babel())
-        .pipe(concat('custom-main.min.js'))
-        .pipe(gulpif(production, uglify()))
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest('public/scripts'));
+    Gulp.src(customSourceMain)
+        .pipe(gulp.sourcemaps.init())
+        .pipe(gulp.babel())
+        .pipe(gulp.concat('custom-main.min.js'))
+        .pipe(gulp.if(production, gulp.uglify()))
+        .pipe(gulp.sourcemaps.write("."))
+        .pipe(Gulp.dest('public/scripts'));
 
-    gulp.src(customSourceAuth)
-        .pipe(sourcemaps.init())
-        .pipe(concat('custom-auth.min.js'))
-        .pipe(babel())
-        .pipe(gulpif(production, uglify()))
-        .pipe(gulpif(production, sourcemaps.write("../maps")))
-        .pipe(gulp.dest('public/scripts'));
+    Gulp.src(customSourceAuth)
+        .pipe(gulp.sourcemaps.init())
+        .pipe(gulp.concat('custom-auth.min.js'))
+        .pipe(gulp.babel())
+        .pipe(gulp.if(production, gulp.uglify()))
+        .pipe(gulp.if(production, gulp.sourcemaps.write("../maps")))
+        .pipe(Gulp.dest('public/scripts'));
 
     buildSass();
 }
 
 function buildSass() {
-    gulp.src('public/sass/*.scss')
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer({
+    Gulp.src('public/sass/*.scss')
+        .pipe(gulp.sourcemaps.init())
+        .pipe(gulp.sass().on('error', gulp.sass.logError))
+        .pipe(gulp.autoprefixer({
             browsers: ['last 2 versions', 'android > 4.0']
         }))
-        .pipe(rename(function(path){
+        .pipe(gulp.rename(function(path){
             path.basename = 'custom-' + path.basename;
             path.extname = '.min.css';
         }))
-        .pipe(minifyCss())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('public/stylesheets'));
+        .pipe(gulp.minifyCss())
+        .pipe(gulp.sourcemaps.write())
+        .pipe(Gulp.dest('public/stylesheets'));
+}
+
+function bumpVersion(bumpType) {
+    return function () {
+        Gulp.src(['./package.json', './bower.json'])
+            .pipe(gulp.bump({type: bumpType}))
+            .pipe(Gulp.dest('./'))
+            .pipe(gulp.git.commit("Bump package version"));
+    }
 }
