@@ -8,7 +8,7 @@
 
     routerConfig.$inject = ['$routeProvider'];
 
-    function routerConfig($routeProvider, $location, $rootScope, auxData) {
+    function routerConfig($routeProvider) {
 
         $routeProvider
             .when('/', {
@@ -28,30 +28,18 @@
                 controller: 'AboutPage',
                 controllerAs: 'about'
             })
-            .when('/goods/:section?/:subsection?', {
-                templateUrl: (params)=> {
-                    if (!params.section) return '/pages/goods/index';
-                    if (!params.subsection) return '/pages/goods/' + params.section;
-                    return '/pages/goods/' + params.section + '-' + params.subsection;
-                },
+            .when('/goods/:reference?', {
+                templateUrl: '/pages/goods/index',
                 controller: 'GoodsPage',
                 controllerAs: 'goods'
             })
             .when('/contacts/:section?/:subsection?', {
-                templateUrl: (params)=> {
-                    if (!params.section) return '/pages/contacts/index';
-                    if (!params.subsection) return '/pages/contacts/' + params.section;
-                    return '/pages/contacts/' + params.section + '-' + params.subsection;
-                },
+                templateUrl: '/pages/contacts',
                 controller: 'ContactsPage',
                 controllerAs: 'contacts'
             })
             .when('/dealers/:section?/:subsection?', {
-                templateUrl: (params)=> {
-                    if (!params.section) return '/pages/dealers/index';
-                    if (!params.subsection) return '/pages/dealers/' + params.section;
-                    return '/pages/dealers/' + params.section + '-' + params.subsection;
-                },
+                templateUrl: '/pages/dealers',
                 controller: 'DealersPage',
                 controllerAs: 'dealers'
             })
