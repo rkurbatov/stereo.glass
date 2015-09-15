@@ -10,6 +10,7 @@ Gulp.task('buildSass', buildSass);
 Gulp.task('bumpMajor', bumpVersion('major'));
 Gulp.task('bumpMinor', bumpVersion('minor'));
 Gulp.task('bumpPatch', bumpVersion('patch'));
+Gulp.task('bumpBuild', bumpBuild);
 
 //=== IMPLEMENTATION ===
 
@@ -213,7 +214,7 @@ function buildSass() {
         .pipe(gulp.autoprefixer({
             browsers: ['last 2 versions', 'android > 4.0']
         }))
-        .pipe(gulp.rename(function(path){
+        .pipe(gulp.rename(function (path) {
             path.basename = 'custom-' + path.basename;
             path.extname = '.min.css';
         }))
@@ -229,4 +230,21 @@ function bumpVersion(bumpType) {
             .pipe(Gulp.dest('./'))
             .pipe(gulp.git.commit("Bump package version"));
     }
+}
+
+function bumpBuild() {
+    var jsonFile = './app.json';
+
+    return Gulp.src(jsonFile)
+        .pipe(gulp.git.exec({args: 'rev-list HEAD --count'}, function (err, stdout) {
+            if (err) throw err;
+            var pkgApp = require(jsonFile);
+            pkgApp.build = parseInt(stdout, 10);
+            return fs.writeFile(jsonFile, JSON.stringify(pkgApp, null, 4), function (err) {
+                if (err) throw err;
+            });
+        }))
+        .on('end', function () {
+            gulp.git.commit('Release commit');
+        });
 }

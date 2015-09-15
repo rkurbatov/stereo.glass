@@ -8,11 +8,10 @@ html(lang=en)
             title DEV - Stereo.Glass Admin Panel
         else
             title Stereo.Glass Admin Panel
-        include ../builddate
         link(rel='stylesheet', href='../stylesheets/vendor-admin.min.css?#{builddate}')
         link(rel='stylesheet', href='../stylesheets/custom-admin.min.css?#{builddate}')
-        script(src='../scripts/vendor-admin.min.js?#{builddate}')
-        script(src='../scripts/custom-admin.min.js?#{builddate}')
+        script(src='../scripts/vendor-admin.min.js?#{app.builddate}')
+        script(src='../scripts/custom-admin.min.js?#{app.builddate}')
 
     body
         block content
