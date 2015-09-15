@@ -34,13 +34,13 @@
                 controllerAs: 'goods',
                 reloadOnSearch: false
             })
-            .when('/contacts/:section?/:subsection?', {
-                templateUrl: '/pages/contacts',
+            .when('/contacts', {
+                templateUrl: '/pages/contacts/index',
                 controller: 'ContactsPage',
                 controllerAs: 'contacts'
             })
-            .when('/dealers/:section?/:subsection?', {
-                templateUrl: '/pages/dealers',
+            .when('/dealers', {
+                templateUrl: '/pages/dealers/index',
                 controller: 'DealersPage',
                 controllerAs: 'dealers'
             })
