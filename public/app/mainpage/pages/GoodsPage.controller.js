@@ -9,7 +9,8 @@
     function GoodsPage($scope, $location, goodsSvc, categoriesSvc) {
         var vm = this;
 
-        vm.getImgUrl = getImgUrl;
+        vm.getThumbStatic = getThumbStatic;
+        vm.getThumbAnim = getThumbAnim;
         vm.resetFilters = resetFilters;
         vm.openModal = openModal;
 
@@ -42,8 +43,12 @@
                 });
         }
 
-        function getImgUrl(good) {
+        function getThumbStatic(good) {
             return '/uploads/ready/' + good.urlDir + '/' + good.urlThumb;
+        }
+
+        function getThumbAnim(good) {
+            return '/uploads/ready/' + good.urlDir + '/' + good.urlGifLoRes;
         }
 
         function resetFilters() {
