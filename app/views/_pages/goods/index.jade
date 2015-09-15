@@ -28,7 +28,7 @@
                         itemsPerPage: goods.currentItemsPerPage")
                 //- ng-click needed if clicking same good after modal close
                 .good-block
-                    img(ng-src='{{ goods.getImgUrl(good) }}')
+                    .sg-gif-player(static='{{ goods.getImgUrl(good) }}')
                     .glass-block
                         a.good-expand(href='{{"#/goods?ref=" + good.reference}}' ng-click='goods.openModal()')
                             i.fa.fa-expand

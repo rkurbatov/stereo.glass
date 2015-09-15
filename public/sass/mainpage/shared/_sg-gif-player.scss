@@ -15,6 +15,7 @@
     position: absolute;
     text-shadow: 0 0 5px rgba($sg-silver, .5);
     top: 50%;
+    z-index: 10;
 
     &.invisible {
       opacity: 0;
