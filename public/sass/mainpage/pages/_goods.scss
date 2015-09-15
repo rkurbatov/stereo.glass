@@ -102,6 +102,7 @@
 }
 
 .good-block {
+  display: block;
   height: 320px;
   text-align: center;
 
@@ -127,6 +128,7 @@
   .glass-block {
     @include glass-background-alt;
 
+    cursor: pointer;
     height: 250px;
     margin: -250px auto 0;
     position: relative;
@@ -134,6 +136,7 @@
   }
 
   .good-reference {
+    cursor: pointer;
     color: lighten($sg-silver, 15%);
     font-size: 1.6em;
     font-style: italic;
