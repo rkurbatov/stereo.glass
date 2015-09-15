@@ -45,10 +45,16 @@
             function ExpandViewCtrl($modalInstance, list, idx) {
                 var vm = this;
                 vm.imgSrc = getImgUrl(list[idx]);
+                vm.setLoadedState = setLoadedState;
+                vm.imgLoaded = false;
 
                 vm.close = function () {
                     $modalInstance.dismiss('cancel');
                 };
+
+                function setLoadedState() {
+                    vm.imgLoaded = true;
+                }
 
                 function getImgUrl(layout) {
                     return '/uploads/ready/' + layout.urlDir + '/' + layout.url2d;

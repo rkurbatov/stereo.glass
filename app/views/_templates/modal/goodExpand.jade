@@ -2,4 +2,5 @@
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.close()")
         i.fa.fa-times
     img.img-responsive.center-block(ng-src="{{ vm.imgSrc }}" sg-on-img-load='vm.setLoadedState()')
-
+    .sg-miniature-loader-indicator(ng-show='!vm.imgLoaded')
+        i.fa.fa-spinner.fa-pulse
