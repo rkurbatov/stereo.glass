@@ -1,0 +1,36 @@
+@mixin sg-resize-control {
+  &:after {
+    color: rgba($sg-black, .5);
+    // fa-expand
+    content: '\F065';
+    display: inline-block;
+    font: 28px/32px 'FontAwesome';
+    height: 28px;
+    margin-left: -24px;
+    position: absolute;
+    text-shadow: 0 0 5px $sg-silver;
+    transform: rotate(90deg);
+  }
+
+  &:hover:after {
+    color: rgba($sg-black, .9);
+  }
+
+  &:active:after {
+    text-shadow: none;
+    transform: rotate(90deg) scale(1.25);
+    transition: all .25s;
+  }
+}
+
+
+@mixin sg-modal-control {
+  color: rgba($sg-white, .75);
+  opacity: 1;
+  text-shadow: 0 0 5px $sg-black;
+  transition: color .15s;
+
+  &:hover {
+    color: $sg-white;
+  }
+}

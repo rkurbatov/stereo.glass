@@ -26,7 +26,8 @@
             li.sg-layout.col-lg-3.col-md-4.col-sm-4.col-xs-6.col-xxs-12(current-page="goods.currentPage"
             dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
-                a.good-block(href='{{"#/goods/" + good.reference}}')
+                //- ng-click needed if clicking same good after modal close
+                a.good-block(href='{{"#/goods?ref=" + good.reference}}' ng-click='goods.openModal()')
                     img(ng-src='{{ goods.getImgUrl(good) }}')
                     .glass-block: .sg-blick(random='5')
                     .good-reference {{_INT("Арт."); }} {{ _.padLeft(good.reference, 5, "0") }}

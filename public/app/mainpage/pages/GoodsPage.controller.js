@@ -11,6 +11,7 @@
 
         vm.getImgUrl = getImgUrl;
         vm.resetFilters = resetFilters;
+        vm.openModal = openModal;
 
         initController();
 
@@ -51,7 +52,7 @@
 
         function openModal() {
             // reference is part of url, f.e.: /goods/33
-            var currentRef = parseInt($location.path().split('/')[2], 10) || null;
+            var currentRef = parseInt($location.search().ref, 10) || null;
             var currentIdx = _.findIndex(vm.list, 'reference', currentRef);
 
             if (!vm.expandedView && ~currentIdx) { // ~x <=> x !== -1
@@ -63,7 +64,6 @@
                     });
             }
         }
-
     }
 
 })(window, window.angular);

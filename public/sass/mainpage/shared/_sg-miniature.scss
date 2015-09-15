@@ -3,6 +3,8 @@
 }
 
 .sg-miniature-container {
+  @include sg-resize-control;
+
   background-color: rgba($sg-white, .7);
   box-shadow: 0 0 2px 1px rgba($sg-black, .1);
   cursor: pointer;
@@ -35,23 +37,6 @@
       width: 200px;
     }
   }
-
-  &:after {
-    color: rgba($sg-black, .5);
-    // fa-expand
-    content: '\F065';
-    display: inline-block;
-    font: 28px/32px 'FontAwesome';
-    height: 28px;
-    margin-left: -24px;
-    position: absolute;
-    text-shadow: 0 0 5px $sg-silver;
-    transform: rotate(90deg);
-  }
-
-  &:hover:after {
-    color: rgba($sg-black, .9);
-  }
 }
 
 .sg-miniature-gallery-next,
@@ -70,7 +55,7 @@
   }
 
   .fa {
-    @include modal-control;
+    @include sg-modal-control;
     font-size: 2.5em;
     line-height: 2.5em;
     margin-top: -1.25em;

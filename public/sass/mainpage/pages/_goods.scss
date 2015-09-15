@@ -29,18 +29,20 @@
 }
 
 .goods-filters {
+  // scss-lint:disable ImportantRule
   .fa-photo:not(.sg-multicolor) {
     color: $sg-black !important;
   }
 
   .btn.dropdown-toggle {
-    color: $sg-white !important;
     @include white-glossy-background;
+    color: $sg-white !important;
 
     &:focus {
       outline-color: $sg-winered !important;
     }
   }
+  // scss-lint:enable ImportantRule
 
   .bss-container {
     display: inline-block;
@@ -106,6 +108,13 @@
   height: 320px;
   text-align: center;
 
+  &,
+  &:focus,
+  &:hover {
+    outline: 0;
+    text-decoration: none;
+  }
+
   img {
     border: $sg-silver 1px solid;
     box-shadow: 0 0 5px $sg-black;
@@ -136,7 +145,6 @@
   }
 
   .good-reference {
-    cursor: pointer;
     color: lighten($sg-silver, 15%);
     font-size: 1.6em;
     font-style: italic;

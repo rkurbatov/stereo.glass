@@ -28,10 +28,11 @@
                 controller: 'AboutPage',
                 controllerAs: 'about'
             })
-            .when('/goods/:reference?', {
+            .when('/goods', {
                 templateUrl: '/pages/goods/index',
                 controller: 'GoodsPage',
-                controllerAs: 'goods'
+                controllerAs: 'goods',
+                reloadOnSearch: false
             })
             .when('/contacts/:section?/:subsection?', {
                 templateUrl: '/pages/contacts',

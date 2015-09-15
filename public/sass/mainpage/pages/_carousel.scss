@@ -209,8 +209,10 @@
 
 .ng-hide:not(.ng-hide-animate) {
   // this is just another form of hiding an element
+  // scss-lint:disable ImportantRule
   display: block !important;
   opacity: 0;
+  // scss-lint:enable ImportantRule
 }
 
 // Videoclip with overlay div - videoplayer
