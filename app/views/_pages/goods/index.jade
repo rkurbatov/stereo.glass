@@ -27,9 +27,12 @@
             dir-paginate="good in goods.filtered = (goods.list) |\
                         itemsPerPage: goods.currentItemsPerPage")
                 //- ng-click needed if clicking same good after modal close
-                a.good-block(href='{{"#/goods?ref=" + good.reference}}' ng-click='goods.openModal()')
+                .good-block
                     img(ng-src='{{ goods.getImgUrl(good) }}')
-                    .glass-block: .sg-blick(random='5')
+                    .glass-block
+                        a.good-expand(href='{{"#/goods?ref=" + good.reference}}' ng-click='goods.openModal()')
+                            i.fa.fa-expand
+                        .sg-blick(random='5')
                     .good-reference {{_INT("Арт."); }} {{ _.padLeft(good.reference, 5, "0") }}
 
         include _goods-paginator
