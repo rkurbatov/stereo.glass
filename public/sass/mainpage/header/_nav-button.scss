@@ -12,6 +12,10 @@
             to(rgba(250, 250, 250, .3)));
   }
 
+  &:active {
+    @include halfred-glossy-background;
+  }
+
   &.nav-selected {
     @include red-glossy-background;
   }
@@ -42,12 +46,15 @@
     @include on-lg {
       font: 24px/34px "Airborne";
       padding-top: 8px;
-      text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px, rgba(100, 100, 110, .5) 0 5px 4px;
+      text-shadow: rgba(250, 250, 250, .25) 1px 1px 4px,
+      rgba(100, 100, 110, .5) 0 5px 4px;
     }
 
     &:active {
-      @include halfred-glossy-background;
-      transform: scaleY(.95);
+      color: $sg-white;
+      text-shadow: none;
+      transform: scale(1.1);
+      transition: all .2s;
     }
 
     &:focus,
