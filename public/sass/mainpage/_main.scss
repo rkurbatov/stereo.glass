@@ -84,6 +84,6 @@ body {
 
 .sg-no-scroller {
   @include on-xs-plus {
-    margin-right: -15px;
+    //margin-right: -15px;
   }
 }
