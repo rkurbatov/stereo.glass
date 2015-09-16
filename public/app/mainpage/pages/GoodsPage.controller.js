@@ -26,13 +26,11 @@
             vm.expandedView = false;
 
             $scope.$on('$locationChangeSuccess', ()=> {
-                console.log('on location change');
                 openModal();
             });
 
             goodsSvc.load()
                 .then((goods)=> {
-                    console.log('on svc load');
                     vm.list = goods.data;
                     openModal()
                 });
@@ -63,7 +61,6 @@
             // reference is part of url, f.e.: /goods/33
             var currentRef = parseInt($location.search().ref, 10) || null;
             var currentIdx = _.findIndex(vm.list, 'reference', currentRef);
-            console.log('ref: %s, index: %s', currentRef, currentIdx);
 
             if (~currentIdx) { // ~x <=> x !== -1
                 vm.expandedView = true;

@@ -12,14 +12,14 @@
         return {
             restrict: 'C',
             scope: {},
-            template: `
-            <img ng-click="switchState()"
-            ng-src="{{imgSrc}}" sg-on-img-load="endSwitchState()"/>
+            template: `{{state}}
+            <img ng-src="{{imgSrc}}"
+            sg-on-img-load="endSwitchState()"/>
+            <i class="fa fa-spinner fa-pulse"
+            ng-class="{invisible: state !== 'loading'}"></i>
             <i class="fa fa-play-circle-o"
             ng-click="switchState()"
             ng-class="{invisible: state !== 'static'}"></i>
-            <i class="fa fa-spinner fa-pulse"
-            ng-class="{invisible: state !== 'loading'}"></i>
             `,
             link
         };
@@ -28,17 +28,17 @@
             var nextState = 'static';
             scope.state = 'loading';
             scope.imgSrc = attrs.static;
-            scope.nextState = 'static';
 
             scope.switchState = function () {
                 if (scope.state === 'static') {
-                    scope.nextState = 'anim';
+                    scope.state = 'loading';
+                    nextState = 'anim';
                     scope.imgSrc = attrs.anim;
                 } else {
-                    scope.nextState = 'static';
+                    scope.state = 'loading';
+                    nextState = 'static';
                     scope.imgSrc = attrs.static;
                 }
-                scope.state = 'loading';
             };
             scope.endSwitchState = function () {
                 scope.state = nextState;
