@@ -36,6 +36,7 @@ module.exports = function (mongoose) {
         catCountries: [String],
         designerComment: String,
         isHidden: Boolean,
+        isPublished: Boolean,
         status: String,
         assignedTo: String,
         assignedBy: String,

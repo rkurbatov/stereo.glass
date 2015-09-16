@@ -89,14 +89,36 @@
   z-index: 10;
 }
 
-.sg-layout-comments {
+.sg-layout-comments,
+.sg-layout-published {
   color: $sg-silver;
   height: 40px;
   position: absolute;
   right: -30px;
-  top: 35px;
   width: 50px;
   z-index: 10;
+}
+
+.sg-layout-published {
+  top: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    color: $sg-white;
+    transform: scale(1.25);
+    transition: all .25s;
+  }
+
+  .fa-eye {
+    color: $sg-gold;
+  }
+}
+
+.sg-layout-comments {
+  top: 35px;
 }
 
 .sg-comments-number {

@@ -1,9 +1,9 @@
 .sg-rating-block
     //- Star with rating value/vote voices
     span
-        i.glyphicon(ng-class="getRatingClassName()"
+        i.fa(ng-class="getRatingClassName()"
         ng-click="removeRating()"
-        style="cursor:pointer;")
+        style="cursor:pointer;") &nbsp;
     b {{ linkedObject.average !== -1 ? linkedObject.average : 0 | number : 2 }}/{{ linkedObject.ratings.length }}
     br(ng-show='!oneRow')
     span(ng-show='oneRow') &nbsp;&nbsp;

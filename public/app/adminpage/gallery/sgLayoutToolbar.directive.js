@@ -32,6 +32,7 @@
             vm.isReAssignVisible = isReAssignVisible;
             vm.isAcceptVisible = isAcceptVisible;
             vm.isApproveVisible = isApproveVisible;
+            vm.isRevertVisible = isRevertVisible;
             vm.isUploadVisible = isUploadVisible;
             vm.isDownloadVisible = isDownloadVisible;
             vm.isEditVisible = isEditVisible;
@@ -41,20 +42,20 @@
             vm.actions = sgLayoutActions;
             vm.actions.unselectLayout = $scope.$parent.$parent.paginator.unselectLayout;
 
-            var name = sgUsers.currentUser.name;
+            var curUser = sgUsers.currentUser;
 
             // IMPLEMENTATION
 
             function iAmAdminOrCurator() {
-                return _.contains(['admin', 'curator'], sgUsers.currentUser.role);
+                return _.contains(['admin', 'curator'], curUser.role);
             }
 
             function createdByMe() {
-                return sgUsers.currentUser.name === vm.layout.createdBy;
+                return curUser.name === vm.layout.createdBy;
             }
 
             function assignedToMe() {
-                return sgUsers.currentUser.name === vm.layout.assignedTo;
+                return curUser.name === vm.layout.assignedTo;
             }
 
             function isAssignVisible() {
@@ -72,9 +73,14 @@
             }
 
             function isAcceptVisible() {
-                return 'designer' === sgUsers.currentUser.role
+                return 'designer' === curUser.role
                     && 'assigned' === vm.layout.status
                     && assignedToMe();
+            }
+
+            function isRevertVisible() {
+                return vm.layout.status === 'approved'
+                    && iAmAdminOrCurator();
             }
 
             function isApproveVisible() {
@@ -100,7 +106,7 @@
             }
 
             function isUploadVisible() {
-                return 'designer' === sgUsers.currentUser.role
+                return 'designer' === curUser.role
                     && 'accepted' === vm.layout.status
                     && assignedToMe();
             }
@@ -108,7 +114,7 @@
             function isDownloadVisible() {
                 return _.contains(['finished', 'approved'], vm.layout.status)
                     && (
-                        ('designer' === sgUsers.currentUser.role && assignedToMe())
+                        ('designer' === curUser.role && assignedToMe())
                         || iAmAdminOrCurator()
                     );
             }

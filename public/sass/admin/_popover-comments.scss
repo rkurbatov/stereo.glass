@@ -1,33 +1,34 @@
-.popover-comments-block, .popover-info-block {
-  width: 270px;
-  max-height: 270px;
+.popover-comments-block,
+.popover-info-block {
   background-color: whitesmoke;
-  position: relative;
-  z-index: 20;
-  box-shadow: 0 0 3px 3px rgba(black, 0.2);
   border-radius: 3px;
-  padding: 5px;
-  overflow-y: scroll;
+  box-shadow: 0 0 3px 3px rgba($sg-black, .2);
   font-size: 12px;
+  max-height: 270px;
+  overflow-y: scroll;
+  padding: 5px;
+  position: relative;
+  width: 270px;
+  z-index: 20;
 
   hr {
-    margin-top: 5px;
+    border-top: 1px solid rgba($sg-silver, .5);
     margin-bottom: 5px;
-    border-top: 1px solid rgba(silver, 0.5);
+    margin-top: 5px;
   }
 }
 
 .popover-comments-block {
   margin-bottom: 15px;
 
-  ul.popover-comments-list {
+  .popover-comments-list {
     padding-left: 0;
   }
 
   li {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   li:last-child hr {
@@ -36,10 +37,6 @@
 
   .popover-comment-header {
     margin-bottom: 5px;
-  }
-
-  .popover-comment-text {
-
   }
 }
 

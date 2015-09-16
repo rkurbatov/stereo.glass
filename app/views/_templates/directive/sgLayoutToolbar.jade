@@ -1,39 +1,54 @@
 .sg-layout-controls.text-center
     //- Assign
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
-    ng-show='toolbar.isAssignVisible()')
+    ng-show='toolbar.isAssignVisible()'
+    title='Назначить исполнителя')
         .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-blue-i
         .fa-stack-1x.sg-shadowed-text.fa-user.sg-blue-i
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
-    ng-show='toolbar.isReAssignVisible()')
+    ng-show='toolbar.isReAssignVisible()'
+    title='Назначить другого исполнителя')
         .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-blue-i
         .fa-stack-1x.sg-shadowed-text.fa-user.sg-red-i
     //- Accept
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.acceptJob(toolbar.layout)'
-    ng-show='toolbar.isAcceptVisible()')
+    ng-show='toolbar.isAcceptVisible()'
+    title='Принять работу')
         .fa-stack-2x.fa-check-square-o.sg-silver-i.sg-shadowed-text
     //- Approve
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.approveJob(toolbar.layout)'
-    ng-show='toolbar.isApproveVisible()')
+    ng-show='toolbar.isApproveVisible()'
+    title='Одобрить макет')
         .fa-stack-2x.fa-check-square-o.sg-gold-i.sg-shadowed-text
+    //- Revert
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.revertGood(toolbar.layout)'
+    ng-show='toolbar.isRevertVisible()'
+    title='Вернуть на доработку дизайнеру')
+        .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-blue-i
+        .fa-stack-1x.sg-shadowed-text.fa-reply.sg-red-i
+    //- Edit
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.editLayout(toolbar.layout)'
+    ng-show='toolbar.isEditVisible()'
+    title='Редактировать')
+        .fa-pencil-square-o.fa-stack-2x.sg-green-i.sg-shadowed-text
     //- Upload
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.uploadFiles(toolbar.layout)'
-    ng-show='toolbar.isUploadVisible()')
+    ng-show='toolbar.isUploadVisible()'
+    title='Загрузить макет на сервер')
         .fa-upload.fa-stack-2x.sg-shadowed-text.sg-orange-i
     //- Download
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.downloadFiles(toolbar.layout)'
-    ng-show='toolbar.isDownloadVisible()')
+    ng-show='toolbar.isDownloadVisible()'
+    title='Загрузить макет с сервера')
         .fa-download.fa-stack-2x.sg-shadowed-text.sg-violet-i
-    //- Edit
-    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.editLayout(toolbar.layout)'
-    ng-show='toolbar.isEditVisible()')
-        .fa-pencil-square-o.fa-stack-2x.sg-green-i.sg-shadowed-text
     //- Remove
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.moveToTrash(toolbar.layout)'
-    ng-show='toolbar.isTrashVisible()')
+    ng-show='toolbar.isTrashVisible()'
+    title='Удалить в корзину')
         .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
         .fa-trash.fa-stack-1x.sg-red-i.sg-shadowed-text
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.restoreFromTrash(toolbar.layout)'
-    ng-show='toolbar.isRestoreVisible()')
+    ng-show='toolbar.isRestoreVisible()'
+    title='Восстановить из корзины')
         .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
         .fa-undo.fa-stack-1x.sg-red-i.sg-shadowed-text

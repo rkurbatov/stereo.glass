@@ -75,7 +75,7 @@
                     result;
 
                 // Style for rated and unrated layouts
-                result = scope.linkedObject.ratings.length > 0 ? "glyphicon-star " : "glyphicon-star-empty ";
+                result = scope.linkedObject.ratings.length > 0 ? "fa-star " : "fa-star-empty ";
 
                 // Style for different ratings
                 if (avg > 0 && avg <= 1) result += 'sg-bronze-i';

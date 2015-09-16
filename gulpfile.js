@@ -168,7 +168,6 @@ function deployCustom(production) {
 
     var customSourceMain = [
         'public/app/common/**/*.js',
-        'public/app/jqMainPage.js',
         'public/app/ngMainPage.js',
         'public/app/mainpage/**/*.js'
     ];

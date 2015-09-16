@@ -1,4 +1,9 @@
 //-
+//- Published flag
+//-
+span.sg-layout-published(ng-if='layout.status === "approved"')
+    i.fa.fa-2x(ng-class='{"fa-eye": layout.isPublished, "fa-eye-slash": !layout.isPublished}')
+//-
 //- Comments flag
 //-
 span.sg-layout-comments(ng-if="paginator.$index !== $index && layout.comments.length")
