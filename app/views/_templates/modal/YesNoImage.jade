@@ -4,7 +4,7 @@
 .modal-body
     .text-justify(ng-bind-html="vm.message")
     br
-    .text-center: img.img-responsive(ng-src="{{ ::vm.url }}")
+    .text-center: img(ng-src="{{ ::vm.url }}")
     .row(ng-if='vm.hasComment')
         .col-xs-12: textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
 .modal-footer
