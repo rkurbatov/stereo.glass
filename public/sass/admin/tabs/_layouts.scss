@@ -63,7 +63,7 @@
 
   &:active {
     text-shadow: none;
-    transform: scale(1.1);
+    transform: scale(1.25);
     transition: all .1s;
 
     .fa,
@@ -87,6 +87,20 @@
   right: -23px;
   width: 40px;
   z-index: 10;
+
+  .fa-comment {
+    color: $sg-blue;
+  }
+
+  .fa-plus {
+    color: $sg-silver;
+  }
+
+  .fa:active {
+    color: $sg-white;
+    transform: scale(1.25);
+    transition: all .25s;
+  }
 }
 
 .sg-layout-comments,
@@ -101,6 +115,7 @@
 
 .sg-layout-published {
   top: 0;
+  transition: all .1s;
 
   &:hover {
     cursor: pointer;
@@ -109,7 +124,7 @@
   &:active {
     color: $sg-white;
     transform: scale(1.25);
-    transition: all .25s;
+    transition: all .1s;
   }
 
   .fa-eye {
