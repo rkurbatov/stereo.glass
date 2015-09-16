@@ -12,7 +12,7 @@
         return {
             restrict: 'C',
             scope: {},
-            template: `{{state}}
+            template: `
             <img ng-src="{{imgSrc}}"
             sg-on-img-load="endSwitchState()"/>
             <i class="fa fa-spinner fa-pulse"
