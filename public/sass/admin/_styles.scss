@@ -3,7 +3,24 @@ body {
 }
 
 .tabs-background {
-  background-color: $sg-white;
+  background-color: rgba($sg-white, .65);
   border-radius: 4px;
-  padding: 5px 15px;
+  margin-top: 10px;
+  padding: 5px;
+
+  a {
+    color: $sg-winered;
+  }
+
+  .row {
+    padding: 0 5px;
+  }
+}
+
+.nav-tabs a {
+  text-shadow: 0 0 1px rgba($sg-black, .25);
+}
+
+.tab-pane .panel {
+  margin-bottom: 0;
 }
