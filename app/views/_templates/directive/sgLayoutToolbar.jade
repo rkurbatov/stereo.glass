@@ -52,3 +52,16 @@
     title='Восстановить из корзины')
         .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
         .fa-undo.fa-stack-1x.sg-red-i.sg-shadowed-text
+
+//-
+//- Published flag
+//-
+span.sg-layout-published(ng-show='toolbar.layout.status === "approved"')
+    i.fa.fa-2x(ng-class='{"fa-eye": toolbar.layout.isPublished, "fa-eye-slash": !toolbar.layout.isPublished}')
+//-
+//- Comments flag
+//-
+span.sg-layout-comments(ng-show="toolbar.layout.comments.length")
+    i.fa.fa-stack
+        .fa-comments.fa-stack-2x
+        span.sg-comments-number.fa-stack-1x {{ toolbar.layout.comments.length }}

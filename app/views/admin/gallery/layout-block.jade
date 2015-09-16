@@ -1,16 +1,4 @@
 //-
-//- Published flag
-//-
-span.sg-layout-published(ng-if='layout.status === "approved"')
-    i.fa.fa-2x(ng-class='{"fa-eye": layout.isPublished, "fa-eye-slash": !layout.isPublished}')
-//-
-//- Comments flag
-//-
-span.sg-layout-comments(ng-if="paginator.$index !== $index && layout.comments.length")
-    i.fa.fa-stack
-        .fa-comments.fa-stack-2x
-        span.sg-comments-number.fa-stack-1x {{ layout.comments.length }}
-//-
 //- Layout itself
 //-
 .sg-layout-block-outer(ng-class='{"selected" : paginator.$index === $index}'

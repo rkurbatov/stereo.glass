@@ -105,7 +105,7 @@
 
 .sg-layout-comments,
 .sg-layout-published {
-  color: $sg-silver;
+  color: darken($sg-silver, 5%);
   height: 40px;
   position: absolute;
   right: -30px;
