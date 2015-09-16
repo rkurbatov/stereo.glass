@@ -2,9 +2,11 @@
     button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()") &times;
     h4.modal-title.text-center(ng-bind-html="vm.header")
 .modal-body
-    div.text-justify(ng-bind-html="vm.message")
+    .text-justify(ng-bind-html="vm.message")
     br
-    img.img-responsive.center-block(ng-src="{{ ::vm.url }}")
+    .text-center: img.img-responsive(ng-src="{{ ::vm.url }}")
+    .row(ng-if='vm.hasComment')
+        .col-xs-12: textarea.form-control.sg-noresize(rows="6" ng-model="vm.comment")
 .modal-footer
     .col-xs-2
     button.btn.btn-danger.col-xs-4(ng-click="vm.ok()") Да

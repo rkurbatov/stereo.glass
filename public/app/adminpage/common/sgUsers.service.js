@@ -91,8 +91,6 @@
                 }),
                 'username');
 
-            console.log(svc.assignees);
-
             // Fill border colors hash
             _.each(svc.list, (user)=> {
                 if (_.contains(['admin', 'curator', 'founder', 'designer'], user.role)) {

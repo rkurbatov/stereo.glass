@@ -16,6 +16,7 @@
         svc.showInGallery = modalShowInGallery;
         svc.remove = modalYesNoImage;
         svc.restore = modalYesNoImage;
+        svc.revert = modalYesNoImage;
         svc.assignDoer = modalAssignDismissDoer;
         svc.acceptReject = modalAcceptReject;
         svc.approveDecline = modalApproveDecline;
@@ -149,6 +150,7 @@
             }
         }
 
+        // Dialog with yes-no options, image and possible comment
         function modalYesNoImage(layout, header, message, hasComment) {
             var modalDO = {
                 templateUrl: '/templates/modal/YesNoImage',
@@ -181,9 +183,13 @@
             vm.url = url;
             vm.header = header;
             vm.message = message;
+            vm.hasComment = hasComment;
 
             vm.ok = function () {
-                $modalInstance.close('ok');
+                var response = hasComment
+                    ? { comment: vm.comment}
+                    : 'ok';
+                $modalInstance.close(response);
             };
 
             vm.cancel = function () {

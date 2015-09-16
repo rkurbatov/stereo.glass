@@ -6,9 +6,9 @@
         .module('sgAppAdmin')
         .service('sgLayoutActions', sgLayoutActions);
 
-    sgLayoutActions.$inject = ['sgUsers', 'sgLayouts', 'sgLayoutModals', 'sgMessages', '$q'];
+    sgLayoutActions.$inject = ['$q', 'sgUsers', 'sgLayouts', 'sgLayoutModals', 'sgMessages'];
 
-    function sgLayoutActions(sgUsers, sgLayouts, sgLayoutModals, sgMessages, $q) {
+    function sgLayoutActions($q, sgUsers, sgLayouts, sgLayoutModals, sgMessages) {
 
         // ==== DECLARATION =====
         var svc = this;
@@ -16,14 +16,14 @@
         svc.assignDoer = assignDoer;
         svc.acceptJob = acceptJob;
         svc.approveJob = approveJob;
+        svc.revertGood = revertGood;
         svc.uploadFiles = uploadFiles;
         svc.downloadFiles = downloadFiles;
         svc.editLayout = editLayout;
         svc.moveToTrash = moveToTrash;
         svc.restoreFromTrash = restoreFromTrash;
 
-        var name = sgUsers.currentUser.name;
-        var role = sgUsers.currentUser.role;
+        var curUser = sgUsers.currentUser;
 
         function assignDoer(layout) {
 
@@ -34,7 +34,7 @@
                 .then((response) => {
                     if (response.dismissed) {
                         setObject = {
-                            dismissedBy: name,
+                            dismissedBy: curUser.name,
                             dismissedAt: new Date(),
                             dismissedComment: response.comment || '',
                             status: 'dismissed'
@@ -42,7 +42,7 @@
                     } else {
                         setObject = {
                             assignedTo: response.assignedTo,
-                            assignedBy: name,
+                            assignedBy: curUser.name,
                             assignedAt: new Date(),
                             assignedComment: response.comment || "",
                             status: 'assigned'
@@ -80,7 +80,7 @@
                         };
 
                         var vars = {
-                            sender: sgUsers.currentUser.name,
+                            sender: curUser.name,
                             comment: setObject.assignedComment
                         };
                         return sgMessages.eMail(mail, vars);
@@ -134,20 +134,21 @@
         function approveJob(layout) {
             var setObject;
             var doSendEmail;
-            sgLayoutModals.approveDecline(layout)
+            sgLayoutModals
+                .approveDecline(layout)
                 .then((response) => {
                     doSendEmail = response.sendEmail;
 
                     if (response.declined) {
                         setObject = {
                             status: "assigned",
-                            assignedBy: name,
+                            assignedBy: curUser.name,
                             assignedComment: response.comment
                         }
                     } else {
                         setObject = {
                             status: "approved",
-                            approvedBy: sgUsers.currentUser.name,
+                            approvedBy: curUser.name,
                             approvedAt: new Date(),
                             approvedComment: response.comment
                         };
@@ -157,7 +158,6 @@
 
                 })
                 .then(() => {
-
                     _.extend(layout, setObject);
                     var message;
 
@@ -180,15 +180,39 @@
                             body: layout._id
                         };
                     }
+                    return sgMessages.create(message);
+                });
+        }
 
+        function revertGood(layout) {
+            var header = 'Возврат на доработку';
+            var message = 'Вы хотите вернуть этот товар из магазина на доработку?';
+            var setObject = {
+                status: 'assigned'
+            };
+
+            sgLayoutModals
+                .revert(layout, header, message, true)
+                .then((response)=> sgLayouts.addComment(layout, response.comment)) // add comment
+                .then(()=> sgLayouts.update(layout._id, setObject)) // change status
+                .then(()=> {
+                    _.extend(layout, setObject);                    // update loaded layout
+                    var message = {                                 // and send message
+                        fromUser: curUser.name,
+                        toUser: layout.assignedTo,
+                        type: 'designer',
+                        subType: 'jobAssigned',
+                        header: 'Макет возвращён на доработку',
+                        body: layout._id
+                    };
 
                     return sgMessages.create(message);
-
                 });
         }
 
         function uploadFiles(layout) {
-            sgLayoutModals.uploadFiles(layout)
+            sgLayoutModals
+                .uploadFiles(layout)
                 .then((response) => {
                     var setObject = {
                         status: 'finished',
@@ -237,9 +261,10 @@
             var message = 'Вы хотите восстановить это изображение?';
             sgLayoutModals.restore(layout, header, message)
                 .then(function () {
-                    sgLayouts.restore(layout['_id']).then(function () {
-                        delete layout.status;
-                    });
+                    sgLayouts.restore(layout['_id'])
+                        .then(function () {
+                            delete layout.status;
+                        });
                 });
         }
     }
