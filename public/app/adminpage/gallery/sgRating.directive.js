@@ -9,7 +9,7 @@
     sgRating.$inject = ['sgLayouts', 'sgUsers', 'toastr'];
 
     function sgRating(sgLayouts, sgUsers, toastr) {
-        var ddo = {
+        return {
             restrict: 'E',
             scope: {
                 linkedObject: '='
@@ -84,8 +84,6 @@
                 return result;
             }
         }
-
-        return ddo;
     }
 
 })(window, window.angular);

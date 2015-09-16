@@ -9,7 +9,7 @@
     bsSelect.$inject = [];
 
     function bsSelect() {
-        var ddo = {
+       return {
             restrict: 'A',
             scope: {
                 htmlContent: '=',
@@ -17,10 +17,8 @@
                 selection: '=',
                 execOnChange: '&'
             },
-            link: link
+            link
         };
-
-        return ddo;
 
         function link(scope, elm, attrs) {
             // fill selector
