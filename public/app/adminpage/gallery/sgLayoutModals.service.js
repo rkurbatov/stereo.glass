@@ -24,6 +24,8 @@
         svc.downloadFiles = modalDownloadFiles;
         svc.addLayoutComment = modalAddLayoutComment;
 
+        svc.shopVisibility = modalYesNoImage;
+
         // === IMPLEMENTATION ===
 
         function modalEditLayout(layout) {

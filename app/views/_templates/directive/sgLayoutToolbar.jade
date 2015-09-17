@@ -57,7 +57,8 @@
 //- Published flag
 //-
 span.sg-layout-published(ng-show='toolbar.layout.status === "approved"')
-    i.fa.fa-2x(ng-class='{"fa-eye": toolbar.layout.isPublished, "fa-eye-slash": !toolbar.layout.isPublished}')
+    i.fa.fa-2x(ng-click='toolbar.actions.switchShopVisibility(toolbar.layout)'
+    ng-class='{"fa-eye": toolbar.layout.isPublished, "fa-eye-slash": !toolbar.layout.isPublished}')
 //-
 //- Comments flag
 //-

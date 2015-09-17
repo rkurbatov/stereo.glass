@@ -23,6 +23,8 @@
         svc.moveToTrash = moveToTrash;
         svc.restoreFromTrash = restoreFromTrash;
 
+        svc.switchShopVisibility = switchShopVisibility;
+
         var curUser = sgUsers.currentUser;
 
         function assignDoer(layout) {
@@ -193,7 +195,11 @@
 
             sgLayoutModals
                 .revert(layout, header, message, true)
-                .then((response)=> sgLayouts.addComment(layout, response.comment)) // add comment
+                .then((response)=> {
+                    return response.comment
+                        ? sgLayouts.addComment(layout, response.comment)
+                        : true;
+                })
                 .then(()=> sgLayouts.update(layout._id, setObject)) // change status
                 .then(()=> {
                     _.extend(layout, setObject);                    // update loaded layout
@@ -259,12 +265,31 @@
         function restoreFromTrash(layout) {
             var header = 'Восстановление изображения';
             var message = 'Вы хотите восстановить это изображение?';
-            sgLayoutModals.restore(layout, header, message)
-                .then(function () {
+            sgLayoutModals
+                .restore(layout, header, message)
+                .then(()=> {
                     sgLayouts.restore(layout['_id'])
                         .then(function () {
                             delete layout.status;
                         });
+                });
+        }
+
+        function switchShopVisibility(layout) {
+            var header = 'Доступность в магазине';
+            var message = layout.isPublished
+                ? 'Скрывать данный товар?'
+                : 'Показывать данный товар';
+            sgLayoutModals
+                .shopVisibility(layout, header, message, true)
+                .then((response)=> {
+                    return response.comment
+                        ? sgLayouts.addComment(layout, response.comment)
+                        : true;
+                })
+                .then(()=>sgLayouts.update(layout._id, {isPublished: !layout.isPublished}))
+                .then(()=> {
+                    layout.isPublished = !layout.isPublished;
                 });
         }
     }

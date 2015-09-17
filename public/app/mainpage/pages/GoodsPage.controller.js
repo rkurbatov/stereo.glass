@@ -31,7 +31,7 @@
 
             goodsSvc.load()
                 .then((goods)=> {
-                    vm.list = goods.data;
+                    vm.list = _.filter(goods.data, 'isPublished');
                     openModal()
                 });
 
