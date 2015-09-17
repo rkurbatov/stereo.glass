@@ -87,7 +87,7 @@
 
             svc.assignees = _.map(
                 _.filter(users, (user)=> {
-                    return user.role === 'designer'
+                    return _.contains(['designer', 'curator'], user.role)
                 }),
                 'username');
 
