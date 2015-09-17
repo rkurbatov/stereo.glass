@@ -24,6 +24,7 @@
         svc.restoreFromTrash = restoreFromTrash;
 
         svc.switchShopVisibility = switchShopVisibility;
+        svc.addComment = addComment;
 
         var curUser = sgUsers.currentUser;
 
@@ -292,6 +293,15 @@
                     layout.isPublished = !layout.isPublished;
                 });
         }
+
+        function addComment(layout) {
+            sgLayoutModals
+                .addLayoutComment(layout)
+                .then(function (commentText) {
+                    return sgLayouts.addComment(layout, commentText);
+                });
+        }
+
     }
 
 })(window, window.angular);

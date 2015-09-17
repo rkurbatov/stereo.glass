@@ -13,17 +13,19 @@
             templateUrl: '/templates/directive/sgLayoutToolbar',
             scope: {},
             bindToController: {
-                layout: '='
+                layout: '=',
+                paginator: '=',
+                isCurrent: '='
             },
             controller: sgLayoutToolbarController,
             controllerAs: 'toolbar'
         };
 
-        sgLayoutToolbarController.$inject = ['$scope'];
+        sgLayoutToolbarController.$inject = [];
 
         return ddo;
 
-        function sgLayoutToolbarController($scope) {
+        function sgLayoutToolbarController() {
             // DECLARATION
 
             var vm = this;
@@ -38,9 +40,10 @@
             vm.isEditVisible = isEditVisible;
             vm.isTrashVisible = isTrashVisible;
             vm.isRestoreVisible = isRestoreVisible;
+            vm.isPublshedVisible = isPublishedVisible;
 
             vm.actions = sgLayoutActions;
-            vm.actions.unselectLayout = $scope.$parent.$parent.paginator.unselectLayout;
+            vm.actions.unselectLayout = vm.paginator.unselectLayout;
 
             var curUser = sgUsers.currentUser;
 
@@ -117,6 +120,10 @@
                         ('designer' === curUser.role && assignedToMe())
                         || iAmAdminOrCurator()
                     );
+            }
+
+            function isPublishedVisible() {
+                return 'approved' === vm.layout.status && iAmAdminOrCurator();
             }
 
         }

@@ -43,14 +43,12 @@
         vm.resetAll = resetAll;
 
         vm.getThumbUrl = sgLayouts.getThumbUrl;
-        vm.addComment = addComment;
 
         vm.getAuthorBorderColor = getAuthorBorderColor;
         vm.getAssigneeBorderColor = getAssigneeBorderColor;
         vm.getCommenterTextColor = getCommenterTextColor;
 
         vm.handleLayoutClick = handleLayoutClick;
-        vm.addComment = addComment;
         vm.showInGallery = showInGallery;
         vm.unselectLayout = unselectLayout;
 
@@ -213,13 +211,6 @@
                             || vm.dateRange.endDateString > layout.finishedAt
                         ) && vm.filters.current.Shop.value(layout);
             }
-        }
-
-        function addComment(layout) {
-            sgLayoutModals.addLayoutComment(layout)
-                .then(function (commentText) {
-                    return sgLayouts.addComment(layout, commentText);
-                });
         }
 
         function getAuthorBorderColor(layout) {

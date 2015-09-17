@@ -25,10 +25,3 @@ ng-style='paginator.getAuthorBorderColor(layout)')
             | {{ layout.compareValue }} / {{ layout.ratings.length }}
         .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
         .sg-layoutname.text-center(ng-if='_.contains(["Progress", "Ready", "Shop"], paginator.viewMode)') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
-//-
-//- Add comment button
-//-
-span.sg-layout-comment-add(ng-click='paginator.addComment(layout)')
-    i.fa.fa-stack(ng-if="paginator.$index === $index")
-        i.fa.fa-stack-2x.fa-comment.sg-shadowed-text
-        i.fa.fa-stack-1x.fa-plus

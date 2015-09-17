@@ -56,13 +56,20 @@
 //-
 //- Published flag
 //-
-span.sg-layout-published(ng-show='toolbar.layout.status === "approved"')
+span.sg-layout-published(ng-show='toolbar.isPublishedVisible()')
     i.fa.fa-2x(ng-click='toolbar.actions.switchShopVisibility(toolbar.layout)'
     ng-class='{"fa-eye": toolbar.layout.isPublished, "fa-eye-slash": !toolbar.layout.isPublished}')
 //-
 //- Comments flag
 //-
-span.sg-layout-comments(ng-show="toolbar.layout.comments.length")
+span.sg-layout-comments(ng-show="!toolbar.isCurrent && toolbar.layout.comments.length")
     i.fa.fa-stack
         .fa-comments.fa-stack-2x
         span.sg-comments-number.fa-stack-1x {{ toolbar.layout.comments.length }}
+//-
+//- Add comment button
+//- (ng-if="paginator.$index === $index")
+span.sg-layout-comment-add(ng-show='toolbar.isCurrent' ng-click='toolbar.actions.addComment(toolbar.layout)')
+    i.fa.fa-stack
+        i.fa.fa-stack-2x.fa-comment.sg-shadowed-text
+        i.fa.fa-stack-1x.fa-plus

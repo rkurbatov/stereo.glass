@@ -33,7 +33,7 @@
                 orderBy: paginator.sortOrder.current.value) | \
                 itemsPerPage: paginator.currentItemsPerPage")
             //- layout controls
-            sg-layout-toolbar(layout='layout')
+            sg-layout-toolbar(layout='layout' paginator='paginator' is-current='paginator.$index === $index')
             //- layout-block
             include gallery/layout-block
 
