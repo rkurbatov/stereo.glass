@@ -40,7 +40,7 @@
             vm.isEditVisible = isEditVisible;
             vm.isTrashVisible = isTrashVisible;
             vm.isRestoreVisible = isRestoreVisible;
-            vm.isPublshedVisible = isPublishedVisible;
+            vm.isPublishedVisible = isPublishedVisible;
 
             vm.actions = sgLayoutActions;
             vm.actions.unselectLayout = vm.gallery.unselectLayout;

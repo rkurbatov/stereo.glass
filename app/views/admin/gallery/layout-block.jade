@@ -1,7 +1,7 @@
 //-
 //- Layout itself
 //-
-.sg-layout-block-outer(ng-class='{"selected" : gallery.$index === $index}'
+.sg-layout-block-outer(ng-class='{"selected" : gallery.pager.$index === $index}'
 ns-popover="{{ layout.comments.length > 0 }}"
 ns-popover-trigger="click"
 ns-popover-placement="top|center"
@@ -12,7 +12,7 @@ ng-style='gallery.getAuthorBorderColor(layout)')
     ns-popover-placement="bottom|center"
     ns-popover-template="/templates/popover/layoutInfo"
     ng-style="gallery.getAssigneeBorderColor(layout)")
-        img(ng-src='{{ gallery.getThumbUrl(layout, gallery.viewMode, gallery.$index === $index) }}'
+        img(ng-src='{{ gallery.getThumbUrl(layout, gallery.viewMode, gallery.pager.$index === $index) }}'
         ng-click="gallery.handleLayoutClick($index)"
         ng-dblclick="gallery.openCarousel($index)"
         hm-swipeup="gallery.openCarousel($index)")

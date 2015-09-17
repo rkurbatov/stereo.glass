@@ -20,12 +20,14 @@
         vm.rawLayouts = sgLayouts.rawLayouts;
         vm.filteredLayouts = [];
 
-        vm.itemsPerPage = [12, 18, 24, 36];
-        vm.currentItemsPerPage = 18;
-        vm.currentPage = 1;
-        vm.$index = -1;
-        vm.currentLayoutIndex = -1;
-
+        vm.pager = {
+            ippArray: [12, 18, 24, 36],
+            ipp: 18,
+            index: -1,
+            page: 1,
+            layoutIndex: -1
+        };
+        
         vm.search = {
             filter: searchFilter,
             string: '',
@@ -146,14 +148,14 @@
         }
 
         function handleLayoutClick($index) {
-            vm.$index = $index;
-            vm.currentLayoutIndex = $index + (vm.currentPage - 1) * vm.currentItemsPerPage;
-            vm.currentLayout = vm.filteredLayouts[vm.currentLayoutIndex];
+            vm.pager.$index = $index;
+            vm.pager.layoutIndex = $index + (vm.pager.page - 1) * vm.pager.ipp;
+            vm.currentLayout = vm.filteredLayouts[vm.pager.layoutIndex];
         }
 
         function unselectLayout() {
-            vm.$index = -1;
-            vm.currentLayoutIndex = -1;
+            vm.pager.$index = -1;
+            vm.pager.layoutIndex = -1;
         }
 
         function openCarousel($index) {

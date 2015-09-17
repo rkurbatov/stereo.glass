@@ -1,12 +1,12 @@
 //- Sort filter for one page
-.sg-rate-gallery.text-center(ng-show="gallery.filteredLayouts.length <= gallery.currentItemsPerPage && gallery.filteredLayouts.length > 0")
+.sg-rate-gallery.text-center(ng-show="gallery.filteredLayouts.length <= gallery.pager.ipp && gallery.filteredLayouts.length > 0")
     include pagination-sort-order
 //- Sort filter for multiple pages
-.sg-rate-gallery.text-center(ng-show="gallery.filteredLayouts.length > gallery.currentItemsPerPage")
+.sg-rate-gallery.text-center(ng-show="gallery.filteredLayouts.length > gallery.pager.ipp")
     dir-pagination-controls(template-url="/templates/directive/dirPagination"
     on-page-change="gallery.unselectLayout()")
     br.hidden-lg
     span На странице
-    select.form-control.sg-inline-block(ng-model="gallery.currentItemsPerPage"
-    ng-options="opt for opt in gallery.itemsPerPage" style="width: auto")
+    select.form-control.sg-inline-block(ng-model="gallery.pager.ipp"
+    ng-options="opt for opt in gallery.pager.ippArray" style="width: auto")
     include pagination-sort-order
