@@ -256,7 +256,7 @@
             sgLayoutModals.remove(layout, header, message)
                 .then(function () {
                     sgLayouts.remove(layout['_id']).then(function () {
-                        // hack! Imported from paginator via sgLayoutToolbar controller's scope
+                        // hack! Imported from gallery via sgLayoutToolbar controller's scope
                         svc.unselectLayout();
                         layout.status = "deleted";
                     });

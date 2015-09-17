@@ -1,41 +1,41 @@
-.panel(ng-controller='Paginator as paginator')
+.panel(ng-controller='Gallery as gallery')
     br
     //- Switch mode
     .row
         .col-xs-1
             | &nbsp;&nbsp;
-            label.btn.btn-primary(ng-click="paginator.resetAll()")
+            label.btn.btn-primary(ng-click="gallery.resetAll()")
                 i.fa.fa-close
         .col-xs-2
             .form-group
                 label.control-label Найдено
                 | &nbsp;&nbsp;
-                label.btn.btn-default(ng-disabled='true') {{ paginator.filteredLayouts.length }}
+                label.btn.btn-default(ng-disabled='true') {{ gallery.filteredLayouts.length }}
         .col-xs-9
-            include gallery/paginator-viewMode.jade
+            include gallery/view-mode
 
     .row
         //- Server filters
-        include gallery/paginator-serverFilters
+        include gallery/filters-server
 
     .row
-        include gallery/paginator-clientFilters
+        include gallery/filters-client
         
 
     //- top pagination controls
-    include gallery/paginator-controls
+    include gallery/pagination-controls
 
     //- pagination
     .row: ul.sg-layout-list
-        li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="paginator.currentPage"
-        dir-paginate="layout in paginator.filteredLayouts = (paginator.rawLayouts | \
-                filter: paginator.viewModeFilter | filter: paginator.search.filter | \
-                orderBy: paginator.sortOrder.current.value) | \
-                itemsPerPage: paginator.currentItemsPerPage")
+        li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="gallery.currentPage"
+        dir-paginate="layout in gallery.filteredLayouts = (gallery.rawLayouts | \
+                filter: gallery.viewModeFilter | filter: gallery.search.filter | \
+                orderBy: gallery.sortOrder.current.value) | \
+                itemsPerPage: gallery.currentItemsPerPage")
             //- layout controls
-            sg-layout-toolbar(layout='layout' paginator='paginator' is-current='paginator.$index === $index')
+            sg-layout-toolbar(layout='layout' gallery='gallery' is-current='gallery.$index === $index')
             //- layout-block
             include gallery/layout-block
 
     //- bottom pagination controls
-    include gallery/paginator-controls
+    include gallery/pagination-controls

@@ -1,0 +1,45 @@
+//- Client filters
+.col-xs-5
+    .col-xs-6: .input-group
+        span.input-group-addon(ng-click='gallery.resetSearch()')
+            i.fa.fa-search
+        input.form-control(ng-model='gallery.search.string'
+        ng-change='gallery.search.update()'
+        ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }")
+    .col-xs-6: .input-group
+        span.input-group-addon(ng-click='gallery.resetDateRange()')
+            i.fa.fa-calendar
+        input.form-control(date-range-picker, type="text",
+        ng-model='gallery.dateRange', options='gallery.dateRangeOptions')
+.col-xs-7
+    .form-horizontal
+        .form-group
+            | Показать &nbsp;
+            //- first order filter (depends on viewMode)
+            select.form-control.sg-select-inline(ng-model="gallery.filters.current[gallery.viewMode]"
+            ng-options="opt.name for opt in gallery.filters[gallery.viewMode]")
+            | &nbsp;&nbsp;
+
+            //- second order rater filter
+            select.form-control.sg-select-inline(ng-model="gallery.filters.current.rater"
+            ng-options="opt.rater for opt in gallery.filters.raters"
+            ng-if='gallery.filters.current[gallery.viewMode].subType === "byRater"'
+            ng-change='gallery.filters.current[gallery.viewMode].value = gallery.filters.current.rater.value')
+
+            //- second order author filter
+            select.form-control.sg-select-inline(ng-model="gallery.filters.current.author"
+            ng-options="opt.author for opt in gallery.filters.authors"
+            ng-if='gallery.filters.current[gallery.viewMode].subType === "byAuthor"'
+            ng-change='gallery.filters.current[gallery.viewMode].value = gallery.filters.current.author.value')
+
+            //- second order commenter filter
+            select.form-control.sg-select-inline(ng-model="gallery.filters.current.commenter"
+            ng-options="opt.commenter for opt in gallery.filters.commenters"
+            ng-if='gallery.filters.current[gallery.viewMode].subType === "byCommenter"'
+            ng-change='gallery.filters.current[gallery.viewMode].value = gallery.filters.current.commenter.value')
+
+            //- second order assignee filter
+            select.form-control.sg-select-inline(ng-model="gallery.filters.current.assignee"
+            ng-options="opt.assignee for opt in gallery.filters.assignees"
+            ng-if='gallery.filters.current[gallery.viewMode].subType === "byAssignee"'
+            ng-change='gallery.filters.current[gallery.viewMode].value = gallery.filters.current.assignee.value')

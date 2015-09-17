@@ -13,7 +13,7 @@
         var svc = this;
 
         svc.edit = modalEditLayout;
-        svc.showInGallery = modalShowInGallery;
+        svc.openCarousel = modalGalleryCarousel;
         svc.remove = modalYesNoImage;
         svc.restore = modalYesNoImage;
         svc.revert = modalYesNoImage;
@@ -63,14 +63,14 @@
             };
         }
 
-        function modalShowInGallery(pgScope) {
+        function modalGalleryCarousel(gallery) {
             var modalDO = {
-                templateUrl: '/templates/modal/Gallery',
+                templateUrl: '/templates/modal/galleryCarousel',
                 controller: GalleryCtrl,
-                controllerAs: 'vm',
+                controllerAs: 'carousel',
                 resolve: {
-                    pgScope: function () {
-                        return pgScope;
+                    gallery: function () {
+                        return gallery;
                     }
                 },
                 size: 'lg'
@@ -79,74 +79,74 @@
             return $modal.open(modalDO).result;
         }
 
-        GalleryCtrl.$inject = ['$modalInstance', 'pgScope'];
+        GalleryCtrl.$inject = ['$modalInstance', 'gallery'];
 
-        function GalleryCtrl($modalInstance, pgScope) {
-            var vm = this;
-            vm.cancel = cancel;
-            vm.prevImg = prevImg;
-            vm.nextImg = nextImg;
-            vm.keyHandler = keyHandler;
-            vm.setLoadedState = setLoadedState;
+        function GalleryCtrl($modalInstance, gallery) {
+            var carousel = this;
+            carousel.cancel = cancel;
+            carousel.prevImg = prevImg;
+            carousel.nextImg = nextImg;
+            carousel.keyHandler = keyHandler;
+            carousel.setLoadedState = setLoadedState;
 
             initController();
 
             function initController() {
-                vm.layouts = pgScope.filteredLayouts;
-                vm.idx = pgScope.currentLayoutIndex;
-                vm.filters = pgScope.filters;
-                vm.viewMode = pgScope.viewMode;
-                vm.imgLoaded = false;
-                vm.url = getLayoutUrl();
+                carousel.layouts = gallery.filteredLayouts;
+                carousel.idx = gallery.currentLayoutIndex;
+                carousel.filters = gallery.filters;
+                carousel.viewMode = gallery.viewMode;
+                carousel.imgLoaded = false;
+                carousel.url = getLayoutUrl();
             }
 
             function setLoadedState() {
-                vm.imgLoaded = true;
+                carousel.imgLoaded = true;
             }
 
             // TODO: Rewrite as directive for left-right detection
             function keyHandler(e) {
-                if (e.keyCode === 37) vm.idx -= 1;
-                if (e.keyCode === 39) vm.idx += 1;
+                if (e.keyCode === 37) carousel.idx -= 1;
+                if (e.keyCode === 39) carousel.idx += 1;
             }
 
             function getLayoutUrl() {
-                return pgScope.viewMode === 'Ready'
-                    ? '/uploads/ready/' + vm.layouts[vm.idx].urlDir + '/' + vm.layouts[vm.idx].urlGifHiRes
-                    : sgLayouts.getImgUrl(vm.layouts[vm.idx]);
+                return gallery.viewMode === 'Ready'
+                    ? '/uploads/ready/' + carousel.layouts[carousel.idx].urlDir + '/' + carousel.layouts[carousel.idx].urlGifHiRes
+                    : sgLayouts.getImgUrl(carousel.layouts[carousel.idx]);
 
             }
 
             // TODO: Mark image as viewed
             function prevImg() {
-                if (vm.idx > 0) {
+                if (carousel.idx > 0) {
                     // set as viewed if no rating was selected
-                    if (vm.layouts[vm.idx].rating === -1) {
-                        vm.layouts[vm.idx].rating = 0;
+                    if (carousel.layouts[carousel.idx].rating === -1) {
+                        carousel.layouts[carousel.idx].rating = 0;
                     }
-                    vm.idx -= 1;
+                    carousel.idx -= 1;
                 }
-                vm.imgLoaded = false;
-                vm.url = getLayoutUrl();
+                carousel.imgLoaded = false;
+                carousel.url = getLayoutUrl();
             }
 
             function nextImg() {
 
-                if (vm.idx < (vm.layouts.length - 1)) {
+                if (carousel.idx < (carousel.layouts.length - 1)) {
                     // set as viewed if no rating was selected
-                    if (vm.layouts[vm.idx].rating === -1) {
-                        vm.layouts[vm.idx].rating = 0;
+                    if (carousel.layouts[carousel.idx].rating === -1) {
+                        carousel.layouts[carousel.idx].rating = 0;
                     }
-                    vm.idx += 1;
+                    carousel.idx += 1;
                 }
-                vm.imgLoaded = false;
-                vm.url = getLayoutUrl();
+                carousel.imgLoaded = false;
+                carousel.url = getLayoutUrl();
             }
 
             function cancel() {
                 // set as viewed if no rating was selected
-                if (vm.layouts[vm.idx].rating === -1) {
-                    vm.layouts[vm.idx].rating = 0;
+                if (carousel.layouts[carousel.idx].rating === -1) {
+                    carousel.layouts[carousel.idx].rating = 0;
                 }
                 $modalInstance.dismiss('cancel');
             }

@@ -1,0 +1,20 @@
+.form-group.col-xs-3
+    label.col-xs-4.control-label(ng-click="gallery.reset('colors')"
+    style='text-align: right; margin-top: 6px') Цвета
+    select.form-control(multiple data-none-selected-text="Все" data-width='65%'
+    bs-select html-content='gallery.colors' selection='gallery.filters.server.colors' exec-on-change='gallery.refreshData()')
+.form-group.col-xs-3
+    label.col-xs-4.control-label(ng-click="gallery.reset('assortment')"
+    style='text-align: right; margin-top: 6px') Товар
+    select.selectpicker(multiple data-selectable-optgroup data-width='65%'
+    data-none-selected-text="Весь" bs-select html-content='gallery.assortment' selection='gallery.filters.server.assortment' exec-on-change='gallery.refreshData()')
+.form-group.col-xs-3
+    label.col-xs-4.control-label(ng-click="gallery.reset('plots')"
+    style='text-align: right; margin-top: 6px') Сюжеты
+    select.selectpicker(multiple data-selectable-optgroup data-width='65%'
+    data-none-selected-text="Все" bs-select html-content='gallery.plots' selection='gallery.filters.server.plots' exec-on-change='gallery.refreshData()')
+.form-group.col-xs-3
+    label.col-xs-4.control-label(ng-click="gallery.reset('countries')"
+    style='text-align: right; margin-top: 6px') Страны
+    select.selectpicker(multiple data-selectable-optgroup data-width='65%'
+    data-none-selected-text="Все" bs-select html-content='gallery.countries' selection='gallery.filters.server.countries' exec-on-change='gallery.refreshData()')

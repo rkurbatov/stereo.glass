@@ -14,7 +14,7 @@
             scope: {},
             bindToController: {
                 layout: '=',
-                paginator: '=',
+                gallery: '=',
                 isCurrent: '='
             },
             controller: sgLayoutToolbarController,
@@ -43,7 +43,7 @@
             vm.isPublshedVisible = isPublishedVisible;
 
             vm.actions = sgLayoutActions;
-            vm.actions.unselectLayout = vm.paginator.unselectLayout;
+            vm.actions.unselectLayout = vm.gallery.unselectLayout;
 
             var curUser = sgUsers.currentUser;
 

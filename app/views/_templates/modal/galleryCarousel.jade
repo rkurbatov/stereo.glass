@@ -1,0 +1,19 @@
+.modal-header
+    button.close(type="button" data-dismiss="modal" aria-hidden="true"
+    ng-click="carousel.cancel()") &times;
+    sg-rating(linked-object='carousel.layouts[carousel.idx]' one-row second-instance
+    ng-show='carousel.filters.current[carousel.viewMode].subType !== "byRater"').sg-inline-block
+    i.glyphicon.glyphicon-star.sg-gold-i(ng-show='carousel.filters.current[carousel.viewMode].subType === "byRater"'
+    style='font-size: 20px')
+    | {{ getAssignedRating(carousel.layouts[carousel.idx]) }}
+    | &nbsp;&nbsp;
+    span Просмотр изображений: {{carousel.idx + 1}} из {{ carousel.layouts.length }} &nbsp;
+
+.modal-body.modal-gallery(ng-keypress="keyHandler($event)" tabindex="0")
+    .sg-gallery-loader-indicator
+        i.fa.fa-spinner.fa-pulse(ng-show='!carousel.imgLoaded')
+    a.carousel-control.left(href="" ng-click='carousel.prevImg()' ng-show="carousel.idx !== 0")
+        span.glyphicon.glyphicon-chevron-left
+    img.img-responsive.center-block(ng-src='{{carousel.url}}' sg-on-img-load='carousel.setLoadedState();')
+    a.carousel-control.right(href="" ng-click='carousel.nextImg()' ng-show="carousel.idx !== (carousel.layouts.length - 1)")
+        span.glyphicon.glyphicon-chevron-right

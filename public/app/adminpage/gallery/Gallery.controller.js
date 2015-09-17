@@ -3,11 +3,11 @@
 
     angular
         .module('sgAppAdmin')
-        .controller('Paginator', Paginator);
+        .controller('Gallery', Gallery);
 
-    Paginator.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutSortOrder', 'sgLayoutModals', 'sgUsers'];
+    Gallery.$inject = ['$scope', 'sgCategories', 'sgLayouts', 'sgLayoutFilters', 'sgLayoutSortOrder', 'sgLayoutModals', 'sgUsers'];
 
-    function Paginator($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutSortOrder, sgLayoutModals, sgUsers) {
+    function Gallery($scope, sgCategories, sgLayouts, sgLayoutFilters, sgLayoutSortOrder, sgLayoutModals, sgUsers) {
 
         // ==== DECLARATION =====
 
@@ -49,7 +49,7 @@
         vm.getCommenterTextColor = getCommenterTextColor;
 
         vm.handleLayoutClick = handleLayoutClick;
-        vm.showInGallery = showInGallery;
+        vm.openCarousel = openCarousel;
         vm.unselectLayout = unselectLayout;
 
         initController();
@@ -57,7 +57,7 @@
         // === IMPLEMENTATION ===
 
         function initController() {
-            // init paginator
+            // init gallery
             vm.dateRangeOptions = {
                 todayHighlight: true,
                 format: 'DD.MM.YY',
@@ -136,7 +136,7 @@
         }
 
         function resetAll() {
-            angular.forEach(vm.filters.server, function (value, key) {
+            angular.forEach(vm.filters.server, (value, key)=> {
                 vm.filters.server[key] = [];
             });
             vm.resetDateRange();
@@ -156,8 +156,9 @@
             vm.currentLayoutIndex = -1;
         }
 
-        function showInGallery() {
-            sgLayoutModals.showInGallery(vm)
+        function openCarousel($index) {
+            handleLayoutClick($index);
+            sgLayoutModals.openCarousel(vm)
         }
 
         function searchFilter(layout) {

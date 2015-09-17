@@ -1,27 +1,26 @@
 //-
 //- Layout itself
 //-
-.sg-layout-block-outer(ng-class='{"selected" : paginator.$index === $index}'
+.sg-layout-block-outer(ng-class='{"selected" : gallery.$index === $index}'
 ns-popover="{{ layout.comments.length > 0 }}"
 ns-popover-trigger="click"
 ns-popover-placement="top|center"
 ns-popover-template="/templates/popover/layoutComments"
-ng-style='paginator.getAuthorBorderColor(layout)')
+ng-style='gallery.getAuthorBorderColor(layout)')
     .sg-layout-block-inner(ns-popover
     ns-popover-trigger="click"
     ns-popover-placement="bottom|center"
     ns-popover-template="/templates/popover/layoutInfo"
-    ng-style="paginator.getAssigneeBorderColor(layout)")
-        img(ng-src='{{ paginator.getThumbUrl(layout, paginator.viewMode, paginator.$index === $index) }}'
-        ng-click="paginator.handleLayoutClick($index)"
-        ng-dblclick="paginator.showInGallery()"
-        hm-swipeup="paginator.showInGallery()"
-        ng-class='paginator.getThumbClass(layout)')
+    ng-style="gallery.getAssigneeBorderColor(layout)")
+        img(ng-src='{{ gallery.getThumbUrl(layout, gallery.viewMode, gallery.$index === $index) }}'
+        ng-click="gallery.handleLayoutClick($index)"
+        ng-dblclick="gallery.openCarousel($index)"
+        hm-swipeup="gallery.openCarousel($index)")
         sg-rating.text-center(linked-object='layout'
-        ng-show='paginator.filters.current[paginator.viewMode].subType !== "byRater"')
-        .text-center(ng-show='paginator.filters.current[paginator.viewMode].subType === "byRater"'
+        ng-show='gallery.filters.current[gallery.viewMode].subType !== "byRater"')
+        .text-center(ng-show='gallery.filters.current[gallery.viewMode].subType === "byRater"'
         style='font-size: 20px')
             i.glyphicon.glyphicon-star.sg-gold-i
             | {{ layout.compareValue }} / {{ layout.ratings.length }}
-        .sg-layoutname.text-center(ng-if='paginator.viewMode === "Rating"') {{ layout.name }}
-        .sg-layoutname.text-center(ng-if='_.contains(["Progress", "Ready", "Shop"], paginator.viewMode)') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
+        .sg-layoutname.text-center(ng-show='gallery.viewMode === "Rating"') {{ layout.name }}
+        .sg-layoutname.text-center(ng-show='_.contains(["Progress", "Ready", "Shop"], gallery.viewMode)') {{ "арт. " + _.padLeft(layout.reference, 5, '0') }}
