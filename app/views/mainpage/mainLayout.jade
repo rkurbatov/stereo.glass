@@ -11,8 +11,8 @@ html(lang="en" ng-app="MainPage" ng-controller="HeaderCtrl as header")
         link(href='https://fonts.googleapis.com/css?family=Scada&subset=latin,cyrillic' rel='stylesheet' type='text/css')
         link(rel='stylesheet' href='../stylesheets/vendor-main.min.css?#{app.builddate}')
         link(rel='stylesheet' href='../stylesheets/custom-main.min.css?#{app.builddate}')
-        script(src='../scripts/vendor-main.min.js?#{builddate}')
-        script(src='../scripts/custom-main.min.js?#{builddate}')
+        script(src='../scripts/vendor-main.min.js?#{app.builddate}')
+        script(src='../scripts/custom-main.min.js?#{app.builddate}')
 
     body(sg-scroller)
         block content

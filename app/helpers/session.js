@@ -37,9 +37,9 @@ function persistLocals(req, res, next) {
     if (msg) res.locals.notice = msg;
     if (success) res.locals.success = success;
 
+    res.locals.app = require('../../app.json');
     if (process.env.NODE_ENV === 'development') {
         res.locals.env = 'dev';
-        res.locals.app = require('../../app.json');
     }
 
     next();
