@@ -35,7 +35,8 @@
             //selection.startDate = sgLayoutFilters.dateRange.startDate;
             //selection.endDate = sgLayoutFilters.dateRange.endDate;
 
-            return $http.get('/api/layouts', {
+            return $http
+                .get('/api/layouts', {
                 params: {
                     selection: JSON.stringify(selection)
                 }
@@ -74,7 +75,8 @@
 
             var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
             if (~idx) {
-                return $http.delete('/api/layouts/' + layout['_id'] + '/rating')
+                return $http
+                    .delete('/api/layouts/' + layout['_id'] + '/rating')
                     .then(function (response) {
                         if (response.status === 204) {
                             layout.ratings.splice(idx, 1);
@@ -93,7 +95,8 @@
 
         function changeMyRating(layout, value) {
             var idx = _.findIndex(layout.ratings, {assignedBy: sgUsers.currentUser.name});
-            return $http.put('/api/layouts/' + layout['_id'] + '/rating/' + value)
+            return $http
+                .put('/api/layouts/' + layout['_id'] + '/rating/' + value)
                 .then(function (result) {
                     if (result.status !== 200) return $q.reject('Rating error: ' + result.status);
                     if (~idx) { // rating exists
@@ -181,12 +184,14 @@
                 text: text
             };
 
-            return $http.post('/api/layouts/comment/' + layout._id, {
-                params: newComment
-            }).then(function () {
-                layout.comments = layout.comments || [];
-                layout.comments.push(newComment);
-            });
+            return $http
+                .post('/api/layouts/comment/' + layout._id, {
+                    params: newComment
+                })
+                .then(function () {
+                    layout.comments = layout.comments || [];
+                    layout.comments.push(newComment);
+                });
         }
     }
 
