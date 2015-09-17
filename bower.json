@@ -1,6 +1,6 @@
 {
   "name": "stereo.glass",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "dependencies": {
     "angular": "~1.4.1",
     "angular-animate": "~1.4.3",
