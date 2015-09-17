@@ -163,13 +163,13 @@
             )
                 ? layout.urlGifLoRes
                 : layout.urlThumb;
-            return '/uploads/' + (layout.status
+            return '/uploads/' + (layout.reference
                     ? 'ready/'
                     : 'pictures/') + layout.urlDir + '/' + img;
         }
 
         function getImgUrl(layout) {
-            return '/uploads/' + (layout.status
+            return '/uploads/' + (layout.reference
                     ? 'ready/'
                     : 'pictures/') + layout.urlDir + '/' + layout.url2d;
         }
