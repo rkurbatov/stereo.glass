@@ -6,40 +6,42 @@
         i.fa.fa-remove
     h5.modal-title Редактирование макета
 
-.modal-body: form(name='editUser')
-    .form-group
+.modal-body: form(name='EditLayout' ng-submit='vm.ok()')
+    .form-group(ng-class="{ 'has-error' : EditLayout.layoutName.$invalid && !EditLayout.layoutName.$pristine }")
         label.control-label.small Название
-        input.form-control(ng-required="", autofocus, ng-model="vm.layout.name")
+        input.form-control(name='layoutName' ng-required type='text'
+        autofocus ng-minlength='2' ng-model="vm.layout.name")
     .form-group
         label.control-label.small Товары
-        select.form-control(ng-required=""
-        bootstrap-select multiple
+        select.form-control(bootstrap-select
+        name='assortment'
+        ng-required multiple
         options='vm.categories.assortment'
         selection="vm.layout.catAssortment")
     .form-group
         label.control-label.small Цвета
         select.form-control(bootstrap-select
-        ng-required=""
-        simple multiple
+        name='colors'
+        ng-required simple multiple
         options='vm.categories.colors'
         selection="vm.layout.catColors")
     .form-group
         label.control-label.small Сюжеты
         select.form-control(bootstrap-select
-        ng-required=""
-        simple multiple
+        name='plots'
+        ng-required simple multiple
         options='vm.categories.plots'
         selection="vm.layout.catPlots")
     .form-group
         label.control-label.small Страны
         select.form-control(bootstrap-select
-        ng-required=""
-        simple multiple
+        name='countries'
+        ng-required simple multiple
         options='vm.categories.countries'
         selection="vm.layout.catCountries")
 
 .modal-footer
     .center-block
         .col-xs-2
-        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()") OК
-        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Отмена
+        button.btn.btn-danger.col-xs-4(ng-click='vm.ok()' ng-disabled='EditLayout.$invalid') OК
+        button.btn.btn-primary.col-xs-4(ng-click='vm.cancel()') Отмена

@@ -247,14 +247,30 @@
         }
 
         function editLayout(layout) {
-            sgLayoutModals.edit(layout);
+            var setObject;
+            sgLayoutModals
+                .edit(layout)
+                .then((layoutClone)=> {
+                    setObject = {
+                        name: layoutClone.name,
+                        catColors: layoutClone.catColors,
+                        catPlots: layoutClone.catPlots,
+                        catAssortment: layoutClone.catAssortment,
+                        catCountries: layoutClone.catCountries
+                    };
+
+                    return sgLayouts.update(layout._id, setObject);
+                })
+                .then(()=> {
+                    _.extend(layout, setObject);
+                });
         }
 
         function moveToTrash(layout) {
             var header = '<span class="sg-red-i">Удаление изображения</span>';
             var message = 'Вы хотите удалить это изображение в корзину?';
             sgLayoutModals.remove(layout, header, message)
-                .then(function () {
+                .then(()=> {
                     sgLayouts.remove(layout['_id']).then(function () {
                         // hack! Imported from gallery via sgLayoutToolbar controller's scope
                         svc.unselectLayout();

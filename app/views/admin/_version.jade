@@ -1,4 +1,4 @@
 .text-center: sub
     | Stereo Glass admin panel v#{version}
     if env == 'dev'
-        | -dev build #{build.date}
+        | -dev build #{build.commit}

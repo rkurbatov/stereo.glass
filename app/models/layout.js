@@ -25,19 +25,23 @@ module.exports = function (mongoose) {
         urlPsdLayout: String,
         urlTifLayout: String,
         urlTxtProject: String,
+
         createdBy: String,
         createdAt: Date,
         ratings: [Rating],
         comments: [Comment],
         average: Number,
+
         catColors: [String],
         catPlots: [String],
         catAssortment: [String],
         catCountries: [String],
-        designerComment: String,
+
         isHidden: Boolean,
         isPublished: Boolean,
         status: String,
+
+        designerComment: String,
         assignedTo: String,
         assignedBy: String,
         assignedAt: Date,
@@ -53,6 +57,7 @@ module.exports = function (mongoose) {
         approvedBy: String,
         approvedAt: Date,
         approvedComment: String,
+
         reference: Number
     });
 

@@ -48,17 +48,22 @@
 
         function EditLayoutCtrl($modalInstance, layout) {
             var vm = this;
-            vm.layout = layout;
+            vm.layout = _.cloneDeep(layout);
             vm.categories = {};
 
-            sgCategories.loaded.then(function(){
-                vm.categories.assortment = sgCategories.assortmentArr;
-                vm.categories.colors = sgCategories.colorsArr;
-                vm.categories.countries = sgCategories.countriesArr;
-                vm.categories.plots = sgCategories.plotsArr;
-            });
+            sgCategories.loaded
+                .then(()=> {
+                    vm.categories.assortment = sgCategories.assortmentArr;
+                    vm.categories.colors = sgCategories.colorsArr;
+                    vm.categories.countries = sgCategories.countriesArr;
+                    vm.categories.plots = sgCategories.plotsArr;
+                });
 
-            vm.cancel = function() {
+            vm.ok = function () {
+                $modalInstance.close(vm.layout);
+            };
+
+            vm.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
         }
@@ -125,8 +130,8 @@
                     }
                     // TODO - change pages on background when rotating
                     /*if (carousel.pager.layoutIndex % carousel.pager.ipp === 0) {
-                        carousel.pager.currentPage -= 1;
-                    }*/
+                     carousel.pager.currentPage -= 1;
+                     }*/
                     carousel.pager.layoutIndex -= 1;
                 }
                 carousel.imgLoaded = false;
@@ -191,7 +196,7 @@
 
             vm.ok = function () {
                 var response = hasComment
-                    ? { comment: vm.comment}
+                    ? {comment: vm.comment}
                     : 'ok';
                 $modalInstance.close(response);
             };
