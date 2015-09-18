@@ -1,12 +1,14 @@
 var Gulp = require('gulp');
 var gulp = require('gulp-load-plugins')();
 
-var fs = require('fs');
+var Promise = require('bluebird');
+var fs = Promise.promisifyAll(require('fs'));
+gulp.git.execAsync = Promise.promisify(gulp.git.exec);
 
 Gulp.task('default', ['buildDevel']);
-Gulp.task('buildDevel', buildDevel);
-Gulp.task('buildProduction', buildProduction);
-Gulp.task('buildSass', buildSass);
+Gulp.task('buildDevel', ['buildSass'], buildDevel);
+Gulp.task('buildProduction', ['buildSass'], buildProduction);
+Gulp.task('buildSass', ['bumpBuild'], buildSass);
 Gulp.task('bumpMajor', bumpVersion('major'));
 Gulp.task('bumpMinor', bumpVersion('minor'));
 Gulp.task('bumpPatch', bumpVersion('patch'));
@@ -15,13 +17,11 @@ Gulp.task('bumpBuild', bumpBuild);
 //=== IMPLEMENTATION ===
 
 function buildDevel() {
-    fs.writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor();
     deployCustom();
 }
 
 function buildProduction() {
-    fs.writeFileSync('app/views/builddate.jade', '- var builddate = "' + Date.now() + '"');
     deployVendor(true);
     deployCustom(true);
 }
@@ -203,7 +203,6 @@ function deployCustom(production) {
         .pipe(gulp.if(production, gulp.sourcemaps.write("../maps")))
         .pipe(Gulp.dest('public/scripts'));
 
-    buildSass();
 }
 
 function buildSass() {
@@ -224,7 +223,7 @@ function buildSass() {
 
 function bumpVersion(bumpType) {
     return function () {
-        Gulp.src(['./package.json', './bower.json', './app.json'])
+        Gulp.src(['./package.json', './bower.json'])
             .pipe(gulp.bump({type: bumpType}))
             .pipe(Gulp.dest('./'))
             .pipe(gulp.git.commit("Bump package version"));
@@ -232,18 +231,17 @@ function bumpVersion(bumpType) {
 }
 
 function bumpBuild() {
-    var jsonFile = './app.json';
+    var build = {};
+    var jsonFile = './build.json';
 
-    return Gulp.src(jsonFile)
-        .pipe(gulp.git.exec({args: 'rev-list HEAD --count'}, function (err, stdout) {
-            if (err) throw err;
-            var pkgApp = require(jsonFile);
-            pkgApp.build = parseInt(stdout, 10);
-            return fs.writeFile(jsonFile, JSON.stringify(pkgApp, null, 4), function (err) {
-                if (err) throw err;
-            });
-        }))
-        .on('end', function () {
-            gulp.git.commit('Release commit');
+    return gulp.git
+        .execAsync({args: 'rev-list HEAD --count'})
+        .then(function (stdout) {
+            build.commit = parseInt(stdout, 10);
+            build.date = Date.now();
+            return fs.writeFileAsync(jsonFile, JSON.stringify(build, null, 4));
+        })
+        .catch(function (err) {
+            throw err;
         });
 }

@@ -6,11 +6,10 @@ html(lang="en")
         meta(name='viewport', content='width=device-width, initial-scale=1')
         title Stereo.Glass auth
 
-        include ../builddate
-        link(rel='stylesheet', href='../stylesheets/vendor-auth.min.css?#{app.builddate}')
-        link(rel='stylesheet', href='../stylesheets/custom-auth.min.css?#{app.builddate}')
-        script(src='../scripts/vendor-auth.min.js?#{app.builddate}')
-        script(src='../scripts/custom-auth.min.js?#{app.builddate}')
+        link(rel='stylesheet', href='../stylesheets/vendor-auth.min.css?#{build.date}')
+        link(rel='stylesheet', href='../stylesheets/custom-auth.min.css?#{build.date}')
+        script(src='../scripts/vendor-auth.min.js?#{build.date}')
+        script(src='../scripts/custom-auth.min.js?#{build.date}')
 
     body
         block content

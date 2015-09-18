@@ -39,5 +39,4 @@ uploads
 *.sublime-workspace
 .idea
 
-COMMIT.txt
-app/views/builddate.jade
+build.json
