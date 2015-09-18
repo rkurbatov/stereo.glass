@@ -8,38 +8,38 @@
 
 .modal-body: form(name='editUser')
     .form-group
-        label.control-label Название
+        label.control-label.small Название
         input.form-control(ng-required="", autofocus, ng-model="vm.layout.name")
     .form-group
         label.control-label.small Товары
-        bootstrap-select.col-xs-12(ng-required=""
-        multiple
-        data='vm.categories.assortment'
+        select.form-control(ng-required=""
+        bootstrap-select multiple
+        options='vm.categories.assortment'
         selection="vm.layout.catAssortment")
     .form-group
-        label.control-label Цвета
-        bootstrap-select.col-xs-12(ng-required=""
+        label.control-label.small Цвета
+        select.form-control(bootstrap-select
+        ng-required=""
         simple multiple
-        data='vm.categories.colors'
+        options='vm.categories.colors'
         selection="vm.layout.catColors")
     .form-group
-        label.control-label Сюжеты
-        bootstrap-select.col-xs-12(ng-required=""
+        label.control-label.small Сюжеты
+        select.form-control(bootstrap-select
+        ng-required=""
         simple multiple
-        data='vm.categories.plots'
+        options='vm.categories.plots'
         selection="vm.layout.catPlots")
     .form-group
-        label.control-label Страны
-        bootstrap-select.col-xs-12(ng-required=""
+        label.control-label.small Страны
+        select.form-control(bootstrap-select
+        ng-required=""
         simple multiple
-        data='vm.categories.countries'
+        options='vm.categories.countries'
         selection="vm.layout.catCountries")
 
-
-
-//.modal-footer
-//    .center-block
-//        .col-xs-2
-//        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()"
-//        ng-disabled="(vm.newPassword || vm.comfirmPassword) && vm.newPassword !== vm.confirmPassword") Да
-//        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Нет
+.modal-footer
+    .center-block
+        .col-xs-2
+        button.btn.btn-danger.col-xs-4(ng-click="vm.ok()") OК
+        button.btn.btn-primary.col-xs-4(ng-click="vm.cancel()") Отмена
