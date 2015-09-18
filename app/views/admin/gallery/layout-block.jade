@@ -13,7 +13,7 @@ ng-style='gallery.getAuthorBorderColor(layout)')
     ns-popover-template="/templates/popover/layoutInfo"
     ng-style="gallery.getAssigneeBorderColor(layout)")
         img(ng-src='{{ gallery.getThumbUrl(layout, gallery.viewMode, gallery.pager.$index === $index) }}'
-        ng-click="gallery.handleLayoutClick($index)"
+        ng-click="gallery.layoutIndexChanged($index)"
         ng-dblclick="gallery.openCarousel($index)"
         hm-swipeup="gallery.openCarousel($index)")
         sg-rating.text-center(linked-object='layout'

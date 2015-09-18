@@ -20,20 +20,22 @@
 
     .row
         include gallery/filters-client
-        
+
 
     //- top pagination controls
     include gallery/pagination-controls
 
     //- pagination
     .row: ul.sg-layout-list
-        li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(current-page="gallery.pager.page"
-        dir-paginate="layout in gallery.filteredLayouts = (gallery.rawLayouts | \
+        li.sg-layout.col-xs-6.col-sm-3.col-md-3.col-lg-2(dir-paginate="layout in \
+                gallery.filteredLayouts = (gallery.rawLayouts | \
                 filter: gallery.viewModeFilter | filter: gallery.search.filter | \
                 orderBy: gallery.sortOrder.current.value) | \
-                itemsPerPage: gallery.pager.ipp")
+                itemsPerPage: gallery.pager.ipp"
+        current-page="gallery.pager.currentPage")
             //- layout controls
-            sg-layout-toolbar(layout='layout' gallery='gallery' is-current='gallery.$index === $index')
+            sg-layout-toolbar(layout='layout' gallery='gallery'
+            is-current='gallery.pager.$index === $index')
             //- layout-block
             include gallery/layout-block
 

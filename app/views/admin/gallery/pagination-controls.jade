@@ -4,7 +4,7 @@
 //- Sort filter for multiple pages
 .sg-rate-gallery.text-center(ng-show="gallery.filteredLayouts.length > gallery.pager.ipp")
     dir-pagination-controls(template-url="/templates/directive/dirPagination"
-    on-page-change="gallery.unselectLayout()")
+    on-page-change="gallery.pageNumberChanged(newPageNumber)")
     br.hidden-lg
     span На странице
     select.form-control.sg-inline-block(ng-model="gallery.pager.ipp"

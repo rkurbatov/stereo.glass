@@ -93,7 +93,7 @@
 
             function initController() {
                 carousel.layouts = gallery.filteredLayouts;
-                carousel.idx = gallery.currentLayoutIndex;
+                carousel.pager = gallery.pager;
                 carousel.filters = gallery.filters;
                 carousel.viewMode = gallery.viewMode;
                 carousel.imgLoaded = false;
@@ -106,38 +106,40 @@
 
             // TODO: Rewrite as directive for left-right detection
             function keyHandler(e) {
-                if (e.keyCode === 37) carousel.idx -= 1;
-                if (e.keyCode === 39) carousel.idx += 1;
+                if (e.keyCode === 37) carousel.pager.layoutIndex -= 1;
+                if (e.keyCode === 39) carousel.pager.layoutIndex += 1;
             }
 
             function getLayoutUrl() {
                 return gallery.viewMode === 'Ready'
-                    ? '/uploads/ready/' + carousel.layouts[carousel.idx].urlDir + '/' + carousel.layouts[carousel.idx].urlGifHiRes
-                    : sgLayouts.getImgUrl(carousel.layouts[carousel.idx]);
+                    ? '/uploads/ready/' + carousel.layouts[carousel.pager.layoutIndex].urlDir + '/' + carousel.layouts[carousel.pager.layoutIndex].urlGifHiRes
+                    : sgLayouts.getImgUrl(carousel.layouts[carousel.pager.layoutIndex]);
 
             }
 
-            // TODO: Mark image as viewed
             function prevImg() {
-                if (carousel.idx > 0) {
+                if (carousel.pager.layoutIndex > 0) {
                     // set as viewed if no rating was selected
-                    if (carousel.layouts[carousel.idx].rating === -1) {
-                        carousel.layouts[carousel.idx].rating = 0;
+                    if (carousel.layouts[carousel.pager.layoutIndex].rating === -1) {
+                        carousel.layouts[carousel.pager.layoutIndex].rating = 0;
                     }
-                    carousel.idx -= 1;
+                    // TODO - change pages on background when rotating
+                    /*if (carousel.pager.layoutIndex % carousel.pager.ipp === 0) {
+                        carousel.pager.currentPage -= 1;
+                    }*/
+                    carousel.pager.layoutIndex -= 1;
                 }
                 carousel.imgLoaded = false;
                 carousel.url = getLayoutUrl();
             }
 
             function nextImg() {
-
-                if (carousel.idx < (carousel.layouts.length - 1)) {
+                if (carousel.pager.layoutIndex < (carousel.layouts.length - 1)) {
                     // set as viewed if no rating was selected
-                    if (carousel.layouts[carousel.idx].rating === -1) {
-                        carousel.layouts[carousel.idx].rating = 0;
+                    if (carousel.layouts[carousel.pager.layoutIndex].rating === -1) {
+                        carousel.layouts[carousel.pager.layoutIndex].rating = 0;
                     }
-                    carousel.idx += 1;
+                    carousel.pager.layoutIndex += 1;
                 }
                 carousel.imgLoaded = false;
                 carousel.url = getLayoutUrl();
@@ -145,8 +147,8 @@
 
             function cancel() {
                 // set as viewed if no rating was selected
-                if (carousel.layouts[carousel.idx].rating === -1) {
-                    carousel.layouts[carousel.idx].rating = 0;
+                if (carousel.layouts[carousel.pager.layoutIndex].rating === -1) {
+                    carousel.layouts[carousel.pager.layoutIndex].rating = 0;
                 }
                 $modalInstance.dismiss('cancel');
             }

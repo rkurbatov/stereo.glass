@@ -22,12 +22,12 @@
 
         vm.pager = {
             ippArray: [12, 18, 24, 36],
+            $index: -1,
             ipp: 18,
-            index: -1,
-            page: 1,
+            currentPage: 1,
             layoutIndex: -1
         };
-        
+
         vm.search = {
             filter: searchFilter,
             string: '',
@@ -50,7 +50,8 @@
         vm.getAssigneeBorderColor = getAssigneeBorderColor;
         vm.getCommenterTextColor = getCommenterTextColor;
 
-        vm.handleLayoutClick = handleLayoutClick;
+        vm.pageNumberChanged = pageNumberChanged;
+        vm.layoutIndexChanged = layoutIndexChanged;
         vm.openCarousel = openCarousel;
         vm.unselectLayout = unselectLayout;
 
@@ -147,10 +148,14 @@
             vm.refreshData();
         }
 
-        function handleLayoutClick($index) {
+        function layoutIndexChanged($index) {
             vm.pager.$index = $index;
-            vm.pager.layoutIndex = $index + (vm.pager.page - 1) * vm.pager.ipp;
-            vm.currentLayout = vm.filteredLayouts[vm.pager.layoutIndex];
+            vm.pager.layoutIndex = $index + (vm.pager.currentPage - 1) * vm.pager.ipp;
+        }
+
+        function pageNumberChanged(newPageNumber) {
+            vm.pager.currentPage = newPageNumber;
+            unselectLayout();
         }
 
         function unselectLayout() {
@@ -159,7 +164,7 @@
         }
 
         function openCarousel($index) {
-            handleLayoutClick($index);
+            layoutIndexChanged($index);
             sgLayoutModals.openCarousel(vm)
         }
 
