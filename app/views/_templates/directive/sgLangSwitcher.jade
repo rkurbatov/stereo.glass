@@ -1,9 +1,9 @@
-div(ng-click='toggleSwitcher()')
-    img(ng-src="{{ 'img/flags/' + IntSvc.currentLang + '.png' }}")
-    span.lang-code(ng-bind='IntSvc.currentLang')
+div(ng-click='isVisible = !isVisible')
+    img(ng-src="{{ 'img/flags/' + sgIntSvc.currentLang + '.png' }}")
+    span.lang-code(ng-bind='sgIntSvc.currentLang')
     ul.lang-switcher(ng-class='{"visible": isVisible}')
-        li.lang-selector(ng-repeat='lang in IntSvc.langs'
-        ng-if='lang.code !== IntSvc.currentLang && lang.isActive'
-        ng-click='switchLang(lang.code)')
+        li.lang-selector(ng-repeat='lang in sgIntSvc.langs'
+        ng-if='lang.code !== sgIntSvc.currentLang && lang.isActive'
+        ng-click='sgIntSvc.switchLang(lang.code)')
             img(ng-src="{{ 'img/flags/' + lang.code + '.png' }}")
             span.lang-code(ng-bind='lang.code')
