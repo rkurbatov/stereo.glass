@@ -1,4 +1,3 @@
-;
 (function (window, angular, undefined) {
     'use strict';
 
@@ -26,6 +25,8 @@
 
             function loadFileHandler(newVal) {
                 if (newVal) {
+                    var fileName;
+
                     Upload
                         .upload({
                             url: '/api/files',
@@ -44,12 +45,16 @@
                             if (attrs.field && result && result.data && result.data.filenames
                                 && result.data.filenames.length > 0) {
                                 var setObject = {};
-                                setObject[attrs.field] = result.data.filenames[0];
-                                sgLayouts
-                                    .update(scope.layout._id, setObject)
-                                    .then(function () {
-                                        scope.layout[attrs.field] = result.data.filenames[0];
-                                    });
+                                fileName = result.data.filenames[0];
+                                setObject[attrs.field] = fileName;
+                                return sgLayouts.update(scope.layout._id, setObject);
+                            } else {
+                                return null;
+                            }
+                        })
+                        .then((result)=>{
+                            if (attrs.field && result && fileName) {
+                                scope.layout[attrs.field] = fileName;
                             }
                         });
                 }

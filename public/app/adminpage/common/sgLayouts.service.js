@@ -12,35 +12,30 @@
         // ==== DECLARATION =====
 
         var svc = this;
-        svc.loadData = loadData;
-        svc.unratedCount = 0;       // TODO: check if unratedCount is correct after delete
-        svc.removeMyRating = removeMyRating;
-        svc.changeMyRating = changeMyRating;
-        svc.remove = remove;
-        svc.restore = restore;
-        svc.update = update;
-        svc.getThumbUrl = getThumbUrl;
-        svc.getImgUrl = getImgUrl;
-        svc.addComment = addComment;
+        _.extend(svc, {
+            unratedCount: 0,
+            rawLayouts: [],
+            loadData,
+            removeMyRating, changeMyRating,
+            remove, restore, update,
+            getThumbUrl, getImgUrl,
+            addComment
+        });
 
-        svc.rawLayouts = [];
-
+        // TODO: check if unratedCount is correct after delete
 
         // === IMPLEMENTATION ===
 
         function loadData() {
 
             var selection = sgLayoutFilters.server;
-            // remains of dateRange server filter
-            //selection.startDate = sgLayoutFilters.dateRange.startDate;
-            //selection.endDate = sgLayoutFilters.dateRange.endDate;
 
             return $http
                 .get('/api/layouts', {
-                params: {
-                    selection: JSON.stringify(selection)
-                }
-            })
+                    params: {
+                        selection: JSON.stringify(selection)
+                    }
+                })
                 .then((response)=> {
                     svc.unratedCount = 0;
                     var transformedData = _.map(response.data, (layout)=> {
