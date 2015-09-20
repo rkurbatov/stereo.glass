@@ -6,9 +6,9 @@
         i.fa.fa-remove
     h5.modal-title.text-center Редактирование пользователя
 
-.modal-body: form(name='editUser')
+.modal-body: form(name='editUser' novalidate)
     .form-group
-        label.control-label Имя пользователя
+        label.control-label.small Имя пользователя
         .input-group
             span.input-group-addon: i.fa.fa-user
             input.form-control(name="username"
@@ -16,7 +16,7 @@
             autofocus=""
             ng-model="vm.user.username")
     .form-group
-        label.control-label E-mail
+        label.control-label.small E-mail
         .input-group
             span.input-group-addon: i.fa.fa-envelope
             input.form-control(name="usermail"
@@ -24,14 +24,14 @@
             ng-required=""
             ng-model="vm.user.usermail")
     .form-group
-        label.control-label Права доступа
+        label.control-label.small Права доступа
         .input-group
             span.input-group-addon: i.fa.fa-users
             select.form-control(name="roles"
             ng-model="vm.user.role"
             ng-options="r for r in vm.roles")
     .form-group(ng-if="_.contains(['admin', 'curator', 'designer', 'founder'], vm.user.role)")
-        label.control-label Цвет рамки
+        label.control-label.small Цвет рамки макета
         color-picker(ng-model="vm.borderColor"
         color-picker-format="'rgb'"
         color-picker-alpha='false')
@@ -42,15 +42,19 @@
             ng-model='vm.user.assignedLanguage'
             ng-options="lang.code as (lang.code + ' - ' +  lang.name) for lang in vm.langs")
     .form-group
-        label.control-label Пароль
+        label.control-label.small Пароль
         .input-group
             span.input-group-addon: i.fa.fa-key
-            input.form-control(name="password", ng-model="vm.newPassword")
+            input.form-control(name="password"
+            ng-model="vm.newPassword" type='password')
     .form-group
-        label.control-label Подтверждение
+        label.control-label.small Подтверждение
         .input-group
             span.input-group-addon: i.fa.fa-key
-            input.form-control(name="confirm", ng-model="vm.confirmPassword")
+            input#password_fake.hidden(type='password' name='password'
+            autocomplete='off' style='display:hidden')
+            input.form-control(name="confirm"
+            ng-model="vm.confirmPassword" type='password')
 
 .modal-footer
     .center-block
