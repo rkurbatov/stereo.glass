@@ -47,7 +47,6 @@
             function checkTime(time) {
                 var day = time.day();
                 var hour = time.hour();
-                console.log(day);
 
                 // Monday or Saturday - close and return
                 if (!(scope.isOpen = day > 0 && day < 6)) {

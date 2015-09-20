@@ -90,6 +90,8 @@ function deployVendor(production) {
         'public/libs/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/libs/angular-utils-pagination/dirPagination.js',
         'public/libs/angular-click-outside/clickoutside.directive.js',
+        'public/libs/angular-simple-logger/dist/angular-simple-logger.js',
+        'public/libs/angular-google-maps/dist/angular-google-maps.js',
         'public/libs/sg.ui/dist/sg.ui.js',
         'public/libs/angular-fx/src/js/angular-fx.js',
         'public/libs/angular-busy/dist/angular-busy.js',

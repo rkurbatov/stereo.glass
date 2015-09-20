@@ -9,6 +9,7 @@
             'angularUtils.directives.dirPagination',
             'angular-click-outside',
             'angular-bootstrap-select',
+            'uiGmapgoogle-maps',
             'LocalStorageModule',
             'LoDash',
             'ui.validate',
@@ -20,6 +21,7 @@
         ])
         .config(Plate3dConfig)
         .config(LocalStorageConfig)
+        .config(googleMapsConfig)
         .value('cgBusyDefaults', {
             message: 'Загрузка...'
         });
@@ -34,6 +36,16 @@
 
     function LocalStorageConfig(localStorageServiceProvider) {
         localStorageServiceProvider.setPrefix('stereo.glass.')
+    }
+
+    googleMapsConfig.$inject = ['uiGmapGoogleMapApiProvider'];
+
+    function googleMapsConfig(uiGmapGoogleMapApiProvider) {
+        uiGmapGoogleMapApiProvider.configure({
+            //    key: 'your api key',
+            v: '3.20', //defaults to latest 3.X anyhow
+            libraries: 'weather,geometry,visualization'
+        });
     }
 
 })(window, window.angular);

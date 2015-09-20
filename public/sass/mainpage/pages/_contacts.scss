@@ -72,7 +72,7 @@
 
   .foreground {
     @include glass-background-alt;
-    background-color: transparent;  // override glass background settings
+    background-color: transparent; // override glass background settings
     height: 100%;
     left: 0;
     opacity: .8;
@@ -81,3 +81,8 @@
     width: 100%;
   }
 }
+
+.angular-google-map-container {
+  height: 520px;
+}
+
