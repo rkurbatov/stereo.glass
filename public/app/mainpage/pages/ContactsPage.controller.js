@@ -10,7 +10,18 @@
     function ContactsPage(uiGmapGoogleMapApi, $modal) {
         var vm = this;
         vm.openMap = openMap;
+
+        vm.latviaMap = {
+            markId: 'RigaOffice',
+            center: {
+                latitude: 55.692384,
+                longitude: 21.1515192
+            },
+            zoom: 18
+        };
+
         vm.ukraineMap = {
+            markId: 'DneprOffice',
             center: {
                 latitude: 48.4553585,
                 longitude: 35.043647
@@ -39,15 +50,13 @@
                     }
                 },
                 size: 'lg',
-                template: `
-                <div class="modal-header">
+                template: `<div class="modal-header">
                     <button class="close" aria-hidden="true" ng-click="modal.close()"><i class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body">
                     <ui-gmap-google-map center='modal.map.center' zoom='modal.map.zoom'></ui-gmap-google-map>
-                    <ui-gmap-marker idKey="UkraineOffice" coords="modal.map.center"></ui-gmap-marker>
-                </div>
-                `
+                    <ui-gmap-marker idKey='modal.map.markId' coords='modal.map.center'></ui-gmap-marker>
+                </div>`
             };
 
             $modal.open(ddo);
