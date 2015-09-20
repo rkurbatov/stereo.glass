@@ -4,6 +4,16 @@
   src: url('../fonts/airborne/arbn2plt.eot?#iefix') format('embedded-opentype'), // IE6-IE8
   url('../fonts/airborne/arbn2plt.woff2') format('woff2'), // Super Modern Browsers
   url('../fonts/airborne/arbn2plt.woff') format('woff'), // Pretty Modern Browsers
-  url('../fonts/airborne/arbn2plt.ttf')  format('truetype'), // Safari, Android, iOS
+  url('../fonts/airborne/arbn2plt.ttf') format('truetype'), // Safari, Android, iOS
   url('../fonts/airborne/arbn2plt.svg#arbn2plt') format('svg'); // Legacy iOS
+}
+
+@font-face {
+  font-family: 'DigitalMono';
+  src: url('../fonts/digital/digitalmono.eot'); // IE9 Compat Modes
+  src: url('../fonts/digital/digitalmono.eot?#iefix') format('embedded-opentype'), // IE6-IE8
+  url('../fonts/digital/digitalmono.woff2') format('woff2'), // Super Modern Browsers
+  url('../fonts/digital/digitalmono.woff') format('woff'), // Pretty Modern Browsers
+  url('../fonts/digital/digitalmono.ttf') format('truetype'), // Safari, Android, iOS
+  url('../fonts/digital/digitalmono.svg#digitalfont') format('svg'); // Legacy iOS
 }

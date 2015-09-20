@@ -1,9 +1,44 @@
 .sg-contacts-main-body {
-  height: auto;
+  height: 100%;
   margin-bottom: 2px;
   width: 100%;
 
   .content {
     margin: 10px 15px;
+  }
+}
+
+.sg-digital-clock {
+  background-color: rgba($sg-black, .8);
+  box-shadow: 0 0 5px rgba($sg-black, .5);
+  display: inline-block;
+  font-family: 'DigitalMono', sans-serif;
+  font-size: 2.5em;
+  padding: 5px 15px;
+  position: relative;
+
+  .timer {
+    left: 0;
+    padding: 5px 15px;
+    position: absolute;
+    top: 0;
+  }
+
+  .open {
+    color: rgb(20, 180, 20);
+  }
+
+  .closed {
+    color: rgb(200, 20, 20);
+  }
+
+  .foreground {
+    @include glass-background-alt;
+    background-color: transparent;  // override glass background settings
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 }

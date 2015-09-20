@@ -76,6 +76,8 @@ function deployVendor(production) {
         'public/libs/lodash/lodash.js',
         'public/app/tmp/js/video.js',
         'public/app/tmp/js/video-quality-selector.js',
+        'public/libs/moment/min/moment-with-locales.js',
+        'public/libs/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',,
         'public/libs/bootstrap/dist/js/bootstrap.js',
         'public/libs/bootstrap-select/js/bootstrap-select.js',
         'public/libs/angular/angular.js',
