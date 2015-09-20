@@ -5,9 +5,16 @@
         .module('MainPage')
         .controller('ContactsPage', ContactsPage);
 
-    ContactsPage.$inject = ['auxData'];
-    function ContactsPage(auxData) {
+    ContactsPage.$inject = [];
+    function ContactsPage() {
         var vm = this;
+
+        vm.holidays = function (time) {
+            return {
+                title: 'blah',
+                isOpen: false
+            }
+        };
 
         initController();
 

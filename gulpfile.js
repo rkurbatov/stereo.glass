@@ -8,6 +8,7 @@ gulp.git.execAsync = Promise.promisify(gulp.git.exec);
 Gulp.task('default', ['buildDevel']);
 Gulp.task('buildDevel', ['buildSass'], buildDevel);
 Gulp.task('buildProduction', ['buildSass'], buildProduction);
+Gulp.task('buildCustom', ['bumpBuild'], buildCustom);
 Gulp.task('buildSass', ['bumpBuild'], buildSass);
 Gulp.task('bumpMajor', bumpVersion('major'));
 Gulp.task('bumpMinor', bumpVersion('minor'));
@@ -246,4 +247,8 @@ function bumpBuild() {
         .catch(function (err) {
             throw err;
         });
+}
+
+function buildCustom() {
+    deployCustom();
 }

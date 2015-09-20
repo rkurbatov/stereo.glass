@@ -1,4 +1,7 @@
 .sg-l2-wrapper
     .sg-contacts-main-body.sg-glass-background
         .content
-            sg-digital-clock
+            sg-digital-clock(timezone='Europe/Kiev' holidays-handler='contacts.holidays()')
+            sg-digital-clock(timezone='Europe/Riga')
+            sg-digital-clock(timezone='Europe/Moscow')
+            sg-digital-clock(timezone='Asia/Shanghai')
