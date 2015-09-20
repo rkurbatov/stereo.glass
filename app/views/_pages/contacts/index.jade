@@ -1,7 +1,78 @@
 .sg-l2-wrapper
     .sg-contacts-main-body.sg-glass-background
         .content
-            sg-digital-clock(timezone='Europe/Kiev' holidays-handler='contacts.holidays()')
-            sg-digital-clock(timezone='Europe/Riga')
-            sg-digital-clock(timezone='Europe/Moscow')
-            sg-digital-clock(timezone='Asia/Shanghai')
+            table
+                tr
+                    td
+                        b(ng-bind='_INT("Головной офис");')
+                    td: p
+                        b “StereoGlass” UAB
+                        br
+                        i.fa.fa-home &nbsp;
+                        | Taikos pr. 52C-1203, Klaipeda, Lithuania, LT-91184
+                        br
+                        i.fa.fa-phone &nbsp;
+                        | +37 046 30 21 10
+                        br
+                        i.fa.fa-envelope &nbsp;
+                        a(href='mailto:lt@stereo.glass?subject=Mail from Our Site') lt@stereo.glass
+                    td.map
+                        i.fa.fa-2x.fa-map-marker
+                    td
+                        sg-digital-clock(timezone='Europe/Riga')
+                tr
+                    td
+                        b(ng-bind='_INT("Фабрика в КНР")')
+                    td: p
+                        b Zhangjiagang “Stereo Glass” Craftworks Co., LTD
+                        br
+                        i.fa.fa-home &nbsp;
+                        | {{ _INT("China, Jiangsu Province, Zhangjiagang city, Tang county, 25 zǐjīng road, Wangxi industrial area, building 3"); }}
+                        br
+                        i.fa.fa-phone &nbsp;
+                        | +86 186 94 93 77 76
+                        br
+                        i.fa.fa-envelope &nbsp;
+                        a(href='mailto:cn@stereo.glass?subject=Mail from Our Site') cn@stereo.glass
+
+                    td.map
+                        i.fa.fa-2x.fa-map-marker
+                    td
+                        sg-digital-clock(timezone='Asia/Shanghai')
+                tr
+                    td
+                        b(ng-bind='_INT("Представительство в России")')
+                    td: p
+                        i.fa.fa-home &nbsp;
+                        | {{ _INT("197110, Россия, Санкт-Петербург, наб. Мартынова, 92, офис 2.3"); }}
+                        br
+                        i.fa.fa-phone &nbsp;
+                        | +7 812 426 74 00
+                        br
+                        i.fa.fa-envelope &nbsp;
+                        a(href='mailto:ru@stereo.glass?subject=Mail from Our Site') ru@stereo.glass
+
+                    td.map
+                        i.fa.fa-2x.fa-map-marker
+                    td
+                        sg-digital-clock(timezone='Europe/Moscow')
+                tr
+                    td
+                        b(ng-bind='_INT("Представительство в Украине")')
+                    td: p
+                        b(ng-bind='_INT("ООО «3Д-Антей»");')
+                        br
+                        i.fa.fa-home &nbsp;
+                        | {{ _INT("49101, Украина, Днепропетровск, ул. Володарского, 15"); }}
+                        br
+                        i.fa.fa-phone &nbsp;
+                        | +38 050 822 94 19
+                        br
+                        i.fa.fa-envelope &nbsp;
+                        a(href='mailto:ua@stereo.glass?subject=Mail from Our Site') ua@stereo.glass
+
+                    td.map
+                        i.fa.fa-2x.fa-map-marker
+                    td
+                        sg-digital-clock(timezone='Europe/Kiev')
+        .clearfix

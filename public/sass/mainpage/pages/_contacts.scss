@@ -5,6 +5,44 @@
 
   .content {
     margin: 10px 15px;
+
+    table {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    tr:not(:last-child) {
+      border-bottom: 1px solid $sg-silver;
+    }
+
+    td {
+      padding: 10px;
+    }
+
+    td:first-of-type,
+    td:last-of-type {
+      text-align: center;
+      width: 25%;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    .fa {
+      color: desaturate($sg-winered, 40%);
+      text-shadow: 0 0 4px rgba($sg-black, .5);
+    }
+
+    .fa-map-marker {
+      cursor: pointer;
+    }
+
+    a {
+      border-bottom: 1px dotted;
+      color: $sg-blue;
+      cursor: pointer;
+    }
   }
 }
 
@@ -37,6 +75,7 @@
     background-color: transparent;  // override glass background settings
     height: 100%;
     left: 0;
+    opacity: .8;
     position: absolute;
     top: 0;
     width: 100%;
