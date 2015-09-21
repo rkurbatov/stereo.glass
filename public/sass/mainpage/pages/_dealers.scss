@@ -1,6 +1,11 @@
 .sg-dealers-main-body {
-  margin-bottom: 2px;
   min-height: 100%;
   min-width: 100%;
   padding: 20px;
+
+  a {
+    border-bottom: 1px dotted;
+    color: $sg-blue;
+    cursor: pointer;
+  }
 }
