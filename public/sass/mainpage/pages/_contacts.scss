@@ -12,6 +12,10 @@
 
     .office-row > td {
       padding: 10px;
+
+      @include on-sm-minus {
+        padding: 5px;
+      }
     }
 
     .office-row > td:first-of-type {
@@ -21,54 +25,18 @@
 
     .office-row > td:last-of-type {
       width: 30%;
-    }
-  }
-
-  .calendar {
-    background-color: rgba($sg-black, .8);
-    float: left;
-    padding: 0 10px;
-    position: relative;
-    text-align: center;
-
-    .open {
-      color: rgb(20, 180, 20);
-    }
-
-    .closed {
-      color: rgb(200, 20, 20);
-    }
-
-    tr {
-      border: 0;
-    }
-
-    .dow {
-      font-size: 1.5em;
-      line-height: 1.75em;
-    }
-
-    .date {
-      font-size: 1.25em;
-      line-height: 1.25em;
-
-      td {
-        padding-bottom: .25em;
+      @include on-sm-minus {
+        width: 35%;
       }
-    }
-
-    .foreground {
-      @include glass-background-alt;
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
     }
   }
 
   .content {
     margin: 10px 15px;
+
+    @include on-xs {
+      margin: 10px 5px;
+    }
 
     p {
       margin-bottom: 0;
@@ -91,18 +59,73 @@
   }
 }
 
+// digital calendar and clock
+
+.sg-digital-calendar {
+  background-color: rgba($sg-black, .8);
+  box-shadow: 0 0 5px rgba($sg-black, .5);
+  display: inline-block;
+  float: left;
+  padding: 0 .25em;
+  position: relative;
+  text-align: center;
+
+  .open {
+    color: rgb(20, 180, 20);
+  }
+
+  .closed {
+    color: rgb(200, 20, 20);
+  }
+
+  tr {
+    border: 0;
+  }
+
+  .dow {
+    font-size: 1.75em;
+    line-height: 1.4em;
+
+    @include on-sm {
+      line-height: 1.5em;
+    }
+
+    @include on-xs {
+      line-height: 1.45em;
+    }
+  }
+
+  .date {
+    font-size: 1.25em;
+    line-height: 1.25em;
+
+    td {
+      padding-bottom: .25em;
+    }
+  }
+
+  .foreground {
+    @include glass-background-alt;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 .sg-digital-clock {
   background-color: rgba($sg-black, .8);
   box-shadow: 0 0 5px rgba($sg-black, .5);
   display: inline-block;
   font-family: 'DigitalMono', sans-serif;
   font-size: 2.5em;
-  padding: 5px 15px;
+  padding: .15em .25em;
   position: relative;
 
   .timer {
     left: 0;
-    padding: 5px 15px;
+    padding: .15em .25em;
     position: absolute;
     top: 0;
   }
