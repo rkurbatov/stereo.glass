@@ -8,9 +8,15 @@
 
   .reset-button {
     @include on-sm-plus {
+      @include red-glossy-background;
       border: $sg-silver 1px solid;
       border-radius: 5px;
-      @include red-glossy-background;
+    }
+
+    &:active .fa {
+      color: $sg-white;
+      transform: scale(1.1);
+      transition: all .25s;
     }
   }
 
@@ -36,7 +42,7 @@
 
   .btn.dropdown-toggle {
     @include white-glossy-background;
-    color: $sg-white !important;
+    text-shadow: 0 0 1px rgba($sg-black, .95);
 
     &:focus {
       outline-color: $sg-winered !important;
@@ -145,7 +151,6 @@
       text-decoration: none;
     }
   }
-
 
   .sg-blick {
     @include blicker;
