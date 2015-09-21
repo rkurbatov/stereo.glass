@@ -31,7 +31,7 @@ public/css
 public/.sass-cache
 public/sass/.sass-cache
 public/scripts/*
-public/stylesheets/*
+public/stylesheets/*.css
 public/video/*
 uploads
 

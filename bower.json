@@ -37,7 +37,8 @@
     "nsPopover": "~0.6.8",
     "ryanmullins-angular-hammer": "~2.1.10",
     "sg.ui": "https://github.com/rkurbatov/sg.ui.git",
-    "videojs": "~4.12.14"
+    "videojs": "~4.12.14",
+    "videojs-youtube": "~1.2.12"
   },
   "resolutions": {
     "angular": "~1.4.3",

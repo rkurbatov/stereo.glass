@@ -19,23 +19,14 @@
         function initController() {
 
             // Initializing video.js for every video
-            if (auxData.settings.currentSection === 'video') {
-                if (!auxData.settings.currentSubsection) return;
+            if (auxData.settings.currentSection === 'video'
+                && auxData.settings.currentSubsection) {
 
                 let initObject = {
                     controls: true,
-                    preload: 'auto',
-                    customControlsOnMobile: true,
-                    plugins: {
-                        resolutionSelector: {
-                            force_types : [ 'video/mp4', 'video/webm' ],
-                            default_res: auxData.settings.isMobile.any
-                                ? "480"
-                                : "720"
-                        }
-                    }
+                    preload: 'metadata'
                 };
-                var videoElm = angular.element('#' + auxData.settings.currentSubsection)[0];
+                let videoElm = angular.element('#' + auxData.settings.currentSubsection)[0];
 
                 videojs(videoElm, initObject);
             }

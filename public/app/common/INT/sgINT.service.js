@@ -11,7 +11,7 @@
 
         var svc = {
             langs: [],
-            currentLang: 'EN',
+            currentLang: 'RU',
             add,
             update,
             reload,
