@@ -1,0 +1,4 @@
+.sg-digital-clock(title="{{title}}")
+    span.background {{::blank}}
+    span.timer(ng-class="{'open': isOpen, 'closed': !isOpen}" ng-bind='time')
+    .foreground

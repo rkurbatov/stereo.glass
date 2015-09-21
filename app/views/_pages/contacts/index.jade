@@ -17,9 +17,11 @@
                         i.fa.fa-envelope &nbsp;
                         a(href='mailto:lt@stereo.glass?subject=Mail from Our Site') lt@stereo.glass
                     td.map
-                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.latviaMap)')
+                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.latvia.map)')
                     td
-                        sg-digital-clock(timezone='Europe/Riga')
+                        sg-digital-clock(timezone='Europe/Riga'
+                        on-timer-click='contacts.check("latvia")'
+                        is-open='contacts.latvia.isOpen' title='contacts.latvia.title')
                 tr
                     td
                         b(ng-bind='_INT("Фабрика в КНР")')
@@ -36,9 +38,11 @@
                         a(href='mailto:cn@stereo.glass?subject=Mail from Our Site') cn@stereo.glass
 
                     td.map
-                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.chinaMap)')
+                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.china.map)')
                     td
-                        sg-digital-clock(timezone='Asia/Shanghai')
+                        sg-digital-clock(timezone='Asia/Shanghai'
+                        on-timer-click='contacts.check("china")'
+                        is-open='contacts.china.isOpen' title='contacts.china.title')
                 tr
                     td
                         b(ng-bind='_INT("Представительство в России")')
@@ -53,9 +57,11 @@
                         a(href='mailto:ru@stereo.glass?subject=Mail from Our Site') ru@stereo.glass
 
                     td.map
-                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.russiaMap)')
+                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.russia.map)')
                     td
-                        sg-digital-clock(timezone='Europe/Moscow')
+                        sg-digital-clock(timezone='Europe/Moscow'
+                        on-timer-click='contacts.check("russia")'
+                        is-open='contacts.russia.isOpen' title='contacts.russia.title')
                 tr
                     td
                         b(ng-bind='_INT("Представительство в Украине")')
@@ -72,7 +78,9 @@
                         a(href='mailto:ua@stereo.glass?subject=Mail from Our Site') ua@stereo.glass
 
                     td.map
-                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.ukraineMap)')
+                        i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.ukraine.map)')
                     td
-                        sg-digital-clock(timezone='Europe/Kiev')
+                        sg-digital-clock(timezone='Europe/Kiev'
+                        on-timer-click='contacts.check("ukraine")'
+                        is-open='contacts.ukraine.isOpen' title='contacts.ukraine.title')
             .clearfix
