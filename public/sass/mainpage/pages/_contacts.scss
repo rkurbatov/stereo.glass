@@ -2,27 +2,73 @@
   min-height: 100%;
   width: 100%;
 
-  .content {
-    margin: 10px 15px;
+  .contacts {
+    margin: 0 auto;
+    width: 100%;
 
-    table {
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    tr:not(:last-child) {
+    .office-row:not(:last-child) {
       border-bottom: 1px solid $sg-silver;
     }
 
-    td {
+    .office-row > td {
       padding: 10px;
     }
 
-    td:first-of-type,
-    td:last-of-type {
+    .office-row > td:first-of-type {
       text-align: center;
       width: 25%;
     }
+
+    .office-row > td:last-of-type {
+      width: 30%;
+    }
+  }
+
+  .calendar {
+    background-color: rgba($sg-black, .8);
+    float: left;
+    padding: 0 10px;
+    position: relative;
+    text-align: center;
+
+    .open {
+      color: rgb(20, 180, 20);
+    }
+
+    .closed {
+      color: rgb(200, 20, 20);
+    }
+
+    tr {
+      border: 0;
+    }
+
+    .dow {
+      font-size: 1.5em;
+      line-height: 1.75em;
+    }
+
+    .date {
+      font-size: 1.25em;
+      line-height: 1.25em;
+
+      td {
+        padding-bottom: .25em;
+      }
+    }
+
+    .foreground {
+      @include glass-background-alt;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .content {
+    margin: 10px 15px;
 
     p {
       margin-bottom: 0;

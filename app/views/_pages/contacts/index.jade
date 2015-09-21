@@ -1,8 +1,8 @@
 .sg-l2-wrapper
     .sg-contacts-main-body.sg-glass-background
         .content
-            table
-                tr
+            table.contacts
+                tr.office-row
                     td
                         b(ng-bind='_INT("Головной офис");')
                     td: p
@@ -19,10 +19,11 @@
                     td.map
                         i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.latvia.map)')
                     td
+                        sg-digital-calendar(office='contacts.latvia')
                         sg-digital-clock(timezone='Europe/Riga'
                         on-timer-click='contacts.check("latvia")'
                         is-open='contacts.latvia.isOpen' title='contacts.latvia.title')
-                tr
+                tr.office-row
                     td
                         b(ng-bind='_INT("Фабрика в КНР")')
                     td: p
@@ -40,10 +41,11 @@
                     td.map
                         i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.china.map)')
                     td
+                        sg-digital-calendar(office='contacts.china')
                         sg-digital-clock(timezone='Asia/Shanghai'
                         on-timer-click='contacts.check("china")'
                         is-open='contacts.china.isOpen' title='contacts.china.title')
-                tr
+                tr.office-row
                     td
                         b(ng-bind='_INT("Представительство в России")')
                     td: p
@@ -59,10 +61,11 @@
                     td.map
                         i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.russia.map)')
                     td
+                        sg-digital-calendar(office='contacts.russia')
                         sg-digital-clock(timezone='Europe/Moscow'
                         on-timer-click='contacts.check("russia")'
                         is-open='contacts.russia.isOpen' title='contacts.russia.title')
-                tr
+                tr.office-row
                     td
                         b(ng-bind='_INT("Представительство в Украине")')
                     td: p
@@ -80,6 +83,7 @@
                     td.map
                         i.fa.fa-2x.fa-map-marker(ng-click='contacts.openMap(contacts.ukraine.map)')
                     td
+                        sg-digital-calendar(office='contacts.ukraine')
                         sg-digital-clock(timezone='Europe/Kiev'
                         on-timer-click='contacts.check("ukraine")'
                         is-open='contacts.ukraine.isOpen' title='contacts.ukraine.title')

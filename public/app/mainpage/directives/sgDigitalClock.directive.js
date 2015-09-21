@@ -7,7 +7,6 @@
 
     sgDigitalClock.$inject = ['$interval'];
 
-    // sets variable for widescreen displays
     function sgDigitalClock($interval) {
         return {
             restrict: 'E',
