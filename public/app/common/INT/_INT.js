@@ -1,11 +1,9 @@
 (function (window, undefined) {
     'use strict';
-
     var _LANG_ = {};
 
     window._INT = _INT;
     window._LANG_ = _LANG_;
-
 
     function _INT(str) {
         var hashedString = String(hashFnv32a(str));

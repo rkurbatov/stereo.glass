@@ -11,7 +11,7 @@
 
         var svc = {
             langs: [],
-            currentLang: 'RU',
+            currentLang: 'EN',
             add,
             update,
             reload,
@@ -37,8 +37,11 @@
                     for (var key in window._LANG_) {
                         delete window._LANG_[key];
                     }
-                    $rootScope.$applyAsync(()=> _.extend(window._LANG_, response.data));
-                    svc.currentLang = code;
+                    $rootScope.$applyAsync(()=>{
+                        _.extend(window._LANG_, response.data);
+                        svc.currentLang = code;
+                    });
+
                 })
         }
 
