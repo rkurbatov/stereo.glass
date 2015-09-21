@@ -24,6 +24,7 @@
     }
 
     .office-row > td:last-of-type {
+      text-align: center;
       width: 30%;
       @include on-sm-minus {
         width: 35%;
@@ -65,10 +66,10 @@
   background-color: rgba($sg-black, .8);
   box-shadow: 0 0 5px rgba($sg-black, .5);
   display: inline-block;
-  float: left;
   padding: 0 .25em;
   position: relative;
   text-align: center;
+  vertical-align: top;
 
   .open {
     color: rgb(20, 180, 20);
