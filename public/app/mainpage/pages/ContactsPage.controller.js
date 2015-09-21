@@ -50,13 +50,7 @@
                     }
                 },
                 size: 'lg',
-                template: `<div class="modal-header">
-                    <button class="close" aria-hidden="true" ng-click="modal.close()"><i class="fa fa-times"></i></button>
-                </div>
-                <div class="modal-body">
-                    <ui-gmap-google-map center='modal.map.center' zoom='modal.map.zoom'></ui-gmap-google-map>
-                    <ui-gmap-marker idKey='modal.map.markId' coords='modal.map.center'></ui-gmap-marker>
-                </div>`
+                templateUrl: '/templates/modal/openMap'
             };
 
             $modal.open(ddo);

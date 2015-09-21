@@ -1,0 +1,7 @@
+.modal-header
+    button.close(aria-hidden='true' ng-click='modal.close()')
+        i.fa.fa-times
+
+.modal-body
+    ui-gmap-google-map(center='modal.map.center' zoom='modal.map.zoom')
+    ui-gmap-marker(id-key='modal.map.markId' coords='modal.map.center')
