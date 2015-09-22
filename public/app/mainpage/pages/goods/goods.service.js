@@ -18,8 +18,13 @@
 
         // ==== IMPLEMENTATION ====
 
-        function load() {
-            return $http.get('/api/goods');
+        function load(selection) {
+            console.log(selection);
+            return $http.get('/api/goods', {
+                params: {
+                    selection: JSON.stringify(selection)
+                }
+            });
         }
 
         function modalExpand(goodsList, currentIdx) {

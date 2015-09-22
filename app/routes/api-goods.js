@@ -2,8 +2,6 @@ module.exports = function (express, Layout) {
     'use strict';
 
     var Router = express.Router();
-    var _ = require('lodash');
-    var Promise = require('bluebird');
 
     // DECLARATION
 
@@ -14,9 +12,10 @@ module.exports = function (express, Layout) {
     // IMPLEMENTATION
 
     function getGoods(req, res) {
-        var sel, findObj = {}, tmpArr = [], tmpDateQueryObj = {};
+        var sel, findObj = {}, tmpArr = [];
 
         findObj.status = 'approved';
+        findObj.isPublished = true;
 
         if (req.query.selection) {
             sel = JSON.parse(req.query.selection);
@@ -35,6 +34,10 @@ module.exports = function (express, Layout) {
 
             if (sel.plots && sel.plots.length > 0) {
                 tmpArr.push({catPlots: {$in: sel.plots}});
+            }
+
+            if (tmpArr.length > 0) {
+                findObj.$and = tmpArr;
             }
 
         }

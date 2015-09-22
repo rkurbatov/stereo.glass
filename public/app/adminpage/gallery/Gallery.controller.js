@@ -84,12 +84,13 @@
             };
 
             // form selectors data
-            sgCategories.loaded.then(() => {
-                vm.assortment = sgCategories.assortment;
-                vm.colors = sgCategories.colors;
-                vm.countries = sgCategories.countries;
-                vm.plots = sgCategories.plots;
-            });
+            sgCategories.loaded
+                .then(() => {
+                    vm.assortment = sgCategories.assortment;
+                    vm.colors = sgCategories.colors;
+                    vm.countries = sgCategories.countries;
+                    vm.plots = sgCategories.plots;
+                });
 
             vm.dateRange = {
                 startDate: null,
@@ -97,7 +98,7 @@
             };
 
             // Watch over datarange change
-            $scope.$watch(() => vm.dateRange, function (newVal) {
+            $scope.$watch(() => vm.dateRange, (newVal)=> {
                 // convert moment objects to ISO 8601 strings for comparison
                 if (newVal.startDate) {
                     vm.dateRange.startDateString = newVal.startDate.toISOString();
@@ -139,7 +140,7 @@
         }
 
         function resetAll() {
-            angular.forEach(vm.filters.server, (value, key)=> {
+            _.each(vm.filters.server, (value, key)=> {
                 vm.filters.server[key] = [];
             });
             vm.resetDateRange();
@@ -210,7 +211,7 @@
                             || vm.dateRange.endDateString > layout.finishedAt
                         ) && vm.filters.current.Ready.value(layout);
                 case "Shop":
-                    return "approved" === layout.status
+                    return 'approved' === layout.status
                         && (
                             !vm.dateRange.startDate
                             || vm.dateRange.startDateString < layout.finishedAt

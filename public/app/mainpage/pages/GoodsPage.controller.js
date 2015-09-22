@@ -12,7 +12,11 @@
         vm.getThumbStatic = getThumbStatic;
         vm.getThumbAnim = getThumbAnim;
         vm.resetFilters = resetFilters;
-        vm.openModal = openModal;
+        vm.openModal = openModalIfExpanded;
+        vm.selectionChanged = selectionChanged;
+
+        // hack to prevent loading data on filter change during initialization
+        var dontReactOnFilters = true;
 
         initController();
 
@@ -25,15 +29,12 @@
             vm.currentItemsPerPage = 24;
             vm.expandedView = false;
 
-            $scope.$on('$locationChangeSuccess', ()=> {
-                openModal();
-            });
+            $scope.$on('$locationChangeSuccess', openModalIfExpanded);
 
-            goodsSvc.load()
-                .then((goods)=> {
-                    vm.list = _.filter(goods.data, 'isPublished');
-                    openModal()
-                });
+            refreshData().then(()=> {
+                dontReactOnFilters = false;
+                openModalIfExpanded();
+            });
 
             categoriesSvc.load()
                 .then((categories)=> {
@@ -49,14 +50,30 @@
             return '/uploads/ready/' + good.urlDir + '/' + good.urlGifLoRes;
         }
 
+        function selectionChanged() {
+            if (!dontReactOnFilters) {
+                refreshData();
+            }
+        }
+
         function resetFilters() {
+            dontReactOnFilters = true;
             vm.selection.assortment = [];
             vm.selection.colors = [];
             vm.selection.countries = [];
             vm.selection.plots = [];
+            dontReactOnFilters = false;
+            refreshData();
         }
 
-        function openModal() {
+        function refreshData() {
+            return goodsSvc.load(vm.selection)
+                .then((goods)=> {
+                    vm.list = goods.data;
+                });
+        }
+
+        function openModalIfExpanded() {
             if (vm.expandedView) return;
             // reference is part of url, f.e.: /goods/33
             var currentRef = parseInt($location.search().ref, 10) || null;
