@@ -76,7 +76,7 @@
             }
 
             function isAcceptVisible() {
-                return 'designer' === curUser.role
+                return _.contains(['designer', 'curator'], curUser.role)
                     && 'assigned' === vm.layout.status
                     && assignedToMe();
             }
@@ -109,7 +109,7 @@
             }
 
             function isUploadVisible() {
-                return 'designer' === curUser.role
+                return _.contains(['designer', 'curator'], curUser.role)
                     && 'accepted' === vm.layout.status
                     && assignedToMe();
             }
