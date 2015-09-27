@@ -9,27 +9,23 @@
     sgLayoutActions.$inject = ['$q', 'sgUsers', 'sgLayouts', 'sgLayoutModals', 'sgMessages'];
 
     function sgLayoutActions($q, sgUsers, sgLayouts, sgLayoutModals, sgMessages) {
-
         // ==== DECLARATION =====
         var svc = this;
 
-        svc.assignDoer = assignDoer;
-        svc.acceptJob = acceptJob;
-        svc.approveJob = approveJob;
-        svc.revertGood = revertGood;
-        svc.uploadFiles = uploadFiles;
-        svc.downloadFiles = downloadFiles;
-        svc.editLayout = editLayout;
-        svc.moveToTrash = moveToTrash;
-        svc.restoreFromTrash = restoreFromTrash;
-
-        svc.switchShopVisibility = switchShopVisibility;
-        svc.addComment = addComment;
+        _.extend(svc, {
+            // first button actions
+            assignDoer, acceptJob, approveJob, returnToUnrated,
+            // second button actions
+            uploadFiles, downloadFiles, editLayout,
+            // third buttons actions
+            moveToTrash, restoreFromTrash, revertGood,
+            // additional buttons actions
+            switchShopVisibility, addComment
+        });
 
         var curUser = sgUsers.currentUser;
 
         function assignDoer(layout) {
-
             var setObject;
             var doSendEmail;
 
@@ -59,11 +55,6 @@
 
                 })
                 .then((result) => {
-                    if (result.data && result.data.layout) {
-                        layout.reference = result.data.layout.reference;
-                        layout.urlDir = result.data.layout.urlDir;
-                    }
-                    _.extend(layout, setObject);
                     var message = {
                         fromUser: setObject.assignedBy,
                         toUser: setObject.assignedTo,
@@ -72,6 +63,12 @@
                         header: 'Новое задание',
                         body: layout._id
                     };
+
+                    if (result.data && result.data.layout) {
+                        layout.reference = result.data.layout.reference;
+                        layout.urlDir = result.data.layout.urlDir;
+                    }
+                    _.extend(layout, setObject);
                     return sgMessages.create(message);
                 })
                 .then(() => {
@@ -97,7 +94,6 @@
 
             sgLayoutModals.acceptReject(layout)
                 .then((response) => {
-
                     setObject = {
                         status: response.rejected
                             ? "rejected"
@@ -105,12 +101,9 @@
                         acceptedAt: new Date(),
                         acceptedComment: response.comment
                     };
-
                     return sgLayouts.update(layout._id, setObject);
-
                 })
                 .then(() => {
-                    _.extend(layout, setObject);
                     var designerMessage = {
                         fromUser: "Stereo.Glass",
                         toUser: layout.assignedTo,
@@ -129,6 +122,7 @@
                         body: layout._id
                     };
 
+                    _.extend(layout, setObject);
                     return $q.all([sgMessages.create(designerMessage), sgMessages.create(adminMessage)]);
                 });
 
@@ -270,25 +264,33 @@
             var header = '<span class="sg-red-i">Удаление изображения</span>';
             var message = 'Вы хотите удалить это изображение в корзину?';
             sgLayoutModals.remove(layout, header, message)
+                .then(()=> sgLayouts.remove(layout['_id']))
                 .then(()=> {
-                    sgLayouts.remove(layout['_id']).then(function () {
-                        // hack! Imported from gallery via sgLayoutToolbar controller's scope
-                        svc.unselectLayout();
-                        layout.status = "deleted";
-                    });
+                    svc.unselectLayout(); // hack! Imported from gallery via sgLayoutToolbar
+                    layout.status = "deleted"; // controller's scope
                 });
         }
 
         function restoreFromTrash(layout) {
             var header = 'Восстановление изображения';
             var message = 'Вы хотите восстановить это изображение?';
+
             sgLayoutModals
                 .restore(layout, header, message)
+                .then(()=> sgLayouts.restore(layout['_id']))
                 .then(()=> {
-                    sgLayouts.restore(layout['_id'])
-                        .then(function () {
-                            delete layout.status;
-                        });
+                    delete layout.status;
+                });
+        }
+
+        function returnToUnrated(layout) {
+            var header = 'Вернуть изображение';
+            var message = 'Вы хотите вернуть это изображение в список загруженных';
+            sgLayoutModals
+                .restore(layout, header, message)
+                .then(()=> sgLayouts.update(layout._id, {}, ['status']))
+                .then(()=> {
+                    delete layout.status;
                 });
         }
 
@@ -313,9 +315,7 @@
         function addComment(layout) {
             sgLayoutModals
                 .addLayoutComment(layout)
-                .then(function (commentText) {
-                    return sgLayouts.addComment(layout, commentText);
-                });
+                .then((commentText)=> sgLayouts.addComment(layout, commentText));
         }
 
     }

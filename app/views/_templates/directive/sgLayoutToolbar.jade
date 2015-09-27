@@ -5,6 +5,7 @@
     title='Назначить исполнителя')
         .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-blue-i
         .fa-stack-1x.sg-shadowed-text.fa-user.sg-blue-i
+    //- ReAssign
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.assignDoer(toolbar.layout)'
     ng-show='toolbar.isReAssignVisible()'
     title='Назначить другого исполнителя')
@@ -52,6 +53,12 @@
     title='Восстановить из корзины')
         .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
         .fa-undo.fa-stack-1x.sg-red-i.sg-shadowed-text
+    //- Return
+    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.returnToUnrated(toolbar.layout)'
+    ng-show='toolbar.isReturnVisible()'
+    title='Вернуть для оценки')
+        .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-red-i
+        .fa-stack-1x.sg-shadowed-text.fa-reply.sg-blue-i
 
 //-
 //- Published flag

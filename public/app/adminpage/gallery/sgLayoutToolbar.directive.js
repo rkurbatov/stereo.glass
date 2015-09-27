@@ -32,6 +32,7 @@
 
             vm.isAssignVisible = isAssignVisible;
             vm.isReAssignVisible = isReAssignVisible;
+            vm.isReturnVisible = isReturnVisible;
             vm.isAcceptVisible = isAcceptVisible;
             vm.isApproveVisible = isApproveVisible;
             vm.isRevertVisible = isRevertVisible;
@@ -106,6 +107,11 @@
 
             function isRestoreVisible() {
                 return 'deleted' === vm.layout.status;
+            }
+
+            function isReturnVisible() {
+                return _.contains(['rejected', 'dismissed'], vm.layout.status)
+                    && iAmAdminOrCurator();
             }
 
             function isUploadVisible() {
