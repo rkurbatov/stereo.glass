@@ -42,7 +42,8 @@
 
   .btn.dropdown-toggle {
     @include white-glossy-background;
-    text-shadow: 0 0 1px rgba($sg-black, .95);
+    font-weight: bold;
+    text-shadow: 0 0 1px rgba($sg-black, .2);
 
     &:focus {
       outline-color: $sg-winered !important;
