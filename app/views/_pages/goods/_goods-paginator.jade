@@ -1,2 +1,7 @@
 .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
+    span {{ _INT("Подобрано товаров: %s - %s из %s", 0, 0, goods.filtered.length); }}
     dir-pagination-controls(template-url="/templates/directive/dirPagination")
+    span {{ _INT("На странице"); }}
+    select.form-control(ng-model='goods.currentItemsPerPage'
+    ng-options='opt for opt in goods.ippArray'
+    style='width: auto;')

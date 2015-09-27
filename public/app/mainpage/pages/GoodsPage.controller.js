@@ -27,6 +27,7 @@
             vm.selection = {};
             vm.currentPage = 1;
             vm.currentItemsPerPage = 24;
+            vm.ippArray = [12, 24, 48];
             vm.expandedView = false;
 
             $scope.$on('$locationChangeSuccess', openModalIfExpanded);
@@ -62,8 +63,8 @@
             vm.selection.colors = [];
             vm.selection.countries = [];
             vm.selection.plots = [];
-            dontReactOnFilters = false;
             refreshData();
+            dontReactOnFilters = false;
         }
 
         function refreshData() {
