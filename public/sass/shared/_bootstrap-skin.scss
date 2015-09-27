@@ -35,7 +35,6 @@
   }
 }
 
-
 .nav-tabs a {
   text-shadow: 0 0 1px rgba($sg-black, .25);
 }
@@ -54,9 +53,15 @@
   color: $sg-winered;
 }
 
-.pagination > .active > a {
-  background-color: desaturate($sg-winered, 40%);
-  border-color: desaturate($sg-winered, 40%);
+.pagination > .active > a,
+.pagination > .active > span {
+  &,
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: desaturate($sg-winered, 40%);
+    border-color: desaturate($sg-winered, 40%);
+  }
 }
 
 .btn-primary {
@@ -64,13 +69,15 @@
   border-color: desaturate($sg-winered, 60%);
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.btn-primary.active:hover {
-  background-color: darken(desaturate($sg-winered, 60%), 7%);
-  border-color: darken(desaturate($sg-winered, 60%), 7%);
+.btn-primary {
+  &:hover,
+  &:focus,
+  &.active,
+  &:active,
+  &.active:hover {
+    background-color: darken(desaturate($sg-winered, 60%), 7%);
+    border-color: darken(desaturate($sg-winered, 60%), 7%);
+  }
 }
 
 .badge {

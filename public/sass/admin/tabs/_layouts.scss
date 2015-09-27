@@ -104,7 +104,7 @@
 }
 
 .sg-layout-comments,
-.sg-layout-published {
+.sg-layout-status-flag {
   color: darken($sg-silver, 5%);
   height: 40px;
   position: absolute;
@@ -113,7 +113,7 @@
   z-index: 10;
 }
 
-.sg-layout-published {
+.sg-layout-status-flag {
   top: 0;
   transition: all .1s;
 

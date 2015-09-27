@@ -48,11 +48,6 @@
     title='Удалить в корзину')
         .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
         .fa-trash.fa-stack-1x.sg-red-i.sg-shadowed-text
-    i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.restoreFromTrash(toolbar.layout)'
-    ng-show='toolbar.isRestoreVisible()'
-    title='Восстановить из корзины')
-        .fa-square-o.fa-stack-2x.sg-red-i.sg-shadowed-text
-        .fa-undo.fa-stack-1x.sg-red-i.sg-shadowed-text
     //- Return
     i.fa.fa-stack.fa-lg.sg-layout-control(ng-click='toolbar.actions.returnToUnrated(toolbar.layout)'
     ng-show='toolbar.isReturnVisible()'
@@ -60,22 +55,33 @@
         .fa-stack-2x.sg-shadowed-text.fa-square-o.sg-red-i
         .fa-stack-1x.sg-shadowed-text.fa-reply.sg-blue-i
 
-//-
+
+//- Returned flag
+span.sg-layout-status-flag(ng-show='toolbar.isReturnVisible()'
+title='Вернуть к неоцененным')
+    i.fa.fa-2x.fa-ban(ng-click='toolbar.actions.returnToUnrated(toolbar.layout)')
+
+//- Removed flag
+span.sg-layout-status-flag(ng-show='toolbar.isRestoreVisible()'
+title='Восстановить из корзины')
+    i.fa.fa-2x.fa-trash(ng-click='toolbar.actions.restoreFromTrash(toolbar.layout)')
+
 //- Published flag
-//-
-span.sg-layout-published(ng-show='toolbar.isPublishedVisible()')
+span.sg-layout-status-flag(ng-show='toolbar.isPublishedVisible()'
+title='{{ layout.isHidden ? "Скрыть товар из видимых" : "Разместить товар в магазине" }}')
     i.fa.fa-2x(ng-click='toolbar.actions.switchShopVisibility(toolbar.layout)'
     ng-class='{"fa-eye": toolbar.layout.isPublished, "fa-eye-slash": !toolbar.layout.isPublished}')
-//-
+
+
 //- Comments flag
-//-
 span.sg-layout-comments(ng-show="!toolbar.isCurrent && toolbar.layout.comments.length")
     i.fa.fa-stack
         .fa-comments.fa-stack-2x
         span.sg-comments-number.fa-stack-1x {{ toolbar.layout.comments.length }}
-//-
+
 //- Add comment button
-span.sg-layout-comment-add(ng-show='toolbar.isCurrent' ng-click='toolbar.actions.addComment(toolbar.layout)')
+span.sg-layout-comment-add(ng-show='toolbar.isCurrent'
+ng-click='toolbar.actions.addComment(toolbar.layout)')
     i.fa.fa-stack
         i.fa.fa-stack-2x.fa-comment.sg-shadowed-text
         i.fa.fa-stack-1x.fa-plus
