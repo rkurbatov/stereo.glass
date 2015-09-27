@@ -1,5 +1,8 @@
 .goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
-    span {{ _INT("Подобрано товаров: %s - %s из %s", 0, 0, goods.filtered.length); }}
+    span(ng-bind='_INT("Подобрано товаров: %s - %s из %s", ' +
+    '(goods.currentPage-1)*goods.currentItemsPerPage + 1, ' +
+    'goods.filtered.length > goods.currentPage*goods.currentItemsPerPage ? goods.currentPage*goods.currentItemsPerPage : goods.filtered.length , ' +
+    'goods.filtered.length);')
     dir-pagination-controls(template-url="/templates/directive/dirPagination")
     span {{ _INT("На странице"); }}
     select.form-control(ng-model='goods.currentItemsPerPage'
