@@ -79,6 +79,26 @@
 .goods-paginator {
   text-align: center;
 
+  span {
+    color: $sg-white;
+    line-height: 80px;
+    margin: 0 2em;
+    text-shadow: 0 0 5px $sg-black;
+    vertical-align: top;
+  }
+
+  select {
+    @include black-glossy-background;
+    color: $sg-white;
+    display: inline-block;
+    margin-top: 20px;
+    vertical-align: top;
+
+    option {
+      color: $sg-black;
+    }
+  }
+
   ul {
     font: 16px/24px "Airborne";
   }
