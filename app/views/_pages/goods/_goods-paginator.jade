@@ -1,4 +1,4 @@
-.goods-paginator(ng-show="goods.filtered.length > goods.currentItemsPerPage")
+.goods-paginator(ng-if="goods.filtered.length > goods.currentItemsPerPage")
     span(ng-bind='_INT("Подобрано товаров: %s - %s из %s", ' +
     '(goods.currentPage-1)*goods.currentItemsPerPage + 1, ' +
     'goods.filtered.length > goods.currentPage*goods.currentItemsPerPage ? goods.currentPage*goods.currentItemsPerPage : goods.filtered.length , ' +

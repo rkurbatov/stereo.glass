@@ -1,0 +1,2 @@
+.goods-paginator(ng-if="goods.filtered.length <= goods.currentItemsPerPage")
+    span(ng-bind='_INT("Подобрано товаров: %s", goods.filtered.length);')
