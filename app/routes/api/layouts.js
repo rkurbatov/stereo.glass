@@ -161,7 +161,7 @@ module.exports = function (express, Layout, Promise) {
         layoutData.createdBy = req.user.username;
 
         Layout
-            .create(layoutData)
+            .createAsync(layoutData)
             .then(()=>res.sendStatus(201))
             .catch((err)=> {
                 console.log('Error creating layout: ', err);

@@ -3,7 +3,7 @@ module.exports = function (express) {
 
     var Router = express.Router();
 
-    Router.post('/', postFiles);
+    Router.post('/:process?', postFiles);
 
     // IMPLEMENTATION
 

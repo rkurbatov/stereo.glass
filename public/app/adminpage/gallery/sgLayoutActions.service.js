@@ -220,19 +220,19 @@
                         finishedAt: new Date(),
                         responseComment: response.comment
                     };
-                    sgLayouts.update(layout._id, setObject)
-                        .then(function () {
-                            _.extend(layout, setObject);
-                            var adminMessage = {
-                                fromUser: layout.assignedTo,
-                                toUser: layout.assignedBy,
-                                type: 'designer',
-                                subType: 'jobFinished',
-                                header: layout.assignedTo + ' завершил работу над макетом',
-                                body: layout._id
-                            };
-                            sgMessages.create(adminMessage);
-                        });
+                    return sgLayouts.update(layout._id, setObject);
+                })
+                .then(()=> {
+                    var adminMessage = {
+                        fromUser: layout.assignedTo,
+                        toUser: layout.assignedBy,
+                        type: 'designer',
+                        subType: 'jobFinished',
+                        header: layout.assignedTo + ' завершил работу над макетом',
+                        body: layout._id
+                    };
+                    sgMessages.create(adminMessage);
+                    _.extend(layout, setObject);
                 });
         }
 

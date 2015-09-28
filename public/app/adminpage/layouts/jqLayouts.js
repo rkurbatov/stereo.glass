@@ -175,7 +175,7 @@
             $('#upload-2d').fileinput({
                 showUpload: false,
                 allowedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-                uploadUrl: '/api/files?thumb=true',
+                uploadUrl: '/api/files/thumbnail',
                 dropZoneEnabled: false
             });
         }

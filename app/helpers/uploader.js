@@ -49,6 +49,7 @@ module.exports = function (app) {
         }
     }
 
+    //TODO: rework completely, update layout from here
     function multerFileUploadComplete(file, req, res) {
 
         if (!res.sgUploader.filenames) {
@@ -56,18 +57,45 @@ module.exports = function (app) {
         }
 
         res.sgUploader.filenames.push(file.name);
-        var fPath;
         var subdir = (req.body.uploadDir ? req.body.uploadDir + '/' : '');
-        if (req.query.thumb) {
-            res.sgUploader.urlThumb = 'thumb250-' + file.name;
-            fPath = __dirname + '/../../uploads/' + subdir;
-            easyimg.rescrop({
-                src: fPath + file.name,
-                dst: fPath + 'thumb250-' + file.name,
-                width: 250,
-                fill: true
-            });
+        var fPath = __dirname + '/../../uploads/' + subdir;
+
+        switch (req.params.process) {
+            case 'thumbnail':
+                res.sgUploader.urlThumb = 'thumb250-' + file.name;
+                break;
+            case 'firstframe':
+                res.sgUploader.urlGifThumb = 'ff-' + file.name;
+                break;
         }
+
+        easyimg
+            .info(fPath + file.name)
+            .then((fileInfo)=> {
+                switch (req.params.process) {
+                    case 'thumbnail':
+                        let processObject = {
+                            src: fPath + file.name,
+                            dst: fPath + 'thumb250-' + file.name,
+                            width: 250,
+                            fill: true
+                        };
+
+                        return easyimg.thumbnail(processObject);
+
+                    case 'firstframe':
+                        let srcImg = fPath + file.name,
+                            dstImg = fPath + 'ff-' + file.name;
+
+                        return easyimg.convert(`${srcImg}[0] ${dstImg}`);
+                }
+
+                // if without processing
+                return null;
+            })
+            .then((result)=> {
+                if (result) console.log('processed %s', fPath + file.name);
+            });
     }
 
 };
