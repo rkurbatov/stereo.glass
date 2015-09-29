@@ -114,14 +114,13 @@ module.exports = function (express, uploader, Layout) {
                                 return layout;
                             })
                             .then((layout)=> {
-                                var gifThumb = req.file.destination + '/static-' + req.file.filename;
                                 return easyimg
                                     .convert({
                                         src: req.file.path + '[0]',
-                                        dst: gifThumb
+                                        dst: req.file.destination + '/static-' + req.file.filename
                                     })
-                                    .then(()=>{
-                                        layout.gifThumb = gifThumb;
+                                    .then((result)=>{
+                                        layout.urlGifThumb = result.name;
                                         return layout;
                                     })
                                     .catch((err)=> {

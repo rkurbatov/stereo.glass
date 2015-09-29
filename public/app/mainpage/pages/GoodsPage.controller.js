@@ -44,7 +44,7 @@
         }
 
         function getThumbStatic(good) {
-            return '/uploads/ready/' + good.urlDir + '/' + good.urlThumb;
+            return '/uploads/ready/' + good.urlDir + '/' + good.urlGifThumb;
         }
 
         function getThumbAnim(good) {
