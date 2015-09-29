@@ -120,7 +120,7 @@ module.exports = function (express, uploader, Layout) {
                                         dst: req.file.destination + '/static-' + req.file.filename
                                     })
                                     .then((result)=>{
-                                        layout.urlGifThumb = result.name;
+                                        layout.urlThumbLoRes = result.name;
                                         return layout;
                                     })
                                     .catch((err)=> {
