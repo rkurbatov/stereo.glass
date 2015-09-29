@@ -115,9 +115,14 @@
             }
 
             function isUploadVisible() {
-                return _.contains(['designer', 'curator'], curUser.role)
-                    && 'accepted' === vm.layout.status
-                    && assignedToMe();
+                return (
+                        'designer' === curUser.role
+                        && 'accepted' === vm.layout.status
+                        && assignedToMe()
+                    ) || (
+                        _.contains(['finished', 'approved'], vm.layout.status)
+                        && iAmAdminOrCurator()
+                    );
             }
 
             function isDownloadVisible() {
