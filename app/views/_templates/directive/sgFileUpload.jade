@@ -1,6 +1,6 @@
 .btn.btn-primary.form-control(ngf-select='true'
 accept="{{ accept }}"
 ng-model="file") Загрузить файл
-progressbar.progress-striped(type='success'
+progressbar.progress-striped(type='{{barType}}'
     value='progress || 0'
     ng-class='{ "active": progress < 100 }')

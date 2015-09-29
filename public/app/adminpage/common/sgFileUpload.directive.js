@@ -5,9 +5,9 @@
         .module('sgAppAdmin')
         .directive('sgFileUpload', sgFileUpload);
 
-    sgFileUpload.$inject = ['Upload', 'sgLayouts'];
+    sgFileUpload.$inject = ['Upload', 'toastr'];
 
-    function sgFileUpload(Upload, sgLayouts) {
+    function sgFileUpload(Upload, toastr) {
 
         return {
             restrict: 'E',
@@ -27,42 +27,29 @@
             function loadFileHandler(newVal) {
                 if (newVal) {
                     let fileName;
-                    let url = '/api/files';
-
-                    if (scope.process === 'firstframe') {
-                        url += `/${scope.process}`;
+                    let url = '/api/files/layout/';
+                    url += _.padLeft(scope.layout.reference, 5, "0");
+                    url += '?field=' + attrs.field;
+                    if (attrs.process) {
+                        url += '&process=' + attrs.process;
                     }
+                    scope.barType = 'success';
 
                     Upload
                         .upload({
                             url,
-                            fields: {
-                                uploadDir: (scope.layout.status
-                                    ? 'ready/'
-                                    : 'pictures/') + scope.layout.urlDir
-                            },
                             file: scope.file
                         })
                         .progress((evt)=> {
                             scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                         })
                         .then((result)=> {
-                            console.log('file uploaded: ', result);
-                            /** @namespace attrs.field */
-                            if (attrs.field && result && result.data && result.data.filenames
-                                && result.data.filenames.length > 0) {
-                                var setObject = {};
-                                fileName = result.data.filenames[0];
-                                setObject[attrs.field] = fileName;
-                                return sgLayouts.update(scope.layout._id, setObject);
-                            } else {
-                                return null;
-                            }
+                            toastr.success('Файл загружен');
                         })
-                        .then((result)=>{
-                            if (attrs.field && result && fileName) {
-                                scope.layout[attrs.field] = fileName;
-                            }
+                        .catch((err)=> {
+                            console.log(err);
+                            scope.barType = 'danger';
+                            toastr.error('Ошибка при загрузке файла: ', err);
                         });
                 }
             }

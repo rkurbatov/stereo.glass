@@ -30,7 +30,6 @@ module.exports = function (multer, Promise) {
 
     function destinationLayout(req, file, next) {
         var dir = ROOT_DIR + 'ready/' + req.params.reference;
-        console.log('dir: ', dir);
         checkOrCreateDir(dir, next);
     }
 
