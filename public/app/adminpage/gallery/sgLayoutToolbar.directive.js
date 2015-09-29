@@ -121,7 +121,7 @@
                         && assignedToMe()
                     ) || (
                         _.contains(['finished', 'approved'], vm.layout.status)
-                        && iAmAdminOrCurator()
+                        && 'admin' === curUser.role
                     );
             }
 
