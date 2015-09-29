@@ -108,12 +108,12 @@ module.exports = function (express, uploader, Layout) {
                                     throw err;
                                 }
                                 return layout;
-                            })
-                            .then((layout)=>{
-                                /*easyimg.convert({
-
-                                })*/
                             });
+                            /*.then((layout)=>{
+                                easyimg.convert({
+
+                                })
+                            });*/
                     }
 
                     return layout;
