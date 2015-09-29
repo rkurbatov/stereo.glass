@@ -1,101 +1,46 @@
-module.exports = function (app) {
+// TODO rewrite completely differing file processing and uploading
+module.exports = function (multer) {
     'use strict';
 
-    var mkdirp = require('mkdirp');
-    var fs = require('fs');
-    var easyimg = require('easyimage');
-    var multer = require('multer');
+    var path = require('path');
+    var moment = require('moment');
+    var Promise = require('bluebird');
+    var statAsync = Promise.promisify(require('fs').stat);
+    var mkdirpAsync = Promise.promisify(require('mkdirp'));
 
-    app.use(multer({
-        dest: __dirname + '/../../uploads/',
-        rename: multerRename,
-        changeDest: multerChangeDest,
-        onFileUploadComplete: multerFileUploadComplete
-    }));
+    var storage = multer.diskStorage({
+        destination,
+        filename
+    });
 
-    function multerRename(fieldname, filename, req, res) {
-        return filename.replace(/\W+/g, '-').toLowerCase() + '-' + Date.now();
-    }
+    function destination(req, file, next) {
+        var dir = __dirname + '/../../uploads/pictures/' + moment().format('YYYY-MM-DD');
 
-    function multerChangeDest(dest, req, res) {
-        var stat = null;
-        var dir;
-        if (req.body.uploadDir) {
-            dir = req.body.uploadDir;
-        } else {
-            dir = String(Date.now());
-        }
-
-        if (!res.sgUploader) {
-            res.sgUploader = {};
-
-            res.sgUploader.urlDir = dir;
-
-            try {
-                stat = fs.statSync(dest + dir);
-            } catch (err) {
-                if (stat && !stat.isDirectory()) {
-                    // Woh! This file/link/etc already exists, so isn't a directory. Can't save in it. Handle appropriately.
-                    throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + dir + '"');
+        // check if directory exists
+        statAsync(dir)
+            .then((stats)=> {                   // node with this name exists
+                if (stats.isDirectory()) {      // it is directory, all ok
+                    next(null, dir);
+                } else {                        // it is file, error
+                    let err = new Error("Internal server error!");
+                    next(err, dir);
                 }
-                mkdirp(dest + dir, function (err) {
-                    if (err) {
-                        console.log('Error creating directory ', err);
-                        //throw err;
-                    }
-                });
-            }
-            return dest + dir;
-        }
-    }
-
-    //TODO: rework completely, update layout from here
-    function multerFileUploadComplete(file, req, res) {
-
-        if (!res.sgUploader.filenames) {
-            res.sgUploader.filenames = [];
-        }
-
-        res.sgUploader.filenames.push(file.name);
-        var subdir = (req.body.uploadDir ? req.body.uploadDir + '/' : '');
-        var fPath = __dirname + '/../../uploads/' + subdir;
-
-        switch (req.params.process) {
-            case 'thumbnail':
-                res.sgUploader.urlThumb = 'thumb250-' + file.name;
-                break;
-            case 'firstframe':
-                res.sgUploader.urlGifThumb = 'ff-' + file.name;
-                break;
-        }
-
-        easyimg
-            .info(fPath + file.name)
-            .then((fileInfo)=> {
-                switch (req.params.process) {
-                    case 'thumbnail':
-                        let processObject = {
-                            src: fPath + file.name,
-                            dst: fPath + 'thumb250-' + file.name,
-                            width: 250,
-                            fill: true
-                        };
-
-                        return easyimg.thumbnail(processObject);
-
-                    case 'firstframe':
-                        let srcImg = fPath + file.name,
-                            dstImg = fPath + 'ff-' + file.name;
-
-                        return easyimg.convert(`${srcImg}[0] ${dstImg}`);
-                }
-
-                // if without processing
-                return null;
             })
-            .then((result)=> {
-                if (result) console.log('processed %s', fPath + file.name);
+            .catch(()=> {                       // node doesn't exist (NB! normal case)
+                mkdirpAsync(dir)                // create new directory, then all ok
+                    .then(()=> {
+                        next(null, dir);
+                    })
+                    .catch((err)=>{
+                        next(err, dir);
+                    })
             });
     }
 
+    function filename(req, file, next) {
+        let parsed = path.parse(file.originalname);
+        next(null, `${parsed.name}-${+moment()}${parsed.ext}`);
+    }
+
+    return multer({storage});
 };

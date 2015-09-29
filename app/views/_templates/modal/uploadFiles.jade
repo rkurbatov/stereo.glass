@@ -19,7 +19,7 @@
             .row
                 .col-xs-7
                     | <b>GIF</b> в <b>низком</b> разрешении (250 пикс. по одной из сторон, для сайта)
-                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifLoRes")
+                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifLoRes" process='firstframe')
                 .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlGifLoRes, \
                 'sg-red-i fa-remove': !vm.layout.urlGifLoRes}")
             .row

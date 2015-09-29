@@ -12,7 +12,8 @@
         return {
             restrict: 'E',
             scope: {
-                layout: '='
+                layout: '=',        // layout to work with
+                process: '@'        // file processing during upload
             },
             templateUrl: '/templates/directive/sgFileUpload',
             link
@@ -25,11 +26,16 @@
 
             function loadFileHandler(newVal) {
                 if (newVal) {
-                    var fileName;
+                    let fileName;
+                    let url = '/api/files';
+
+                    if (scope.process === 'firstframe') {
+                        url += `/${scope.process}`;
+                    }
 
                     Upload
                         .upload({
-                            url: '/api/files',
+                            url,
                             fields: {
                                 uploadDir: (scope.layout.status
                                     ? 'ready/'
@@ -41,6 +47,7 @@
                             scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                         })
                         .then((result)=> {
+                            console.log('file uploaded: ', result);
                             /** @namespace attrs.field */
                             if (attrs.field && result && result.data && result.data.filenames
                                 && result.data.filenames.length > 0) {

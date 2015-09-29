@@ -11,6 +11,7 @@ var session = require('express-session');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var mailer = require('express-mailer');
+var multer = require('multer');
 
 var Promise = require('bluebird');
 Promise.promisifyAll(mongoose);
@@ -61,7 +62,7 @@ app.set('views', './app/views');
 app.use('/', require('./app/routes/static')(express));
 
 // ======== MULTER =========
-require('./app/helpers/uploader')(app);
+var upload = require('./app/helpers/uploader')(multer);
 
 // ======== MAILER =========
 var configMailer = require('./app/config/mailer');
@@ -85,7 +86,7 @@ app.use('/api/users', require('./app/routes/api/users')(express, Account, Layout
 app.use('/api/categories', require('./app/routes/api/categories')(express, Category));
 app.use('/api/layouts', require('./app/routes/api/layouts')(express, Layout, Promise));
 app.use('/api/goods', require('./app/routes/api/goods')(express, Layout));
-app.use('/api/files', require('./app/routes/api/files')(express));
+app.use('/api/files', require('./app/routes/api/files')(express, upload));
 app.use('/api/messages', require('./app/routes/api/messages')(express, Message));
 app.use('/api/mail', require('./app/routes/api/mail')(express, app.mailer));
 var helperLang = require('./app/helpers/lang')(Promise, Language);

@@ -1,3 +1,4 @@
+//TODO: rewrite and remove completely
 (function ($) {
     'use strict';
 
@@ -90,7 +91,7 @@
             $u2d.fileinput('upload').one('fileuploaded', l2dUploadedHandler);
 
             function l2dUploadedHandler(e, data) {
-                layoutData.url2d = data.response.filenames[0];
+                layoutData.url2d = data.response.url2d;
                 layoutData.urlThumb = data.response.urlThumb;
                 $u2d.fileinput('clear');
                 u2dDef.resolve();
@@ -106,13 +107,10 @@
                         data: JSON.stringify(layoutData)
                     },
                     success: function (data) {
-                        if (data.status && data.status !== 'error') {
+                        if (data === 'Created') {
                             layoutsMessage('Макет успешно сохранён');
                         } else {
-                            if (data.message && data.message.code) {
-                                errMsg = data.message.code;
-                            }
-                            layoutsMessage('Ошибка сохранения: ' + errMsg, true);
+                            layoutsMessage('Ошибка сохранения', true);
                         }
                     },
                     error: function () {
@@ -175,7 +173,7 @@
             $('#upload-2d').fileinput({
                 showUpload: false,
                 allowedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-                uploadUrl: '/api/files/thumbnail',
+                uploadUrl: '/api/files/picture',
                 dropZoneEnabled: false
             });
         }
