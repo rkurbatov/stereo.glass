@@ -4,7 +4,7 @@
     aria-hidden="true"
     ng-click="vm.cancel();")
         i.fa.fa-remove
-    h5.modal-title Редактирование макета
+    h5.modal-title.text-center Редактирование макета
 
 .modal-body: form(name='EditLayout' ng-submit='vm.ok()')
     .form-group(ng-class="{ 'has-error' : EditLayout.layoutName.$invalid && !EditLayout.layoutName.$pristine }")

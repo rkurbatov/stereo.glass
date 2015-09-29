@@ -19,12 +19,8 @@
                 controller: YesNoCtrl,
                 controllerAs: 'vm',
                 resolve: {
-                    header: function () {
-                        return header
-                    },
-                    message: function () {
-                        return $sce.trustAsHtml(message)
-                    }
+                    header: ()=> header,
+                    message: ()=> $sce.trustAsHtml(message)
                 },
                 size: 'sm'
             };
@@ -39,13 +35,8 @@
             vm.header = header;
             vm.message = message;
 
-            vm.ok = function () {
-                $modalInstance.close('ok');
-            };
-
-            vm.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
+            vm.ok = ()=> $modalInstance.close('ok');
+            vm.cancel = ()=> $modalInstance.dismiss('cancel');
         }
     }
 

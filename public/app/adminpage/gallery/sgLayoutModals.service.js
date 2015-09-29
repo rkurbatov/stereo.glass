@@ -34,9 +34,7 @@
                 controller: EditLayoutCtrl,
                 controllerAs: 'vm',
                 resolve: {
-                    layout: function () {
-                        return layout;
-                    }
+                    layout: ()=> layout
                 },
                 size: 'sm'
             };
@@ -51,7 +49,8 @@
             vm.layout = _.cloneDeep(layout);
             vm.categories = {};
 
-            sgCategories.loaded
+            sgCategories
+                .loaded
                 .then(()=> {
                     vm.categories.assortment = sgCategories.assortmentArr;
                     vm.categories.colors = sgCategories.colorsArr;
@@ -59,13 +58,8 @@
                     vm.categories.plots = sgCategories.plotsArr;
                 });
 
-            vm.ok = function () {
-                $modalInstance.close(vm.layout);
-            };
-
-            vm.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
+            vm.ok = ()=> $modalInstance.close(vm.layout);
+            vm.cancel = ()=> $modalInstance.dismiss('cancel');
         }
 
         function modalGalleryCarousel(gallery) {
@@ -73,11 +67,7 @@
                 templateUrl: '/templates/modal/galleryCarousel',
                 controller: GalleryCtrl,
                 controllerAs: 'carousel',
-                resolve: {
-                    gallery: function () {
-                        return gallery;
-                    }
-                },
+                resolve: {gallery: ()=> gallery},
                 size: 'lg'
             };
 
@@ -166,18 +156,10 @@
                 controller: YesNoImageModalCtrl,
                 controllerAs: 'vm',
                 resolve: {
-                    url: function () {
-                        return sgLayouts.getThumbUrl(layout);
-                    },
-                    header: function () {
-                        return $sce.trustAsHtml(header);
-                    },
-                    message: function () {
-                        return $sce.trustAsHtml(message);
-                    },
-                    hasComment: function () {
-                        return hasComment;
-                    }
+                    url: ()=> sgLayouts.getThumbUrl(layout),
+                    header: ()=> $sce.trustAsHtml(header),
+                    message: ()=> $sce.trustAsHtml(message),
+                    hasComment: ()=> hasComment
                 },
                 size: 'sm'
             };
@@ -194,16 +176,14 @@
             vm.message = message;
             vm.hasComment = hasComment;
 
-            vm.ok = function () {
+            vm.ok = ()=> {
                 var response = hasComment
                     ? {comment: vm.comment}
                     : 'ok';
                 $modalInstance.close(response);
             };
 
-            vm.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
+            vm.cancel = ()=> $modalInstance.dismiss('cancel');
         }
 
         function modalAssignDismissDoer(layout) {
@@ -212,12 +192,8 @@
                 controller: AssignDismissDoerModalCtrl,
                 controllerAs: 'vm',
                 resolve: {
-                    layout: function () {
-                        return layout
-                    },
-                    assignees: function () {
-                        return sgUsers.assignees;
-                    }
+                    layout: ()=> layout,
+                    assignees: ()=> sgUsers.assignees
                 },
                 size: 'lg'
             };
@@ -250,7 +226,7 @@
                 vm.assignee = layout.createdBy;
             }
 
-            vm.assign = function () {
+            vm.assign = ()=> {
                 var response = {
                     assignedTo: vm.assignee,
                     comment: vm.comment,
@@ -260,7 +236,7 @@
                 $modalInstance.close(response);
             };
 
-            vm.dismiss = function () {
+            vm.dismiss = ()=> {
                 var response = {
                     dismissed: true,
                     comment: vm.comment,
@@ -270,9 +246,7 @@
                 $modalInstance.close(response);
             };
 
-            vm.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
+            vm.cancel = ()=> $modalInstance.dismiss('cancel');
         }
 
         function modalAcceptReject(layout) {
@@ -280,11 +254,7 @@
                 templateUrl: '/templates/modal/acceptRejectLayout',
                 controller: modalAcceptRejectCtrl,
                 controllerAs: 'vm',
-                resolve: {
-                    layout: function () {
-                        return layout
-                    }
-                },
+                resolve: { layout: ()=> layout },
                 size: 'lg'
             };
 
@@ -331,11 +301,7 @@
                 templateUrl: '/templates/modal/approveDeclineLayout.jade',
                 controller: modalApproveDeclineCtrl,
                 controllerAs: 'vm',
-                resolve: {
-                    layout: function () {
-                        return layout
-                    }
-                },
+                resolve: { layout: ()=> layout },
                 size: 'lg'
             };
 
@@ -382,11 +348,7 @@
                 templateUrl: '/templates/modal/uploadFiles',
                 controller: modalUploadFilesCtrl,
                 controllerAs: 'vm',
-                resolve: {
-                    layout: function () {
-                        return layout
-                    }
-                },
+                resolve: { layout: ()=> layout },
                 size: 'lg'
             };
 
@@ -430,11 +392,7 @@
                 templateUrl: '/templates/modal/downloadFiles',
                 controller: modalDownloadFilesCtrl,
                 controllerAs: 'vm',
-                resolve: {
-                    layout: function () {
-                        return layout
-                    }
-                },
+                resolve: { layout: ()=> layout },
                 size: 'lg'
             };
 
@@ -460,11 +418,7 @@
                 templateUrl: '/templates/modal/addLayoutComment',
                 controller: modalAddLayoutCommentCtrl,
                 controllerAs: 'vm',
-                resolve: {
-                    layout: function () {
-                        return layout
-                    }
-                },
+                resolve: { layout: ()=> layout },
                 size: 'lg'
             };
 
