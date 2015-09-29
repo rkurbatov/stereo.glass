@@ -3,6 +3,7 @@ module.exports = function (express, uploader, Layout) {
 
     var Router = express.Router();
     var easyimg = require('easyimage');
+    var fs = require('fs');
 
     Router.post('/picture', postPicture);
     Router.post('/layout/:reference', postLayoutByReference);
@@ -88,46 +89,57 @@ module.exports = function (express, uploader, Layout) {
                     if (req.query.process && req.query.process === 'firstframe') {
                         return easyimg.info(req.file.path)
                             .then((fileInfo)=> {
-                                let err;
+                                let fileErr;
 
                                 if (fileInfo.type !== 'gif') {
-                                    err = new Error('Wrong file type!');
-                                    err.code = 400;
-                                    throw err;
+                                    fileErr = new Error('Wrong file type! Only gifs are possible!');
+                                    fileErr.code = 400;
                                 }
 
                                 if (fileInfo.size > 2 * 1024 * 1024) {
-                                    err = new Error('File size is more than 2MB');
-                                    err.code = 400;
-                                    throw err;
+                                    fileErr = new Error('File size is more than 2MB');
+                                    fileErr.code = 400;
                                 }
 
                                 if (fileInfo.width > 250 && fileInfo.height > 250) {
-                                    err = new Error('File dimensions should be 250 px at one side!');
-                                    err.code = 400;
-                                    throw err;
+                                    fileErr = new Error('File dimensions should be 250 px at one side at least!');
+                                    fileErr.code = 400;
+                                }
+
+                                if (fileErr) {
+                                    console.log('removing %s', req.file.path);
+                                    fs.unlink(req.file.path);
+                                    throw fileErr;
                                 }
                                 return layout;
+                            })
+                            .then((layout)=> {
+                                var gifThumb = req.file.destination + '/static-' + req.file.filename;
+                                return easyimg
+                                    .convert({
+                                        src: req.file.path + '[0]',
+                                        dst: gifThumb
+                                    })
+                                    .then(()=>{
+                                        layout.gifThumb = gifThumb;
+                                        return layout;
+                                    })
+                                    .catch((err)=> {
+                                        console.log(err);
+                                    })
                             });
-                            /*.then((layout)=>{
-                                easyimg.convert({
-
-                                })
-                            });*/
                     }
 
                     return layout;
-
                 })
-                .then((layout)=>{
+                .then((layout)=> {
                     return layout.save();
                 })
                 .then(()=> {
                     return res.sendStatus(200);
                 })
                 .catch((err)=> {
-                    console.log(err);
-                    return res.status(err.status || 500).json({errorStatus: err});
+                    return res.status(err.status || 500).json({message: err.message});
                 });
         });
     }

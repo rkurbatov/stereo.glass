@@ -47,9 +47,8 @@
                             toastr.success('Файл загружен');
                         })
                         .catch((err)=> {
-                            console.log(err);
                             scope.barType = 'danger';
-                            toastr.error('Ошибка при загрузке файла: ', err);
+                            toastr.error('Ошибка при загрузке файла: ', err.data.message);
                         });
                 }
             }
