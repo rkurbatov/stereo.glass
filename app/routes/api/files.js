@@ -1,16 +1,19 @@
-module.exports = function (express, upload) {
+module.exports = function (express, uploader, Layout) {
     'use strict';
 
     var Router = express.Router();
     var easyimg = require('easyimage');
 
     Router.post('/picture', postPicture);
+    Router.post('/layout/:reference', postLayoutByReference);
+
+    return Router;
 
     // IMPLEMENTATION
 
     function postPicture(req, res) {
         // upload with manual error handling
-        upload.single('picture')(req, res, (err)=> {
+        uploader.image.single('picture')(req, res, (err)=> {
             var response = {
                 url2d: req.file.filename
             };
@@ -60,5 +63,11 @@ module.exports = function (express, upload) {
         });
     }
 
-    return Router;
+    function postLayoutByReference(req, res) {
+        uploader.layout.single('file')(req, res, (err)=>{
+            if (err) return res.sendStatus(500);
+            res.sendStatus(200);
+        });
+    }
+
 };
