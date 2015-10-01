@@ -2,6 +2,7 @@ extends  _shared-part
 block side-menu
     include _video-side-menu
 block content
-    video#assortment.video-js.vjs-default-skin(width='80%'
-    data-setup='{ "techOrder": ["youtube"], \
-    "src": "http://www.youtube.com/watch?v=8aF4Wd_TSpA" }')
+    video#assortment.video-js.vjs-default-skin(width='80%')
+        source(src='/video/assortment-720.mp4' type='video/mp4' data-res='720')
+        source(src='/video/assortment-480.mp4' type='video/mp4' data-res='480')
+        source(src='/video/assortment-360.mp4' type='video/mp4' data-res='360')

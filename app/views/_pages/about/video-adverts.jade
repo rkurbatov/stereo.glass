@@ -1,0 +1,8 @@
+extends  _shared-part
+block side-menu
+    include _video-side-menu
+block content
+    video#assortment.video-js.vjs-default-skin(width='80%')
+        source(src='/video/adverts-720p.mp4' type='video/mp4' data-res='720')
+        source(src='/video/adverts-480p.mp4' type='video/mp4' data-res='480')
+        source(src='/video/adverts-360p.mp4' type='video/mp4' data-res='360')
