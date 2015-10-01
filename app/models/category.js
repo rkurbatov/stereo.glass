@@ -1,5 +1,5 @@
+// TODO: rewrite in modern style
 module.exports = function (mongoose) {
-
     'use strict';
 
     var async = require('async');

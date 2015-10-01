@@ -4,7 +4,7 @@ module.exports = function (express, Layout, Promise) {
     var Router = express.Router();
     var _ = require('lodash');
     var mv = Promise.promisify(require('mv'));
-    var UploadRoot = __dirname + '/../../uploads/';
+    var UploadRoot = __dirname + '/../../../uploads/';
 
     // DECLARATION
 
