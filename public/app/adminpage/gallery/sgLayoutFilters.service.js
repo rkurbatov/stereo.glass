@@ -23,7 +23,7 @@
             {
                 name: 'с комментариями',
                 subType: 'byCommenter',
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.comments.length;
                     return layout.comments.length;
                 }
@@ -31,13 +31,7 @@
             {
                 name: 'ещё не просмотренные',
                 subType: 'firstOrder',
-                value: function (layout) {
-                    return !_.contains(["deleted", "dismissed", "rejected"], layout.status)
-                        && (
-                            layout.rating === -1
-                            || layout.notRatedByMe
-                        );
-                }
+                value: (layout)=> !layout.status && (layout.rating === -1 || layout.notRatedByMe)
             }
         ];
 
@@ -50,7 +44,7 @@
             {
                 name: 'еще не принятые',
                 subType: 'firstOrder',
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return 'assigned' === layout.status;
                 }
@@ -58,7 +52,7 @@
             {
                 name: 'с комментариями',
                 subType: 'byCommenter',
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.comments.length;
                     return layout.comments.length;
                 }
@@ -74,16 +68,12 @@
             {
                 name: 'одобренные',
                 subType: 'firstOrder',
-                value: function (layout) {
-                    return 'approved' === layout.status;
-                }
+                value: (layout)=> 'approved' === layout.status
             },
             {
                 name: 'еще не одобренные',
                 subType: 'firstOrder',
-                value: function (layout) {
-                    return 'finished' === layout.status;
-                }
+                value: (layout)=> 'finished' === layout.status
             },
             {
                 name: 'с комментариями',
@@ -96,23 +86,17 @@
             {
                 name: 'все',
                 subType: 'firstOrder',
-                value: function (layout) {
-                    return 'approved' === layout.status;
-                }
+                value: (layout)=> 'approved' === layout.status
             },
             {
                 name: 'опубликованные',
                 subType: 'firstOrder',
-                value: function (layout) {
-                    return 'approved' === layout.status && layout.isPublished;
-                }
+                value: (layout)=> 'approved' === layout.status && layout.isPublished
             },
             {
                 name: 'скрытые',
                 subType: 'firstOrder',
-                value: function (layout) {
-                    return 'approved' === layout.status && !layout.isPublished;
-                }
+                value: (layout)=> 'approved' === layout.status && !layout.isPublished
             }
         ];
 
@@ -188,7 +172,7 @@
             ratingMode.push({
                 name: 'отклонённые',
                 subType: 'firstOrder',
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return _.contains(['rejected', 'dismissed'], layout.status);
                 }
@@ -201,7 +185,7 @@
                 {
                     name: 'удалённые',
                     mode: 'firstOrder',
-                    value: function (layout) {
+                    value: (layout)=> {
                         layout.compareValue = layout.average;
                         return 'deleted' === layout.status;
                     }
@@ -214,7 +198,7 @@
                 rater: raterName === sgUsers.currentUser.name
                     ? 'мной'
                     : raterName,
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = (_.find(layout.ratings, {assignedBy: raterName}) || {}).value;
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && _.any(layout.ratings, {assignedBy: raterName});
@@ -232,7 +216,7 @@
                 commenter: commenterName === sgUsers.currentUser.name
                     ? 'мной'
                     : commenterName,
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && (
@@ -273,7 +257,7 @@
         function addAllCommentersFilter() {
             var filterObject = {
                 commenter: 'всеми',
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && (
@@ -297,7 +281,7 @@
                 author: authorName === sgUsers.currentUser.name
                     ? 'мной'
                     : authorName,
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && layout.createdBy === authorName;
@@ -313,7 +297,7 @@
         function addAllAuthorsFilter() {
             var filterObject = {
                 author: 'всеми',
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status);
                 }
@@ -327,7 +311,7 @@
                 assignee: sgUsers.currentUser.name === assigneeName
                     ? 'мне'
                     : assigneeName,
-                value: function (layout) {
+                value: (layout)=> {
                     layout.compareValue = layout.average;
                     return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
                         && layout.assignedTo === assigneeName;
@@ -340,12 +324,10 @@
                 : filters.assignees.push(filterObject);
         }
 
-        function addAllAssigneesFilter(assigneeName) {
+        function addAllAssigneesFilter() {
             var filterObject = {
                 assignee: "все",
-                value: function (layout) {
-                    return !_.contains(['deleted', 'rejected', 'dismissed'], layout.status);
-                }
+                value: (layout)=> !_.contains(['deleted', 'rejected', 'dismissed'], layout.status)
             };
 
             filters.assignees.unshift(filterObject);
