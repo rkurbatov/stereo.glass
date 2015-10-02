@@ -20,10 +20,10 @@ module.exports = function (express, Category) {
         Category.find({catName: req.params.name},
             '-_id -__v -catName')
             .populate('leaves', '-_id -__v')
-            .then(function (result) {
+            .then((result)=> {
                 return res.json(result);
             })
-            .catch(function(err){
+            .catch((err)=>{
                 console.log(err);
                 return res.sendStatus(500);
             });

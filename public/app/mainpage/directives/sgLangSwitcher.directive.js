@@ -5,9 +5,9 @@
         .module('MainPage')
         .directive('sgLangSwitcher', sgLangSwitcher);
 
-    sgLangSwitcher.$inject = ['sgIntSvc'];
+    sgLangSwitcher.$inject = ['$rootScope', 'sgIntSvc', 'categoriesSvc'];
 
-    function sgLangSwitcher(sgIntSvc) {
+    function sgLangSwitcher($rootScope, sgIntSvc, categoriesSvc) {
 
         return {
             restrict: 'E',
@@ -22,6 +22,11 @@
                 isVisible: false,
                 sgIntSvc
             });
+
+            scope.switchLang = (code) => {
+                sgIntSvc.switchLang(code);
+                $rootScope.$broadcast('sg-lang-changed');
+            }
         }
 
     }

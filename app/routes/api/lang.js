@@ -156,7 +156,7 @@ module.exports = function (express, Promise, helperLang, Language, CatLeaf) {
         var dbPromise = CatLeaf
             .find({})
             .then((result)=> {
-                return _.without(_.map(result, 'name'), undefined);
+                return _.without(_.map(result, (v)=>v.name || v.subtext), undefined);
             });
 
         var templatesPromise = helperLang.parse();

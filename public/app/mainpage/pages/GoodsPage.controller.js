@@ -29,18 +29,24 @@
             vm.currentItemsPerPage = 24;
             vm.ippArray = [12, 24, 48];
             vm.expandedView = false;
+            loadCategories();
 
             $scope.$on('$locationChangeSuccess', openModalIfExpanded);
+            $scope.$on('sg-lang-changed', loadCategories);
 
             refreshData().then(()=> {
                 dontReactOnFilters = false;
                 openModalIfExpanded();
             });
 
-            categoriesSvc.load()
-                .then((categories)=> {
-                    vm.categories = categories;
-                });
+            function loadCategories() {
+                categoriesSvc
+                    .load()
+                    .then((categories)=> {
+                        vm.categories = categories;
+                    });
+            }
+
         }
 
         function getThumbStatic(good) {
@@ -68,7 +74,8 @@
         }
 
         function refreshData() {
-            return goodsSvc.load(vm.selection)
+            return goodsSvc
+                .load(vm.selection)
                 .then((goods)=> {
                     vm.list = goods.data;
                 });

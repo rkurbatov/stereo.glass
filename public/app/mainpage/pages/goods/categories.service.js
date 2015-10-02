@@ -20,7 +20,7 @@
                 $http.get('/api/categories/colors'),
                 $http.get('/api/categories/countries'),
                 $http.get('/api/categories/plots')
-            ]).then(function (responseArray) {
+            ]).then((responseArray)=> {
                 return {
                     assortment: catToArray(responseArray[0].data),
                     colors: catToArray(responseArray[1].data),
@@ -37,9 +37,9 @@
                 return leavesToOptions(src[0].leaves);
             }
             else if (src.length > 1) {
-                _.forEach(src, function (subCategory) {
+                _.forEach(src, (subCategory)=> {
                     dst.push({
-                        label: subCategory.subCatName,
+                        label: _INT(subCategory.subCatName),
                         options: leavesToOptions(subCategory.leaves)
                     });
                 });
@@ -51,19 +51,19 @@
         function leavesToOptions(leaves) {
             var dst = [];
 
-            _.forEach(leaves, function (elm) {
+            _.forEach(leaves, (elm)=> {
                 var tmpObject = {};
                 if (elm.icon) {
                     tmpObject.icon = elm.icon;
                 }
                 if (elm.subtext) {
-                    tmpObject.subtext = elm.subtext;
+                    tmpObject.subtext = _INT(elm.subtext);
                 }
                 if (elm.value) {
                     tmpObject.value = elm.value;
                 }
                 if (elm.name) {
-                    tmpObject.text = elm.name;
+                    tmpObject.text = _INT(elm.name);
                 }
                 dst.push(tmpObject);
             });
