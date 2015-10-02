@@ -14,3 +14,7 @@
     sg-on-img-error='vm.setErrorState()')
     .sg-miniature-loader-indicator(ng-show='!vm.imgLoaded')
         i.fa.fa-spinner.fa-pulse
+    .sg-miniature-gallery-prev(ng-if='vm.list.length' ng-click='vm.prevImg();')
+        i.fa.fa-chevron-circle-left
+    .sg-miniature-gallery-next(ng-if='vm.list.length' ng-click='vm.nextImg();')
+        i.fa.fa-chevron-circle-right

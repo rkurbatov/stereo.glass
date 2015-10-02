@@ -24,6 +24,7 @@
 
         function initController() {
             vm.list = [];
+            vm.filtered = [];
             vm.selection = {};
             vm.currentPage = 1;
             vm.currentItemsPerPage = 24;
@@ -85,12 +86,12 @@
             if (vm.expandedView) return;
             // reference is part of url, f.e.: /goods/33
             var currentRef = parseInt($location.search().ref, 10) || null;
-            var currentIdx = _.findIndex(vm.list, 'reference', currentRef);
+            var currentIdx = _.findIndex(vm.filtered, 'reference', currentRef);
 
             if (~currentIdx) { // ~x <=> x !== -1
                 vm.expandedView = true;
                 goodsSvc
-                    .modalExpand(vm.list, currentIdx)
+                    .modalExpand(vm.filtered, currentIdx)
                     .catch(()=> {
                         vm.expandedView = false;
                         // clear search params on close
