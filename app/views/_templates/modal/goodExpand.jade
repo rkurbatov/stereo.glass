@@ -1,6 +1,16 @@
 .modal-body
-    button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="vm.close()")
-        i.fa.fa-times
-    img.img-responsive.center-block(ng-src="{{ vm.imgSrc }}" sg-on-img-load='vm.setLoadedState()')
+    .text-center
+        button.sg-viewmode(ng-class='{"active": vm.viewMode==="2D"}'
+        ng-click='vm.switchViewMode("2D")') 2D
+        button.sg-viewmode(ng-class='{"active": vm.viewMode==="3D"}'
+        ng-click='vm.switchViewMode("3D")') 3D
+        button.close(type="button"
+        data-dismiss="modal"
+        aria-hidden="true"
+        ng-click="vm.close()")
+            i.fa.fa-times
+    img.img-responsive.center-block(ng-src="{{ vm.imgSrc }}"
+    sg-on-img-load='vm.setLoadedState()'
+    sg-on-img-error='vm.setErrorState()')
     .sg-miniature-loader-indicator(ng-show='!vm.imgLoaded')
         i.fa.fa-spinner.fa-pulse

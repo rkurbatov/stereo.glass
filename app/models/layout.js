@@ -21,7 +21,7 @@ module.exports = function (mongoose) {
         url2d: String,
         urlThumb: String,
         urlThumbLoRes: String,
-        urlThumbHiRes: String,
+        urlStaticHiRes: String,
         urlGifHiRes: String,
         urlGifLoRes: String,
         urlPsdLayout: String,

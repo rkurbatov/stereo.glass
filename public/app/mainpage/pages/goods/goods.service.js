@@ -49,20 +49,38 @@
 
             function ExpandViewCtrl($modalInstance, list, idx) {
                 var vm = this;
+                vm.viewMode = '2D';
                 vm.imgSrc = getImgUrl(list[idx]);
                 vm.setLoadedState = setLoadedState;
+                vm.setErrorState = setErrorState;
                 vm.imgLoaded = false;
 
-                vm.close = function () {
-                    $modalInstance.dismiss('cancel');
+                vm.close = ()=> $modalInstance.dismiss('cancel');
+
+                vm.switchViewMode = (mode)=> {
+                    if (mode === vm.viewMode) return;
+                    vm.viewMode = mode;
+                    vm.imgSrc = mode === '2D'
+                        ? getImgUrl(list[idx])
+                        : getImgUrl3D(list[idx]);
                 };
 
                 function setLoadedState() {
                     vm.imgLoaded = true;
                 }
 
+                function setErrorState() {
+                    console.log('setting error');
+                    vm.imgLoaded = true;
+                    vm.imgSrc = '/img/no-image.png';
+                }
+
                 function getImgUrl(layout) {
                     return '/uploads/ready/' + layout.urlDir + '/' + layout.url2d;
+                }
+
+                function getImgUrl3D(layout) {
+                    return '/uploads/ready/' + layout.urlDir + '/' + layout.urlGifHiRes;
                 }
             }
         }

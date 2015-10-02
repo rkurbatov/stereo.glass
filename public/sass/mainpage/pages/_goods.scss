@@ -202,3 +202,29 @@
     text-shadow: 0 0 4px $sg-black;
   }
 }
+
+.sg-viewmode {
+  @include glass-background-alt;
+
+  color: $sg-white;
+  cursor: pointer;
+  font-size: 1.5em;
+  line-height: 1;
+  padding: .35em 1em;
+  text-shadow: 0 0 2px rgba($sg-black, .5);
+
+  &:active,
+  &.active {
+    box-shadow: none;
+    text-shadow: none;
+    transition: all .25s;
+  }
+
+  &.active {
+    color: desaturate($sg-winered, 20%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
