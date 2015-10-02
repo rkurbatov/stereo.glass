@@ -60,6 +60,7 @@
                 vm.switchViewMode = (mode)=> {
                     if (mode === vm.viewMode) return;
                     vm.viewMode = mode;
+                    vm.imgLoaded = false;
                     vm.imgSrc = mode === '2D'
                         ? getImgUrl(list[idx])
                         : getImgUrl3D(list[idx]);
@@ -70,7 +71,6 @@
                 }
 
                 function setErrorState() {
-                    console.log('setting error');
                     vm.imgLoaded = true;
                     vm.imgSrc = '/img/no-image.png';
                 }
