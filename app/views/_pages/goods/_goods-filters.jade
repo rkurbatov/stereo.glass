@@ -1,0 +1,20 @@
+.bss-container: select(bootstrap-select
+multiple title='{{_INT("Товар");}}'
+options='goods.categories.assortment'
+selection="goods.selection.assortment"
+change-callback='goods.selectionChanged()')
+.bss-container: select(bootstrap-select
+simple multiple title='{{_INT("Цвета")}}'
+options='goods.categories.colors'
+selection="goods.selection.colors"
+change-callback='goods.selectionChanged()')
+.bss-container: select(bootstrap-select
+simple multiple title='{{_INT("Сюжеты");}}'
+options='goods.categories.plots'
+selection="goods.selection.plots"
+change-callback='goods.selectionChanged()')
+.bss-container: select(bootstrap-select
+simple multiple title='{{_INT("Страны");}}'
+options='goods.categories.countries'
+selection="goods.selection.countries"
+change-callback='goods.selectionChanged()')

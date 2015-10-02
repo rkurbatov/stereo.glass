@@ -9,7 +9,7 @@
                         b “StereoGlass” UAB
                         br
                         i.fa.fa-home &nbsp;
-                        | Taikos pr. 52C-1203, Klaipeda, Lithuania, LT-91184
+                        | {{ _INT("LT-91184, Литва, Клайпеда, пр. Тайкос, 52C - 1203"); }}
                         br
                         i.fa.fa-phone &nbsp;
                         | +37 046 30 21 10
@@ -30,7 +30,7 @@
                         b Zhangjiagang “Stereo Glass” Craftworks Co., LTD
                         br
                         i.fa.fa-home &nbsp;
-                        | {{ _INT("China, Jiangsu Province, Zhangjiagang city, Tang county, 25 zǐjīng road, Wangxi industrial area, building 3"); }}
+                        | {{ _INT("КНР,  Провинция Цзянсу, г. Чжанцзяган, ул. Зыцзин 25, промышленный район Ван Си, Индустриальный парк 3"); }}
                         br
                         i.fa.fa-phone &nbsp;
                         | +86 186 94 93 77 76
@@ -77,7 +77,7 @@
                         | {{ _INT("49101, Украина, Днепропетровск, ул. Володарского, 15"); }}
                         br
                         i.fa.fa-phone &nbsp;
-                        | +38 050
+                        | &nbsp;
                         br
                         i.fa.fa-envelope &nbsp;
                         a(href='mailto:ua@stereo.glass?subject=Mail from Our Site') ua@stereo.glass
@@ -89,4 +89,6 @@
                         sg-digital-clock(timezone='Europe/Kiev'
                         on-timer-click='contacts.check("ukraine")'
                         is-open='contacts.ukraine.isOpen' title='contacts.ukraine.title')
+            br
+            .text-center(ng-bind='_INT("Убедительная просьба звонить на контактные телефоны только в рабочее время с 9:00 до 18:00, кроме субботы, воскресенья.");')
             .clearfix
