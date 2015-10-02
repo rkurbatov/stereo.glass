@@ -12,6 +12,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var mailer = require('express-mailer');
 var multer = require('multer');
+var favicon = require('serve-favicon');
 
 var Promise = require('bluebird');
 Promise.promisifyAll(mongoose);
@@ -22,6 +23,8 @@ Promise.promisifyAll(crypto);
 var app = express();
 
 // ============ CONFIGURE EXPRESS ============
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
