@@ -65,8 +65,8 @@ module.exports = function (mongoose) {
         }
     };
 
-    var Category = mongoose.model('Category', CategorySchema);
-    var CatLeaf = mongoose.model('CatLeaf', CatLeafSchema);
-
-    return Category;
+    return {
+        Category: mongoose.model('Category', CategorySchema),
+        CatLeaf: mongoose.model('CatLeaf', CatLeafSchema)
+    };
 };

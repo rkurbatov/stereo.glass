@@ -1,4 +1,4 @@
-module.exports = function (express, Language, helperLang) {
+module.exports = function (express, Promise, helperLang, Language, CatLeaf) {
     'use strict';
 
     var Router = express.Router();
@@ -30,13 +30,13 @@ module.exports = function (express, Language, helperLang) {
 
         Language
             .find(findObj, '-_id -__v -data')
-            .then(function (languages) {
+            .then((languages)=> {
                 return res.json(languages);
             })
-            .catch(function (err) {
+            .catch((err)=> {
                 console.log("Can't get language list: ", err);
                 return res.sendStatus(500);
-            })
+            });
     }
 
     function switchLanguageByCode(req, res) {
@@ -151,10 +151,20 @@ module.exports = function (express, Language, helperLang) {
             return res.sendStatus(403);
         }
 
-        console.log('Parsing language files');
-        helperLang.parse()
+        console.log('Parsing language files and DB');
+
+        var dbPromise = CatLeaf
+            .find({})
+            .then((result)=> {
+                return _.without(_.map(result, 'name'), undefined);
+            });
+
+        var templatesPromise = helperLang.parse();
+
+        Promise
+            .all([dbPromise, templatesPromise])
             .then((parsedStrings)=> {
-                return helperLang.updateDB(parsedStrings);
+                return helperLang.updateDB(_.flatten(parsedStrings));
             })
             .then(()=>res.sendStatus(200))
             .catch((err)=> {

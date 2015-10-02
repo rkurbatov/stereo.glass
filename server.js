@@ -49,7 +49,9 @@ mongoose.connect(dbName, function (err) {
 
 // ============== MODELS =======================
 var Account = require('./app/models/account')(mongoose);
-var Category = require('./app/models/category')(mongoose);
+var CategoryModel = require('./app/models/category')(mongoose);
+var Category = CategoryModel.Category;
+var CatLeaf = CategoryModel.CatLeaf;
 var Layout = require('./app/models/layout')(mongoose);
 var Message = require('./app/models/message')(mongoose);
 var Language = require('./app/models/language')(mongoose);
@@ -90,7 +92,7 @@ app.use('/api/files', require('./app/routes/api/files')(express, uploader, Layou
 app.use('/api/messages', require('./app/routes/api/messages')(express, Message));
 app.use('/api/mail', require('./app/routes/api/mail')(express, app.mailer));
 var helperLang = require('./app/helpers/lang')(Promise, Language);
-app.use('/api/lang', require('./app/routes/api/lang')(express, Language, helperLang));
+app.use('/api/lang', require('./app/routes/api/lang')(express, Promise, helperLang, Language, CatLeaf));
 
 // ======== START APP ========
 app.listen(APP_PORT, 'localhost', function () {
