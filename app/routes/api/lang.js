@@ -1,8 +1,9 @@
-module.exports = function (express, Promise, helperLang, Language, CatLeaf) {
+module.exports = function (express, Promise, Language, CatLeaf) {
     'use strict';
 
     var Router = express.Router();
     var _ = require('lodash');
+    var helperLang = require('../../helpers/lang');
 
     // DECLARATION
 
