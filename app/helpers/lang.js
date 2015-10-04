@@ -26,6 +26,9 @@ module.exports = function (Promise, Language) {
                         // concatenate all arrays
                         return [].concat.apply([], arrayOfParsedStrings);
                     });
+            })
+            .catch((err)=>{
+                console.log(err);
             });
 
         // Wrap sync function in promise

@@ -3,7 +3,7 @@ module.exports = function (express, Promise, Language, CatLeaf) {
 
     var Router = express.Router();
     var _ = require('lodash');
-    var helperLang = require('../../helpers/lang');
+    var helperLang = require('../../helpers/lang')(Promise, Language);
 
     // DECLARATION
 
