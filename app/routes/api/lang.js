@@ -30,10 +30,8 @@ module.exports = function (express, Promise, Language, CatLeaf) {
         }
 
         Language
-            .find(findObj, '-_id -__v -data')
-            .then((languages)=> {
-                return res.json(languages);
-            })
+            .findAsync(findObj, '-_id -__v -data')
+            .then((languages)=> res.json(languages))
             .catch((err)=> {
                 console.log("Can't get language list: ", err);
                 return res.sendStatus(500);
@@ -84,10 +82,8 @@ module.exports = function (express, Promise, Language, CatLeaf) {
                 };
                 return Language.createAsync(language);
             })
-            .then(function () {
-                return res.sendStatus(201);
-            })
-            .catch(function (err) {
+            .then(()=> res.sendStatus(201))
+            .catch((err)=> {
                 console.log("Finding duplicate language error: ", err);
                 return res.sendStatus(err.status || 500);
             });
