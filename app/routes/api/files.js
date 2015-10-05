@@ -4,6 +4,8 @@ module.exports = function (express, uploader, Layout) {
     var Router = express.Router();
     var easyimg = require('easyimage');
     var fs = require('fs');
+    var path = require('path');
+    var _ = require('lodash');
 
     Router.post('/picture', postPicture);
     Router.post('/layout/:reference', postLayoutByReference);
@@ -75,6 +77,8 @@ module.exports = function (express, uploader, Layout) {
 
         uploader.layout.single('file')(req, res, (err)=> {
             if (err) return res.sendStatus(500);
+            let process = req.query.process;
+            console.log('processing with: ', req.query.process);
             Layout
                 .findOneAsync({reference: req.params.reference})
                 .then((layout)=> {
@@ -86,47 +90,9 @@ module.exports = function (express, uploader, Layout) {
 
                     layout[req.query.field] = req.file.filename;
 
-                    if (req.query.process && req.query.process === 'firstframe') {
-                        return easyimg.info(req.file.path)
-                            .then((fileInfo)=> {
-                                let fileErr;
-
-                                if (fileInfo.type !== 'gif') {
-                                    fileErr = new Error('Wrong file type! Only gifs are possible!');
-                                    fileErr.code = 400;
-                                }
-
-                                if (fileInfo.size > 2 * 1024 * 1024) {
-                                    fileErr = new Error('File size is more than 2MB');
-                                    fileErr.code = 400;
-                                }
-
-                                if (fileInfo.width > 250 && fileInfo.height > 250) {
-                                    fileErr = new Error('File dimensions should be 250 px at one side at least!');
-                                    fileErr.code = 400;
-                                }
-
-                                if (fileErr) {
-                                    console.log('removing %s', req.file.path);
-                                    fs.unlink(req.file.path);
-                                    throw fileErr;
-                                }
-                                return layout;
-                            })
-                            .then((layout)=> {
-                                return easyimg
-                                    .convert({
-                                        src: req.file.path + '[0]',
-                                        dst: req.file.destination + '/static-' + req.file.filename
-                                    })
-                                    .then((result)=>{
-                                        layout.urlThumbLoRes = result.name;
-                                        return layout;
-                                    })
-                                    .catch((err)=> {
-                                        console.log(err);
-                                    })
-                            });
+                    // check if should process files
+                    if (_.contains(['mp4vid', 'gifmin'], process)) {
+                        return processFile(layout, process, req.file);
                     }
 
                     return layout;
@@ -143,4 +109,59 @@ module.exports = function (express, uploader, Layout) {
         });
     }
 
+    function processFile(layout, process, file) {
+        return easyimg
+            .info(file.path)
+            .then((fileInfo)=> { // multiple filechecks before conversion
+                let fileErr;
+
+                if (fileInfo.type !== 'gif') {
+                    fileErr = new Error('Wrong file type! Only gifs are possible!');
+                    fileErr.code = 400;
+                }
+
+                if (process === 'gifmin' && fileInfo.size > 2 * 1024 * 1024) {
+                    fileErr = new Error('File size is more than 2MB');
+                    fileErr.code = 400;
+                }
+
+                if (process === 'mp4vid' && fileInfo.size > 20 * 1024 * 1024) {
+                    fileErr = new Error('File size is more than 20MB');
+                    fileErr.code = 400;
+                }
+
+                if (process === 'gifmin' && fileInfo.width > 250 && fileInfo.height > 250) {
+                    fileErr = new Error('File dimensions should be 250 px at one side at least!');
+                    fileErr.code = 400;
+                }
+
+                if (fileErr) {
+                    console.log('removing %s', file.path);
+                    fs.unlink(file.path);
+                    throw fileErr;
+                }
+                return layout;
+            })
+            .then((layout)=> { // create static first frame
+                console.log(file);
+                return easyimg
+                    .convert({
+                        src: file.path + '[0]',
+                        dst: file.destination + (process === 'mp4vid'
+                            ? '/static-hi-'
+                            : '/static-lo-') + path.basename(file.filename, 'gif') + 'jpg'
+                    })
+                    .then((result)=>{ // save name of static first frame
+                        if (process === 'mp4vid') {
+                            layout.urlStaticHiRes = result.name;
+                        } else {
+                            layout.urlThumbLoRes = result.name;
+                        }
+                        return layout;
+                    })
+                    .catch((err)=> {
+                        console.log(err);
+                    })
+            });
+    }
 };

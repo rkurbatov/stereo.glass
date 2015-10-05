@@ -84,7 +84,7 @@
                 }
 
                 function getImgUrl(layout) {
-                    return '/uploads/ready/' + layout.urlDir + '/' + layout.url2d;
+                    return '/uploads/ready/' + layout.urlDir + '/' + layout.urlStaticHiRes;
                 }
 
                 function getImgUrl3D(layout) {

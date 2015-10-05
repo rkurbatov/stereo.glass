@@ -13,13 +13,13 @@
             .row
                 .col-xs-7
                     | <b>GIF</b> в <b>высоком</b> разрешении (для просмотра)
-                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifHiRes")
+                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifHiRes" process='mp4vid')
                 .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlGifHiRes, \
                 'sg-red-i fa-remove': !vm.layout.urlGifHiRes}")
             .row
                 .col-xs-7
                     | <b>GIF</b> в <b>низком</b> разрешении (250 пикс. по одной из сторон, для сайта и не более 2 МБ размером)
-                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifLoRes" process='firstframe')
+                sg-file-upload.col-xs-4(accept=".gif" layout="vm.layout" field="urlGifLoRes" process='gifmin')
                 .fa.fa-2x.sg-shadowed-text(ng-class="{'sg-green-id fa-check': vm.layout.urlGifLoRes, \
                 'sg-red-i fa-remove': !vm.layout.urlGifLoRes}")
             .row
