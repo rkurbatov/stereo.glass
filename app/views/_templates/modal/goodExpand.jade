@@ -9,11 +9,12 @@
         aria-hidden="true"
         ng-click="vm.close()")
             i.fa.fa-times
-    img.img-responsive.center-block(ng-src="{{ vm.imgSrc }}"
-    sg-on-img-load='vm.setLoadedState()'
-    sg-on-img-error='vm.setErrorState()')
-    .sg-miniature-loader-indicator(ng-show='!vm.imgLoaded')
+    //-img.img-responsive.center-block(ng-src="{{ vm.imgSrc }}"
+    //-sg-on-img-load='vm.setLoadedState()'
+    //-sg-on-img-error='vm.setErrorState()')
+    //-.sg-miniature-loader-indicator(ng-show='!vm.imgLoaded')
         i.fa.fa-spinner.fa-pulse
+    sg-good-video(layout='vm.list[vm.idx]' view-mode='vm.viewMode')
     .sg-miniature-gallery-prev(ng-if='vm.list.length' ng-click='vm.prevImg();')
         i.fa.fa-chevron-circle-left
     .sg-miniature-gallery-next(ng-if='vm.list.length' ng-click='vm.nextImg();')
