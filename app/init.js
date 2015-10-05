@@ -87,7 +87,7 @@ module.exports = (APP_PORT) => {
     app.use('/api/categories', require('./routes/api/categories')(express, Category));
     app.use('/api/layouts', require('./routes/api/layouts')(express, Layout, Promise));
     app.use('/api/goods', require('./routes/api/goods')(express, Layout));
-    app.use('/api/files', require('./routes/api/files')(express, uploader, Layout));
+    app.use('/api/files', require('./routes/api/files')(express, uploader, Promise, Layout));
     app.use('/api/messages', require('./routes/api/messages')(express, Message));
     app.use('/api/mail', require('./routes/api/mail')(express, app.mailer));
     app.use('/api/lang', require('./routes/api/lang')(express, Promise, Language, CatLeaf));
