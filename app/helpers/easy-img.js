@@ -3,7 +3,6 @@ module.exports = function(Promise) {
     var fs = require('fs');
     var path = require('path');
     var FFMpeg = require('ffmpeg-wrap').FFMpeg;
-    var converter = new FFMpeg();
 
 
     return {
@@ -84,6 +83,7 @@ module.exports = function(Promise) {
                 if (format === 'mp4vid') {
                     // Node event to promise conversion
                     return new Promise((resolve, reject)=>{
+                        var converter = new FFMpeg();
                         var outName = path.basename(file.filename, 'gif') + 'mp4';
                         converter
                             .input(file.path)
