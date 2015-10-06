@@ -99,7 +99,7 @@ module.exports = function (Promise, Language) {
                 }
             });
 
-            // mark all removed strings
+            // mark all removed strings as 'x"
             _.each(removedHashes, (hash)=> {
                 var idx = existingHashes.indexOf(hash);
                 language.data[idx].status = 'x';
@@ -107,14 +107,14 @@ module.exports = function (Promise, Language) {
 
             // add new translations (empty and only for russian just values)
             _.each(addedHashes, (hash)=> {
-                var newTranslation = {hash};
+                var newTranslation = {hash};                // create empty translation one
                 var idx = newHashes.indexOf(hash);
                 newTranslation.sr = parsedStrings[idx];
                 if (language.code === 'RU') {
                     newTranslation.tr = newTranslation.sr;
-                    newTranslation.status = '!';
+                    newTranslation.status = '!';            // russian translation is just copy of source
                 } else {
-                    newTranslation.status = '+';
+                    newTranslation.status = '+';            // mark as non-translated
                 }
                 language.data.push(newTranslation);
             });
